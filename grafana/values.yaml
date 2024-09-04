@@ -510,7 +510,7 @@ initChownData:
         - ALL
 
 # Administrator credentials when not using an existing secret (see below)
-adminUser: admin
+# adminUser: admin
 # adminPassword: strongpassword
 
 # Use an existing secret for the admin user.
@@ -1017,6 +1017,7 @@ sidecar:
     ##     - name: <key>
     ##       valueFrom:
     ##         <value rendered as YAML>
+
     envValueFrom: {}
     #  ENV_NAME:
     #    configMapKeyRef:
