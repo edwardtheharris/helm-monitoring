@@ -64,10 +64,10 @@ icon: file://./_static/img/logo/helm.png
 #
 # ```{literalinclude} /Chart.yaml
 # :language: yaml
-# :start-at: "name: template\n"
+# :start-at: "name: monitoring\n"
 # :end-before: "###\n"
 # ```
-name: template
+name: monitoring
 
 ###
 # ```{rubric} Type
@@ -99,6 +99,6 @@ type: application
 #
 # ```{literalinclude} /Chart.yaml
 # :language: yaml
-# :start-at: "version: 0.0.4\n"
+# :start-at: "version: 0.0.1\n"
 # ```
-version: 0.0.4
+version: 0.0.1

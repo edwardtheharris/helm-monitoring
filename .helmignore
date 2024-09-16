@@ -18,6 +18,7 @@
 *~
 # Various IDEs
 .project
+.venv/
 .idea/
 *.tmproj
 .vscode/

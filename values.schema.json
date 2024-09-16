@@ -1,0 +1,2144 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "rbac",
+        "podSecurityPolicy",
+        "imagePullSecrets",
+        "serviceAccounts",
+        "commonMetaLabels",
+        "configmapReload",
+        "server",
+        "resources",
+        "securityContext",
+        "service",
+        "serviceAccount",
+        "superUser",
+        "tolerations",
+        "type",
+        "volumeMounts",
+        "volumes"
+    ],
+    "properties": {
+        "rbac": {
+            "type": "object",
+            "default": {},
+            "title": "The rbac Schema",
+            "required": [
+                "create"
+            ],
+            "properties": {
+                "create": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The create Schema",
+                    "examples": [
+                        true
+                    ]
+                }
+            },
+            "examples": [{
+                "create": true
+            }]
+        },
+        "podSecurityPolicy": {
+            "type": "object",
+            "default": {},
+            "title": "The podSecurityPolicy Schema",
+            "required": [
+                "enabled"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
+                    "examples": [
+                        false
+                    ]
+                }
+            },
+            "examples": [{
+                "enabled": false
+            }]
+        },
+        "imagePullSecrets": {
+            "type": "array",
+            "default": [],
+            "title": "The imagePullSecrets Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
+        "serviceAccounts": {
+            "type": "object",
+            "default": {},
+            "title": "The serviceAccounts Schema",
+            "required": [
+                "server"
+            ],
+            "properties": {
+                "server": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The server Schema",
+                    "required": [
+                        "create",
+                        "name",
+                        "annotations"
+                    ],
+                    "properties": {
+                        "create": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The create Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "name": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The name Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "annotations": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The annotations Schema",
+                            "required": [],
+                            "properties": {},
+                            "examples": [{}]
+                        }
+                    },
+                    "examples": [{
+                        "create": true,
+                        "name": "",
+                        "annotations": {}
+                    }]
+                }
+            },
+            "examples": [{
+                "server": {
+                    "create": true,
+                    "name": "",
+                    "annotations": {}
+                }
+            }]
+        },
+        "commonMetaLabels": {
+            "type": "object",
+            "default": {},
+            "title": "The commonMetaLabels Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "configmapReload": {
+            "type": "object",
+            "default": {},
+            "title": "The configmapReload Schema",
+            "required": [
+                "reloadUrl",
+                "env",
+                "prometheus"
+            ],
+            "properties": {
+                "reloadUrl": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The reloadUrl Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "env": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The env Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "prometheus": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The prometheus Schema",
+                    "required": [
+                        "enabled",
+                        "name",
+                        "image",
+                        "containerPort",
+                        "containerPortName",
+                        "extraArgs",
+                        "extraVolumeDirs",
+                        "extraVolumeMounts",
+                        "extraConfigmapMounts",
+                        "containerSecurityContext",
+                        "livenessProbe",
+                        "readinessProbe",
+                        "startupProbe",
+                        "resources"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The enabled Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "name": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The name Schema",
+                            "examples": [
+                                "configmap-reload"
+                            ]
+                        },
+                        "image": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The image Schema",
+                            "required": [
+                                "repository",
+                                "tag",
+                                "digest",
+                                "pullPolicy"
+                            ],
+                            "properties": {
+                                "repository": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The repository Schema",
+                                    "examples": [
+                                        "quay.io/prometheus-operator/prometheus-config-reloader"
+                                    ]
+                                },
+                                "tag": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The tag Schema",
+                                    "examples": [
+                                        "v0.76.0"
+                                    ]
+                                },
+                                "digest": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The digest Schema",
+                                    "examples": [
+                                        ""
+                                    ]
+                                },
+                                "pullPolicy": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The pullPolicy Schema",
+                                    "examples": [
+                                        "IfNotPresent"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "repository": "quay.io/prometheus-operator/prometheus-config-reloader",
+                                "tag": "v0.76.0",
+                                "digest": "",
+                                "pullPolicy": "IfNotPresent"
+                            }]
+                        },
+                        "containerPort": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The containerPort Schema",
+                            "examples": [
+                                8080
+                            ]
+                        },
+                        "containerPortName": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The containerPortName Schema",
+                            "examples": [
+                                "metrics"
+                            ]
+                        },
+                        "extraArgs": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The extraArgs Schema",
+                            "required": [],
+                            "properties": {},
+                            "examples": [{}]
+                        },
+                        "extraVolumeDirs": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The extraVolumeDirs Schema",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        },
+                        "extraVolumeMounts": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The extraVolumeMounts Schema",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        },
+                        "extraConfigmapMounts": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The extraConfigmapMounts Schema",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        },
+                        "containerSecurityContext": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The containerSecurityContext Schema",
+                            "required": [],
+                            "properties": {},
+                            "examples": [{}]
+                        },
+                        "livenessProbe": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The livenessProbe Schema",
+                            "required": [
+                                "httpGet",
+                                "periodSeconds",
+                                "initialDelaySeconds"
+                            ],
+                            "properties": {
+                                "httpGet": {
+                                    "type": "object",
+                                    "default": {},
+                                    "title": "The httpGet Schema",
+                                    "required": [
+                                        "path",
+                                        "port",
+                                        "scheme"
+                                    ],
+                                    "properties": {
+                                        "path": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The path Schema",
+                                            "examples": [
+                                                "/healthz"
+                                            ]
+                                        },
+                                        "port": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The port Schema",
+                                            "examples": [
+                                                "metrics"
+                                            ]
+                                        },
+                                        "scheme": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The scheme Schema",
+                                            "examples": [
+                                                "HTTP"
+                                            ]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "path": "/healthz",
+                                        "port": "metrics",
+                                        "scheme": "HTTP"
+                                    }]
+                                },
+                                "periodSeconds": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The periodSeconds Schema",
+                                    "examples": [
+                                        10
+                                    ]
+                                },
+                                "initialDelaySeconds": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The initialDelaySeconds Schema",
+                                    "examples": [
+                                        2
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "httpGet": {
+                                    "path": "/healthz",
+                                    "port": "metrics",
+                                    "scheme": "HTTP"
+                                },
+                                "periodSeconds": 10,
+                                "initialDelaySeconds": 2
+                            }]
+                        },
+                        "readinessProbe": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The readinessProbe Schema",
+                            "required": [
+                                "httpGet",
+                                "periodSeconds"
+                            ],
+                            "properties": {
+                                "httpGet": {
+                                    "type": "object",
+                                    "default": {},
+                                    "title": "The httpGet Schema",
+                                    "required": [
+                                        "path",
+                                        "port",
+                                        "scheme"
+                                    ],
+                                    "properties": {
+                                        "path": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The path Schema",
+                                            "examples": [
+                                                "/healthz"
+                                            ]
+                                        },
+                                        "port": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The port Schema",
+                                            "examples": [
+                                                "metrics"
+                                            ]
+                                        },
+                                        "scheme": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The scheme Schema",
+                                            "examples": [
+                                                "HTTP"
+                                            ]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "path": "/healthz",
+                                        "port": "metrics",
+                                        "scheme": "HTTP"
+                                    }]
+                                },
+                                "periodSeconds": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The periodSeconds Schema",
+                                    "examples": [
+                                        10
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "httpGet": {
+                                    "path": "/healthz",
+                                    "port": "metrics",
+                                    "scheme": "HTTP"
+                                },
+                                "periodSeconds": 10
+                            }]
+                        },
+                        "startupProbe": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The startupProbe Schema",
+                            "required": [
+                                "enabled",
+                                "httpGet",
+                                "periodSeconds"
+                            ],
+                            "properties": {
+                                "enabled": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The enabled Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "httpGet": {
+                                    "type": "object",
+                                    "default": {},
+                                    "title": "The httpGet Schema",
+                                    "required": [
+                                        "path",
+                                        "port",
+                                        "scheme"
+                                    ],
+                                    "properties": {
+                                        "path": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The path Schema",
+                                            "examples": [
+                                                "/healthz"
+                                            ]
+                                        },
+                                        "port": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The port Schema",
+                                            "examples": [
+                                                "metrics"
+                                            ]
+                                        },
+                                        "scheme": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The scheme Schema",
+                                            "examples": [
+                                                "HTTP"
+                                            ]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "path": "/healthz",
+                                        "port": "metrics",
+                                        "scheme": "HTTP"
+                                    }]
+                                },
+                                "periodSeconds": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The periodSeconds Schema",
+                                    "examples": [
+                                        10
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "enabled": false,
+                                "httpGet": {
+                                    "path": "/healthz",
+                                    "port": "metrics",
+                                    "scheme": "HTTP"
+                                },
+                                "periodSeconds": 10
+                            }]
+                        },
+                        "resources": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The resources Schema",
+                            "required": [],
+                            "properties": {},
+                            "examples": [{}]
+                        }
+                    },
+                    "examples": [{
+                        "enabled": true,
+                        "name": "configmap-reload",
+                        "image": {
+                            "repository": "quay.io/prometheus-operator/prometheus-config-reloader",
+                            "tag": "v0.76.0",
+                            "digest": "",
+                            "pullPolicy": "IfNotPresent"
+                        },
+                        "containerPort": 8080,
+                        "containerPortName": "metrics",
+                        "extraArgs": {},
+                        "extraVolumeDirs": [],
+                        "extraVolumeMounts": [],
+                        "extraConfigmapMounts": [],
+                        "containerSecurityContext": {},
+                        "livenessProbe": {
+                            "httpGet": {
+                                "path": "/healthz",
+                                "port": "metrics",
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 10,
+                            "initialDelaySeconds": 2
+                        },
+                        "readinessProbe": {
+                            "httpGet": {
+                                "path": "/healthz",
+                                "port": "metrics",
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 10
+                        },
+                        "startupProbe": {
+                            "enabled": false,
+                            "httpGet": {
+                                "path": "/healthz",
+                                "port": "metrics",
+                                "scheme": "HTTP"
+                            },
+                            "periodSeconds": 10
+                        },
+                        "resources": {}
+                    }]
+                }
+            },
+            "examples": [{
+                "reloadUrl": "",
+                "env": [],
+                "prometheus": {
+                    "enabled": true,
+                    "name": "configmap-reload",
+                    "image": {
+                        "repository": "quay.io/prometheus-operator/prometheus-config-reloader",
+                        "tag": "v0.76.0",
+                        "digest": "",
+                        "pullPolicy": "IfNotPresent"
+                    },
+                    "containerPort": 8080,
+                    "containerPortName": "metrics",
+                    "extraArgs": {},
+                    "extraVolumeDirs": [],
+                    "extraVolumeMounts": [],
+                    "extraConfigmapMounts": [],
+                    "containerSecurityContext": {},
+                    "livenessProbe": {
+                        "httpGet": {
+                            "path": "/healthz",
+                            "port": "metrics",
+                            "scheme": "HTTP"
+                        },
+                        "periodSeconds": 10,
+                        "initialDelaySeconds": 2
+                    },
+                    "readinessProbe": {
+                        "httpGet": {
+                            "path": "/healthz",
+                            "port": "metrics",
+                            "scheme": "HTTP"
+                        },
+                        "periodSeconds": 10
+                    },
+                    "startupProbe": {
+                        "enabled": false,
+                        "httpGet": {
+                            "path": "/healthz",
+                            "port": "metrics",
+                            "scheme": "HTTP"
+                        },
+                        "periodSeconds": 10
+                    },
+                    "resources": {}
+                }
+            }]
+        },
+        "server": {
+            "type": "object",
+            "default": {},
+            "title": "The server Schema",
+            "required": [
+                "name",
+                "clusterRoleNameOverride",
+                "releaseNamespace",
+                "sidecarContainers",
+                "sidecarTemplateValues",
+                "image",
+                "command",
+                "priorityClassName",
+                "enableServiceLinks",
+                "prefixURL",
+                "baseURL",
+                "env",
+                "defaultFlagsOverride",
+                "extraFlags",
+                "configPath",
+                "storagePath",
+                "global",
+                "remoteWrite",
+                "remoteRead",
+                "tsdb",
+                "exemplars",
+                "probeHeaders",
+                "extraArgs",
+                "extraInitContainers",
+                "extraVolumeMounts",
+                "extraVolumes",
+                "extraHostPathMounts",
+                "extraConfigmapMounts",
+                "extraSecretMounts",
+                "configMapOverrideName",
+                "extraConfigmapLabels",
+                "fullnameOverride",
+                "ingress",
+                "strategy",
+                "hostAliases",
+                "tolerations",
+                "nodeSelector",
+                "affinity",
+                "podAntiAffinity",
+                "podAntiAffinityTopologyKey",
+                "topologySpreadConstraints",
+                "podDisruptionBudget",
+                "persistentVolume",
+                "emptyDir",
+                "podAnnotations",
+                "podLabels",
+                "alertmanagers",
+                "podSecurityPolicy",
+                "replicaCount"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The name Schema",
+                    "examples": [
+                        "server"
+                    ]
+                },
+                "clusterRoleNameOverride": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The clusterRoleNameOverride Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "releaseNamespace": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The releaseNamespace Schema",
+                    "examples": [
+                        false
+                    ]
+                },
+                "sidecarContainers": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The sidecarContainers Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "sidecarTemplateValues": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The sidecarTemplateValues Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "image": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The image Schema",
+                    "required": [
+                        "repository",
+                        "tag",
+                        "digest",
+                        "pullPolicy"
+                    ],
+                    "properties": {
+                        "repository": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The repository Schema",
+                            "examples": [
+                                "quay.io/prometheus/prometheus"
+                            ]
+                        },
+                        "tag": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The tag Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "digest": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The digest Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "pullPolicy": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The pullPolicy Schema",
+                            "examples": [
+                                "IfNotPresent"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "repository": "quay.io/prometheus/prometheus",
+                        "tag": "",
+                        "digest": "",
+                        "pullPolicy": "IfNotPresent"
+                    }]
+                },
+                "command": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The command Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "priorityClassName": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The priorityClassName Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "enableServiceLinks": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enableServiceLinks Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "prefixURL": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The prefixURL Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "baseURL": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The baseURL Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "env": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The env Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "defaultFlagsOverride": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The defaultFlagsOverride Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "extraFlags": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The extraFlags Schema",
+                    "items": {
+                        "type": "string",
+                        "default": "",
+                        "title": "A Schema",
+                        "examples": [
+                            "web.enable-lifecycle"
+                        ]
+                    },
+                    "examples": [
+                        [
+                            "web.enable-lifecycle"]
+                    ]
+                },
+                "configPath": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The configPath Schema",
+                    "examples": [
+                        "/etc/config/prometheus.yml"
+                    ]
+                },
+                "storagePath": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The storagePath Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "global": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The global Schema",
+                    "required": [
+                        "scrape_interval",
+                        "scrape_timeout",
+                        "evaluation_interval"
+                    ],
+                    "properties": {
+                        "scrape_interval": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The scrape_interval Schema",
+                            "examples": [
+                                "1m"
+                            ]
+                        },
+                        "scrape_timeout": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The scrape_timeout Schema",
+                            "examples": [
+                                "10s"
+                            ]
+                        },
+                        "evaluation_interval": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The evaluation_interval Schema",
+                            "examples": [
+                                "1m"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "scrape_interval": "1m",
+                        "scrape_timeout": "10s",
+                        "evaluation_interval": "1m"
+                    }]
+                },
+                "remoteWrite": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The remoteWrite Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "remoteRead": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The remoteRead Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "tsdb": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The tsdb Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "exemplars": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The exemplars Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "probeHeaders": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The probeHeaders Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "extraArgs": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The extraArgs Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "extraInitContainers": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The extraInitContainers Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "extraVolumeMounts": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The extraVolumeMounts Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "extraVolumes": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The extraVolumes Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "extraHostPathMounts": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The extraHostPathMounts Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "extraConfigmapMounts": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The extraConfigmapMounts Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "extraSecretMounts": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The extraSecretMounts Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "configMapOverrideName": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The configMapOverrideName Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "extraConfigmapLabels": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The extraConfigmapLabels Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "fullnameOverride": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The fullnameOverride Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "ingress": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The ingress Schema",
+                    "required": [
+                        "enabled",
+                        "annotations",
+                        "extraLabels",
+                        "hosts",
+                        "path",
+                        "pathType",
+                        "extraPaths",
+                        "tls"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The enabled Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "annotations": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The annotations Schema",
+                            "required": [
+                                "kubernetes.io/ingress.class"
+                            ],
+                            "properties": {
+                                "kubernetes.io/ingress.class": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The kubernetes.io/ingress.class Schema",
+                                    "examples": [
+                                        "nginx"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "kubernetes.io/ingress.class": "nginx"
+                            }]
+                        },
+                        "extraLabels": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The extraLabels Schema",
+                            "required": [],
+                            "properties": {},
+                            "examples": [{}]
+                        },
+                        "hosts": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The hosts Schema",
+                            "items": {
+                                "type": "string",
+                                "default": "",
+                                "title": "A Schema",
+                                "examples": [
+                                    "prometheus.breeze-blocks.net"
+                                ]
+                            },
+                            "examples": [
+                                [
+                                    "prometheus.breeze-blocks.net"]
+                            ]
+                        },
+                        "path": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The path Schema",
+                            "examples": [
+                                "/"
+                            ]
+                        },
+                        "pathType": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The pathType Schema",
+                            "examples": [
+                                "Prefix"
+                            ]
+                        },
+                        "extraPaths": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The extraPaths Schema",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        },
+                        "tls": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The tls Schema",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "enabled": true,
+                        "annotations": {
+                            "kubernetes.io/ingress.class": "nginx"
+                        },
+                        "extraLabels": {},
+                        "hosts": [
+                            "prometheus.breeze-blocks.net"
+                        ],
+                        "path": "/",
+                        "pathType": "Prefix",
+                        "extraPaths": [],
+                        "tls": []
+                    }]
+                },
+                "strategy": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The strategy Schema",
+                    "required": [
+                        "type"
+                    ],
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The type Schema",
+                            "examples": [
+                                "Recreate"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "type": "Recreate"
+                    }]
+                },
+                "hostAliases": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The hostAliases Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "tolerations": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The tolerations Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "nodeSelector": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The nodeSelector Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "affinity": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The affinity Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "podAntiAffinity": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The podAntiAffinity Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "podAntiAffinityTopologyKey": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The podAntiAffinityTopologyKey Schema",
+                    "examples": [
+                        "kubernetes.io/hostname"
+                    ]
+                },
+                "topologySpreadConstraints": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The topologySpreadConstraints Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "podDisruptionBudget": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The podDisruptionBudget Schema",
+                    "required": [
+                        "enabled",
+                        "maxUnavailable"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The enabled Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "maxUnavailable": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The maxUnavailable Schema",
+                            "examples": [
+                                1
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "enabled": false,
+                        "maxUnavailable": 1
+                    }]
+                },
+                "persistentVolume": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The persistentVolume Schema",
+                    "required": [
+                        "enabled",
+                        "statefulSetNameOverride",
+                        "accessModes",
+                        "labels",
+                        "annotations",
+                        "existingClaim",
+                        "mountPath",
+                        "size",
+                        "subPath"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The enabled Schema",
+                            "examples": [
+                                true
+                            ]
+                        },
+                        "statefulSetNameOverride": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The statefulSetNameOverride Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "accessModes": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The accessModes Schema",
+                            "items": {
+                                "type": "string",
+                                "title": "A Schema",
+                                "examples": [
+                                    "ReadWriteOnce",
+                                    "ReadWriteMany"
+                                ]
+                            },
+                            "examples": [
+                                ["ReadWriteOnce",
+                                    "ReadWriteMany"
+                                ]
+                            ]
+                        },
+                        "labels": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The labels Schema",
+                            "required": [
+                                "app.kubernetes.io/name"
+                            ],
+                            "properties": {
+                                "app.kubernetes.io/name": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The app.kubernetes.io/name Schema",
+                                    "examples": [
+                                        "prometheus"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "app.kubernetes.io/name": "prometheus"
+                            }]
+                        },
+                        "annotations": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The annotations Schema",
+                            "required": [],
+                            "properties": {},
+                            "examples": [{}]
+                        },
+                        "existingClaim": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The existingClaim Schema",
+                            "examples": [
+                                ""
+                            ]
+                        },
+                        "mountPath": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The mountPath Schema",
+                            "examples": [
+                                "/data"
+                            ]
+                        },
+                        "size": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The size Schema",
+                            "examples": [
+                                "8Gi"
+                            ]
+                        },
+                        "subPath": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The subPath Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "enabled": true,
+                        "statefulSetNameOverride": "",
+                        "accessModes": [
+                            "ReadWriteOnce",
+                            "ReadWriteMany"
+                        ],
+                        "labels": {
+                            "app.kubernetes.io/name": "prometheus"
+                        },
+                        "annotations": {},
+                        "existingClaim": "",
+                        "mountPath": "/data",
+                        "size": "8Gi",
+                        "subPath": ""
+                    }]
+                },
+                "emptyDir": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The emptyDir Schema",
+                    "required": [
+                        "sizeLimit"
+                    ],
+                    "properties": {
+                        "sizeLimit": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sizeLimit Schema",
+                            "examples": [
+                                ""
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "sizeLimit": ""
+                    }]
+                },
+                "podAnnotations": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The podAnnotations Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "podLabels": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The podLabels Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "alertmanagers": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The alertmanagers Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "podSecurityPolicy": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The podSecurityPolicy Schema",
+                    "required": [
+                        "annotations"
+                    ],
+                    "properties": {
+                        "annotations": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The annotations Schema",
+                            "required": [],
+                            "properties": {},
+                            "examples": [{}]
+                        }
+                    },
+                    "examples": [{
+                        "annotations": {}
+                    }]
+                },
+                "replicaCount": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The replicaCount Schema",
+                    "examples": [
+                        1
+                    ]
+                }
+            },
+            "examples": [{
+                "name": "server",
+                "clusterRoleNameOverride": "",
+                "releaseNamespace": false,
+                "sidecarContainers": {},
+                "sidecarTemplateValues": {},
+                "image": {
+                    "repository": "quay.io/prometheus/prometheus",
+                    "tag": "",
+                    "digest": "",
+                    "pullPolicy": "IfNotPresent"
+                },
+                "command": [],
+                "priorityClassName": "",
+                "enableServiceLinks": true,
+                "prefixURL": "",
+                "baseURL": "",
+                "env": [],
+                "defaultFlagsOverride": [],
+                "extraFlags": [
+                    "web.enable-lifecycle"
+                ],
+                "configPath": "/etc/config/prometheus.yml",
+                "storagePath": "",
+                "global": {
+                    "scrape_interval": "1m",
+                    "scrape_timeout": "10s",
+                    "evaluation_interval": "1m"
+                },
+                "remoteWrite": [],
+                "remoteRead": [],
+                "tsdb": {},
+                "exemplars": {},
+                "probeHeaders": [],
+                "extraArgs": {},
+                "extraInitContainers": [],
+                "extraVolumeMounts": [],
+                "extraVolumes": [],
+                "extraHostPathMounts": [],
+                "extraConfigmapMounts": [],
+                "extraSecretMounts": [],
+                "configMapOverrideName": "",
+                "extraConfigmapLabels": {},
+                "fullnameOverride": "",
+                "ingress": {
+                    "enabled": true,
+                    "annotations": {
+                        "kubernetes.io/ingress.class": "nginx"
+                    },
+                    "extraLabels": {},
+                    "hosts": [
+                        "prometheus.breeze-blocks.net"
+                    ],
+                    "path": "/",
+                    "pathType": "Prefix",
+                    "extraPaths": [],
+                    "tls": []
+                },
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "hostAliases": [],
+                "tolerations": [],
+                "nodeSelector": {},
+                "affinity": {},
+                "podAntiAffinity": "",
+                "podAntiAffinityTopologyKey": "kubernetes.io/hostname",
+                "topologySpreadConstraints": [],
+                "podDisruptionBudget": {
+                    "enabled": false,
+                    "maxUnavailable": 1
+                },
+                "persistentVolume": {
+                    "enabled": true,
+                    "statefulSetNameOverride": "",
+                    "accessModes": [
+                        "ReadWriteOnce",
+                        "ReadWriteMany"
+                    ],
+                    "labels": {
+                        "app.kubernetes.io/name": "prometheus"
+                    },
+                    "annotations": {},
+                    "existingClaim": "",
+                    "mountPath": "/data",
+                    "size": "8Gi",
+                    "subPath": ""
+                },
+                "emptyDir": {
+                    "sizeLimit": ""
+                },
+                "podAnnotations": {},
+                "podLabels": {},
+                "alertmanagers": [],
+                "podSecurityPolicy": {
+                    "annotations": {}
+                },
+                "replicaCount": 1
+            }]
+        },
+        "resources": {
+            "type": "object",
+            "default": {},
+            "title": "The resources Schema",
+            "required": [
+                "limits"
+            ],
+            "properties": {
+                "limits": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The limits Schema",
+                    "required": [
+                        "cpu",
+                        "memory"
+                    ],
+                    "properties": {
+                        "cpu": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The cpu Schema",
+                            "examples": [
+                                2
+                            ]
+                        },
+                        "memory": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The memory Schema",
+                            "examples": [
+                                "4096Mi"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "cpu": 2,
+                        "memory": "4096Mi"
+                    }]
+                }
+            },
+            "examples": [{
+                "limits": {
+                    "cpu": 2,
+                    "memory": "4096Mi"
+                }
+            }]
+        },
+        "securityContext": {
+            "type": "object",
+            "default": {},
+            "title": "The securityContext Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "service": {
+            "type": "object",
+            "default": {},
+            "title": "The service Schema",
+            "required": [
+                "enabled",
+                "port",
+                "targetPort",
+                "type",
+                "selectorLabels"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "port": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The port Schema",
+                    "examples": [
+                        8000
+                    ]
+                },
+                "targetPort": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The targetPort Schema",
+                    "examples": [
+                        8000
+                    ]
+                },
+                "type": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The type Schema",
+                    "examples": [
+                        "ClusterIP"
+                    ]
+                },
+                "selectorLabels": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The selectorLabels Schema",
+                    "required": [
+                        "app.kubernetes.io/component",
+                        "app.kubernetes.io/name"
+                    ],
+                    "properties": {
+                        "app.kubernetes.io/component": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The app.kubernetes.io/component Schema",
+                            "examples": [
+                                "network"
+                            ]
+                        },
+                        "app.kubernetes.io/name": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The app.kubernetes.io/name Schema",
+                            "examples": [
+                                "template-replace-"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "app.kubernetes.io/component": "network",
+                        "app.kubernetes.io/name": "template-replace-"
+                    }]
+                }
+            },
+            "examples": [{
+                "enabled": true,
+                "port": 8000,
+                "targetPort": 8000,
+                "type": "ClusterIP",
+                "selectorLabels": {
+                    "app.kubernetes.io/component": "network",
+                    "app.kubernetes.io/name": "template-replace-"
+                }
+            }]
+        },
+        "serviceAccount": {
+            "type": "object",
+            "default": {},
+            "title": "The serviceAccount Schema",
+            "required": [
+                "annotations",
+                "automount",
+                "create",
+                "name"
+            ],
+            "properties": {
+                "annotations": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The annotations Schema",
+                    "required": [
+                        "sa.kubernetes.io/name"
+                    ],
+                    "properties": {
+                        "sa.kubernetes.io/name": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The sa.kubernetes.io/name Schema",
+                            "examples": [
+                                "template-replace-"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "sa.kubernetes.io/name": "template-replace-"
+                    }]
+                },
+                "automount": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The automount Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "create": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The create Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The name Schema",
+                    "examples": [
+                        "template-replace-"
+                    ]
+                }
+            },
+            "examples": [{
+                "annotations": {
+                    "sa.kubernetes.io/name": "template-replace-"
+                },
+                "automount": true,
+                "create": true,
+                "name": "template-replace-"
+            }]
+        },
+        "superUser": {
+            "type": "object",
+            "default": {},
+            "title": "The superUser Schema",
+            "required": [
+                "create",
+                "email",
+                "name",
+                "password",
+                "secret",
+                "secretKey",
+                "token",
+                "username"
+            ],
+            "properties": {
+                "create": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The create Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "email": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The email Schema",
+                    "examples": [
+                        "template-replace-@template-replace-.svc.cluster.local"
+                    ]
+                },
+                "name": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The name Schema",
+                    "examples": [
+                        "nb-admin"
+                    ]
+                },
+                "password": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The password Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "secret": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The secret Schema",
+                    "required": [
+                        "name"
+                    ],
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The name Schema",
+                            "examples": [
+                                "secret.superuser"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "name": "secret.superuser"
+                    }]
+                },
+                "secretKey": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The secretKey Schema",
+                    "examples": [
+                        "57evlrs^0pmu5#ys=9t6==lf6hdz\u0026amp;$1)qq-(%f1noo_b+nsy@f"
+                    ]
+                },
+                "token": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The token Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "username": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The username Schema",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "create": true,
+                "email": "template-replace-@template-replace-.svc.cluster.local",
+                "name": "nb-admin",
+                "password": "",
+                "secret": {
+                    "name": "secret.superuser"
+                },
+                "secretKey": "57evlrs^0pmu5#ys=9t6==lf6hdz\u0026amp;$1)qq-(%f1noo_b+nsy@f",
+                "token": "",
+                "username": ""
+            }]
+        },
+        "tolerations": {
+            "type": "array",
+            "default": [],
+            "title": "The tolerations Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
+        "type": {
+            "type": "string",
+            "default": "",
+            "title": "The type Schema",
+            "examples": [
+                "Deployment"
+            ]
+        },
+        "volumeMounts": {
+            "type": "array",
+            "default": [],
+            "title": "The volumeMounts Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
+        "volumes": {
+            "type": "array",
+            "default": [],
+            "title": "The volumes Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
+        }
+    },
+    "examples": [{
+        "rbac": {
+            "create": true
+        },
+        "podSecurityPolicy": {
+            "enabled": false
+        },
+        "imagePullSecrets": [],
+        "serviceAccounts": {
+            "server": {
+                "create": true,
+                "name": "",
+                "annotations": {}
+            }
+        },
+        "commonMetaLabels": {},
+        "configmapReload": {
+            "reloadUrl": "",
+            "env": [],
+            "prometheus": {
+                "enabled": true,
+                "name": "configmap-reload",
+                "image": {
+                    "repository": "quay.io/prometheus-operator/prometheus-config-reloader",
+                    "tag": "v0.76.0",
+                    "digest": "",
+                    "pullPolicy": "IfNotPresent"
+                },
+                "containerPort": 8080,
+                "containerPortName": "metrics",
+                "extraArgs": {},
+                "extraVolumeDirs": [],
+                "extraVolumeMounts": [],
+                "extraConfigmapMounts": [],
+                "containerSecurityContext": {},
+                "livenessProbe": {
+                    "httpGet": {
+                        "path": "/healthz",
+                        "port": "metrics",
+                        "scheme": "HTTP"
+                    },
+                    "periodSeconds": 10,
+                    "initialDelaySeconds": 2
+                },
+                "readinessProbe": {
+                    "httpGet": {
+                        "path": "/healthz",
+                        "port": "metrics",
+                        "scheme": "HTTP"
+                    },
+                    "periodSeconds": 10
+                },
+                "startupProbe": {
+                    "enabled": false,
+                    "httpGet": {
+                        "path": "/healthz",
+                        "port": "metrics",
+                        "scheme": "HTTP"
+                    },
+                    "periodSeconds": 10
+                },
+                "resources": {}
+            }
+        },
+        "server": {
+            "name": "server",
+            "clusterRoleNameOverride": "",
+            "releaseNamespace": false,
+            "sidecarContainers": {},
+            "sidecarTemplateValues": {},
+            "image": {
+                "repository": "quay.io/prometheus/prometheus",
+                "tag": "",
+                "digest": "",
+                "pullPolicy": "IfNotPresent"
+            },
+            "command": [],
+            "priorityClassName": "",
+            "enableServiceLinks": true,
+            "prefixURL": "",
+            "baseURL": "",
+            "env": [],
+            "defaultFlagsOverride": [],
+            "extraFlags": [
+                "web.enable-lifecycle"
+            ],
+            "configPath": "/etc/config/prometheus.yml",
+            "storagePath": "",
+            "global": {
+                "scrape_interval": "1m",
+                "scrape_timeout": "10s",
+                "evaluation_interval": "1m"
+            },
+            "remoteWrite": [],
+            "remoteRead": [],
+            "tsdb": {},
+            "exemplars": {},
+            "probeHeaders": [],
+            "extraArgs": {},
+            "extraInitContainers": [],
+            "extraVolumeMounts": [],
+            "extraVolumes": [],
+            "extraHostPathMounts": [],
+            "extraConfigmapMounts": [],
+            "extraSecretMounts": [],
+            "configMapOverrideName": "",
+            "extraConfigmapLabels": {},
+            "fullnameOverride": "",
+            "ingress": {
+                "enabled": true,
+                "annotations": {
+                    "kubernetes.io/ingress.class": "nginx"
+                },
+                "extraLabels": {},
+                "hosts": [
+                    "prometheus.breeze-blocks.net"
+                ],
+                "path": "/",
+                "pathType": "Prefix",
+                "extraPaths": [],
+                "tls": []
+            },
+            "strategy": {
+                "type": "Recreate"
+            },
+            "hostAliases": [],
+            "tolerations": [],
+            "nodeSelector": {},
+            "affinity": {},
+            "podAntiAffinity": "",
+            "podAntiAffinityTopologyKey": "kubernetes.io/hostname",
+            "topologySpreadConstraints": [],
+            "podDisruptionBudget": {
+                "enabled": false,
+                "maxUnavailable": 1
+            },
+            "persistentVolume": {
+                "enabled": true,
+                "statefulSetNameOverride": "",
+                "accessModes": [
+                    "ReadWriteOnce",
+                    "ReadWriteMany"
+                ],
+                "labels": {
+                    "app.kubernetes.io/name": "prometheus"
+                },
+                "annotations": {},
+                "existingClaim": "",
+                "mountPath": "/data",
+                "size": "8Gi",
+                "subPath": ""
+            },
+            "emptyDir": {
+                "sizeLimit": ""
+            },
+            "podAnnotations": {},
+            "podLabels": {},
+            "alertmanagers": [],
+            "podSecurityPolicy": {
+                "annotations": {}
+            },
+            "replicaCount": 1
+        },
+        "resources": {
+            "limits": {
+                "cpu": 2,
+                "memory": "4096Mi"
+            }
+        },
+        "securityContext": {},
+        "service": {
+            "enabled": true,
+            "port": 8000,
+            "targetPort": 8000,
+            "type": "ClusterIP",
+            "selectorLabels": {
+                "app.kubernetes.io/component": "network",
+                "app.kubernetes.io/name": "template-replace-"
+            }
+        },
+        "serviceAccount": {
+            "annotations": {
+                "sa.kubernetes.io/name": "template-replace-"
+            },
+            "automount": true,
+            "create": true,
+            "name": "template-replace-"
+        },
+        "superUser": {
+            "create": true,
+            "email": "template-replace-@template-replace-.svc.cluster.local",
+            "name": "nb-admin",
+            "password": "",
+            "secret": {
+                "name": "secret.superuser"
+            },
+            "secretKey": "57evlrs^0pmu5#ys=9t6==lf6hdz\u0026amp;$1)qq-(%f1noo_b+nsy@f",
+            "token": "",
+            "username": ""
+        },
+        "tolerations": [],
+        "type": "Deployment",
+        "volumeMounts": [],
+        "volumes": []
+    }]
+}

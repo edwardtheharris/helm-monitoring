@@ -21,7 +21,8 @@ title: Template Helm Chart
 ```{toctree}
 :caption: contents
 
-tests/index.md
+loki/index
+tests/index
 ```
 
 ```{toctree}
@@ -47,6 +48,10 @@ GitHub
 Helm
    A tool commonly used to deploy applications to {term}`Kubernetes`. More
    information is available [here](https://helm.sh).
+
+Loki
+   A log aggregation tool which is part of the grafana stack. More information
+   is available [here](https://grafana.com/docs/loki/latest/)
 
 Kubernetes
    An ancient Greek word that means 'sailor' or 'navigator', it is the
