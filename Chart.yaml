@@ -42,6 +42,9 @@ appVersion: "0.0.1"
 # :end-before: "####\n"
 # ```
 dependencies:
+  - name: loki
+    repository: file://./charts/loki
+    version: 0.0.1
 
 ####
 ###
