@@ -45,6 +45,9 @@ dependencies:
   - name: cadvisor
     repository: "@ckotzbauer"
     version: 2.4.1
+  - name: loki
+    repository: file://./charts/loki
+    version: 0.0.1
 
 ####
 ###
