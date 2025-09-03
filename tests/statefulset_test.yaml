@@ -13,9 +13,9 @@ suite: test for statefulset
 release:
   name: chart
 templates:
-- templates/statefulset.yaml
+  - templates/statefulset.yaml
 values:
-- ../values.yaml
+  - ../values.yaml
 
 ###
 # ```{rubric} StatefulSet Tests
@@ -28,11 +28,12 @@ values:
 # :start-at: "tests:\n"
 # ```
 tests:
-- asserts:
-  - isKind:
-      of: StatefulSet
-  - equal:
-      path: metadata.name
-      value: template-replace-
-  it: should be a StatefulSet
-
+  - asserts:
+      - isKind:
+          of: StatefulSet
+      - equal:
+          path: metadata.name
+          value: monitoring
+    it: should be a StatefulSet
+    set:
+      type: StatefulSet
