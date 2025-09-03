@@ -90,6 +90,7 @@ jobs:
       - uses: actions/checkout@main
       - run: helm plugin install https://github.com/helm-unittest/helm-unittest
       - run: helm repo add lvm https://helm.metal-stack.io
+      - run: helm repo add ckotzbauer https://ckotzbauer.github.io/helm-charts
       - run: helm dependency update
       - run: helm dependency build
       - run: helm unittest -d -f 'tests/*.yaml' .
