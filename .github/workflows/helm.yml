@@ -47,6 +47,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
+      - uses: azure/setup-helm@v4.3.0
+        with:
+          version: latest
+        id: install
       - run: |
           curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
           sudo apt-get install apt-transport-https --yes
