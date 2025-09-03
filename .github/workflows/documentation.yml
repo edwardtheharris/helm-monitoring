@@ -101,7 +101,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@main
         with:
-          python-version: 3.11
+          python-version: 3.13
       - name: Setup pages
         uses: actions/configure-pages@main
       - name: Install pipenv
