@@ -31,6 +31,20 @@ apiVersion: v2
 appVersion: "0.0.1"
 
 ###
+# ```{rubric} Dependencies
+# ```
+# ---
+# Charts upon which the main package depends.
+#
+# ```{literalinclude} /Chart.yaml
+# :language: yaml
+# :start-at: "dependencies:\n
+# :end-before: "####\n"
+# ```
+dependencies:
+
+####
+###
 # ```{rubric} Description
 # ```
 # ---
