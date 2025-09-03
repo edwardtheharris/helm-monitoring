@@ -1,15 +1,15 @@
 ---
 abstract: >-
-   Helm Template documentation master file, created by
-   sphinx-quickstart on Sun Apr 28 15:35:08 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+    Documentation index for the Helm Monitoring package.
 authors:
    - name: Xander Harris
      email: xandertheharris@gmail.com
-date: 2024-08-04
-title: Template Helm Chart
+date: 2025-09-033
+title: Monitoring Helm Chart
 ---
+
+This repository contains charts to deploy a standardized Grafana/Prometheus
+stack to bare metal {term}`Kubernetes` clusters.
 
 ## Repository Contents
 

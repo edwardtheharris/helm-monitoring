@@ -2,7 +2,7 @@
 # ```{rubric} Default Values
 # ```
 # ---
-# Default values for the Helm template-replace- template.
+# Default values for the Helm monitoring template.
 #
 # This is a YAML-formatted file.
 #
@@ -18,11 +18,11 @@ affinity:
   nodeAffinity:
   requiredDuringSchedulingIgnoredDuringExecution:
     nodeSelectorTerms:
-    - matchExpressions:
-      - key: kubernetes.io/os
-        operator: In
-        values:
-        - linux
+      - matchExpressions:
+          - key: kubernetes.io/os
+            operator: In
+            values:
+              - linux
 
 ###
 # ```{rubric} Autoscaling
@@ -45,11 +45,127 @@ autoscaling:
   maxReplicas: 0
   minReplicas: 0
 
+cadvisor:
+  image:
+    repository: gcr.io/cadvisor/cadvisor
+    tag: v0.52.1
+    pullPolicy: IfNotPresent
+
+    ## Reference to one or more secrets to be used when pulling images
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ##
+    pullSecrets: []
+
+  container:
+    port: 8080
+    additionalArgs:
+      - --housekeeping_interval=10s # kubernetes default args
+      - --max_housekeeping_interval=15s
+      - --event_storage_event_limit=default=0
+      - --event_storage_age_limit=default=0
+      - --disable_metrics=percpu,process,sched,tcp,udp # enable only diskIO, cpu, memory, network, disk
+      - --docker_only
+    hostPaths:
+      - name: rootfs
+        path: "/"
+        mount: "/rootfs"
+        readOnly: true
+      - name: varrun
+        path: "/var/run"
+        readOnly: true
+      - name: sys
+        path: "/sys"
+        readOnly: true
+      - name: docker
+        path: "/var/lib/docker"
+        readOnly: true
+      - name: disk
+        path: "/dev/disk"
+        readOnly: true
+
+  service:
+    type: LoadBalancer
+    externalIPs:
+      - 192.168.5.80
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  podAnnotations: {}
+  podLabels: {}
+  commonLabels: {}
+
+  daemonsetAnnotations:
+    seccomp.security.alpha.kubernetes.io/pod: "docker/default"
+
+  # priorityClassName: system-cluster-critical
+  priorityClassName: {}
+
+  # sometimes errors are encountered when using the cpu load reader without being on the host network
+  hostNetwork: false
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: cadvisor
+
+  podSecurityPolicy:
+    create: false
+    privileged: false
+
+  # Specifies whether a securityContext should be created. Required for privileged operations.
+  podSecurityContext:
+    create: false
+    privileged: false
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  # This will create a ServiceMonitor Custom Resource indicating the prometheus operator what to scrape.
+  metrics:
+    enabled: false
+    interval: 30s
+    scrapeTimeout: 30s
+    # This will allow you to specify relabelings on the metrics before ingestion. E.g. to use the kubernetes monitoring
+    # mixin with this chart set metrics.enabled above to true and use:
+    # relabelings:
+    #  - sourceLabels:
+    #    - name
+    #    targetLabel: container
+    #  - sourceLabels:
+    #    - container_label_io_kubernetes_pod_namespace
+    #    targetLabel: namespace
+    #  - sourceLabels:
+    #    - container_label_io_kubernetes_pod_name
+    #    targetLabel: pod
+    metricRelabelings: []
+    # This will allow you to specify relabelings on the metrics before scraping.
+    # relabelings:
+    #  - action: replace
+    #    sourceLabels:
+    #    - __meta_kubernetes_pod_node_name
+    #    targetLabel: node
+    relabelings: []
+
 ###
-# ```{rubric} template-replace- Config
+# ```{rubric} monitoring Config
 # ```
 # ---
-# Configure the template-replace- deployment.
+# Configure the monitoring deployment.
 #
 # ```{literalinclude} /values.yaml
 # :caption: config
@@ -62,13 +178,13 @@ config:
   caches_backend: django_redis.cache.RedisCache
   celery:
     img:
-      repository: ghcr.io/edwardtheharris/helm-template-replace-/celery
-      tag: '0.0.1.rc29'
-    broker: 'redis://redis.redis.svc.cluster.local:6379/0'
+      repository: ghcr.io/edwardtheharris/helm-monitoring/celery
+      tag: "0.0.1.rc29"
+    broker: "redis://redis.redis.svc.cluster.local:6379/0"
     name: celery-config
-    results: 'redis://redis.redis.svc.cluster.local:6379/0'
-    root: '/opt/celery'
-  name: template-replace--config
+    results: "redis://redis.redis.svc.cluster.local:6379/0"
+    root: "/opt/celery"
+  name: monitoring-config
 
 ###
 # ```{rubric} Database
@@ -84,14 +200,14 @@ config:
 # :end-before: "###\n"
 # ```
 database:
-  database: template-replace-
+  database: monitoring
   engine: django.db.backends.postgresql
   host: postgresql.postgresql.svc.cluster.local
   name: postgres
   password: ""
-  port: '5432'
+  port: "5432"
   secretfile: secrets/secrets.yaml
-  timeout: '300'
+  timeout: "300"
   username: ""
 
 ###
@@ -103,10 +219,10 @@ database:
 # ```{literalinclude} /values.yaml
 # :caption: fullname override
 # :language: yaml
-# :start-at: "fullnameOverride: \"template-replace-\"\n"
+# :start-at: "fullnameOverride: \"monitoring\"\n"
 # :end-before: "###\n"
 # ```
-fullnameOverride: "template-replace-"
+fullnameOverride: "monitoring"
 
 ###
 # ```{rubric} Container image settings
@@ -122,12 +238,12 @@ fullnameOverride: "template-replace-"
 # ```
 image:
   pullPolicy: Always
-  repository: ghcr.io/edwardtheharris/helm-template-replace-/template-replace-
+  repository: ghcr.io/edwardtheharris/helm-monitoring/monitoring
   # Overrides the image tag whose default is the chart appVersion.
-  tag: '0.0.1.rc29'
+  tag: "0.0.1.rc29"
   secret:
     name: ghcr
-    data: ''
+    data: ""
 
 ###
 # ```{rubric} Image Pull Secrets
@@ -142,7 +258,7 @@ image:
 # :end-before: "###\n"
 # ```
 imagePullSecrets:
-- name: ghcr
+  - name: ghcr
 
 ###
 # ```{rubric} Ingress
@@ -171,10 +287,10 @@ ingress:
   className: "nginx"
   enabled: true
   hosts:
-  - host: template-replace-.svc.cluster.local
-    paths:
-    - path: /
-      pathType: ImplementationSpecific
+    - host: monitoring.svc.cluster.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
   tls: []
 
 ###
@@ -192,8 +308,8 @@ ingress:
 livenessProbe:
   exec:
     command:
-    - /opt/template-replace-/bin/template-replace--server
-    - status
+      - /opt/monitoring/bin/monitoring-server
+      - status
   # When to give up and restart the container
   failureThreshold: 3
   # Delay before the first probe is initiated
@@ -215,10 +331,10 @@ livenessProbe:
 # ```{literalinclude} /values.yaml
 # :caption: name override
 # :language: yaml
-# :start-at: "nameOverride: \"template-replace-\"\n"
+# :start-at: "nameOverride: \"monitoring\"\n"
 # :end-before: "###\n"
 # ```
-nameOverride: "template-replace-"
+nameOverride: "monitoring"
 
 ###
 # ```{rubric} Node Selector
@@ -250,7 +366,7 @@ nodeSelector:
 persistence:
   claim:
     enabled: false
-  name: template-replace-
+  name: monitoring
   size: 50Gi
   storageClass: csi-driver-lvm-linear
 
@@ -281,7 +397,7 @@ podAnnotations: {}
 # :end-before: "###\n"
 # ```
 podLabels:
-  app: template-replace-
+  app: monitoring
 
 ###
 # ```{rubric} Pod Security Context
@@ -406,7 +522,7 @@ service:
   type: ClusterIP
   selectorLabels:
     app.kubernetes.io/component: network
-    app.kubernetes.io/name: template-replace-
+    app.kubernetes.io/name: monitoring
 
 ###
 # ```{rubric} Service Account
@@ -423,14 +539,14 @@ service:
 serviceAccount:
   # Annotations to add to the service account
   annotations:
-    sa.kubernetes.io/name: template-replace-
+    sa.kubernetes.io/name: monitoring
   # Automatically mount a ServiceAccount's API credentials?
   automount: true
   # Specifies whether a service account should be created
   create: true
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "template-replace-"
+  name: "monitoring"
 
 ###
 # ```{rubric} Super User Config
@@ -446,12 +562,12 @@ serviceAccount:
 # ```
 superUser:
   create: true
-  email: template-replace-@template-replace-.svc.cluster.local
+  email: monitoring@monitoring.svc.cluster.local
   name: nb-admin
   password: ""
   secret:
     name: secret.superuser
-  secretKey: '57evlrs^0pmu5#ys=9t6==lf6hdz&amp;$1)qq-(%f1noo_b+nsy@f'
+  secretKey: "57evlrs^0pmu5#ys=9t6==lf6hdz&amp;$1)qq-(%f1noo_b+nsy@f"
   token: ""
   username: ""
 
