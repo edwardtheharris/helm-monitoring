@@ -24,6 +24,6 @@ you need to set up a new {term}`Helm` chart.
 
 ### cadvisor
 
-The cadvisor chart is shamelessly borrowed from 
+The cadvisor chart is shamelessly borrowed from
 [the ckotzbauer](https://github.com/ckotzbauer/helm-charts/blob/main/charts/cadvisor/README.md)
 repository.
