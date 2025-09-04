@@ -28,6 +28,7 @@ tests/index.md
 :caption: meta
 
 .github/index
+contributing
 license
 readme
 security
