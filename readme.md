@@ -28,7 +28,11 @@ the [Prometheus Operator](https://github.com/prometheus-operator/prometheus-oper
 See the [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
 README for details about components, dashboards, and alerts.
 
-_Note: This chart was formerly named `prometheus-operator` chart, now renamed to more clearly reflect that it installs the `kube-prometheus` project stack, within which Prometheus Operator is only one component._
+```{note}
+This chart was formerly named `prometheus-operator` chart, now renamed to 
+more clearly reflect that it installs the `kube-prometheus` project stack, 
+within which Prometheus Operator is only one component.
+```
 
 ## Prerequisites
 
@@ -1150,3 +1154,8 @@ metadata:
   name: kube-proxy
   namespace: kube-system
 ```
+### cadvisor
+
+The cadvisor chart is shamelessly borrowed from
+[the ckotzbauer](https://github.com/ckotzbauer/helm-charts/blob/main/charts/cadvisor/README.md)
+repository.

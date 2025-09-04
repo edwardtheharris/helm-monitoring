@@ -1,6 +1,27 @@
-# Default values for kube-prometheus-stack.
+###
+# ```{rubric} Default Values
+# ```
+# ---
+# Default values for the Helm monitoring template.
+#
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+#
+# ```{literalinclude} /values.yaml
+# :caption: affinity
+# :language: yaml
+# :start-at: "affinity:\n"
+# :end-before: "###\n"
+# ```
+affinity:
+  nodeAffinity:
+  requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: kubernetes.io/os
+            operator: In
+            values:
+              - linux
 
 ## Provide a name in place of kube-prometheus-stack for `app:` labels
 ##
@@ -238,39 +259,207 @@ windowsMonitoring:
   ## Deploys the windows-exporter and Windows-specific dashboards and rules (job name must be 'windows-exporter')
   enabled: false
 
-## Configuration for prometheus-windows-exporter
-## ref: https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-windows-exporter
-##
-prometheus-windows-exporter:
-  ## Enable ServiceMonitor and set Kubernetes label to use as a job label
-  ##
-  prometheus:
-    monitor:
-      enabled: true
-      jobLabel: jobLabel
+cadvisor:
+  image:
+    repository: gcr.io/cadvisor/cadvisor
+    tag: v0.52.1
+    pullPolicy: IfNotPresent
 
-  releaseLabel: true
+    ## Reference to one or more secrets to be used when pulling images
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ##
+    pullSecrets: []
 
-  ## Set job label to 'windows-exporter' as required by the default Prometheus rules and Grafana dashboards
-  ##
-  podLabels:
-    jobLabel: windows-exporter
+  container:
+    port: 8080
+    additionalArgs:
+      - --housekeeping_interval=10s # kubernetes default args
+      - --max_housekeeping_interval=15s
+      - --event_storage_event_limit=default=0
+      - --event_storage_age_limit=default=0
+      - --disable_metrics=percpu,process,sched,tcp,udp # enable only diskIO, cpu, memory, network, disk
+      - --docker_only
+    hostPaths:
+      - name: rootfs
+        path: "/"
+        mount: "/rootfs"
+        readOnly: true
+      - name: varrun
+        path: "/var/run"
+        readOnly: true
+      - name: sys
+        path: "/sys"
+        readOnly: true
+      - name: docker
+        path: "/var/lib/docker"
+        readOnly: true
+      - name: disk
+        path: "/dev/disk"
+        readOnly: true
 
-  ## Enable memory and container metrics as required by the default Prometheus rules and Grafana dashboards
-  ##
-  config: |-
-    collectors:
-      enabled: '[defaults],memory,container'
+  service:
+    type: LoadBalancer
+    externalIPs:
+      - 192.168.5.80
 
-## Configuration for alertmanager
-## ref: https://prometheus.io/docs/alerting/alertmanager/
-##
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  podAnnotations: {}
+  podLabels: {}
+  commonLabels: {}
+
+  daemonsetAnnotations:
+    seccomp.security.alpha.kubernetes.io/pod: "docker/default"
+
+  # priorityClassName: system-cluster-critical
+  priorityClassName: {}
+
+  # sometimes errors are encountered when using the cpu load reader without being on the host network
+  hostNetwork: false
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: cadvisor
+
+  podSecurityPolicy:
+    create: false
+    privileged: false
+
+  # Specifies whether a securityContext should be created. Required for privileged operations.
+  podSecurityContext:
+    create: false
+    privileged: false
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  # This will create a ServiceMonitor Custom Resource indicating the prometheus operator what to scrape.
+  metrics:
+    enabled: false
+    interval: 30s
+    scrapeTimeout: 30s
+    # This will allow you to specify relabelings on the metrics before ingestion. E.g. to use the kubernetes monitoring
+    # mixin with this chart set metrics.enabled above to true and use:
+    # relabelings:
+    #  - sourceLabels:
+    #    - name
+    #    targetLabel: container
+    #  - sourceLabels:
+    #    - container_label_io_kubernetes_pod_namespace
+    #    targetLabel: namespace
+    #  - sourceLabels:
+    #    - container_label_io_kubernetes_pod_name
+    #    targetLabel: pod
+    metricRelabelings: []
+    # This will allow you to specify relabelings on the metrics before scraping.
+    # relabelings:
+    #  - action: replace
+    #    sourceLabels:
+    #    - __meta_kubernetes_pod_node_name
+    #    targetLabel: node
+    relabelings: []
+
+###
+# ```{rubric} monitoring Config
+# ```
+# ---
+# Configure the monitoring deployment.
+#
+# ```{literalinclude} /values.yaml
+# :caption: config
+# :language: yaml
+# :start-at: "config:\n"
+# :end-before: "###\n"
+# ```
+config:
+  allowed_hosts: "*"
+  caches_backend: django_redis.cache.RedisCache
+  celery:
+    img:
+      repository: ghcr.io/edwardtheharris/helm-monitoring/celery
+      tag: "0.0.1.rc29"
+    broker: "redis://redis.redis.svc.cluster.local:6379/0"
+    name: celery-config
+    results: "redis://redis.redis.svc.cluster.local:6379/0"
+    root: "/opt/celery"
+  name: monitoring-config
+
+###
+# ```{rubric} Database
+# ```
+# ---
+# Configure a relational database connection, MySQL and PostgreSQL are
+# supported.
+#
+# ```{literalinclude} /values.yaml
+# :caption: database
+# :language: yaml
+# :start-at: "database:\n"
+# :end-before: "###\n"
+# ```
+database:
+  database: monitoring
+  engine: django.db.backends.postgresql
+  host: postgresql.postgresql.svc.cluster.local
+  name: postgres
+  password: ""
+  port: "5432"
+  secretfile: secrets/secrets.yaml
+  timeout: "300"
+  username: ""
+
+###
+# ```{rubric} Full Name Override
+# ```
+# ---
+# Override the full name of the release.
+#
+# ```{literalinclude} /values.yaml
+# :caption: fullname override
+# :language: yaml
+# :start-at: "fullnameOverride: \"monitoring\"\n"
+# :end-before: "###\n"
+# ```
+fullnameOverride: "monitoring"
+
+###
+# ```{rubric} Container image settings
+# ```
+# ---
+# Define the image, tag and repository to be deployed.
+#
+# ```{literalinclude} /values.yaml
+# :caption: image
+# :language: yaml
+# :start-at: "image:\n"
+# :end-before: "###\n"
+# ```
+image:
+  pullPolicy: Always
+  repository: ghcr.io/edwardtheharris/helm-monitoring/monitoring
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.0.1.rc29"
+  secret:
+    name: ghcr
+    data: ""
+
 alertmanager:
-
-  ## Deploy alertmanager
-  ##
-  enabled: true
-
   ## Annotations for Alertmanager
   ##
   annotations: {}
@@ -278,6 +467,42 @@ alertmanager:
   ## Api that prometheus will use to communicate with alertmanager. Possible values are v1, v2
   ##
   apiVersion: v2
+  hosts:
+    - host: monitoring.svc.cluster.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+###
+# ```{rubric} Liveness Probe
+# ```
+# ---
+# Set a command to test for liveness.
+#
+# ```{literalinclude} /values.yaml
+# :caption: liveness probe
+# :language: yaml
+# :start-at: "livenessProbe:\n"
+# :end-before: "###\n"
+# ```
+livenessProbe:
+  exec:
+    command:
+      - /opt/monitoring/bin/monitoring-server
+      - status
+  # When to give up and restart the container
+  failureThreshold: 3
+  # Delay before the first probe is initiated
+  initialDelaySeconds: 30
+  # How often to perform the probe
+  periodSeconds: 10
+  # Minimum consecutive successes for the probe to
+  # be considered successful after having failed
+  successThreshold: 1
+  # When the probe times out
+  timeoutSeconds: 5
+
 
   ## @param alertmanager.enableFeatures Enable access to Alertmanager disabled features.
   ##
@@ -299,6 +524,9 @@ alertmanager:
     enabled: false
     minAvailable: 1
     maxUnavailable: ""
+  name: monitoring
+  size: 50Gi
+  storageClass: csi-driver-lvm-linear
 
   ## Alertmanager configuration directives
   ## ref: https://prometheus.io/docs/alerting/configuration/#configuration-file
@@ -351,7 +579,20 @@ alertmanager:
   ##      https://prometheus.io/webtools/alerting/routing-tree-editor/
   ##
   stringConfig: ""
-
+###
+# ```{rubric} Pod Labels
+# ```
+# ---
+# Apply these labels to all pods.
+#
+# ```{literalinclude} /values.yaml
+# :caption: pod labels
+# :language: yaml
+# :start-at: "podLabels:\n"
+# :end-before: "###\n"
+# ```
+podLabels:
+  app: monitoring
   ## Pass the Alertmanager configuration directives through Helm's templating
   ## engine. If the Alertmanager configuration contains Alertmanager templates,
   ## they'll need to be properly escaped so that they are not interpreted by
@@ -433,6 +674,83 @@ alertmanager:
   ##
   secret:
     annotations: {}
+###
+# ```{rubric} Service
+# ```
+# ---
+# Define the service used to access the application.
+#
+# ```{literalinclude} /values.yaml
+# :caption: service
+# :language: yaml
+# :start-at: "service:\n"
+# :end-before: "###\n"
+# ```
+#
+# ```{code-block} yaml
+# :caption: capabilities example
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
+# ```
+service:
+  enabled: true
+  port: 8000
+  targetPort: 8000
+  type: ClusterIP
+  selectorLabels:
+    app.kubernetes.io/component: network
+    app.kubernetes.io/name: monitoring
+
+###
+# ```{rubric} Service Account
+# ```
+# ---
+# When enabled, will create a Kubernetes Service Account during deployment.
+#
+# ```{literalinclude} /values.yaml
+# :caption: serviceAccount
+# :language: yaml
+# :start-at: "serviceAccount:\n"
+# :end-before: "###\n"
+# ```
+serviceAccount:
+  # Annotations to add to the service account
+  annotations:
+    sa.kubernetes.io/name: monitoring
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "monitoring"
+
+###
+# ```{rubric} Super User Config
+# ```
+# ---
+# When enabled, will create a super user account during deployment.
+#
+# ```{literalinclude} /values.yaml
+# :caption: superUser
+# :language: yaml
+# :start-at: "superUser:\n"
+# :end-before: "###\n"
+# ```
+superUser:
+  create: true
+  email: monitoring@monitoring.svc.cluster.local
+  name: nb-admin
+  password: ""
+  secret:
+    name: secret.superuser
+  secretKey: "57evlrs^0pmu5#ys=9t6==lf6hdz&amp;$1)qq-(%f1noo_b+nsy@f"
+  token: ""
+  username: ""
 
   ## Configuration for creating an Ingress that will map to each Alertmanager replica service
   ## alertmanager.servicePerReplica must be enabled
