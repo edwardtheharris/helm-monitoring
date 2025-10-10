@@ -1,552 +1,449 @@
-# yaml-language-server: $schema=values.schema.json
 ###
-# ```{rubric} Default values for prometheus
+# ```{rubric} Default Values
 # ```
 # ---
+# Default values for the Helm monitoring template.
+#
 # This is a YAML-formatted file.
 #
 # Declare variables to be passed into your templates.
 #
 # ```{literalinclude} /values.yaml
+# :caption: affinity
 # :language: yaml
-# :start-at: "rbac:\n"
+# :start-at: "affinity:\n"
 # :end-before: "###\n"
 # ```
-rbac:
-  create: true
-podSecurityPolicy:
+affinity:
+  nodeAffinity:
+  requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: kubernetes.io/os
+            operator: In
+            values:
+              - linux
+
+###
+# ```{rubric} Autoscaling
+# ```
+# ---
+# Configure auto scaling on the cluster.
+#
+# ```{literalinclude} /values.yaml
+# :caption: affinity
+# :language: yaml
+# :start-at: "autoscaling:\n"
+# :end-before: "###\n"
+# ```
+#
+# `targetCPUUtilizationPercentage: 80`{l=yaml}
+#
+# `targetMemoryUtilizationPercentage: 80`{l=yaml}
+autoscaling:
   enabled: false
-imagePullSecrets: []
-# - name: "image-pull-secret"
+  maxReplicas: 0
+  minReplicas: 0
 
-###
-# ```{rubric} Default values for prometheus
-# ```
-# ---
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-#
-# Define serviceAccount names for components. Defaults to component's
-# fully qualified name.
-#
-# ```{literalinclude} /values.yaml
-# :language: yaml
-# :start-at: "serviceAccounts:\n"
-# :end-before: "###\n"
-# ```
-serviceAccounts:
-  server:
-    create: true
-    name: ""
-    annotations: {}
-    ## Opt out of automounting Kubernetes API credentials.
-    ## It will be overriden by server.automountServiceAccountToken value, if set.
-    # automountServiceAccountToken: false
-## Additional labels to attach to all resources
-commonMetaLabels: {}
-
-###
-# ```{rubric} ConfigMap Reload
-# ```
-# ---
-# Monitors ConfigMap changes and POSTs to a URL
-#
-# [Ref](https://github.com/prometheus-operator/prometheus-operator/tree/main/cmd/prometheus-config-reloader)
-#
-# ```{literalinclude} /values.yaml
-# :language: yaml
-# :start-at: "configmapReload:\n"
-# :end-before: "###\n"
-# ```
-configmapReload:
-  ## URL for configmap-reload to use for reloads
-  ##
-  reloadUrl: ""
-
-  ## env sets environment variables to pass to the container. Can be set as name/value pairs,
-  ## read from secrets or configmaps.
-  env: []
-  # - name: SOMEVAR
-  #   value: somevalue
-  # - name: PASSWORD
-  #   valueFrom:
-  #     secretKeyRef:
-  #       name: mysecret
-  #       key: password
-  #       optional: false
-
-  prometheus:
-    ## If false, the configmap-reload container will not be deployed
-    ##
-    enabled: true
-
-    ## configmap-reload container name
-    ##
-    name: configmap-reload
-
-    ## configmap-reload container image
-    ##
-    image:
-      repository: quay.io/prometheus-operator/prometheus-config-reloader
-      tag: v0.76.0
-      # When digest is set to a non-empty value, images will be pulled by digest (regardless of tag value).
-      digest: ""
-      pullPolicy: IfNotPresent
-
-    ## config-reloader's container port and port name for probes and metrics
-    containerPort: 8080
-    containerPortName: metrics
-
-    ## Additional configmap-reload container arguments
-    ## Set to null for argumentless flags
-    ##
-    extraArgs: {}
-
-    ## Additional configmap-reload volume directories
-    ##
-    extraVolumeDirs: []
-
-    ## Additional configmap-reload volume mounts
-    ##
-    extraVolumeMounts: []
-
-    ## Additional configmap-reload mounts
-    ##
-    extraConfigmapMounts: []
-    # - name: prometheus-alerts
-    #   mountPath: /etc/alerts.d
-    #   subPath: ""
-    #   configMap: prometheus-alerts
-    #   readOnly: true
-
-    ## Security context to be added to configmap-reload container
-    containerSecurityContext: {}
-
-    ## Settings for Prometheus reloader's readiness, liveness and startup probes
-    ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-    ##
-
-    livenessProbe:
-      httpGet:
-        path: /healthz
-        port: metrics
-        scheme: HTTP
-      periodSeconds: 10
-      initialDelaySeconds: 2
-
-    readinessProbe:
-      httpGet:
-        path: /healthz
-        port: metrics
-        scheme: HTTP
-      periodSeconds: 10
-
-    startupProbe:
-      enabled: false
-      httpGet:
-        path: /healthz
-        port: metrics
-        scheme: HTTP
-      periodSeconds: 10
-
-    ## configmap-reload resource requests and limits
-    ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
-    ##
-    resources: {}
-
-server:
-  ## Prometheus server container name
-  ##
-  name: server
-  ## Opt out of automounting Kubernetes API credentials.
-  ## If set it will override serviceAccounts.server.automountServiceAccountToken value for ServiceAccount.
-  # automountServiceAccountToken: false
-  ## Use a ClusterRole (and ClusterRoleBinding)
-  ## - If set to false - we define a RoleBinding in the defined namespaces ONLY
-  ##
-  ## NB: because we need a Role with nonResourceURL's ("/metrics") - you must get someone with Cluster-admin privileges to define this role for you, before running with this setting enabled.
-  ##     This makes prometheus work - for users who do not have ClusterAdmin privs, but wants prometheus to operate on their own namespaces, instead of clusterwide.
-  ##
-  ## You MUST also set namespaces to the ones you have access to and want monitored by Prometheus.
-  ##
-  # useExistingClusterRoleName: nameofclusterrole
-  ## If set it will override prometheus.server.fullname value for ClusterRole and ClusterRoleBinding
-  ##
-  clusterRoleNameOverride: ""
-  # Enable only the release namespace for monitoring. By default all namespaces are monitored.
-  # If releaseNamespace and namespaces are both set a merged list will be monitored.
-  releaseNamespace: false
-  ## namespaces to monitor (instead of monitoring all - clusterwide). Needed if you want to run without Cluster-admin privileges.
-  # namespaces:
-  #   - yournamespace
-  # sidecarContainers - add more containers to prometheus server
-  # Key/Value where Key is the sidecar `- name: <Key>`
-  # Example:
-  #   sidecarContainers:
-  #      webserver:
-  #        image: nginx
-  # OR for adding OAuth authentication to Prometheus
-  #   sidecarContainers:
-  #     oauth-proxy:
-  #       image: quay.io/oauth2-proxy/oauth2-proxy:v7.1.2
-  #       args:
-  #       - --upstream=http://127.0.0.1:9090
-  #       - --http-address=0.0.0.0:8081
-  #       - ...
-  #       ports:
-  #       - containerPort: 8081
-  #         name: oauth-proxy
-  #         protocol: TCP
-  #       resources: {}
-  sidecarContainers: {}
-  # sidecarTemplateValues - context to be used in template for sidecarContainers
-  # Example:
-  #   sidecarTemplateValues: *your-custom-globals
-  #   sidecarContainers:
-  #     webserver: |-
-  #       {{ include "webserver-container-template" . }}
-  # Template for `webserver-container-template` might looks like this:
-  #   image: "{{ .Values.server.sidecarTemplateValues.repository }}:{{ .Values.server.sidecarTemplateValues.tag }}"
-  #   ...
-  #
-  sidecarTemplateValues: {}
-  ## Prometheus server container image
-  ##
+cadvisor:
   image:
-    repository: quay.io/prometheus/prometheus
-    # if not set appVersion field from Chart.yaml is used
-    tag: ""
-    # When digest is set to a non-empty value, images will be pulled by digest (regardless of tag value).
-    digest: ""
+    repository: gcr.io/cadvisor/cadvisor
+    tag: v0.52.1
     pullPolicy: IfNotPresent
-  ## Prometheus server command
-  ##
-  command: []
-  ## prometheus server priorityClassName
-  ##
-  priorityClassName: ""
-  ## EnableServiceLinks indicates whether information about services should be injected
-  ## into pod's environment variables, matching the syntax of Docker links.
-  ## WARNING: the field is unsupported and will be skipped in K8s prior to v1.13.0.
-  ##
-  enableServiceLinks: true
-  ## The URL prefix at which the container can be accessed. Useful in the case the '-web.external-url' includes a slug
-  ## so that the various internal URLs are still able to access as they are in the default case.
-  ## (Optional)
-  prefixURL: ""
-  ## External URL which can access prometheus
-  ## Maybe same with Ingress host name
-  baseURL: ""
-  ## Additional server container environment variables
-  ##
-  ## You specify this manually like you would a raw deployment manifest.
-  ## This means you can bind in environment variables from secrets.
-  ##
-  ## e.g. static environment variable:
-  ##  - name: DEMO_GREETING
-  ##    value: "Hello from the environment"
-  ##
-  ## e.g. secret environment variable:
-  ## - name: USERNAME
-  ##   valueFrom:
-  ##     secretKeyRef:
-  ##       name: mysecret
-  ##       key: username
-  env: []
-  # List of flags to override default parameters, e.g:
-  # - --enable-feature=agent
-  # - --storage.agent.retention.max-time=30m
-  # - --config.file=/etc/config/prometheus.yml
-  defaultFlagsOverride: []
-  extraFlags:
-  - web.enable-lifecycle
-  ## web.enable-admin-api flag controls access to the administrative HTTP API which includes functionality such as
-  ## deleting time series. This is disabled by default.
-  # - web.enable-admin-api
-  ##
-  ## storage.tsdb.no-lockfile flag controls BD locking
-  # - storage.tsdb.no-lockfile
-  ##
-  ## storage.tsdb.wal-compression flag enables compression of the write-ahead log (WAL)
-  # - storage.tsdb.wal-compression
-  ## Path to a configuration file on prometheus server container FS
-  configPath: /etc/config/prometheus.yml
-  ### The data directory used by prometheus to set --storage.tsdb.path
-  ### When empty server.persistentVolume.mountPath is used instead
-  storagePath: ""
-  global:
-    ## How frequently to scrape targets by default
-    ##
-    scrape_interval: 1m
-    ## How long until a scrape request times out
-    ##
-    scrape_timeout: 10s
-    ## How frequently to evaluate rules
-    ##
-    evaluation_interval: 1m
-  ## https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write
-  ##
-  remoteWrite: []
-  ## https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_read
-  ##
-  remoteRead: []
-  ## https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tsdb
-  ##
-  tsdb: {}
-  # out_of_order_time_window: 0s
-  ## https://prometheus.io/docs/prometheus/latest/configuration/configuration/#exemplars
-  ## Must be enabled via --enable-feature=exemplar-storage
-  ##
-  exemplars: {}
-  # max_exemplars: 100000
-  ## Custom HTTP headers for Liveness/Readiness/Startup Probe
-  ##
-  ## Useful for providing HTTP Basic Auth to healthchecks
-  probeHeaders: []
-  # - name: "Authorization"
-  #   value: "Bearer ABCDEabcde12345"
-  ## Additional Prometheus server container arguments
-  ## Set to null for argumentless flags
-  ##
-  extraArgs: {}
-  # web.enable-remote-write-receiver: null
-  ## Additional InitContainers to initialize the pod
-  ##
-  extraInitContainers: []
-  ## Additional Prometheus server Volume mounts
-  ##
-  extraVolumeMounts: []
-  ## Additional Prometheus server Volumes
-  ##
-  extraVolumes: []
-  ## Additional Prometheus server hostPath mounts
-  ##
-  extraHostPathMounts: []
-  # - name: certs-dir
-  #   mountPath: /etc/kubernetes/certs
-  #   subPath: ""
-  #   hostPath: /etc/kubernetes/certs
-  #   readOnly: true
-  extraConfigmapMounts: []
-  # - name: certs-configmap
-  #   mountPath: /prometheus
-  #   subPath: ""
-  #   configMap: certs-configmap
-  #   readOnly: true
-  ## Additional Prometheus server Secret mounts
-  # Defines additional mounts with secrets. Secrets must be manually created in the namespace.
-  extraSecretMounts: []
-  # - name: secret-files
-  #   mountPath: /etc/secrets
-  #   subPath: ""
-  #   secretName: prom-secret-files
-  #   readOnly: true
-  ## ConfigMap override where fullname is {{.Release.Name}}-{{.Values.server.configMapOverrideName}}
-  ## Defining configMapOverrideName will cause templates/server-configmap.yaml
-  ## to NOT generate a ConfigMap resource
-  ##
-  configMapOverrideName: ""
-  ## Extra labels for Prometheus server ConfigMap (ConfigMap that holds serverFiles)
-  extraConfigmapLabels: {}
-  ## Override the prometheus.server.fullname for all objects related to the Prometheus server
-  fullnameOverride: ""
-  ingress:
-    ## If true, Prometheus server Ingress will be created
-    ##
-    enabled: true
-    # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
-    # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
-    ## Prometheus server Ingress annotations
-    ##
-    annotations:
-      kubernetes.io/ingress.class: nginx
-    #   kubernetes.io/tls-acme: 'true'
-    ## Prometheus server Ingress additional labels
-    ##
-    extraLabels: {}
-    ## Redirect ingress to an additional defined port on the service
-    # servicePort: 8081
-    ## Prometheus server Ingress hostnames with optional path
-    ## Must be provided if Ingress is enabled
-    ##
-    hosts:
-    - prometheus.breeze-blocks.net
-    #   - domain.com/prometheus
-    path: /
-    # pathType is only for k8s >= 1.18
-    pathType: Prefix
-    ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
-    extraPaths: []
-    # - path: /*
-    #   backend:
-    #     serviceName: ssl-redirect
-    #     servicePort: use-annotation
-    ## Prometheus server Ingress TLS configuration
-    ## Secrets must be manually created in the namespace
-    ##
-    tls: []
-    #   - secretName: prometheus-server-tls
-    #     hosts:
-    #       - prometheus.domain.com
-  ## Server Deployment Strategy type
-  strategy:
-    type: Recreate
-  ## hostAliases allows adding entries to /etc/hosts inside the containers
-  hostAliases: []
-  #   - ip: "127.0.0.1"
-  #     hostnames:
-  #       - "example.com"
-  ## Node tolerations for server scheduling to nodes with taints
-  ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
-  ##
-  tolerations: []
-  # - key: "key"
-  #   operator: "Equal|Exists"
-  #   value: "value"
-  #   effect: "NoSchedule|PreferNoSchedule|NoExecute(1.6 only)"
-  ## Node labels for Prometheus server pod assignment
-  ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
-  ##
-  nodeSelector: {}
-  ## Pod affinity
-  ##
-  affinity: {}
-  ## Pod anti-affinity can prevent the scheduler from placing Prometheus server replicas on the same node.
-  ## The value "soft" means that the scheduler should *prefer* to not schedule two replica pods onto the same node but no guarantee is provided.
-  ## The value "hard" means that the scheduler is *required* to not schedule two replica pods onto the same node.
-  ## The default value "" will disable pod anti-affinity so that no anti-affinity rules will be configured (unless set in `server.affinity`).
-  ##
-  podAntiAffinity: ""
-  ## If anti-affinity is enabled sets the topologyKey to use for anti-affinity.
-  ## This can be changed to, for example, failure-domain.beta.kubernetes.io/zone
-  ##
-  podAntiAffinityTopologyKey: kubernetes.io/hostname
-  ## Pod topology spread constraints
-  ## ref. https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
-  topologySpreadConstraints: []
-  ## PodDisruptionBudget settings
-  ## ref: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
-  ##
-  podDisruptionBudget:
-    enabled: false
-    maxUnavailable: 1
-    # minAvailable: 1
-    ## unhealthyPodEvictionPolicy is available since 1.27.0 (beta)
-    ## https://kubernetes.io/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy
-    # unhealthyPodEvictionPolicy: IfHealthyBudget
-  ## Use an alternate scheduler, e.g. "stork".
-  ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
-  ##
-  # schedulerName:
-  persistentVolume:
-    ## If true, Prometheus server will create/use a Persistent Volume Claim
-    ## If false, use emptyDir
-    ##
-    enabled: true
-    ## If set it will override the name of the created persistent volume claim
-    ## generated by the stateful set.
-    ##
-    statefulSetNameOverride: ""
-    ## Prometheus server data Persistent Volume access modes
-    ## Must match those of existing PV or dynamic provisioner
-    ## Ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
-    ##
-    accessModes:
-    - ReadWriteOnce
-    - ReadWriteMany
-    ## Prometheus server data Persistent Volume labels
-    ##
-    labels:
-      app.kubernetes.io/name: prometheus
-    ## Prometheus server data Persistent Volume annotations
-    ##
-    annotations: {}
 
-    ## Prometheus server data Persistent Volume existing claim name
-    ## Requires server.persistentVolume.enabled: true
-    ## If defined, PVC must be created manually before volume will be bound
-    existingClaim: ""
-
-    ## Prometheus server data Persistent Volume mount root path
+    ## Reference to one or more secrets to be used when pulling images
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
     ##
-    mountPath: /data
+    pullSecrets: []
 
-    ## Prometheus server data Persistent Volume size
-    ##
-    size: 8Gi
+  container:
+    port: 8080
+    additionalArgs:
+      - --housekeeping_interval=10s # kubernetes default args
+      - --max_housekeeping_interval=15s
+      - --event_storage_event_limit=default=0
+      - --event_storage_age_limit=default=0
+      - --disable_metrics=percpu,process,sched,tcp,udp # enable only diskIO, cpu, memory, network, disk
+      - --docker_only
+    hostPaths:
+      - name: rootfs
+        path: "/"
+        mount: "/rootfs"
+        readOnly: true
+      - name: varrun
+        path: "/var/run"
+        readOnly: true
+      - name: sys
+        path: "/sys"
+        readOnly: true
+      - name: docker
+        path: "/var/lib/docker"
+        readOnly: true
+      - name: disk
+        path: "/dev/disk"
+        readOnly: true
 
-    ## Prometheus server data Persistent Volume Storage Class
-    ## If defined, storageClassName: <storageClass>
-    ## If set to "-", storageClassName: "", which disables dynamic provisioning
-    ## If undefined (the default) or set to null, no storageClassName spec is
-    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-    ##   GKE, AWS & OpenStack)
-    ##
-    # storageClass: "-"
+  service:
+    type: LoadBalancer
+    externalIPs:
+      - 192.168.5.80
 
-    ## Prometheus server data Persistent Volume Binding Mode
-    ## If defined, volumeBindingMode: <volumeBindingMode>
-    ## If undefined (the default) or set to null, no volumeBindingMode spec is
-    ##   set, choosing the default mode.
-    ##
-    # volumeBindingMode: ""
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
 
-    ## Subdirectory of Prometheus server data Persistent Volume to mount
-    ## Useful if the volume's root directory is not empty
-    ##
-    subPath: ""
-
-    ## Persistent Volume Claim Selector
-    ## Useful if Persistent Volumes have been provisioned in advance
-    ## Ref: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#selector
-    ##
-    # selector:
-    #  matchLabels:
-    #    release: "stable"
-    #  matchExpressions:
-    #    - { key: environment, operator: In, values: [ dev ] }
-
-    ## Persistent Volume Name
-    ## Useful if Persistent Volumes have been provisioned in advance and you want to use a specific one
-    ##
-    # volumeName: ""
-
-  emptyDir:
-    ## Prometheus server emptyDir volume size limit
-    ##
-    sizeLimit: ""
-
-  ## Annotations to be added to Prometheus server pods
-  ##
   podAnnotations: {}
-  # iam.amazonaws.com/role: prometheus
-
-  ## Labels to be added to Prometheus server pods
-  ##
   podLabels: {}
+  commonLabels: {}
 
-  ## Prometheus AlertManager configuration
-  ##
-  alertmanagers: []
+  daemonsetAnnotations:
+    seccomp.security.alpha.kubernetes.io/pod: "docker/default"
 
-  ## Specify if a Pod Security Policy for node-exporter must be created
-  ## Ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/
-  ##
+  # priorityClassName: system-cluster-critical
+  priorityClassName: {}
+
+  # sometimes errors are encountered when using the cpu load reader without being on the host network
+  hostNetwork: false
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: cadvisor
+
   podSecurityPolicy:
-    annotations: {}
-    ## Specify pod annotations
-    ## Ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/#apparmor
-    ## Ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/#seccomp
-    ## Ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/#sysctl
-    ##
-    # seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
-    # seccomp.security.alpha.kubernetes.io/defaultProfileName: 'docker/default'
-    # apparmor.security.beta.kubernetes.io/defaultProfileName: 'runtime/default'
+    create: false
+    privileged: false
 
-  ## Use a StatefulSet if replicaCount needs to be greater than 1 (see below)
-  ##
-  replicaCount: 1
+  # Specifies whether a securityContext should be created. Required for privileged operations.
+  podSecurityContext:
+    create: false
+    privileged: false
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  # This will create a ServiceMonitor Custom Resource indicating the prometheus operator what to scrape.
+  metrics:
+    enabled: false
+    interval: 30s
+    scrapeTimeout: 30s
+    # This will allow you to specify relabelings on the metrics before ingestion. E.g. to use the kubernetes monitoring
+    # mixin with this chart set metrics.enabled above to true and use:
+    # relabelings:
+    #  - sourceLabels:
+    #    - name
+    #    targetLabel: container
+    #  - sourceLabels:
+    #    - container_label_io_kubernetes_pod_namespace
+    #    targetLabel: namespace
+    #  - sourceLabels:
+    #    - container_label_io_kubernetes_pod_name
+    #    targetLabel: pod
+    metricRelabelings: []
+    # This will allow you to specify relabelings on the metrics before scraping.
+    # relabelings:
+    #  - action: replace
+    #    sourceLabels:
+    #    - __meta_kubernetes_pod_node_name
+    #    targetLabel: node
+    relabelings: []
+
+###
+# ```{rubric} monitoring Config
+# ```
+# ---
+# Configure the monitoring deployment.
+#
+# ```{literalinclude} /values.yaml
+# :caption: config
+# :language: yaml
+# :start-at: "config:\n"
+# :end-before: "###\n"
+# ```
+config:
+  allowed_hosts: "*"
+  caches_backend: django_redis.cache.RedisCache
+  celery:
+    img:
+      repository: ghcr.io/edwardtheharris/helm-monitoring/celery
+      tag: "0.0.1.rc29"
+    broker: "redis://redis.redis.svc.cluster.local:6379/0"
+    name: celery-config
+    results: "redis://redis.redis.svc.cluster.local:6379/0"
+    root: "/opt/celery"
+  name: monitoring-config
+
+###
+# ```{rubric} Database
+# ```
+# ---
+# Configure a relational database connection, MySQL and PostgreSQL are
+# supported.
+#
+# ```{literalinclude} /values.yaml
+# :caption: database
+# :language: yaml
+# :start-at: "database:\n"
+# :end-before: "###\n"
+# ```
+database:
+  database: monitoring
+  engine: django.db.backends.postgresql
+  host: postgresql.postgresql.svc.cluster.local
+  name: postgres
+  password: ""
+  port: "5432"
+  secretfile: secrets/secrets.yaml
+  timeout: "300"
+  username: ""
+
+###
+# ```{rubric} Full Name Override
+# ```
+# ---
+# Override the full name of the release.
+#
+# ```{literalinclude} /values.yaml
+# :caption: fullname override
+# :language: yaml
+# :start-at: "fullnameOverride: \"monitoring\"\n"
+# :end-before: "###\n"
+# ```
+fullnameOverride: "monitoring"
+
+###
+# ```{rubric} Container image settings
+# ```
+# ---
+# Define the image, tag and repository to be deployed.
+#
+# ```{literalinclude} /values.yaml
+# :caption: image
+# :language: yaml
+# :start-at: "image:\n"
+# :end-before: "###\n"
+# ```
+image:
+  pullPolicy: Always
+  repository: ghcr.io/edwardtheharris/helm-monitoring/monitoring
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.0.1.rc29"
+  secret:
+    name: ghcr
+    data: ""
+
+###
+# ```{rubric} Image Pull Secrets
+# ```
+# ---
+# Secrets required to pull the deployment image.
+#
+# ```{literalinclude} /values.yaml
+# :caption: imagePullSecrets
+# :language: yaml
+# :start-at: "imagePullSecrets:\n"
+# :end-before: "###\n"
+# ```
+imagePullSecrets:
+  - name: ghcr
+
+###
+# ```{rubric} Ingress
+# ```
+# ---
+# Configure Ingress for the service.
+#
+# ```{literalinclude} /values.yaml
+# :caption: ingress
+# :language: yaml
+# :start-at: "ingress:\n"
+# :end-before: "###\n"
+# ```
+#
+# ```{code-block} yaml
+# :caption: tls example
+# tls:
+#  - secretName: chart-example-tls
+#    hosts:
+#      - chart-example.local
+# ```
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  className: "nginx"
+  enabled: true
+  hosts:
+    - host: monitoring.svc.cluster.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+###
+# ```{rubric} Liveness Probe
+# ```
+# ---
+# Set a command to test for liveness.
+#
+# ```{literalinclude} /values.yaml
+# :caption: liveness probe
+# :language: yaml
+# :start-at: "livenessProbe:\n"
+# :end-before: "###\n"
+# ```
+livenessProbe:
+  exec:
+    command:
+      - /opt/monitoring/bin/monitoring-server
+      - status
+  # When to give up and restart the container
+  failureThreshold: 3
+  # Delay before the first probe is initiated
+  initialDelaySeconds: 30
+  # How often to perform the probe
+  periodSeconds: 10
+  # Minimum consecutive successes for the probe to
+  # be considered successful after having failed
+  successThreshold: 1
+  # When the probe times out
+  timeoutSeconds: 5
+
+###
+# ```{rubric} Name Override
+# ```
+# ---
+# Override the release name, but not quite all the way.
+#
+# ```{literalinclude} /values.yaml
+# :caption: name override
+# :language: yaml
+# :start-at: "nameOverride: \"monitoring\"\n"
+# :end-before: "###\n"
+# ```
+nameOverride: "monitoring"
+
+###
+# ```{rubric} Node Selector
+# ```
+# ---
+# Select nodes for workloads to run on.
+#
+# ```{literalinclude} /values.yaml
+# :caption: affinity
+# :language: yaml
+# :start-at: "nodeSelector:\n"
+# :end-before: "###\n"
+# ```
+nodeSelector:
+  kubernetes.io/os: linux
+
+###
+# ```{rubric} Persistence Configuration
+# ```
+# ---
+# Provision persistent storage if required.
+#
+# ```{literalinclude} /values.yaml
+# :caption: persistence
+# :language: yaml
+# :start-at: "persistence:\n"
+# :end-before: "###\n"
+# ```
+persistence:
+  claim:
+    enabled: false
+  name: monitoring
+  size: 50Gi
+  storageClass: csi-driver-lvm-linear
+
+###
+# ```{rubric} Pod Annotations
+# ```
+# ---
+# Apply these annotations to all pods.
+#
+# ```{literalinclude} /values.yaml
+# :caption: pod annotations
+# :language: yaml
+# :start-at: "podAnnotations: {}\n"
+# :end-before: "###\n"
+# ```
+podAnnotations: {}
+
+###
+# ```{rubric} Pod Labels
+# ```
+# ---
+# Apply these labels to all pods.
+#
+# ```{literalinclude} /values.yaml
+# :caption: pod labels
+# :language: yaml
+# :start-at: "podLabels:\n"
+# :end-before: "###\n"
+# ```
+podLabels:
+  app: monitoring
+
+###
+# ```{rubric} Pod Security Context
+# ```
+# ---
+# Define security context for pods.
+#
+# ```{literalinclude} /values.yaml
+# :caption: pod security context
+# :language: yaml
+# :start-at: "podSecurityContext: {}\n"
+# :end-before: "###\n"
+# ```
+#
+# ```{code-block} yaml
+# :caption: pod security context EXAMPLE
+#
+# podSecurityContext:
+#  fsGroup: 1000
+# ```
+podSecurityContext: {}
+
+###
+# ```{rubric} Replica Count
+# ```
+# ---
+# Deploy this many replicas by default.
+#
+# ```{literalinclude} /values.yaml
+# :caption: replicas
+# :language: yaml
+# :start-at: "replicaCount: 1\n"
+# :end-before: "###\n"
+# ```
+# readinessProbe:
+#   exec:
+#     command:
+#     - pg_isready
+#     - -U
+#     - postgres
+#   failureThreshold: 3 # When to give up, marking the Pod as Unready
+#   initialDelaySeconds: 5 # Delay before the first probe is initiated, can be shorter than liveness probe
+#   periodSeconds: 5 # How often to perform the probe
+#   successThreshold: 1 # Minimum consecutive successes for the probe to be considered successful
+#   timeoutSeconds: 1 # When the probe times out
+replicaCount: 1
 
 ###
 # ```{rubric} Resource Requests and Limits
@@ -625,7 +522,7 @@ service:
   type: ClusterIP
   selectorLabels:
     app.kubernetes.io/component: network
-    app.kubernetes.io/name: template-replace-
+    app.kubernetes.io/name: monitoring
 
 ###
 # ```{rubric} Service Account
@@ -642,14 +539,14 @@ service:
 serviceAccount:
   # Annotations to add to the service account
   annotations:
-    sa.kubernetes.io/name: template-replace-
+    sa.kubernetes.io/name: monitoring
   # Automatically mount a ServiceAccount's API credentials?
   automount: true
   # Specifies whether a service account should be created
   create: true
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "template-replace-"
+  name: "monitoring"
 
 ###
 # ```{rubric} Super User Config
@@ -665,12 +562,12 @@ serviceAccount:
 # ```
 superUser:
   create: true
-  email: template-replace-@template-replace-.svc.cluster.local
+  email: monitoring@monitoring.svc.cluster.local
   name: nb-admin
   password: ""
   secret:
     name: secret.superuser
-  secretKey: '57evlrs^0pmu5#ys=9t6==lf6hdz&amp;$1)qq-(%f1noo_b+nsy@f'
+  secretKey: "57evlrs^0pmu5#ys=9t6==lf6hdz&amp;$1)qq-(%f1noo_b+nsy@f"
   token: ""
   username: ""
 

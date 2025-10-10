@@ -31,6 +31,26 @@ apiVersion: v2
 appVersion: "0.0.1"
 
 ###
+# ```{rubric} Dependencies
+# ```
+# ---
+# Charts upon which the main package depends.
+#
+# ```{literalinclude} /Chart.yaml
+# :language: yaml
+# :start-at: "dependencies:\n
+# :end-before: "####\n"
+# ```
+dependencies:
+  - name: cadvisor
+    repository: "@ckotzbauer"
+    version: 2.4.1
+  - name: loki
+    repository: file://./charts/loki
+    version: 0.0.1
+
+####
+###
 # ```{rubric} Description
 # ```
 # ---
@@ -38,10 +58,10 @@ appVersion: "0.0.1"
 #
 # ```{literalinclude} /Chart.yaml
 # :language: yaml
-# :start-at: "description: A Helm chart to deploy resources to bare metal Kubernetes.\n"
+# :start-at: "description: A Helm chart to deploy the Grafana/Prometheus stack.\n"
 # :end-before: "###\n"
 # ```
-description: A Helm chart to deploy resources to bare metal Kubernetes.
+description: A Helm chart to deploy the Grafana/Prometheus stack.
 
 ###
 # ```{rubric} Icon
