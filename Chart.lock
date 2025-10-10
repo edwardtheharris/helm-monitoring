@@ -2,5 +2,8 @@ dependencies:
 - name: cadvisor
   repository: https://ckotzbauer.github.io/helm-charts
   version: 2.4.1
-digest: sha256:915453089d3784b49a4e53d2078ea4a36296b79d400a0059abd20cf9ca9799b0
-generated: "2025-09-03T15:47:45.927354314-07:00"
+- name: loki
+  repository: https://grafana.github.io/helm-charts
+  version: 6.42.0
+digest: sha256:c0df651ae2f8378ccc9947143262a3da14613aafa330a61dd7e94c147a3e9365
+generated: "2025-10-10T11:59:33.775312063-07:00"
