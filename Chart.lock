@@ -1,0 +1,12 @@
+dependencies:
+- name: cadvisor
+  repository: https://ckotzbauer.github.io/helm-charts
+  version: 2.4.1
+- name: prometheus-node-exporter
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 4.48.0
+- name: prometheus
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 27.40.0
+digest: sha256:5f36e294bf1ba8cda7455c220a3e0c46291aa109e9e50ec0717aec65b63b21e1
+generated: "2025-10-13T04:56:40.835172868-07:00"

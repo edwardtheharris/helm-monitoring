@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ template "cadvisor.name" . }}
+  namespace: {{ .Release.Namespace }}
+  {{- with .Values.daemonsetAnnotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+  {{- end }}
+  labels:
+    {{- include "cadvisor.labels" . | nindent 4}}
+spec:
+  selector:
+    matchLabels:
+      {{- include "cadvisor.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "cadvisor.selectorLabels" . | nindent 8 }}
+        {{- range $key, $value := .Values.podLabels }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+      annotations:
+        {{- range $key, $value := .Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+    spec:
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      {{- end }}
+      {{- if .Values.image.pullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.image.pullSecrets }}
+      - name: {{ . }}
+      {{- end }}
+      {{- end }}
+      serviceAccountName: {{ template "cadvisor.serviceAccountName" . }}
+      {{- if .Values.hostNetwork }}
+      hostNetwork: true
+      {{- end }}
+      containers:
+      - name: {{ template "cadvisor.name" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        args:
+        {{- with .Values.container.additionalArgs }}
+{{ toYaml . | indent 10 }}
+        {{- end }}
+        volumeMounts:
+        {{- range .Values.container.hostPaths }}
+        - name: {{ .name }}
+          mountPath: {{ default .path .mount }}
+          readOnly: {{ list nil true | has .readOnly }}
+        {{- end }}
+        {{- if .Values.podSecurityContext.create }}
+        securityContext:
+          privileged: {{ .Values.podSecurityContext.privileged }}
+        {{- end }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.container.port }}
+          protocol: TCP
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+      {{- range .Values.container.hostPaths }}
+      - name: {{ .name }}
+        hostPath:
+          path: {{ .path }}
+      {{- end }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

@@ -31,12 +31,22 @@ appVersion: "0.0.1"
 # :end-before: "####\n"
 # ```
 dependencies:
-  - name: cadvisor
+  - condition: cadvisor.enabled
+    name: cadvisor
     repository: "@ckotzbauer"
     version: 2.4.1
-  - name: loki
-    repository: file://./charts/loki
-    version: 0.0.1
+  # - condition: loki.enabled
+  #   name: loki
+  #   repository: "@grafana"
+  #   version: 6.42.0
+  - condition: prometheus-node-exporter.enabled
+    name: prometheus-node-exporter
+    repository: "@prometheus-community"
+    version: 4.48.0
+  - condition: prometheus.enabled
+    name: prometheus
+    repository: "@prometheus-community"
+    version: 27.40.0
 
 ####
 

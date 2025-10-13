@@ -1,4 +1,0 @@
-fluentbit:
-  enabled: true
-promtail:
-  enabled: false
