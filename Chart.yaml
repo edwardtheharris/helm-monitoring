@@ -35,6 +35,10 @@ dependencies:
     name: cadvisor
     repository: "@ckotzbauer"
     version: 2.4.1
+  - condition: alertmanager.enabled
+    name: alertmanager
+    repository: "@prometheus-community"
+    version: 1.27.0
   # - condition: loki.enabled
   #   name: loki
   #   repository: "@grafana"
