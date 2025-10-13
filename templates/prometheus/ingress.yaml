@@ -17,7 +17,6 @@ metadata:
   namespace: {{ template "kube-prometheus-stack.namespace" . }}
   labels:
     app: {{ template "kube-prometheus-stack.name" . }}-prometheus
-{{ include "kube-prometheus-stack.labels" . | indent 4 }}
 {{- if .Values.prometheus.ingress.labels }}
 {{ toYaml .Values.prometheus.ingress.labels | indent 4 }}
 {{- end }}
@@ -28,50 +27,23 @@ spec:
   {{- end }}
   {{- end }}
   rules:
-  {{- if .Values.prometheus.ingress.hosts }}
-  {{- range $host := .Values.prometheus.ingress.hosts }}
-    - host: {{ tpl $host $ }}
+    - host: prometheus.breeze-blocks.net
       http:
         paths:
-  {{- range $p := $paths }}
-          - path: {{ tpl $p $ }}
-            {{- if and $pathType $ingressSupportsPathType }}
-            pathType: {{ $pathType }}
-            {{- end }}
+          - path: /
+            pathType: Prefix
             backend:
-              {{- if $apiIsStable }}
               service:
-                name: {{ $serviceName }}
+                name: prometheus
                 port:
-                  number: {{ $servicePort }}
-              {{- else }}
-              serviceName: {{ $serviceName }}
-              servicePort: {{ $servicePort }}
+                  number: 9090
     {{- end }}
-    {{- end -}}
-  {{- end -}}
-  {{- else }}
-    - http:
-        paths:
-  {{- range $p := $paths }}
-          - path: {{ tpl $p $ }}
-            {{- if and $pathType $ingressSupportsPathType }}
-            pathType: {{ $pathType }}
-            {{- end }}
-            backend:
-              {{- if $apiIsStable }}
-              service:
-                name: {{ $serviceName }}
-                port:
-                  number: {{ $servicePort }}
-              {{- else }}
-              serviceName: {{ $serviceName }}
-              servicePort: {{ $servicePort }}
-  {{- end }}
-  {{- end -}}
-  {{- end -}}
   {{- if .Values.prometheus.ingress.tls }}
   tls:
-{{ tpl (toYaml .Values.prometheus.ingress.tls | indent 4) . }}
-  {{- end -}}
-{{- end -}}
+    - secretName: prometheus-tls
+      hosts:
+        - prometheus.breeze-blocks.net
+        - prometheus
+        - prometheus.monitoring
+        - prometheus.monitoring.comms.local
+  {{ end }}
