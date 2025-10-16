@@ -45,9 +45,17 @@ dependencies:
   - name: cadvisor
     repository: "@ckotzbauer"
     version: 2.4.1
-  - name: loki
-    repository: "@grafana"
+  - name: grafana
+    repository: "file://./charts/grafana"
     version: 6.42.0
+  - condition: loki.enabled
+    name: loki
+    repository: file://./charts/loki
+    version: 0.0.1
+  - condition: prometheus-node-exporter.enabled
+    name: prometheus-node-exporter
+    repository: file://./charts/prometheus-node-exporter/
+    version: v4.48.0
 
 ####
 ###
