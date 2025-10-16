@@ -49,8 +49,8 @@ dependencies:
     version: 4.48.0
   - condition: prometheus.enabled
     name: prometheus
-    repository: "@prometheus-community"
-    version: 27.40.0
+    repository: "file://./prometheus"
+    version: 27.41.0
 
 ####
 

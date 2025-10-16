@@ -1,3 +1,6 @@
+alertmanager:
+  enabled: false
+
 ###
 # ```{rubric} CAdvisor Values
 # ```
@@ -180,6 +183,9 @@ global:
 # ```{rubric} Loki values
 # ```
 loki:
+  enabled: true
+
+prometheus-node-exporter:
   enabled: true
 
 ###
