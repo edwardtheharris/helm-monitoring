@@ -48,6 +48,10 @@ dependencies:
   - name: loki
     repository: file://./charts/loki
     version: 0.0.1
+  - condition: prometheus-node-exporter.enabled
+    name: prometheus-node-exporter
+    repository: file://./charts/prometheus-node-exporter/
+    version: v4.48.0
 
 ####
 ###
