@@ -11,18 +11,18 @@
 # ```{literalinclude} /values.yaml
 # :caption: affinity
 # :language: yaml
-# :start-at: "affinity:\n"
+# :start-at: "# affinity:\n"
 # :end-before: "###\n"
 # ```
-affinity:
-  nodeAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-    nodeSelectorTerms:
-      - matchExpressions:
-          - key: kubernetes.io/os
-            operator: In
-            values:
-              - linux
+# affinity:
+#   nodeAffinity:
+#   requiredDuringSchedulingIgnoredDuringExecution:
+#     nodeSelectorTerms:
+#       - matchExpressions:
+#           - key: kubernetes.io/os
+#             operator: In
+#             values:
+#               - linux
 
 ###
 # ```{rubric} Autoscaling
@@ -365,10 +365,10 @@ nodeSelector:
 # ```
 persistence:
   claim:
-    enabled: false
+    enabled: true
   name: monitoring
   size: 50Gi
-  storageClass: csi-driver-lvm-linear
+  storageClass: csi-driver-lvm
 
 ###
 # ```{rubric} Pod Annotations
@@ -383,6 +383,8 @@ persistence:
 # :end-before: "###\n"
 # ```
 podAnnotations: {}
+promtheus-node-exporter:
+  enabled: true
 
 ###
 # ```{rubric} Pod Labels

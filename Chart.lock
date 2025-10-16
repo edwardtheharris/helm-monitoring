@@ -2,5 +2,11 @@ dependencies:
 - name: cadvisor
   repository: https://ckotzbauer.github.io/helm-charts
   version: 2.4.1
-digest: sha256:915453089d3784b49a4e53d2078ea4a36296b79d400a0059abd20cf9ca9799b0
-generated: "2025-09-03T15:47:45.927354314-07:00"
+- name: loki
+  repository: file://./charts/loki
+  version: 0.0.1
+- name: prometheus-node-exporter
+  repository: file://./charts/prometheus-node-exporter/
+  version: 4.48.0
+digest: sha256:ad40f4939437019d4d3fdbdfdd0660698fb0181526716c0a63253d28413cebbe
+generated: "2025-10-16T15:22:33.892927572-07:00"
