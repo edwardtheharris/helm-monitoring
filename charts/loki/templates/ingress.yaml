@@ -1,43 +1,40 @@
-{{- if .Values.ingress.enabled -}}
-apiVersion: networking.k8s.io/v1
+{{- if .Values.ingress.enabled }}
+{{- $ingressSupportsIngressClassName := eq (include "loki.ingress.supportsIngressClassName" .) "true" -}}
+apiVersion: {{ include "loki.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ include "loki.fullname" . }}
+  namespace: {{ include "loki.namespace" . }}
   labels:
     {{- include "loki.labels" . | nindent 4 }}
+    {{- with .Values.ingress.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- with .Values.ingress.className }}
-  ingressClassName: {{ . }}
-  {{- end }}
+  {{- if and $ingressSupportsIngressClassName .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- end -}}
   {{- if .Values.ingress.tls }}
   tls:
     {{- range .Values.ingress.tls }}
     - hosts:
         {{- range .hosts }}
-        - {{ . | quote }}
+        - {{ tpl . $ | quote }}
         {{- end }}
-      secretName: {{ .secretName }}
+      {{- with .secretName }}
+      secretName: {{ . }}
+      {{- end }}
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    {{- range $.Values.ingress.hosts }}
+    - host: {{ tpl . $ | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
-            {{- with .pathType }}
-            pathType: {{ . }}
-            {{- end }}
-            backend:
-              service:
-                name: {{ include "loki.fullname" $ }}
-                port:
-                  number: {{ $.Values.service.port }}
-          {{- end }}
+          {{- include "loki.ingress.servicePaths" $ | indent 10}}
     {{- end }}
 {{- end }}
