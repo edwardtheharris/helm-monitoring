@@ -335,11 +335,28 @@ loki:
     enabled: false
   gateway:
     enabled: true
+    replicas: 1
+    containerPort: 8080
+    verboseLogging: true
+    autoscaling:
+      enabled: false
     ingress:
       enabled: true
-
+      ingressClassName: nginx
+      hosts:
+        - host: gw.loki.breeze-blocks.net
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: loki-gateway-tls
+          hosts:
+            - gw.loki.breeze-blocks.net
+    nodeSelector:
+      kubernetes.io/os: linux
     service:
       type: LoadBalancer
+      port: 80
 
 ###
 # ```{rubric} Name Override
