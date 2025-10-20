@@ -42,12 +42,16 @@ appVersion: "0.0.1"
 # :end-before: "####\n"
 # ```
 dependencies:
-  - name: cadvisor
-    repository: "@ckotzbauer"
-    version: 2.4.1
-  - name: loki
+  # - name: cadvisor
+  #   repository: "@ckotzbauer"
+  #   version: 2.4.1
+  # - name: grafana
+  #   repository: "file://./charts/grafana"
+  #   version: 6.42.0
+  - condition: loki.enabled
+    name: loki
     repository: file://./charts/loki
-    version: 0.0.1
+    version: 6.43.0
   - condition: prometheus-node-exporter.enabled
     name: prometheus-node-exporter
     repository: file://./charts/prometheus-node-exporter/
@@ -88,10 +92,10 @@ icon: file://./_static/img/logo/helm.png
 #
 # ```{literalinclude} /Chart.yaml
 # :language: yaml
-# :start-at: "name: template\n"
+# :start-at: "name: monitoring\n"
 # :end-before: "###\n"
 # ```
-name: template
+name: monitoring
 
 ###
 # ```{rubric} Type
