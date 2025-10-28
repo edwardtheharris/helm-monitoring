@@ -164,8 +164,21 @@ service:
 networkPolicy:
   enabled: false
 
-  # ingress:
-  # - {}
+ingress:
+  labels:
+    external-dns/private: "true"
+  annotations:
+    cert-manager.io/cluster-issuer: comms-svc-int
+    # external-dns.alpha.kubernetes.io/hostname: ceph-dash.breeze-blocks.net
+  host:
+    name: exporter.cms.breeze-blocks.net
+    path: /
+    pathType: Prefix
+  tls:
+    - secretName: prometheus-node-exporter-tls
+      hosts:
+        - exporter.cms.breeze-blocks.net
+  ingressClassName: nginx
 
 # Additional environment variables that will be passed to the daemonset
 env: {}
