@@ -26,7 +26,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: prometheus-node-exporter
-  namespace: cert-manager
+  namespace: monitoring
 spec:
   isCA: true
   commonName: exporter.breeze-blocks.net

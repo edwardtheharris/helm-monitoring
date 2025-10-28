@@ -64,7 +64,7 @@ kubeRBACProxy:
   # Specify the name of the container port
   portName: http
   # Configure a hostPort. If true, hostPort will be enabled in the container and set to service.port.
-  enableHostPort: false
+  enableHostPort: true
 
   # Configure Proxy Endpoints Port
   # This is the port being probed for readiness
@@ -95,7 +95,7 @@ kubeRBACProxy:
   ## When enabling tlsClientAuth, client CA certificate must be set in tlsSecret.caItem.
   ## Ref. https://github.com/brancz/kube-rbac-proxy/issues/187
   tls:
-    enabled: false
+    enabled: true
     tlsClientAuth: false
 
 ## tlsSecret refers to an existing secret holding TLS items: client CA certificate, private key and certificate.
