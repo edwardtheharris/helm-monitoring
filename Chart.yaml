@@ -42,15 +42,17 @@ appVersion: "0.0.1"
 # :end-before: "####\n"
 # ```
 dependencies:
-  - name: cadvisor
+  - condition: cadvisor.enabled
+    name: cadvisor
     repository: "@ckotzbauer"
     version: 2.4.1
-  - name: loki
-    repository: file://./charts/loki
-    version: 0.0.1
+  # - condition: loki.enabled
+  #   name: loki
+  #   repository: file://./loki
+  #   version: 6.43.0
   - condition: prometheus-node-exporter.enabled
     name: prometheus-node-exporter
-    repository: file://./charts/prometheus-node-exporter/
+    repository: file://./prometheus-node-exporter/
     version: v4.48.0
 
 ####
@@ -91,7 +93,7 @@ icon: file://./_static/img/logo/helm.png
 # :start-at: "name: template\n"
 # :end-before: "###\n"
 # ```
-name: template
+name: monitoring
 
 ###
 # ```{rubric} Type
