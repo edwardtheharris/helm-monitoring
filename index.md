@@ -21,13 +21,16 @@ stack to bare metal {term}`Kubernetes` clusters.
 ```{toctree}
 :caption: contents
 
-tests/index.md
+grafana/index
+prometheus-node-exporter/index
+tests/index
 ```
 
 ```{toctree}
 :caption: meta
 
 .github/index
+changelog
 license
 readme
 security
