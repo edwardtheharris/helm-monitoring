@@ -21,7 +21,9 @@ stack to bare metal {term}`Kubernetes` clusters.
 ```{toctree}
 :caption: contents
 
-loki/index
+grafana/index
+prometheus/index
+prometheus-node-exporter/index
 tests/index
 ```
 
@@ -29,6 +31,8 @@ tests/index
 :caption: meta
 
 .github/index
+contributing
+changelog
 license
 readme
 security
@@ -49,10 +53,6 @@ Helm
    A tool commonly used to deploy applications to {term}`Kubernetes`. More
    information is available [here](https://helm.sh).
 
-Loki
-   A log aggregation tool which is part of the grafana stack. More information
-   is available [here](https://grafana.com/docs/loki/latest/)
-
 Kubernetes
    An ancient Greek word that means 'sailor' or 'navigator', it is the
    most common container orchestration system currently in use. More
@@ -68,10 +68,11 @@ Typical Helm chart rules.
 ```{autoyaml} Chart.yaml
 ```
 
+```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
+```
+<!--
 ### Values
 
 ```{autoyaml} values.yaml
 ```
-
-```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
-```
+-->

@@ -1,4 +1,5 @@
 # Patterns to ignore when building packages.
+.venv/
 # This supports shell glob matching, relative path matching, and
 # negation (prefixed with !). Only one pattern per line.
 .DS_Store
@@ -14,14 +15,16 @@
 *.swp
 *.bak
 *.tmp
-*.orig
 *~
 # Various IDEs
 .project
-.venv/
 .idea/
 *.tmproj
-.vscode/
-_build/
-.venv/
-.gnupg/
+# helm/charts
+OWNERS
+hack/
+ci/
+kube-prometheus-*.tgz
+
+unittests/
+files/dashboards/

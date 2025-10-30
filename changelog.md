@@ -1,0 +1,377 @@
+---
+abstract: All notable changes to this project will be documented in this file.
+authors:
+- name: Xander Harris
+email: xandertheharris@gmail.com
+date: 2025-10-29
+title: Breeze Blocks Helm Repository Changelog
+---
+
+
+<!--markdownlint-disable-->
+## [0.0.2] - 2025-10-30
+
+### 💼 Other - 0.0.2
+
+
+- Merge pull request #52 from edwardtheharris/release-0.0.1
+- Release 0.0.1
+- Closes #3
+- Pull community repo chart
+- Closes #2
+- Fix missing repo
+- Closes #2
+- Adjust loki values
+- Closes #2
+- Update cadvisor values
+- Closes #2
+- Add node exporter
+- Closes #2
+- Update alert manager config
+- Closes #2
+- Update templates, values
+- Closes #2
+- Drop extra charts
+- Closes #2
+- Add some code
+- Closes #2
+- Drop extra charts
+- Closes #2
+- Adjust values, schema
+- Closes #2
+- Enable ingress
+- Closes #2
+- Adjust notes
+- Closes #2
+- Add index
+- Closes #2
+- Update values, drop templates
+- Closes #2
+- Move readme
+- Closes #2
+- Fix lint errors
+- Closes #2
+- Drop extra readme
+- Closes #2
+- Fix contributing
+- Closes #2
+- Fix lint errors
+- Closes #2
+- Fix charts
+- Closes #2
+- Update charts
+- Closes #2
+- This isn't actually testing anything yet anyway
+- Closes #2
+- Merge pull request #21 from edwardtheharris/2-add-prometheus-stack
+- 2 add prometheus stack
+- Closes #2
+- Update changelog
+- Closes #2
+- Update changelog
+- Closes #2
+## [0.0.1] - 2025-10-30
+
+### 💼 Other - 0.0.1
+
+
+- Initial commit
+- Bump pipenv from 2024.0.1 to 2024.4.0
+- Bumps [pipenv](https://github.com/pypa/pipenv) from 2024.0.1 to 2024.4.0.
+- - [Release notes](https://github.com/pypa/pipenv/releases)
+- - [Changelog](https://github.com/pypa/pipenv/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/pypa/pipenv/compare/v2024.0.1...v2024.4.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: pipenv
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Update envrc
+- Closes #12
+- Add logo, update chart
+- Closes #12
+- Update with subchart
+- Closes #12
+- Fix runner version
+- Closes #12
+- Update docs workflow
+- Closes #12
+- Fix broken test
+- Closes #12
+- Fix autobuild
+- Closes #12
+- Fix dep error
+- Closes #12
+- Install helm
+- Closes #12
+- Drop broken install
+- Closes #12
+- Fix dep issue
+- Closes #12
+- Merge pull request #13 from edwardtheharris/12-deploy-documentation
+- Enable documentation workflow
+- Closes #12
+- Add cadvisor install
+- Closes #14
+- Update readme
+- Closes #14
+- Fix lint
+- Closes #14
+- Fix lint
+- Closes #14
+- Fix tests
+- Closes #14
+- Add repo
+- Closes #14
+- Merge pull request #15 from edwardtheharris/14-install-cadvisor
+- 14 install cadvisor
+- Closes #14
+- Merge branch 'main' into 14-install-cadvisor
+- Merge pull request #16 from edwardtheharris/14-install-cadvisor
+- Add repo
+- Closes #14
+- Merge branch '19-bump-pipenv-from-202401-to-202440' into dependabot/pip/pipenv-2024.4.0
+- Merge pull request #10 from edwardtheharris/dependabot/pip/pipenv-2024.4.0
+- Bump pipenv from 2024.0.1 to 2024.4.0
+- Closes #19
+- Bump loguru from 0.7.2 to 0.7.3
+- Bumps [loguru](https://github.com/Delgan/loguru) from 0.7.2 to 0.7.3.
+- - [Release notes](https://github.com/Delgan/loguru/releases)
+- - [Changelog](https://github.com/Delgan/loguru/blob/master/CHANGELOG.rst)
+- - [Commits](https://github.com/Delgan/loguru/compare/0.7.2...0.7.3)
+- ---
+- Updated-dependencies:
+- - dependency-name: loguru
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch '17-bump-loguru-from-072-to-073' into dependabot/pip/loguru-0.7.3
+- Merge pull request #11 from edwardtheharris/dependabot/pip/loguru-0.7.3
+- Bump loguru from 0.7.2 to 0.7.3
+- Closes #17
+- Merge pull request #18 from edwardtheharris/17-bump-loguru-from-072-to-073
+- 17 bump loguru from 072 to 073
+- Closes #17
+- Merge branch 'main' into 19-bump-pipenv-from-202401-to-202440
+- Merge pull request #20 from edwardtheharris/19-bump-pipenv-from-202401-to-202440
+- 19 bump pipenv from 202401 to 202440
+- Closes #19
+- Bump pipenv from 2024.4.0 to 2025.0.4
+- Bumps [pipenv](https://github.com/pypa/pipenv) from 2024.4.0 to 2025.0.4.
+- - [Release notes](https://github.com/pypa/pipenv/releases)
+- - [Changelog](https://github.com/pypa/pipenv/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/pypa/pipenv/compare/v2024.4.0...v2025.0.4)
+- ---
+- Updated-dependencies:
+- - dependency-name: pipenv
+-   dependency-version: 2025.0.4
+-   dependency-type: direct:production
+-   update-type: version-update:semver-major
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #26 from edwardtheharris/dependabot/pip/pipenv-2025.0.4
+- Bump pipenv from 2024.4.0 to 2025.0.4
+- Closes #27
+- Merge pull request #28 from edwardtheharris/27-bump-pipenv-from-202440-to-202504-26
+- 27 bump pipenv from 202440 to 202504 26
+- Closes #27
+- Bump version-query from 1.5.5 to 1.6.3
+- Bumps [version-query](https://github.com/mbdevpl/version-query) from 1.5.5 to 1.6.3.
+- - [Release notes](https://github.com/mbdevpl/version-query/releases)
+- - [Commits](https://github.com/mbdevpl/version-query/compare/v1.5.5...v1.6.3)
+- ---
+- Updated-dependencies:
+- - dependency-name: version-query
+-   dependency-version: 1.6.3
+-   dependency-type: direct:development
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #24 from edwardtheharris/dependabot/pip/version-query-1.6.3
+- Bump version-query from 1.5.5 to 1.6.3
+- Closes #31
+- Bump sphinx-autobuild from 2024.4.16 to 2024.10.3
+- Bumps [sphinx-autobuild](https://github.com/sphinx-doc/sphinx-autobuild) from 2024.4.16 to 2024.10.3.
+- - [Release notes](https://github.com/sphinx-doc/sphinx-autobuild/releases)
+- - [Changelog](https://github.com/sphinx-doc/sphinx-autobuild/blob/main/NEWS.rst)
+- - [Commits](https://github.com/sphinx-doc/sphinx-autobuild/compare/2024.04.16...2024.10.03)
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinx-autobuild
+-   dependency-version: 2024.10.3
+-   dependency-type: direct:development
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch '29-bump-sphinx-autobuild-from-2024416-to-2024103-25' into dependabot/pip/sphinx-autobuild-2024.10.3
+- Merge pull request #25 from edwardtheharris/dependabot/pip/sphinx-autobuild-2024.10.3
+- Bump sphinx-autobuild from 2024.4.16 to 2024.10.3
+- Closes #29
+- Merge pull request #30 from edwardtheharris/29-bump-sphinx-autobuild-from-2024416-to-2024103-25
+- 29 bump sphinx autobuild from 2024416 to 2024103 25
+- Closes #29
+- Merge branch 'main' into 31-bump-version-query-from-155-to-163-24
+- Merge pull request #32 from edwardtheharris/31-bump-version-query-from-155-to-163-24
+- 31 bump version query from 155 to 163 24
+- Closes #31
+- Bump gitpython from 3.1.43 to 3.1.45
+- Bumps [gitpython](https://github.com/gitpython-developers/GitPython) from 3.1.43 to 3.1.45.
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.43...3.1.45)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.45
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Bump starlette from 0.47.3 to 0.48.0 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [starlette](https://github.com/Kludex/starlette).
+- Updates `starlette` from 0.47.3 to 0.48.0
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/0.47.3...0.48.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: starlette
+-   dependency-version: 0.48.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch '36-bump-starlette-from-0473-to-0480-in-the-pip-group-across-1-directory-34' into dependabot/pip/pip-9d81a683e4
+- Merge pull request #34 from edwardtheharris/dependabot/pip/pip-9d81a683e4
+- Bump starlette from 0.47.3 to 0.48.0 in the pip group across 1 directory
+- Closes #34
+- Bump sphinx-book-theme from 1.1.3 to 1.1.4
+- Bumps [sphinx-book-theme](https://github.com/executablebooks/sphinx-book-theme) from 1.1.3 to 1.1.4.
+- - [Release notes](https://github.com/executablebooks/sphinx-book-theme/releases)
+- - [Changelog](https://github.com/executablebooks/sphinx-book-theme/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/executablebooks/sphinx-book-theme/compare/v1.1.3...v1.1.4)
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinx-book-theme
+-   dependency-version: 1.1.4
+-   dependency-type: direct:development
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #23 from edwardtheharris/dependabot/pip/sphinx-book-theme-1.1.4
+- Bump sphinx-book-theme from 1.1.3 to 1.1.4
+- Closes #33
+- Merge branch 'main' into 33-bump-sphinx-book-theme-from-113-to-114-23
+- Bump sphinx-book-theme from 1.1.3 to 1.1.4
+- Bumps [sphinx-book-theme](https://github.com/executablebooks/sphinx-book-theme) from 1.1.3 to 1.1.4.
+- - [Release notes](https://github.com/executablebooks/sphinx-book-theme/releases)
+- - [Changelog](https://github.com/executablebooks/sphinx-book-theme/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/executablebooks/sphinx-book-theme/compare/v1.1.3...v1.1.4)
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinx-book-theme
+-   dependency-version: 1.1.4
+-   dependency-type: direct:development
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into
+- Dependabot/pip/sphinx-book-theme-1.1.4
+- Closes #23
+- Merge branch 'dependabot/pip/sphinx-book-theme-1.1.4'
+- Into 33-bump-sphinx-book-theme-from-113-to-114-23
+- Closes #33
+- Merge pull request #35 from edwardtheharris/33-bump-sphinx-book-theme-from-113-to-114-23
+- 33 bump sphinx book theme from 113 to 114 23
+- Closes #33
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into
+- 36-bump-starlette-from-0473-to-0480-in-the-pip-group-across-1-directory-34
+- Closes #36
+- Merge pull request #37 from edwardtheharris/36-bump-starlette-from-0473-to-0480-in-the-pip-group-across-1-directory-34
+- 36 bump starlette from 0473 to 0480 in the pip group across 1 directory 34
+- Closes #36
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into dependabot/pip/gitpython-3.1.45
+- Closes #22
+- Merge pull request #22 from edwardtheharris/dependabot/pip/gitpython-3.1.45
+- Bump gitpython from 3.1.43 to 3.1.45
+- Closes #38
+- Merge pull request #39 from edwardtheharris/38-bump-gitpython-from-3143-to-3145-22
+- 38 bump gitpython from 3143 to 3145 22
+- Closes #38
+- Bump version-query from 1.6.3 to 1.7.0
+- Bumps [version-query](https://github.com/mbdevpl/version-query) from 1.6.3 to 1.7.0.
+- - [Release notes](https://github.com/mbdevpl/version-query/releases)
+- - [Commits](https://github.com/mbdevpl/version-query/compare/v1.6.3...v1.7.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: version-query
+-   dependency-version: 1.7.0
+-   dependency-type: direct:development
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #40 from edwardtheharris/dependabot/pip/version-query-1.7.0
+- Bump version-query from 1.6.3 to 1.7.0
+- Closes #41
+- Merge pull request #43 from edwardtheharris/41-bump-version-query-from-163-to-170-40
+- Merge pull request #40 from edwardtheharris/dependabot/pip/version-qu…
+- Closes #41
+- Merge pull request #42 from edwardtheharris/1-bump-version-query-from-1-6-3-to-1-7-0-40
+- Bump version-query from 1.6.3 to 1.7.0
+- Closes #40
+- Add code for node exporter
+- Closes #44
+- Add node exporter that works
+- Closes #44
+- Merge pull request #45 from edwardtheharris/44-install-prometheus-node-exporter
+- 44 install prometheus node exporter
+- Closes #44
+- Update node exporter location
+- Closes #47
+- Update deps
+- Closes #47
+- Update charts
+- Closes #47
+- Update docs with index and readme
+- Closes #47
+- Update values and certs
+- Closes #47
+- Add values
+- Closes #47
+- Add grafana chart
+- Closes #3
+- Add grafana chart
+- Closes #3
+- Add changelog
+- Closes #3
+- Fix readme lint
+- Closes #3
+- Update markdown lint issues
+- Closes #3
+- Install grafana, but can't log in
+- Closes #3
+- Update values
+- Closes #3
+- Drop lint for readme
+- Closes #3
+- Update changelog
+- Closes #3
+- Pass for merge
+- Closes #3
+- Fix blank lines
+- Fuck you linter
+- Closes #3
+- Merge pull request #50 from edwardtheharris/3-install-grafana
+- 3 install grafana
+- Closes #3
+- Update changelog
+- Fix changelog
+- 0.0.1
+<!-- generated by git-cliff -->
