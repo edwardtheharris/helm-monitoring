@@ -9,10 +9,9 @@ title: Breeze Blocks Helm Repository Changelog
 
 
 <!--markdownlint-disable-->
-## [unreleased]
+## [0.0.2] - 2025-10-30
 
-
-### 💼 Other - [unreleased]
+### 💼 Other - 0.0.2
 
 
 - Merge pull request #52 from edwardtheharris/release-0.0.1
@@ -66,6 +65,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Closes #2
 - Merge pull request #21 from edwardtheharris/2-add-prometheus-stack
 - 2 add prometheus stack
+- Closes #2
+- Update changelog
 - Closes #2
 ## [0.0.1] - 2025-10-30
 
