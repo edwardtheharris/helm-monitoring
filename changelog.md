@@ -68,6 +68,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Closes #2
 - Update changelog
 - Closes #2
+- Update changelog
+- Closes #2
 ## [0.0.1] - 2025-10-30
 
 ### 💼 Other - 0.0.1
