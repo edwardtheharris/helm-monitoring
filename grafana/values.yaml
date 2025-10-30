@@ -109,9 +109,9 @@ livenessProbe:
   httpGet:
     path: /api/health
     port: 3000
-  initialDelaySeconds: 60
-  timeoutSeconds: 30
-  failureThreshold: 10
+  initialDelaySeconds: 600
+  timeoutSeconds: 300
+  failureThreshold: 100
 
 ## Use an alternate scheduler, e.g. "stork".
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
