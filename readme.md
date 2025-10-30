@@ -910,6 +910,8 @@ helm show values prometheus-community/kube-prometheus-stack
 
 You may also `helm show values` on this chart's [dependencies](#dependencies) for additional options.
 
+(multiple-releases)=
+
 ### Multiple releases
 
 The same chart can be used to run multiple Prometheus instances in the same cluster if required. To achieve this, it is necessary to run only one instance of prometheus-operator and a pair of alertmanager pods for an HA configuration, while all other components need to be disabled. To disable a dependency during installation, set `kubeStateMetrics.enabled`, `nodeExporter.enabled` and `grafana.enabled` to `false`.
@@ -946,10 +948,6 @@ You can enable automatic self-signed TLS certificate provisioning via cert-manag
 ### Limitations
 
 Because the operator can only run as a single pod, there is potential for this component failure to cause rule deployment failure. Because this risk is outweighed by the benefit of having validation, the feature is enabled by default.
-
-## Developing Prometheus Rules and Grafana Dashboards
-
-This chart Grafana Dashboards and Prometheus Rules are just a copy from [prometheus-operator/prometheus-operator](https://github.com/prometheus-operator/prometheus-operator) and other sources, synced (with alterations) by scripts in [hack](hack) folder. In order to introduce any changes you need to first [add them to the original repository](https://github.com/prometheus-operator/kube-prometheus/blob/main/docs/customizations/developing-prometheus-rules-and-grafana-dashboards.md) and then sync there by scripts.
 
 ## Further Information
 
