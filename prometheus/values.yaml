@@ -221,7 +221,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: "prometheus.breeze-blocks.net"
+  baseURL: ""
 
   ## Additional server container environment variables
   ##
@@ -563,7 +563,7 @@ server:
 
     ## Prometheus server data Persistent Volume size
     ##
-    size: 8Gi
+    size: 100Gi
 
     ## Prometheus server data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
