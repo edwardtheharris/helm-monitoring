@@ -21,13 +21,18 @@ stack to bare metal {term}`Kubernetes` clusters.
 ```{toctree}
 :caption: contents
 
-tests/index.md
+grafana/index
+prometheus/index
+prometheus-node-exporter/index
+tests/index
 ```
 
 ```{toctree}
 :caption: meta
 
 .github/index
+contributing
+changelog
 license
 readme
 security
@@ -63,10 +68,11 @@ Typical Helm chart rules.
 ```{autoyaml} Chart.yaml
 ```
 
+```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
+```
+<!--
 ### Values
 
 ```{autoyaml} values.yaml
 ```
-
-```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
-```
+-->
