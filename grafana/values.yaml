@@ -109,9 +109,9 @@ livenessProbe:
   httpGet:
     path: /api/health
     port: 3000
-  initialDelaySeconds: 60
-  timeoutSeconds: 30
-  failureThreshold: 10
+  initialDelaySeconds: 600
+  timeoutSeconds: 300
+  failureThreshold: 100
 
 ## Use an alternate scheduler, e.g. "stork".
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
@@ -439,12 +439,12 @@ extraContainerVolumes: []
 persistence:
   type: pvc
   enabled: true
-  storageClassName: csi-lvm-linear
+  storageClassName: csi-lvm-striped
   ## (Optional) Use this to bind the claim to an existing PersistentVolume (PV) by name.
   volumeName: ""
   accessModes:
     - ReadWriteOnce
-  size: 10Gi
+  size: 100Gi
   # annotations: {}
   finalizers:
     - kubernetes.io/pvc-protection
@@ -1527,7 +1527,7 @@ imageRenderer:
   revisionHistoryLimit: 10
   networkPolicy:
     # Enable a NetworkPolicy to limit inbound traffic to only the created grafana pods
-    limitIngress: true
+    limitIngress: false
     # Enable a NetworkPolicy to limit outbound traffic to only the created grafana pods
     limitEgress: false
     # Allow additional services to access image-renderer (eg. Prometheus operator when ServiceMonitor is enabled)
