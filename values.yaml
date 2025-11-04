@@ -1,3 +1,6 @@
+alertmanager:
+  enabled: false
+
 ###
 # ```{rubric} CAdvisor Values
 # ```
