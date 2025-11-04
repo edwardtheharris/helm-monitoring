@@ -41,8 +41,13 @@ follows.
    kubectl edit --namespace monitoring creeate secret grafana-admin
    ```
 
-3. Deploy the chart to the monitoring space.
+4. Deploy the chart to the monitoring space.
 
    ```{code-block} shell
    kubectl upgrade --install --namespace monitoring grafana . -f values.yaml
    ```
+
+```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
+```
+
+<!-- <SUDO> -->
