@@ -181,14 +181,6 @@ global:
   imageRegistry: ""
 
 ###
-# ```{rubric} Grafana values
-# ```
-# ---
-# Values to be applied to Grafana deployment.
-grafana:
-  enabled: true
-
-###
 # ```{rubric} Loki values
 # ```
 # ---
@@ -257,6 +249,8 @@ prometheus:
           - prometheus.breeze-blocks.net
   ingressPerReplica:
     enabled: true
+  networkPolicy:
+    enabled: false
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ##
   # - name: "image-pull-secret"

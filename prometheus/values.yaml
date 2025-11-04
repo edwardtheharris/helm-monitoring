@@ -1309,10 +1309,11 @@ alertRelabelConfigs: {}
   #   regex: (.+)\d+
   #   target_label: dc
 
-networkPolicy:
-  ## Enable creation of NetworkPolicy resources.
-  ##
-  enabled: false
+prometheus:
+  networkPolicy:
+    ## Enable creation of NetworkPolicy resources.
+    ##
+    enabled: false
 
 # Force namespace of namespaced resources
 forceNamespace: ""
