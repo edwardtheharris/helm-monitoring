@@ -1,9 +1,12 @@
 dependencies:
+- name: ""
+  repository: file://./grafana
+  version: 10.1.2
 - name: prometheus-node-exporter
   repository: file://./prometheus-node-exporter
   version: 4.48.0
 - name: prometheus
   repository: file://./prometheus
   version: 27.41.0
-digest: sha256:efec46a8e0bc028eccdd1a97b37c0b35662ac69ddf3422f07763cffbf2f6c0eb
-generated: "2025-10-30T08:22:05.107544006-07:00"
+digest: sha256:ac1372386837f13da01c31e866e0b73a73f407f998b84bc86a6be5826f37c530
+generated: "2025-11-04T09:46:11.622583483-08:00"
