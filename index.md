@@ -22,6 +22,7 @@ stack to bare metal {term}`Kubernetes` clusters.
 :caption: contents
 
 grafana/index
+prometheus/index
 prometheus-node-exporter/index
 tests/index
 ```
@@ -30,6 +31,7 @@ tests/index
 :caption: meta
 
 .github/index
+contributing
 changelog
 license
 readme
@@ -66,10 +68,11 @@ Typical Helm chart rules.
 ```{autoyaml} Chart.yaml
 ```
 
+```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
+```
+<!--
 ### Values
 
 ```{autoyaml} values.yaml
 ```
-
-```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
-```
+-->
