@@ -3,6 +3,8 @@
 # This is a YAML-formatted file.
 # eclare variables to be passed into your templates.
 
+alertmanager:
+  enabled: false
 rbac:
   create: true
 
