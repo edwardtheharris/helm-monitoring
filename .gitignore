@@ -5,6 +5,8 @@ __snapshot__/
 .gnupg/
 *.xml
 .values.yaml
+*.tgz
+charts/
 .vscode/
 _build
 .venv/
