@@ -1,0 +1,253 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Load average for all hosts on the network.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ff37t43hn6yo0a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 80,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "blue",
+                "value": 25
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 50
+              },
+              {
+                "color": "super-light-blue",
+                "value": 75
+              },
+              {
+                "color": "red",
+                "value": 80
+              },
+              {
+                "color": "dark-red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "firstNotNull",
+            "max",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.2.0",
+      "repeat": "hostname",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff37t43hn6yo0a"
+          },
+          "editorMode": "code",
+          "expr": "node_load1{node=\"$hostname\"}",
+          "legendFormat": "load avg 1 $hostname",
+          "range": true,
+          "refId": "load avg 1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff37t43hn6yo0a"
+          },
+          "editorMode": "code",
+          "expr": "node_load5{node=\"$hostname\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "load avg 5 $hostname",
+          "range": true,
+          "refId": "load avg 5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff37t43hn6yo0a"
+          },
+          "editorMode": "code",
+          "expr": "node_load15{node=\"$hostname\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "load avg 15 $hostname",
+          "range": true,
+          "refId": "load avg 15"
+        }
+      ],
+      "title": "load avg $hostname",
+      "transparent": true,
+      "type": "timeseries"
+    }
+  ],
+  "preload": true,
+  "refresh": "5s",
+  "schemaVersion": 42,
+  "tags": [
+    "load",
+    "net",
+    "all"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": [
+            "cms00",
+            "cms01",
+            "cms02",
+            "cms03",
+            "cms04",
+            "marius",
+            "media",
+            "ns01",
+            "ns03",
+            "ns04",
+            "sulla",
+            "thw00",
+            "thw01",
+            "thw02",
+            "thw03",
+            "thw04",
+            "whac"
+          ],
+          "value": [
+            "cms00",
+            "cms01",
+            "cms02",
+            "cms03",
+            "cms04",
+            "marius",
+            "media",
+            "ns01",
+            "ns03",
+            "ns04",
+            "sulla",
+            "thw00",
+            "thw01",
+            "thw02",
+            "thw03",
+            "thw04",
+            "whac"
+          ]
+        },
+        "definition": "label_values(node_load1,node)",
+        "description": "",
+        "label": "hostname",
+        "multi": true,
+        "name": "hostname",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(node_load1,node)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "load avg all hosts",
+  "uid": "dugvwrf",
+  "version": 26
+}
