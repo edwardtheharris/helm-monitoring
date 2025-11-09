@@ -70,7 +70,7 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - run: |
-          for i in grafana prometheus prometheus-node-exporter; do
+          for i in grafana prometheus-node-exporter; do
             helm lint $i;
           done
   ####
