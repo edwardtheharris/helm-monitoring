@@ -69,11 +69,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
-      - run: helm lint grafana
-      - run: helm lint prometheus-node-exporter
-      - run: helm lint prometheus
+      - run: |
+          for i in grafana prometheus prometheus-node-exporter; do
+            helm lint $i;
+          done
   ####
-
   ###
   # ```{rubric} Helm Test
   # ```
