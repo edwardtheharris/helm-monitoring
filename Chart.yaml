@@ -31,6 +31,9 @@ appVersion: "0.0.1"
 # :end-before: "####\n"
 # ```
 dependencies:
+  - condition: grafana.enabled
+    repository: "file://./grafana"
+    version: 10.1.2
   - condition: prometheus-node-exporter.enabled
     name: prometheus-node-exporter
     repository: "file://./prometheus-node-exporter"
