@@ -17,7 +17,6 @@ title: Nautobot Helm Chart
 ```{toctree}
 :caption: meta
 
-.github/index
 container/index
 license
 readme
