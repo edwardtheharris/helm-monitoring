@@ -25,6 +25,10 @@ serviceAccounts:
 
 ## Additional labels to attach to all resources
 commonMetaLabels: {}
+## Enable creation of NetworkPolicy resources.
+##
+networkPolicy:
+  enabled: false
 
 ## Monitors ConfigMap changes and POSTs to a URL
 ## Ref: https://github.com/prometheus-operator/prometheus-operator/tree/main/cmd/prometheus-config-reloader
@@ -223,7 +227,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: ""
+  baseURL: prometheus.breeze-blocks.net
 
   ## Additional server container environment variables
   ##
@@ -245,20 +249,21 @@ server:
   # List of flags to override default parameters, e.g:
   # - --enable-feature=agent
   # - --storage.agent.retention.max-time=30m
-  # - --config.file=/etc/prometheus/prometheus.yml
-  defaultFlagsOverride: []
+  defaultFlagsOverride:
+    - --config.file=/etc/prometheus/prometheus.yml
+    - --web.enable-lifecycle
 
   extraFlags:
-    - web.enable-lifecycle
+    # - web.enable-lifecycle
     ## web.enable-admin-api flag controls access to the administrative HTTP API which includes functionality such as
     ## deleting time series. This is disabled by default.
-    # - web.enable-admin-api
+    - web.enable-admin-api
     ##
     ## storage.tsdb.no-lockfile flag controls BD locking
     # - storage.tsdb.no-lockfile
     ##
     ## storage.tsdb.wal-compression flag enables compression of the write-ahead log (WAL)
-    # - storage.tsdb.wal-compression
+    - storage.tsdb.wal-compression
 
   ## Path to a configuration file on prometheus server container FS
   configPath: /etc/prometheus/prometheus.yml
@@ -381,7 +386,13 @@ server:
     ##
     annotations:
       cert-manager.io/cluster-issuer: comms-svc-int
-    #   kubernetes.io/ingress.class: nginx
+      cert-manager.io/common-name: grafana
+      cert-manager.io/subject-organizationalunits: engineering
+      cert-manager.io/subject-countries: US
+      cert-manager.io/email-sans: grafana@breeze-blocks.net
+      cert-manager.io/subject-provinces: CA
+      cert-manager.io/subject-localities: Los Angeles
+      #   kubernetes.io/ingress.class: nginx
     #   kubernetes.io/tls-acme: 'true'
 
     ## Prometheus server Ingress additional labels
@@ -574,7 +585,7 @@ server:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: csi-lvm-mirror
+    storageClass: csi-lvm-striped
 
     ## Subdirectory of Prometheus server data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
@@ -1280,12 +1291,46 @@ serverFiles:
           - source_labels: [__meta_kubernetes_pod_node_name]
             action: replace
             target_label: node
-
 # adds additional scrape configs to prometheus.yml
 # must be a string so you have to add a | after extraScrapeConfigs:
 # example adds prometheus-blackbox-exporter scrape config
-extraScrapeConfigs:
-  ""
+extraScrapeConfigs: |
+  - job_name: node-exporter
+    honor_labels: true
+    relabel_configs:
+    - action: labelkeep
+      regex: (.+)
+    - source_labels:
+      - "__address__"
+      action: replace
+      regex: ([a-z0-9]+).+
+      target_label: node
+      replacement: $1
+    - action: replace
+      regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+      replacement: $1.$2
+      source_labels:
+        - "__address__"
+      target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+    - targets:
+        - backup.breeze-blocks.net:9100
+        - cart.breeze-blocks.net:9100
+        - marius.breeze-blocks.net:9100
+        - media.breeze-blocks.net:9100
+        - ns01.breeze-blocks.net:9100
+        - ns03.breeze-blocks.net:9100
+        - ns04.breeze-blocks.net:9100
+        - ostium.breeze-blocks.net:9100
+        - sulla-felix.breeze-blocks.net:9100
+        - thw00.breeze-blocks.net:9100
+        - thw01.breeze-blocks.net:9100
+        - thw02.breeze-blocks.net:9100
+        - thw03.breeze-blocks.net:9100
+        - thw04.breeze-blocks.net:9100
+        - whac.breeze-blocks.net:9100
   # - job_name: 'prometheus-blackbox-exporter'
   #   metrics_path: /probe
   #   params:
@@ -1308,12 +1353,6 @@ alertRelabelConfigs: {}
   # - source_labels: [dc]
   #   regex: (.+)\d+
   #   target_label: dc
-
-prometheus:
-  networkPolicy:
-    ## Enable creation of NetworkPolicy resources.
-    ##
-    enabled: false
 
 # Force namespace of namespaced resources
 forceNamespace: ""

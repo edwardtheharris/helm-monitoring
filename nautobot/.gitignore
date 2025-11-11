@@ -1,0 +1,10 @@
+venv/
+.gnupg/
+*.xml
+.values.yaml
+.vscode/
+_build
+.venv/
+gh.gpg
+secrets/
+test.yaml

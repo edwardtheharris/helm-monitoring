@@ -307,6 +307,12 @@ ingress:
   # Values can be templated
   annotations:
     cert-manager.io/cluster-issuer: comms-svc-int
+    cert-manager.io/common-name: grafana
+    cert-manager.io/subject-organizationalunits: engineering
+    cert-manager.io/subject-countries: US
+    cert-manager.io/email-sans: grafana@breeze-blocks.net
+    cert-manager.io/subject-provinces: CA
+    cert-manager.io/subject-localities: Los Angeles
     # kubernetes.io/tls-acme: "true"
   labels: {}
   path: /

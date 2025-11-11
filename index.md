@@ -22,6 +22,7 @@ stack to bare metal {term}`Kubernetes` clusters.
 :caption: contents
 
 grafana/index
+nautobot/index
 prometheus/index
 prometheus-node-exporter/index
 tests/index

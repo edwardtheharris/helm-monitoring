@@ -1,0 +1,204 @@
+{{- if eq .Values.type "StatefulSet" -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ .Values.nameOverride }}
+  labels:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernets.io/name: {{ .Values.nameOverride }}
+  name: {{ .Values.fullnameOverride }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "nautobot.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  serviceName: {{ .Values.nameOverride }}
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      name: {{ include "nautobot.name" . }}
+      labels:
+        app.kubernetes.io/name: {{ include "nautobot.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      initContainers:
+        - name: nautobot-init
+          args:
+            - 'cat /opt/.nautobot/init.sh > /bin/init.sh; chmod +x /bin/init.sh; /bin/init.sh'
+          command:
+            - /bin/bash
+            - '-c'
+          env:
+            - name: NAUTOBOT_DB_ENGINE
+              value: {{ .Values.database.engine }}
+            - name: NAUTOBOT_DB_HOST
+              value: postgresql.postgresql.svc.cluster.local
+            - name: NAUTOBOT_DB_NAME
+              value: {{ .Values.database.database }}
+            - name: NAUTOBOT_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret.{{ .Values.database.name }}
+                  key: password
+            - name: NAUTOBOT_DB_PORT
+              value: {{ .Values.database.port | quote }}
+            - name: NAUTOBOT_DB_TIMEOUT
+              value: {{ .Values.database.timeout | quote }}
+            - name: NAUTOBOT_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secret.{{ .Values.database.name }}
+                  key: username
+            - name: NAUTOBOT_ROOT
+              value: /opt/nautobot
+            - name: NAUTOBOT_SUPERUSER_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.superUser.secret.name }}
+                  key: token
+            - name: NAUTOBOT_SUPERUSER_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.superUser.secret.name }}
+                  key: email
+            - name: NAUTOBOT_SUPERUSER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.superUser.secret.name }}
+                  key: password
+            - name: NAUTOBOT_SUPERUSER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.superUser.secret.name }}
+                  key: username
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: {{ .Values.persistence.name }}
+              mountPath: /opt/
+              subPath: nautobot
+            - name: nautobot-config
+              mountPath: /opt/.nautobot
+      containers:
+        - name: nautobot
+          command:
+            - /opt/nautobot/bin/nautobot-server
+            - runserver
+            - '0.0.0.0:8000'
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8000
+              name: nautobot
+          env:
+            - name: NAUTOBOT_ALLOWED_HOSTS
+              value: {{ .Values.config.allowed_hosts | quote }}
+            - name: NAUTOBOT_CACHES_BACKEND
+              value: {{ .Values.config.caches_backend }}
+            - name: NAUTOBOT_CELERY_BROKER_URL
+              value: {{ .Values.config.celery.broker }}
+            - name: NAUTOBOT_CELERY_RESULT_BACKEND
+              value: {{ .Values.config.celery.results }}
+            - name: NAUTOBOT_CREATE_SUPERUSER
+              value: {{ .Values.superUser.create | quote }}
+            - name: NAUTOBOT_CORS_ALLOW_ALL_ORIGINS
+              value: 'True'
+            - name: NAUTOBOT_CELERY_TASK_DEFAULT_QUEUE
+              value: 'default-celery'
+            - name: NAUTOBOT_DEBUG
+              value: 'True'
+            - name: NAUTOBOT_DB_ENGINE
+              value: {{ .Values.database.engine }}
+            - name: NAUTOBOT_DB_HOST
+              value: postgresql.postgresql.svc.cluster.local
+            - name: NAUTOBOT_DB_NAME
+              value: {{ .Values.database.database }}
+            - name: NAUTOBOT_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret.{{ .Values.database.name }}
+                  key: password
+            - name: NAUTOBOT_DB_PORT
+              value: {{ .Values.database.port | quote }}
+            - name: NAUTOBOT_DB_TIMEOUT
+              value: {{ .Values.database.timeout | quote }}
+            - name: NAUTOBOT_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secret.{{ .Values.database.name }}
+                  key: username
+            - name: NAUTOBOT_ROOT
+              value: /opt/nautobot
+            - name: NAUTOBOT_REDIS_HOST
+              value: redis.redis.svc.cluster.local
+            - name: NAUTOBOT_REDIS_SCHEME
+              value: redis
+            - name: NAUTOBOT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secret.superuser
+                  key: secretKey
+            - name: NAUTOBOT_SUPERUSER_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.superUser.secret.name }}
+                  key: token
+            - name: NAUTOBOT_SUPERUSER_EMAIL
+              value: {{ .Values.superUser.email }}
+            - name: NAUTOBOT_SUPERUSER_NAME
+              value: {{ .Values.superUser.name }}
+            - name: NAUTOBOT_SUPERUSER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.superUser.secret.name }}
+                  key: password
+            - name: NAUTOBOT_TIME_ZONE
+              value: 'America/Los_Angeles'
+            - name: SOCIAL_AUTH_GITHUB_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secret.github.sso
+                  key: social_auth_github_key
+            - name: SOCIAL_AUTH_GITUB_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: secret.github.sso
+                  key: social_auth_github_secret
+          volumeMounts:
+            - name: {{ .Values.persistence.name }}
+              mountPath: /opt/
+              subPath: nautobot
+            - name: {{ .Values.config.name }}
+              mountPath: /opt/.nautobot
+      imagePullSecrets:
+        - name: secret.github.ghcr
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: {{ .Values.config.name }}
+          configMap:
+            name: nautobot-config
+            items:
+              - key: .bashrc
+                path: .bashrc
+              - key: uwsgi.ini
+                path: uwsgi.ini
+              - key: reqs
+                path: reqs
+              - key: init.sh
+                path: init.sh
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.persistence.name }}
+      spec:
+        accessModes:
+          - ReadWriteMany
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size }}
+        storageClassName: {{ .Values.persistence.storageClass }}
+        volumeMode: Filesystem
+{{ end }}
