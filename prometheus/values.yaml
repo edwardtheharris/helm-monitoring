@@ -25,6 +25,10 @@ serviceAccounts:
 
 ## Additional labels to attach to all resources
 commonMetaLabels: {}
+## Enable creation of NetworkPolicy resources.
+##
+networkPolicy:
+  enabled: false
 
 ## Monitors ConfigMap changes and POSTs to a URL
 ## Ref: https://github.com/prometheus-operator/prometheus-operator/tree/main/cmd/prometheus-config-reloader
@@ -223,7 +227,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: ""
+  baseURL: prometheus.breeze-blocks.net
 
   ## Additional server container environment variables
   ##
@@ -381,7 +385,13 @@ server:
     ##
     annotations:
       cert-manager.io/cluster-issuer: comms-svc-int
-    #   kubernetes.io/ingress.class: nginx
+      cert-manager.io/common-name: grafana
+      cert-manager.io/subject-organizationalunits: engineering
+      cert-manager.io/subject-countries: US
+      cert-manager.io/email-sans: grafana@breeze-blocks.net
+      cert-manager.io/subject-provinces: CA
+      cert-manager.io/subject-localities: Los Angeles
+      #   kubernetes.io/ingress.class: nginx
     #   kubernetes.io/tls-acme: 'true'
 
     ## Prometheus server Ingress additional labels
@@ -574,7 +584,7 @@ server:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: csi-lvm-mirror
+    storageClass: csi-lvm-striped
 
     ## Subdirectory of Prometheus server data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
@@ -1308,12 +1318,6 @@ alertRelabelConfigs: {}
   # - source_labels: [dc]
   #   regex: (.+)\d+
   #   target_label: dc
-
-prometheus:
-  networkPolicy:
-    ## Enable creation of NetworkPolicy resources.
-    ##
-    enabled: false
 
 # Force namespace of namespaced resources
 forceNamespace: ""
