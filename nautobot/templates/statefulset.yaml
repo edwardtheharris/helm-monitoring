@@ -34,7 +34,7 @@ spec:
             - name: NAUTOBOT_DB_ENGINE
               value: {{ .Values.database.engine }}
             - name: NAUTOBOT_DB_HOST
-              value: postgresql.postgresql.svc.cluster.local
+              value: postgres.database.svc.cluster.local
             - name: NAUTOBOT_DB_NAME
               value: {{ .Values.database.database }}
             - name: NAUTOBOT_DB_PASSWORD
@@ -112,7 +112,7 @@ spec:
             - name: NAUTOBOT_DB_ENGINE
               value: {{ .Values.database.engine }}
             - name: NAUTOBOT_DB_HOST
-              value: postgresql.postgresql.svc.cluster.local
+              value: postgres.database.svc.cluster.local
             - name: NAUTOBOT_DB_NAME
               value: {{ .Values.database.database }}
             - name: NAUTOBOT_DB_PASSWORD
@@ -202,7 +202,7 @@ spec:
             - name: NAUTOBOT_DB_ENGINE
               value: {{ .Values.database.engine }}
             - name: NAUTOBOT_DB_HOST
-              value: postgresql.postgresql.svc.cluster.local
+              value: postgres.database.svc.cluster.local
             - name: NAUTOBOT_DB_NAME
               value: {{ .Values.database.database }}
             - name: NAUTOBOT_DB_PASSWORD
@@ -292,7 +292,7 @@ spec:
             - name: NAUTOBOT_DB_ENGINE
               value: {{ .Values.database.engine }}
             - name: NAUTOBOT_DB_HOST
-              value: postgresql.postgresql.svc.cluster.local
+              value: postgres.database.svc.cluster.local
             - name: NAUTOBOT_DB_NAME
               value: {{ .Values.database.database }}
             - name: NAUTOBOT_DB_PASSWORD
