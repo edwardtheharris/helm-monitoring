@@ -118,3 +118,7 @@ A quick bit of sed to recursively edit files in-place.
 sed -i '' -e 's/csi-driver-lvm-linear/csi-lvm-linear/g' $(find ./ -type f)
 ```
 :::
+
+:::{code-block} shell
+docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot:0.0.1 -f container/Dockerfile --target nautobot . --push
+:::

@@ -505,7 +505,7 @@ superUser:
   email: nautobot@nautobot.svc.cluster.local
   password: ""
   secret:
-    name: secret.superuser
+    name: nautobot-superuser
   secretKey: "57evlrs^0pmu5#ys=9t6==lf6hdz&amp;$1)qq-(%f1noo_b+nsy@f"
   token: ""
   username: ""

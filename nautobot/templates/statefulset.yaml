@@ -26,7 +26,7 @@ spec:
       initContainers:
         - name: nautobot-init
           args:
-            - 'cat /opt/.nautobot/init.sh > /bin/init.sh; chmod +x /bin/init.sh; /bin/init.sh'
+            - 'cat /opt/nautobot/.nautobot/init.sh > /bin/init.sh; chmod +x /bin/init.sh; /bin/init.sh'
           command:
             - /bin/bash
             - '-c'
@@ -80,7 +80,7 @@ spec:
               mountPath: /opt/
               subPath: nautobot
             - name: nautobot-config
-              mountPath: /opt/.nautobot
+              mountPath: /opt/nautobot/.nautobot
       containers:
         - name: nautobot
           command:
@@ -138,7 +138,7 @@ spec:
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: secret.superuser
+                  name: {{ .Values.superUser.secret.name }}
                   key: secretKey
             - name: NAUTOBOT_SUPERUSER_API_TOKEN
               valueFrom:
@@ -228,7 +228,7 @@ spec:
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: secret.superuser
+                  name: {{ .Values.superUser.secret.name }}
                   key: secretKey
             - name: NAUTOBOT_SUPERUSER_API_TOKEN
               valueFrom:
@@ -318,7 +318,7 @@ spec:
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: secret.superuser
+                  name: {{ .Values.superUser.secret.name }}
                   key: secretKey
             - name: NAUTOBOT_SUPERUSER_API_TOKEN
               valueFrom:

@@ -119,7 +119,7 @@ spec:
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: secret.superuser
+                  name: {{ .Values.superUser.secret.name }}
                   key: secretKey
             - name: NAUTOBOT_SUPERUSER_API_TOKEN
               valueFrom:
