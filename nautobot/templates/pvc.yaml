@@ -16,7 +16,6 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/name: {{ .Values.persistence.name }}
   name: {{ .Values.persistence.name }}
-  namespace: {{ .Release.Name }}
 spec:
   accessModes:
     - ReadWriteMany
@@ -46,7 +45,6 @@ metadata:
     app.kubernetes.io/name: celery-beat
     app.kubernetes.io/part-of: {{ .Release.Name }}
   name: celery-beat
-  namespace: {{ .Release.Name }}
 spec:
   accessModes:
     - ReadWriteOnce
@@ -75,7 +73,6 @@ metadata:
     app.kubernetes.io/name: celery-worker
     app.kubernetes.io/part-of: {{ .Release.Name }}
   name: celery-worker
-  namespace: {{ .Release.Name }}
 spec:
   accessModes:
     - ReadWriteOnce
