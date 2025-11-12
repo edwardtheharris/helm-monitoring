@@ -36,8 +36,8 @@ RUN python -m venv . \
 COPY config/nautobot.bashrc /opt/nautobot/.bashrc
 COPY config/reqs /opt/nautobot/reqs
 COPY ./config/uwsgi.ini /opt/nautobot/uwsgi.ini
-RUN bin/pip install -r reqs \
-  rm -v reqs
+RUN bin/pip install -v -r reqs \
+  && rm -v reqs
 CMD ["tail", "-f", "/dev/null"]
 
 FROM nautobot AS worker
