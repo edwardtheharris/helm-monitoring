@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 ARG PYTHON_VERSION='3.12'
 FROM python:${PYTHON_VERSION}-alpine AS build
 ARG VERSION
@@ -8,21 +9,29 @@ LABEL org.opencontainers.image.source="https://github.com/edwardtheharris/helm-n
 LABEL org.opencontainers.image.description="Runs ${USER} for nautobot on Kubernetes."
 LABEL io.ghcr.edwardtheharris.helm-nautobot.version="${VERSION}"
 RUN apk add --no-cache \
-    alpine-sdk \
-    bash \
-    git \
-    iputils-ping \
-    libxml2-dev \
-    jpeg-dev \
-    mailcap \
-    nmap \
-    pkgconfig \
-    python3-dev \
-    shadow \
-    sudo \
-    vim \
-    xmlsec-dev \
-    zlib-dev \
-    && groupadd ${USER} \
-    && useradd -s /bin/bash -m -d /opt/${USER} -g ${USER} ${USER}
+  alpine-sdk \
+  bash \
+  git \
+  iputils-ping \
+  libxml2-dev \
+  jpeg-dev \
+  mailcap \
+  nmap \
+  pkgconfig \
+  python3-dev \
+  shadow \
+  sudo \
+  vim \
+  xmlsec-dev \
+  zlib-dev \
+  && groupadd ${USER} \
+  && useradd -s /bin/bash -m -d /opt/${USER} -g ${USER} ${USER}
+
+FROM build AS nautobot
+CMD ["tail", "-f", "/dev/null"]
+
+FROM build AS scheduler
+CMD ["tail", "-f", "/dev/null"]
+
+FROM build AS worker
 CMD ["tail", "-f", "/dev/null"]
