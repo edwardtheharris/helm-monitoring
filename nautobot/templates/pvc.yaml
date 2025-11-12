@@ -16,7 +16,6 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/name: {{ .Values.persistence.name }}
   name: {{ .Values.persistence.name }}
-  namespace: {{ .Release.Name }}
 spec:
   accessModes:
     - ReadWriteMany
@@ -32,10 +31,10 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   annotations:
-    name: celery-beat
+    name: worker
     app.kubernetes.io/component: scheduler
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: celery-beat
+    app.kubernetes.io/name: worker
     app.kubernetes.io/part-of: {{ .Release.Name }}
     volume.kubernetes.io/storage-provisioner: lvm.csi.metal-stack.io
   finalizers:
@@ -43,10 +42,9 @@ metadata:
   labels:
     app.kubernetes.io/component: scheduler
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: celery-beat
+    app.kubernetes.io/name: worker
     app.kubernetes.io/part-of: {{ .Release.Name }}
-  name: celery-beat
-  namespace: {{ .Release.Name }}
+  name: worker
 spec:
   accessModes:
     - ReadWriteOnce
@@ -54,7 +52,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: csi-driver-lvm-linear
+  storageClassName: csi-lvm-linear
   volumeMode: Filesystem
 ---
 apiVersion: v1
@@ -75,7 +73,6 @@ metadata:
     app.kubernetes.io/name: celery-worker
     app.kubernetes.io/part-of: {{ .Release.Name }}
   name: celery-worker
-  namespace: {{ .Release.Name }}
 spec:
   accessModes:
     - ReadWriteOnce
@@ -83,5 +80,5 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: csi-driver-lvm-linear
+  storageClassName: csi-lvm-linear
   volumeMode: Filesystem

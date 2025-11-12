@@ -6,8 +6,9 @@ name = "pypi"
 [packages]
 gitpython = "*"
 loguru = "*"
-pipenv = "*"
 nautobot = {extras = ["sso"], version = "*"}
+celery = "*"
+pipenv = "*"
 
 [dev-packages]
 "sphinxcontrib.autoyaml" = "*"
@@ -18,7 +19,4 @@ sphinx-design = "*"
 sphinx-book-theme = "*"
 version-query = "*"
 pylint = "*"
-
-[nautobot]
-nautobot = "*"
-celery = "*"
+ipython = "*"
