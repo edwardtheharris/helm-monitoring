@@ -109,3 +109,12 @@ helm -n nautobot uninstall nautobot
 
 ```{autoyaml} values.yaml
 ```
+
+:::{note}
+
+A quick bit of sed to recursively edit files in-place.
+
+```{code-block} shell
+sed -i '' -e 's/csi-driver-lvm-linear/csi-lvm-linear/g' $(find ./ -type f)
+```
+:::

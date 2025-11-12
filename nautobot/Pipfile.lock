@@ -377,7 +377,7 @@
             ],
             "version": "==6.0"
         },
-        "django-celery-beat": {
+        "django-worker": {
             "hashes": [
                 "sha256:f75b2d129731f1214be8383e18fae6bfeacdb55dffb2116ce849222c0106f9ad"
             ],
@@ -3106,7 +3106,7 @@
             ],
             "version": "==6.0"
         },
-        "django-celery-beat": {
+        "django-worker": {
             "hashes": [
                 "sha256:97ae5eb309541551bdb07bf60cc57cadacf42a74287560ced2d2c06298620234",
                 "sha256:ab43049634fd18dc037927d7c2c7d5f67f95283a20ebbda55f42f8606412e66c"

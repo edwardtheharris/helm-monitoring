@@ -1,0 +1,155 @@
+{{- if eq .Values.type "Deployment" }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  labels:
+    app.kubernetes.io/component: worker 
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: worker
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: worker
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/name: worker
+      app.kubernetes.io/part-of: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        app.kubernetes.io/component: worker
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/name: worker
+        app.kubernetes.io/part-of: {{ .Release.Name }}
+      labels:
+        app.kubernetes.io/component: worker
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/name: worker
+        app.kubernetes.io/part-of: {{ .Release.Name }}
+      name: worker
+    spec:
+      imagePullSecrets:
+        - name: ghcr
+      initContainers:
+        - name: worker-init
+          args:
+            - 'cat /opt/.celery/init.sh > /bin/init.sh && chmod +x /bin/init.sh && /bin/init.sh'
+          command:
+            - /bin/bash
+            - '-c'
+          env:
+            - name: NAUTOBOT_CELERY_TASK_DEFAULT_QUEUE
+              value: 'default'
+            - name: NAUTOBOT_DEBUG
+              value: 'True'
+            - name: NAUTOBOT_ROOT
+              value: /opt/nautobot
+          image: "{{ .Values.config.worker.img.repository }}:{{ .Values.config.worker.img.tag }}"
+          volumeMounts:
+            - name: worker
+              mountPath: /opt/
+              subPath: celery
+            - name: {{ .Values.config.worker.name }}
+              mountPath: /opt/.nautobot
+      containers:
+        - name: worker
+          args:
+            - 'apk add --no-cache sudo && sudo -E -u celery /opt/celery/bin/nautobot-server celery beat --loglevel DEBUG'
+          command:
+            - /bin/bash
+            - '-c'
+          env:
+            - name: NAUTOBOT_ALLOWED_HOSTS
+              value: {{ .Values.config.allowed_hosts | quote }}
+            - name: NAUTOBOT_CELERY_BROKER_URL
+              value: {{ .Values.config.worker.broker }}
+            - name: NAUTOBOT_CELERY_RESULT_BACKEND
+              value: {{ .Values.config.worker.results }}
+            - name: NAUTOBOT_CACHES_BACKEND
+              value: {{ .Values.config.caches_backend }}
+            - name: NAUTOBOT_CREATE_SUPERUSER
+              value: {{ .Values.superUser.create | quote }}
+            - name: NAUTOBOT_CORS_ALLOW_ALL_ORIGINS
+              value: 'True'
+            - name: NAUTOBOT_CELERY_TASK_DEFAULT_QUEUE
+              value: 'default'
+            - name: NAUTOBOT_DEBUG
+              value: 'True'
+            - name: NAUTOBOT_DB_ENGINE
+              value: {{ .Values.database.engine }}
+            - name: NAUTOBOT_DB_HOST
+              value: postgres.database.svc.cluster.local
+            - name: NAUTOBOT_DB_NAME
+              value: {{ .Values.database.database }}
+            - name: NAUTOBOT_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: password
+            - name: NAUTOBOT_DB_PORT
+              value: {{ .Values.database.port | quote }}
+            - name: NAUTOBOT_DB_TIMEOUT
+              value: {{ .Values.database.timeout | quote }}
+            - name: NAUTOBOT_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: username
+            - name: NAUTOBOT_ROOT
+              value: {{ .Values.config.worker.root }}
+            - name: NAUTOBOT_REDIS_HOST
+              value: redis.database.svc.cluster.local
+            - name: NAUTOBOT_REDIS_SCHEME
+              value: redis
+            - name: NAUTOBOT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: secretKey
+            - name: NAUTOBOT_SUPERUSER_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.superUser.secret.name }}
+                  key: token
+            - name: NAUTOBOT_SUPERUSER_EMAIL
+              value: {{ .Values.superUser.email }}
+            - name: NAUTOBOT_SUPERUSER_USERNAME
+              value: {{ .Values.superUser.username }}
+            - name: NAUTOBOT_SUPERUSER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.superUser.secret.name }}
+                  key: password
+            - name: NAUTOBOT_TIME_ZONE
+              value: 'America/Los_Angeles'
+          image: "{{ .Values.config.worker.img.repository }}:{{ .Values.config.worker.img.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 5672
+              name: worker
+          volumeMounts:
+            - name: worker
+              mountPath: /opt/
+              subPath: worker
+            - name: {{ .Values.config.worker.name }}
+              mountPath: /opt/.worker
+      volumes:
+        - name: {{ .Values.config.worker.name }}
+          configMap:
+            name: {{ .Values.config.worker.name }}
+            items:
+              - key: .bashrc
+                path: .bashrc
+              - key: reqs
+                path: 'reqs'
+              - key: init.sh
+                path: init.sh
+              - key: resolv.conf
+                path: resolv.conf
+        - name: worker
+          persistentVolumeClaim:
+            claimName: worker
+{{- end -}}
