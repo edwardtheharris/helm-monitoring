@@ -156,16 +156,6 @@ spec:
                   key: password
             - name: NAUTOBOT_TIME_ZONE
               value: 'America/Los_Angeles'
-            - name: SOCIAL_AUTH_GITHUB_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: secret.github.sso
-                  key: social_auth_github_key
-            - name: SOCIAL_AUTH_GITUB_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: secret.github.sso
-                  key: social_auth_github_secret
           volumeMounts:
             - name: {{ .Values.persistence.name }}
               mountPath: /opt/

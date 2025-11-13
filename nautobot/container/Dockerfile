@@ -45,5 +45,4 @@ USER root
 COPY config/celery.bashrc /opt/nautobot/.bashrc
 COPY config/celery.init.sh /bin/init.sh
 RUN chmod +x /bin/init.sh
-USER nautobot
 CMD ["tail", "-f", "/dev/null"]
