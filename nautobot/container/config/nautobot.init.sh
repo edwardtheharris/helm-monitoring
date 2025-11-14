@@ -4,15 +4,7 @@ set -x
 
 cat /opt/.nautobot/resolv.conf >/etc/resolv.conf
 
-apk add --no-cache sudo
-
-rm -rf /opt/nautobot/*
-
-mkdir -pv /opt/nautobot
-
 chown -v nautobot:nautobot /opt/nautobot
-
-sudo -u nautobot python -m venv /opt/nautobot
 
 sudo -u nautobot /opt/nautobot/bin/pip install --no-cache-dir -U pip
 
