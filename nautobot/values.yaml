@@ -8,23 +8,26 @@
 #
 # Declare variables to be passed into your templates.
 #
+# ```{code-block} yaml
+#  nodeAffinity:
+#    requiredDuringSchedulingIgnoredDuringExecution:
+#      nodeSelectorTerms:
+#      - matchExpressions:
+#        - key: kubernetes.io/os
+#          operator: In
+#          values:
+#          - linux
+# ```
+#
 # ```{literalinclude} /values.yaml
 # :caption: affinity
 # :language: yaml
 # :start-at: "affinity:\n"
-# :end-before: "###\n"
+# :end-before: "####\n"
 # ```
-affinity:
-  nodeAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-    nodeSelectorTerms:
-    - matchExpressions:
-      - key: kubernetes.io/os
-        operator: In
-        values:
-        - linux
+affinity: {}
 
-###
+####
 # ```{rubric} Autoscaling
 # ```
 # ---
@@ -60,14 +63,14 @@ autoscaling:
 config:
   allowed_hosts: "*"
   caches_backend: django_redis.cache.RedisCache
-  celery:
-    broker: 'redis://redis.redis.svc.cluster.local:6379/0'
+  scheduler:
+    broker: "redis://redis.database.svc.cluster.local:6379/0"
     livenessProbe:
       exec:
         command:
-        - /opt/nautobot/bin/nautobot-server
-        - celery
-        - status
+          - /opt/nautobot/bin/nautobot-server
+          - celery
+          - status
       # When to give up` and restart the container
       failureThreshold: 3
       # Delay before the first probe is initiated
@@ -80,11 +83,36 @@ config:
       # When the probe times out
       timeoutSeconds: 5
     img:
-      repository: ghcr.io/edwardtheharris/helm-nautobot/celery
-      tag: '0.0.2'
-    name: celery-config
-    results: 'redis://redis.redis.svc.cluster.local:6379/0'
-    root: '/opt/celery'
+      repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler
+      tag: "0.0.2"
+    name: scheduler-config
+    results: "redis://redis.database.svc.cluster.local:6379/0"
+    root: "/opt/celery"
+  worker:
+    broker: "redis://redis.database.svc.cluster.local:6379/0"
+    livenessProbe:
+      exec:
+        command:
+          - /opt/nautobot/bin/nautobot-server
+          - celery
+          - status
+      # When to give up` and restart the container
+      failureThreshold: 3
+      # Delay before the first probe is initiated
+      initialDelaySeconds: 30
+      # How often to perform the probe
+      periodSeconds: 10
+      # Minimum consecutive successes for the probe to
+      # be considered successful after having failed
+      successThreshold: 1
+      # When the probe times out
+      timeoutSeconds: 5
+    img:
+      repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
+      tag: "0.0.2"
+    name: worker-config
+    results: "redis://redis.database.svc.cluster.local:6379/0"
+    root: "/opt/nautobot"
   name: nautobot-config
   root: /opt/nautobot
 
@@ -107,9 +135,8 @@ database:
   host: postgresql.postgresql.svc.cluster.local
   name: postgres
   password: ""
-  port: '5432'
-  secretfile: secrets/secrets.yaml
-  timeout: '300'
+  port: "5432"
+  timeout: "300"
   username: ""
 
 ###
@@ -142,10 +169,10 @@ image:
   pullPolicy: Always
   repository: ghcr.io/edwardtheharris/helm-nautobot/nautobot
   # Overrides the image tag whose default is the chart appVersion.
-  tag: '0.0.2'
+  tag: "0.0.2"
   secret:
     name: ghcr
-    data: ''
+    data: ""
 
 ###
 # ```{rubric} Image Pull Secrets
@@ -160,7 +187,7 @@ image:
 # :end-before: "###\n"
 # ```
 imagePullSecrets:
-- name: ghcr
+  - name: ghcr
 
 ###
 # ```{rubric} Ingress
@@ -189,10 +216,10 @@ ingress:
   className: "nginx"
   enabled: true
   hosts:
-  - host: nautobot.svc.cluster.local
-    paths:
-    - path: /
-      pathType: ImplementationSpecific
+    - host: nautobot.svc.cluster.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
   tls: []
 
 ###
@@ -210,8 +237,8 @@ ingress:
 livenessProbe:
   exec:
     command:
-    - /opt/nautobot/bin/nautobot-server
-    - status
+      - /opt/nautobot/bin/nautobot-server
+      - status
   # When to give up and restart the container
   failureThreshold: 3
   # Delay before the first probe is initiated
@@ -268,7 +295,7 @@ nodeSelector:
 persistence:
   name: nautobot-pvc
   size: 10Gi
-  storageClass: csi-driver-lvm-linear
+  storageClass: csi-lvm-linear
 
 ###
 # ```{rubric} Pod Annotations
@@ -458,8 +485,8 @@ serviceAccount:
 # :end-before: "###\n"
 # ```
 sso:
-  social_auth_github_key: ''
-  social_auth_github_secret: ''
+  social_auth_github_key: ""
+  social_auth_github_secret: ""
 
 ###
 # ```{rubric} Super User Config
@@ -478,8 +505,8 @@ superUser:
   email: nautobot@nautobot.svc.cluster.local
   password: ""
   secret:
-    name: secret.superuser
-  secretKey: '57evlrs^0pmu5#ys=9t6==lf6hdz&amp;$1)qq-(%f1noo_b+nsy@f'
+    name: nautobot-superuser
+  secretKey: "57evlrs^0pmu5#ys=9t6==lf6hdz&amp;$1)qq-(%f1noo_b+nsy@f"
   token: ""
   username: ""
 

@@ -25,9 +25,9 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.config.celery.name }}
+  name: {{ .Values.config.worker.name }}
   labels:
-    app.kubernetes.io/name: celery
+    app.kubernetes.io/name: worker 
     app.kubernetes.io/instance: {{ .Release.Name }}
 data:
   .bashrc: |-
