@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG PYTHON_VERSION='3.12'
-FROM python:${PYTHON_VERSION}-alpine AS nautobot 
+FROM python:${PYTHON_VERSION}-alpine AS nautobot
 ARG VERSION
 ARG USER=nautobot
 LABEL io.ghcr.edwardtheharris.helm-nautobot.editor="Xander Harris"

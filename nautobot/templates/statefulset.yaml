@@ -24,65 +24,65 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       initContainers:
-        - name: nautobot-init
-          args:
-            - 'cat /opt/nautobot/.nautobot/init.sh > /bin/init.sh; chmod +x /bin/init.sh; /bin/init.sh'
-          command:
-            - /bin/bash
-            - '-c'
-          env:
-            - name: NAUTOBOT_DB_ENGINE
-              value: {{ .Values.database.engine }}
-            - name: NAUTOBOT_DB_HOST
-              value: postgres.database.svc.cluster.local
-            - name: NAUTOBOT_DB_NAME
-              value: {{ .Values.database.database }}
-            - name: NAUTOBOT_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: password
-            - name: NAUTOBOT_DB_PORT
-              value: {{ .Values.database.port | quote }}
-            - name: NAUTOBOT_DB_TIMEOUT
-              value: {{ .Values.database.timeout | quote }}
-            - name: NAUTOBOT_DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: username
-            - name: NAUTOBOT_ROOT
-              value: /opt/nautobot
-            - name: NAUTOBOT_SUPERUSER_API_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
-                  key: token
-            - name: NAUTOBOT_SUPERUSER_EMAIL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
-                  key: email
-            - name: NAUTOBOT_SUPERUSER_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
-                  key: password
-            - name: NAUTOBOT_SUPERUSER_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
-                  key: username
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: Always
-          volumeMounts:
-            - name: nautobot
-              mountPath: /opt/
-              subPath: nautobot
-            - name: nautobot-config
-              mountPath: /opt/nautobot/.nautobot
+        # - name: nautobot-init
+        #   args:
+        #     - 'cat /opt/nautobot/.nautobot/init.sh > /bin/init.sh; chmod +x /bin/init.sh; /bin/init.sh'
+        #   command:
+        #     - /bin/bash
+        #     - '-c'
+        #   env:
+        #     - name: NAUTOBOT_DB_ENGINE
+        #       value: {{ .Values.database.engine }}
+        #     - name: NAUTOBOT_DB_HOST
+        #       value: postgres.database.svc.cluster.local
+        #     - name: NAUTOBOT_DB_NAME
+        #       value: {{ .Values.database.database }}
+        #     - name: NAUTOBOT_DB_PASSWORD
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: nautobot-postgres
+        #           key: password
+        #     - name: NAUTOBOT_DB_PORT
+        #       value: {{ .Values.database.port | quote }}
+        #     - name: NAUTOBOT_DB_TIMEOUT
+        #       value: {{ .Values.database.timeout | quote }}
+        #     - name: NAUTOBOT_DB_USER
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: nautobot-postgres
+        #           key: username
+        #     - name: NAUTOBOT_ROOT
+        #       value: /opt/nautobot
+        #     - name: NAUTOBOT_SUPERUSER_API_TOKEN
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: {{ .Values.superUser.secret.name }}
+        #           key: token
+        #     - name: NAUTOBOT_SUPERUSER_EMAIL
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: {{ .Values.superUser.secret.name }}
+        #           key: email
+        #     - name: NAUTOBOT_SUPERUSER_PASSWORD
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: {{ .Values.superUser.secret.name }}
+        #           key: password
+        #     - name: NAUTOBOT_SUPERUSER_USERNAME
+        #       valueFrom:
+        #         secretKeyRef:
+        #           name: {{ .Values.superUser.secret.name }}
+        #           key: username
+        #   image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        #   imagePullPolicy: Always
+        #   volumeMounts:
+        #     - name: nautobot
+        #       mountPath: /opt/
+        #       subPath: nautobot
+        #     - name: nautobot-config
+        #       mountPath: /opt/nautobot/.nautobot
       containers:
-        - name: nautobot
+        - name: server
           command:
             - /opt/nautobot/bin/nautobot-server
             - runserver
@@ -156,23 +156,13 @@ spec:
                   key: password
             - name: NAUTOBOT_TIME_ZONE
               value: 'America/Los_Angeles'
-            - name: SOCIAL_AUTH_GITHUB_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: secret.github.sso
-                  key: social_auth_github_key
-            - name: SOCIAL_AUTH_GITUB_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: secret.github.sso
-                  key: social_auth_github_secret
           volumeMounts:
             - name: {{ .Values.persistence.name }}
-              mountPath: /opt/
+              mountPath: /opt/{{ .Values.persistence.name }}
               subPath: nautobot
             - name: {{ .Values.config.name }}
-              mountPath: /opt/.nautobot
-        - name: nautobot-worker
+              mountPath: /opt/{{ .Values.persistence.name }}/.nautobot
+        - name: worker
           command:
             - /opt/nautobot/bin/nautobot-server
             - runserver
@@ -246,23 +236,13 @@ spec:
                   key: password
             - name: NAUTOBOT_TIME_ZONE
               value: 'America/Los_Angeles'
-            - name: SOCIAL_AUTH_GITHUB_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: secret.github.sso
-                  key: social_auth_github_key
-            - name: SOCIAL_AUTH_GITUB_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: secret.github.sso
-                  key: social_auth_github_secret
           volumeMounts:
             - name: {{ .Values.persistence.name }}
-              mountPath: /opt/
+              mountPath: /opt/{{ .Values.persistence.name }}
               subPath: nautobot
             - name: {{ .Values.config.name }}
-              mountPath: /opt/.nautobot
-        - name: nautobot-scheduler
+              mountPath: /opt/{{ .Values.persistence.name }}/.nautobot
+        - name: scheduler
           command:
             - /opt/nautobot/bin/nautobot-server
             - runserver
@@ -336,22 +316,12 @@ spec:
                   key: password
             - name: NAUTOBOT_TIME_ZONE
               value: 'America/Los_Angeles'
-            - name: SOCIAL_AUTH_GITHUB_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: secret.github.sso
-                  key: social_auth_github_key
-            - name: SOCIAL_AUTH_GITUB_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: secret.github.sso
-                  key: social_auth_github_secret
           volumeMounts:
             - name: {{ .Values.persistence.name }}
-              mountPath: /opt/
+              mountPath: /opt/{{ .Values.persistence.name }}
               subPath: nautobot
             - name: {{ .Values.config.name }}
-              mountPath: /opt/.nautobot
+              mountPath: /opt/{{ .Values.persistence.name }}/.nautobot
       imagePullSecrets:
         - name: ghcr
       securityContext:
@@ -371,7 +341,7 @@ spec:
                 path: init.sh
   volumeClaimTemplates:
     - metadata:
-        name: nautobot
+        name: {{ .Values.persistence.name }}
       spec:
         accessModes:
           - ReadWriteMany
