@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 gitpython = "*"
 loguru = "*"
-pipenv = "*"
 nautobot = {extras = ["sso"], version = "*"}
 
 [dev-packages]

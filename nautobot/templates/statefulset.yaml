@@ -84,9 +84,9 @@ spec:
       containers:
         - name: server
           command:
-            - /opt/nautobot/bin/nautobot-server
-            - runserver
-            - '0.0.0.0:8000'
+            - /bin/bash
+            - -c
+            - 'while true; do sleep 3600; done'
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -164,14 +164,19 @@ spec:
               mountPath: /opt/{{ .Values.persistence.name }}/.nautobot
         - name: worker
           command:
-            - /opt/nautobot/bin/nautobot-server
-            - runserver
-            - '0.0.0.0:8000'
+            - /bin/bash
+            - -c
+            - 'while true; do sleep 3600; done'
+            # - /opt/nautobot/bin/nautobot-server
+            # - celery
+            # - worker
+            # - --loglevel
+            # - DEBUG
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 8000
-              name: nautobot
+            - containerPort: 9700
+              name: worker
           env:
             - name: NAUTOBOT_ALLOWED_HOSTS
               value: {{ .Values.config.allowed_hosts | quote }}
@@ -244,9 +249,14 @@ spec:
               mountPath: /opt/{{ .Values.persistence.name }}/.nautobot
         - name: scheduler
           command:
-            - /opt/nautobot/bin/nautobot-server
-            - runserver
-            - '0.0.0.0:8000'
+            - /bin/bash
+            - -c
+            - 'while true; do sleep 3600; done'
+           #  - /opt/nautobot/bin/nautobot-server
+           #  - celery
+           #  - beat
+           #  - --loglevel
+           #  - DEBUG
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -278,7 +288,7 @@ spec:
             - name: NAUTOBOT_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: secret.{{ .Values.database.name }}
+                  name: nautobot-postgres
                   key: password
             - name: NAUTOBOT_DB_PORT
               value: {{ .Values.database.port | quote }}
@@ -287,7 +297,7 @@ spec:
             - name: NAUTOBOT_DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: secret.{{ .Values.database.name }}
+                  name: nautobot-postgres 
                   key: username
             - name: NAUTOBOT_ROOT
               value: /opt/nautobot

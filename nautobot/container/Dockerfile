@@ -27,23 +27,20 @@ RUN apk add --no-cache \
   zlib-dev \
   && groupadd ${USER} \
   && useradd -s /bin/bash -m -d /opt/${USER} -g ${USER} ${USER}
-COPY ./config/nautobot.init.sh /bin/init.sh
-RUN chmod +x /bin/init.sh
 USER nautobot
 WORKDIR /opt/nautobot
 RUN python -m venv . \
   && bin/pip install -U pip nautobot
-COPY config/nautobot.bashrc /opt/nautobot/.bashrc
-COPY config/reqs /opt/nautobot/reqs
-COPY ./config/uwsgi.ini /opt/nautobot/uwsgi.ini
+COPY reqs /opt/nautobot/reqs
 RUN bin/pip install -v -r reqs \
   && rm -v reqs
-CMD ["tail", "-f", "/dev/null"]
+EXPOSE 8000
+CMD ["/opt/nautobot/bin/nautobot-server", "start", "--ini", "/opt/nautobot/uwsgi.ini"]
 
 FROM nautobot AS worker
-USER root
-COPY config/celery.bashrc /opt/nautobot/.bashrc
-COPY config/celery.init.sh /bin/init.sh
-RUN chmod +x /bin/init.sh
 USER nautobot
-CMD ["tail", "-f", "/dev/null"]
+CMD ["/opt/nautobot/bin/nautobot-server", "celery", "worker", "--loglevel", "DEBUG"]
+
+FROM worker AS scheduler
+CMD ["/opt/nautobot/bin/nautobot-server", "celery", "beat", "--loglevel", "DEBUG"]
+
