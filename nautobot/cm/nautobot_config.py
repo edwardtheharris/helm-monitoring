@@ -16,23 +16,28 @@ from nautobot.core.settings_funcs import is_truthy, parse_redis_connection
 # Example: ALLOWED_HOSTS = ['nautobot.example.com', 'nautobot.internal.local']
 #
 # ALLOWED_HOSTS = os.getenv("NAUTOBOT_ALLOWED_HOSTS", "").split(" ")
+METRICS_ENABLED = False
 
 # The django-redis cache is used to establish concurrent locks using Redis.
 #
-# CACHES = {
-#     "default": {
-#         "BACKEND": os.getenv(
-#             "NAUTOBOT_CACHES_BACKEND",
-#             "django_prometheus.cache.backends.redis.RedisCache" if METRICS_ENABLED else "django_redis.cache.RedisCache",
-#         ),
-#         "LOCATION": parse_redis_connection(redis_database=1),
-#         "TIMEOUT": 300,
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#             "PASSWORD": "",
-#         },
-#     }
-# }
+CACHES = {
+    "default": {
+        "BACKEND": os.getenv(
+            "NAUTOBOT_CACHES_BACKEND",
+            (
+                "django_prometheus.cache.backends.redis.RedisCache"
+                if METRICS_ENABLED
+                else "django_redis.cache.RedisCache"
+            ),
+        ),
+        "LOCATION": "redis://redis.database.svc.local:6379/1",
+        "TIMEOUT": 300,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PASSWORD": "",
+        },
+    }
+}
 
 # Number of seconds to cache ContentType lookups. Set to 0 to disable caching.
 # CONTENT_TYPE_CACHE_TIMEOUT = int(os.getenv("NAUTOBOT_CONTENT_TYPE_CACHE_TIMEOUT", "0"))
@@ -45,12 +50,13 @@ from nautobot.core.settings_funcs import is_truthy, parse_redis_connection
 
 # Celery broker URL used to tell workers where queues are located
 #
-# CELERY_BROKER_URL = os.getenv("NAUTOBOT_CELERY_BROKER_URL", parse_redis_connection(redis_database=0))
+CELERY_BROKER_URL = os.getenv(
+    "NAUTOBOT_CELERY_BROKER_URL", "redis://redis.database.svc.local:6379/0"
+)
 
 # Optional configuration dict for Celery to use custom SSL certificates to connect to Redis.
 #
 # CELERY_BROKER_USE_SSL = None
-METRICS_ENABLED = False
 
 # Database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases

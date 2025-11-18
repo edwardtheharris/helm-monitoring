@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nautobot-config 
+  name: nautobot-config
   labels:
     app.kubernetes.io/name: nautobot
     app.kubernetes.io/instance: {{ .Release.Name }}
 data:
-  .bashrc: |-
-    {{- ($.Files.Get "templates/cm/.bashrc").AsConfig | nindent 4 }}
+  .bashrc: |
+    {{- .Files.Get "cm/.bashrc" | nindent 4 }}
 
-  uwsgi.ini: |-
-    {{- ($.Files.Get "templates/cm/uwsgi.ini").AsConfig | nindent 4 }}
+  uwsgi.ini: |
+    {{- .Files.Get "cm/uwsgi.ini" | nindent 4 }}
 
-  nautobot_config.py:
-    {{- ($.Files.Get "templates/cm/nautobot_config.py").AsConfig | nindent 4 }}
+  nautobot_config.py: |
+    {{- .Files.Get "cm/nautobot_config.py" | nindent 4 }}
