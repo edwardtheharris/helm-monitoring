@@ -46,9 +46,8 @@ See helm upgrade for command documentation.
 
 ### Migrating from stable/kube-state-metrics and kubernetes/kube-state-metrics
 
-You can upgrade in-place:
-
-    your existing release name using the new chart repository
+You can upgrade in-place: 
+your existing release name using the new chart repository
 
 ### Upgrading to v6.0.0
 
@@ -61,9 +60,9 @@ for major changes on the application-side.
 
 The upgraded chart now the following changes:
 
-    Dropped support for helm v2 (helm v3 or later is required)
-    collectors key was renamed to resources
-    namespace key was renamed to namespaces
+- Dropped support for helm v2 (helm v3 or later is required)
+- collectors key was renamed to resources
+- namespace key was renamed to namespaces
 
 #### Configuration
 
