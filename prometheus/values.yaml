@@ -1336,6 +1336,11 @@ extraScrapeConfigs: |
       - targets:
           - backup.breeze-blocks.net:9091
           - cart.breeze-blocks.net:9091
+          - cms00.breeze-blocks.net:9091
+          - cms01.breeze-blocks.net:9091
+          - cms02.breeze-blocks.net:9091
+          - cms03.breeze-blocks.net:9091
+          - cms04.breeze-blocks.net:9091
           - marius.breeze-blocks.net:9091
           - media.breeze-blocks.net:9091
           - ns01.breeze-blocks.net:9091
