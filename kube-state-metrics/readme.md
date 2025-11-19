@@ -10,7 +10,7 @@ The chart is distributed as an [OCI Artifact](https://helm.sh/docs/topics/regist
 as well as via a traditional [Helm Repository](https://helm.sh/docs/topics/chart_repository/).
 
 - [OCI Artifact](oci://ghcr.io/prometheus-community/charts/kube-state-metrics)
-- [Helm Repository](https://prometheus-community.github.io/helm-charts with chart kube-state-metrics)
+- [Helm Repository](https://prometheus-community.github.io/helm-charts) with chart kube-state-metrics.
 
 The installation instructions use the OCI registry. Refer to the [helm repo](
 
