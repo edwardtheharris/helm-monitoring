@@ -1,43 +1,16 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.config.name }}
+  name: nautobot-config
   labels:
     app.kubernetes.io/name: nautobot
     app.kubernetes.io/instance: {{ .Release.Name }}
 data:
-  .bashrc: |-
-    {{- $.Files.Get "config/nautobot.bashrc" | nindent 4 }}
+  .bashrc: |
+    {{- .Files.Get "cm/.bashrc" | nindent 4 }}
 
-  uwsgi.ini: |-
-    {{- $.Files.Get "config/uwsgi.ini" | nindent 4 }}
+  uwsgi.ini: |
+    {{- .Files.Get "cm/uwsgi.ini" | nindent 4 }}
 
-  resolv.conf: |-
-    {{- $.Files.Get "config/resolv.conf" | nindent 4 }}
-
-  reqs: |-
-    {{- $.Files.Get "config/reqs" | nindent 4 }}
-
-  init.sh: |-
-    {{- $.Files.Get "config/nautobot.init.sh" | nindent 4 }}
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Values.config.worker.name }}
-  labels:
-    app.kubernetes.io/name: worker 
-    app.kubernetes.io/instance: {{ .Release.Name }}
-data:
-  .bashrc: |-
-    {{- $.Files.Get "config/celery.bashrc" | nindent 4 }}
-
-  reqs: |-
-    {{- $.Files.Get "config/reqs" | nindent 4 }}
-
-  resolv.conf: |-
-    {{- $.Files.Get "config/resolv.conf" | nindent 4 }}
-
-  init.sh: |-
-    {{- $.Files.Get "config/celery.init.sh" | nindent 4 }}
+  nautobot_config.py: |
+    {{- .Files.Get "cm/nautobot_config.py" | nindent 4 }}
