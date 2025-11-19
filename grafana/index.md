@@ -10,6 +10,7 @@ This chart installs {term}`Grafana` for monitoring.
 
 ```{toctree}
 readme
+tests/index
 ```
 
 ### {term}`Grafana` {file}`values.yaml`

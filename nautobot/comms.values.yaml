@@ -8,24 +8,26 @@
 #
 # Declare variables to be passed into your templates.
 #
+# ```{code-block} yaml
+#  nodeAffinity:
+#    requiredDuringSchedulingIgnoredDuringExecution:
+#      nodeSelectorTerms:
+#      - matchExpressions:
+#        - key: kubernetes.io/os
+#          operator: In
+#          values:
+#          - linux
+# ```
+#
 # ```{literalinclude} /values.yaml
 # :caption: affinity
 # :language: yaml
 # :start-at: "affinity:\n"
 # :end-before: "####\n"
 # ```
-affinity:
-  nodeAffinity:
-  requiredDuringSchedulingIgnoredDuringExecution:
-    nodeSelectorTerms:
-      - matchExpressions:
-          - key: kubernetes.io/os
-            operator: In
-            values:
-              - linux
-####
+affinity: {}
 
-###
+####
 # ```{rubric} Autoscaling
 # ```
 # ---
@@ -61,8 +63,8 @@ autoscaling:
 config:
   allowed_hosts: "*"
   caches_backend: django_redis.cache.RedisCache
-  celery:
-    broker: "redis://redis.redis.svc.cluster.local:6379/0"
+  scheduler:
+    broker: "redis://redis.breeze-blocks.net:6379/0"
     livenessProbe:
       exec:
         command:
@@ -81,11 +83,35 @@ config:
       # When the probe times out
       timeoutSeconds: 5
     img:
-      repository: ghcr.io/edwardtheharris/helm-nautobot/celery
-      tag: "0.0.2"
-    name: celery-config
-    results: "redis://redis.redis.svc.cluster.local:6379/0"
-    root: "/opt/celery"
+      repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler
+      tag: "0.0.5"
+    name: scheduler-config
+    results: "redis://redis.breeze-blocks.net:6379/0"
+  worker:
+    host: "redis.breeze-blocks.net"
+    livenessProbe:
+      exec:
+        command:
+          - /opt/nautobot/bin/nautobot-server
+          - celery
+          - status
+      # When to give up` and restart the container
+      failureThreshold: 3
+      # Delay before the first probe is initiated
+      initialDelaySeconds: 30
+      # How often to perform the probe
+      periodSeconds: 10
+      # Minimum consecutive successes for the probe to
+      # be considered successful after having failed
+      successThreshold: 1
+      # When the probe times out
+      timeoutSeconds: 5
+    img:
+      repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
+      tag: "0.0.5"
+    name: worker-config
+    results: "redis://redis.breeze-blocks.net:6379/0"
+    root: "/opt/nautobot"
   name: nautobot-config
   root: /opt/nautobot
 
@@ -105,11 +131,10 @@ config:
 database:
   database: nautobot
   engine: django.db.backends.postgresql
-  host: postgresql.postgresql.svc.cluster.local
+  host: postgres.breeze-blocks.net
   name: postgres
   password: ""
   port: "5432"
-  secretfile: secrets/secrets.yaml
   timeout: "300"
   username: ""
 
@@ -141,9 +166,9 @@ fullnameOverride: "nautobot"
 # ```
 image:
   pullPolicy: Always
-  repository: ghcr.io/edwardtheharris/helm-nautobot/nautobot
+  repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.2"
+  tag: "0.0.5"
   secret:
     name: ghcr
     data: ""
@@ -185,16 +210,24 @@ imagePullSecrets:
 # ```
 ingress:
   annotations:
-    kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  className: "nginx"
+    cert-manager.io/cluster-issuer: comms-svc-int
+    cert-manager.io/common-name: nautobot
+    cert-manager.io/subject-organizationalunits: engineering
+    cert-manager.io/subject-countries: US
+    cert-manager.io/email-sans: nautobot@breeze-blocks.net
+    cert-manager.io/subject-provinces: CA
+    cert-manager.io/subject-localities: Los Angeles
+  ingressClassName: "nginx"
   enabled: true
   hosts:
-    - host: nautobot.svc.cluster.local
+    - host: nautobot.breeze-blocks.net
       paths:
         - path: /
-          pathType: ImplementationSpecific
-  tls: []
+          pathType: Prefix
+  tls:
+    - secretName: nautobot-tls
+      hosts:
+        - nautobot.breeze-blocks.net
 
 ###
 # ```{rubric} Liveness Probe
@@ -267,9 +300,9 @@ nodeSelector:
 # :end-before: "###\n"
 # ```
 persistence:
-  name: nautobot-pvc
+  name: nautobot
   size: 10Gi
-  storageClass: csi-driver-lvm-linear
+  storageClass: csi-lvm-linear
 
 ###
 # ```{rubric} Pod Annotations
@@ -420,7 +453,7 @@ service:
   enabled: true
   port: 8000
   targetPort: 8000
-  type: ClusterIP
+  type: LoadBalancer
 
 ###
 # ```{rubric} Service Account
@@ -476,10 +509,10 @@ sso:
 # ```
 superUser:
   create: true
-  email: nautobot@nautobot.svc.cluster.local
+  email: nautobot@breeze-blocks.net
   password: ""
   secret:
-    name: secret.superuser
+    name: nautobot-superuser
   secretKey: "57evlrs^0pmu5#ys=9t6==lf6hdz&amp;$1)qq-(%f1noo_b+nsy@f"
   token: ""
   username: ""
@@ -510,7 +543,7 @@ tolerations: []
 # :start-at: "type: Deployment\n"
 # :end-before: "###\n"
 # ```
-type: Deployment
+type: StatefulSet
 
 ###
 # ```{rubric} Volume Mounts
