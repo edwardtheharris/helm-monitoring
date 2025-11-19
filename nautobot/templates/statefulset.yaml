@@ -136,6 +136,8 @@ spec:
               value: /opt/nautobot
             - name: NAUTOBOT_REDIS_HOST
               value: {{ .Values.config.worker.host }}
+            - name: NAUTOBOT_REDIS_PORT
+              value: "6379"
             - name: NAUTOBOT_REDIS_SCHEME
               value: redis
             - name: NAUTOBOT_SECRET_KEY
@@ -167,16 +169,14 @@ spec:
               mountPath: /opt/nautobot/.nautobot
         - name: worker
           command:
-            #- /bin/bash
-            #- -c
-            #- 'while true; do sleep 3600; done'
-            - bin/nautobot-server
-            - celery
-            - --config
-            - .nautobot/nautobot_config.py
-            - worker
-            - --loglevel
-            - DEBUG
+            - /bin/bash
+            - -c
+            - 'while true; do sleep 3600; done'
+            # - bin/nautobot-server
+            # - celery
+            # - --config
+            # - .nautobot/nautobot_config.py
+            # - worker
           image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -225,6 +225,8 @@ spec:
               value: {{ .Values.config.worker.host }}
             - name: NAUTOBOT_REDIS_SCHEME
               value: redis
+            - name: NAUTOBOT_REDIS_PORT
+              value: "6379"
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
@@ -254,13 +256,16 @@ spec:
               mountPath: /opt/nautobot/.nautobot
         - name: scheduler
           command:
-            - bin/nautobot-server
-            - celery
-            - --config
-            - .nautobot/nautobot_config.py
-            - beat
-            - --loglevel
-            - DEBUG
+            - /bin/bash
+            - -c
+            - 'while true; do sleep 3600; done'
+            # - bin/nautobot-server
+            # - celery
+            # - --config
+            # - .nautobot/nautobot_config.py
+            # - beat
+            # - --loglevel
+            # - DEBUG
           image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -307,6 +312,8 @@ spec:
               value: /opt/nautobot
             - name: NAUTOBOT_REDIS_HOST
               value: {{ .Values.config.worker.host }}
+            - name: NAUTOBOT_REDIS_PORT
+              value: "6379"
             - name: NAUTOBOT_REDIS_SCHEME
               value: redis
             - name: NAUTOBOT_SECRET_KEY

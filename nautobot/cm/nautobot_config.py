@@ -30,7 +30,7 @@ CACHES = {
                 else "django_redis.cache.RedisCache"
             ),
         ),
-        "LOCATION": "redis://redis.database.svc.local:6379/1",
+        "LOCATION": parse_redis_connection(redis_database=0),
         "TIMEOUT": 300,
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
@@ -51,7 +51,7 @@ CACHES = {
 # Celery broker URL used to tell workers where queues are located
 #
 CELERY_BROKER_URL = os.getenv(
-    "NAUTOBOT_CELERY_BROKER_URL", "redis://redis.database.svc.local:6379/0"
+    "NAUTOBOT_CELERY_BROKER_URL", parse_redis_connection(redis_database=1)
 )
 
 # Optional configuration dict for Celery to use custom SSL certificates to connect to Redis.
