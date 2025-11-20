@@ -23,11 +23,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: celery-beat
+  name: worker
   labels:
     app.kubernetes.io/component: scheduler
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: celery-beat
+    app.kubernetes.io/name: worker
     app.kubernetes.io/part-of: nautobot
 spec:
   type: {{ .Values.service.type }}
@@ -35,11 +35,11 @@ spec:
     - port: 5672
       targetPort: 5672
       protocol: TCP
-      name: celery-beat
+      name: worker
   selector:
     app.kubernetes.io/component: scheduler
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: celery-beat
+    app.kubernetes.io/name: worker
 ---
 apiVersion: v1
 kind: Service

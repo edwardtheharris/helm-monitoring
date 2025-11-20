@@ -132,7 +132,7 @@ configmapReload:
 server:
   ## Prometheus server container name
   ##
-  name: prometheus
+  name: "prometheus"
 
   ## Opt out of automounting Kubernetes API credentials.
   ## If set it will override serviceAccounts.server.automountServiceAccountToken value for ServiceAccount.
@@ -150,7 +150,7 @@ server:
 
   ## If set it will override prometheus.server.fullname value for ClusterRole and ClusterRoleBinding
   ##
-  clusterRoleNameOverride: ""
+  clusterRoleNameOverride: "prometheus"
 
   # Enable only the release namespace for monitoring. By default all namespaces are monitored.
   # If releaseNamespace and namespaces are both set a merged list will be monitored.
@@ -270,7 +270,7 @@ server:
 
   ### The data directory used by prometheus to set --storage.tsdb.path
   ### When empty server.persistentVolume.mountPath is used instead
-  storagePath: ""
+  storagePath: "/var/lib/prometheus/data"
 
   global:
     ## How frequently to scrape targets by default

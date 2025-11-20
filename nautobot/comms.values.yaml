@@ -64,7 +64,7 @@ config:
   allowed_hosts: "*"
   caches_backend: django_redis.cache.RedisCache
   scheduler:
-    broker: "redis://redis.breeze-blocks.net:6379/0"
+    location: "redis://redis.breeze-blocks.net:6379/0"
     livenessProbe:
       exec:
         command:
@@ -84,11 +84,11 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler
-      tag: "0.0.5"
+      tag: "0.0.6"
     name: scheduler-config
     results: "redis://redis.breeze-blocks.net:6379/0"
   worker:
-    host: "redis.breeze-blocks.net"
+    host: "192.168.5.25"
     livenessProbe:
       exec:
         command:
@@ -108,7 +108,7 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
-      tag: "0.0.5"
+      tag: "0.0.6"
     name: worker-config
     results: "redis://redis.breeze-blocks.net:6379/0"
     root: "/opt/nautobot"
@@ -131,7 +131,7 @@ config:
 database:
   database: nautobot
   engine: django.db.backends.postgresql
-  host: postgres.breeze-blocks.net
+  host: 192.168.5.22
   name: postgres
   password: ""
   port: "5432"
@@ -168,7 +168,7 @@ image:
   pullPolicy: Always
   repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.5"
+  tag: "0.0.6"
   secret:
     name: ghcr
     data: ""

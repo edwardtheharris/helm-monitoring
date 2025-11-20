@@ -2,7 +2,7 @@
 
 NAUTOBOT_ALLOWED_HOSTS="*"
 NAUTOBOT_DB_ENGINE='django.db.backends.postgresql'
-NAUTOBOT_DB_HOST='postgresql.postgresql.svc.cluster.local'
+NAUTOBOT_DB_HOST='postgres.database.svc.cluster.local'
 NAUTOBOT_DB_NAME='nautobot'
 NAUTOBOT_DB_PORT='5432'
 NAUTOBOT_DB_USER='nautobot'
