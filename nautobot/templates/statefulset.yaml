@@ -83,13 +83,6 @@ spec:
         #       mountPath: /opt/nautobot/.nautobot
       containers:
         - name: server
-          command:
-            - bin/nautobot-server
-            - start
-            - --ini
-            - .nautobot/uwsgi.ini
-            - --config-path
-            - .nautobot/nautobot_config.py
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -115,7 +108,7 @@ spec:
             - name: NAUTOBOT_DB_ENGINE
               value: {{ .Values.database.engine }}
             - name: NAUTOBOT_DB_HOST
-              value: postgres.database.svc.cluster.local
+              value: 10.244.5.16
             - name: NAUTOBOT_DB_NAME
               value: {{ .Values.database.database }}
             - name: NAUTOBOT_DB_PASSWORD
@@ -202,7 +195,7 @@ spec:
             - name: NAUTOBOT_DB_ENGINE
               value: {{ .Values.database.engine }}
             - name: NAUTOBOT_DB_HOST
-              value: postgres.database.svc.cluster.local
+              value: 10.244.5.16
             - name: NAUTOBOT_DB_NAME
               value: {{ .Values.database.database }}
             - name: NAUTOBOT_DB_PASSWORD
@@ -222,11 +215,20 @@ spec:
             - name: NAUTOBOT_ROOT
               value: /opt/nautobot
             - name: NAUTOBOT_REDIS_HOST
-              value: {{ .Values.config.worker.host }}
-            - name: NAUTOBOT_REDIS_SCHEME
-              value: redis
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis-config
+                  key: host
             - name: NAUTOBOT_REDIS_PORT
-              value: "6379"
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis-config
+                  key: port
+            - name: NAUTOBOT_REDIS_SCHEME
+              valueFrom:
+                configMapKeyRef:
+                  key: scheme
+                  name: nautobot-redis-config
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
@@ -252,6 +254,8 @@ spec:
             - name: {{ .Values.persistence.name }}
               mountPath: /opt/
               subPath: nautobot
+            - name: nautobot-resolv
+              mountPath: /etc/resolv.conf
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
         - name: scheduler
@@ -269,7 +273,7 @@ spec:
           image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 8000
+            - containerPort: 7890
               name: scheduler
           env:
             - name: NAUTOBOT_ALLOWED_HOSTS
@@ -289,11 +293,20 @@ spec:
             - name: NAUTOBOT_DEBUG
               value: 'True'
             - name: NAUTOBOT_DB_ENGINE
-              value: {{ .Values.database.engine }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: engine
             - name: NAUTOBOT_DB_HOST
-              value: postgres.database.svc.cluster.local
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: host
             - name: NAUTOBOT_DB_NAME
-              value: {{ .Values.database.database }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: database
             - name: NAUTOBOT_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -311,11 +324,20 @@ spec:
             - name: NAUTOBOT_ROOT
               value: /opt/nautobot
             - name: NAUTOBOT_REDIS_HOST
-              value: {{ .Values.config.worker.host }}
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis-config
+                  key: host
             - name: NAUTOBOT_REDIS_PORT
-              value: "6379"
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis-config
+                  key: port
             - name: NAUTOBOT_REDIS_SCHEME
-              value: redis
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis-config
+                  key: scheme 
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
@@ -341,6 +363,8 @@ spec:
             - name: {{ .Values.persistence.name }}
               mountPath: /opt/
               subPath: nautobot
+            - name: nautobot-resolv
+              mountPath: /etc/resolv.conf
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
       imagePullSecrets:
@@ -348,6 +372,9 @@ spec:
       securityContext:
         fsGroup: 1000
       volumes:
+        - name: nautobot-resolv
+          configMap:
+            name: nautobot-resolv
         - name: nautobot-config
           configMap:
             name: nautobot-config

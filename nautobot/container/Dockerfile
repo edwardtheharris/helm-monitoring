@@ -20,6 +20,7 @@ RUN apk add --no-cache \
   nmap \
   pkgconfig \
   python3-dev \
+  redis \
   shadow \
   sudo \
   vim \
@@ -35,12 +36,15 @@ COPY reqs /opt/nautobot/reqs
 RUN bin/pip install -v -r reqs \
   && rm -v reqs
 EXPOSE 8000
-CMD ["/opt/nautobot/bin/nautobot-server", "start", "--ini", "/opt/nautobot/uwsgi.ini"]
+COPY --chmod=+x nautobot-entrypoint.sh /bin/entrypoint.sh
+CMD ["/bin/entrypoint.sh"]
 
 FROM nautobot AS worker
 USER nautobot
-CMD ["/opt/nautobot/bin/nautobot-server", "celery", "worker", "--loglevel", "DEBUG"]
+COPY --chmod=+x worker-entrypoint.sh /bin/entrypoint.sh
+CMD ["/bin/entrypoint.sh"]
 
 FROM worker AS scheduler
-CMD ["/opt/nautobot/bin/nautobot-server", "celery", "beat", "--loglevel", "DEBUG"]
+COPY --chmod=+x scheduler-entrypoint.sh /bin/entrypoint.sh
+CMD ["/bin/entrypoint.sh"]
 

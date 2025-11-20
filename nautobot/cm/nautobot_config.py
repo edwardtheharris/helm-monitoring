@@ -1,3 +1,4 @@
+#!/opt/nautobot/bin/python
 import os
 import sys
 
@@ -30,7 +31,7 @@ CACHES = {
                 else "django_redis.cache.RedisCache"
             ),
         ),
-        "LOCATION": parse_redis_connection(redis_database=0),
+        "LOCATION": "redis://10.244.4.103:6379/0",
         "TIMEOUT": 300,
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
@@ -50,9 +51,7 @@ CACHES = {
 
 # Celery broker URL used to tell workers where queues are located
 #
-CELERY_BROKER_URL = os.getenv(
-    "NAUTOBOT_CELERY_BROKER_URL", parse_redis_connection(redis_database=1)
-)
+CELERY_BROKER_URL = "redis://10.244.4.103:6379/1"
 
 # Optional configuration dict for Celery to use custom SSL certificates to connect to Redis.
 #
