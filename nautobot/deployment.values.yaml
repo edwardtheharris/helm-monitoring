@@ -159,6 +159,7 @@ database:
 # :end-before: "###\n"
 # ```
 fullnameOverride: "nautobot"
+nameOverride: nautobot
 image:
   pullPolicy: Always
   repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot
