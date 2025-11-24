@@ -112,11 +112,7 @@ spec:
             - containerPort: 8000
               name: nautobot
           volumeMounts:
-            - name: nautobot
-              mountPath: /opt/nautobot
-              subPath: nautobot
-            - name: {{ .Values.config.name }}
-              mountPath: /opt/nautobot/.nautobot
+            {{ .Values.volumeMounts | fromYamlArray }}
         - name: scheduler
           command:
             - /bin/bash
