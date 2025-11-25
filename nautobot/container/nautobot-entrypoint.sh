@@ -4,6 +4,9 @@ PATH="/opt/nautobot/bin:$PATH"
 
 export PATH
 
+python -m venv .
+bin/pip install -U pip nautobot
+
 cp -v /opt/nautobot/.nautobot/nautobot_config.py /opt/nautobot/nautobot_config.py
 cp -v /opt/nautobot/.nautobot/uwsgi.ini /opt/nautobot/uwsgi.ini
 
