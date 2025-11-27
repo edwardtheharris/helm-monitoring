@@ -29,15 +29,14 @@ spec:
     spec:
       containers:
         - name: server
-          # command:
-            # - /bin/bash
-            # - /usr/local/bin/entrypoint.sh
-            # - /bin/entrypoint.sh
           env:
             - name: NAUTOBOT_ALLOWED_HOSTS
               value: {{ .Values.config.allowed_hosts | quote }}
             - name: NAUTOBOT_CELERY_BROKER_URL
-              value: {{ .Values.config.scheduler.broker }}
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: celery_url
             - name: NAUTOBOT_CELERY_RESULT_BACKEND
               value: {{ .Values.config.scheduler.results }}
             - name: NAUTOBOT_CACHES_BACKEND
@@ -133,9 +132,6 @@ spec:
           volumeMounts:
             - name: {{ .Values.config.name }}
               mountPath: /opt/nautobot/.nautobot
-            - name: nautobot-entrypoint-sh
-              mountPath: /usr/local/bin/entrypoint.sh
-              subPath: entrypoint.sh
             - name: nautobot-resolv
               mountPath: /etc/resolv.conf
               subPath: resolv.conf
@@ -251,18 +247,14 @@ spec:
               mountPath: /etc/resolv.conf
               subPath: resolv.conf
         - name: worker
-          # command:
-            # - /bin/entrypoint.sh
-            # - /opt/nautobot/bin/nautobot-server
-            # - celery
-            # - --config
-            # - .nautobot/nautobot_config.py
-            # - worker
           env:
             - name: NAUTOBOT_ALLOWED_HOSTS
               value: {{ .Values.config.allowed_hosts | quote }}
             - name: NAUTOBOT_CELERY_BROKER_URL
-              value: {{ .Values.config.worker.broker }}
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: celery_url
             - name: NAUTOBOT_CELERY_RESULT_BACKEND
               value: {{ .Values.config.worker.results }}
             - name: NAUTOBOT_CACHES_BACKEND
@@ -364,9 +356,6 @@ spec:
           volumeMounts:
             - name: {{ .Values.config.name }}
               mountPath: /opt/nautobot/.nautobot
-            - name: nautobot-scheduler-entrypoint-sh
-              mountPath: /usr/local/bin/entrypoint.sh
-              subPath: entrypoint.sh
             - name: nautobot-resolv
               mountPath: /etc/resolv.conf
               subPath: resolv.conf
@@ -376,15 +365,6 @@ spec:
         - name: {{ .Values.config.name }}
           configMap:
             name: {{ .Values.config.name }}
-        - name: nautobot-entrypoint-sh
-          configMap:
-            name: nautobot-entrypoint-sh
-        - name: nautobot-scheduler-entrypoint-sh
-          configMap:
-            name: nautobot-scheduler-entrypoint-sh
-        - name: nautobot-worker-entrypoint-sh
-          configMap:
-            name: nautobot-worker-entrypoint-sh
         - name: nautobot-resolv
           configMap:
             name: nautobot-resolv
