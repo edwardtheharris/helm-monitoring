@@ -35,7 +35,7 @@ COPY reqs /opt/nautobot/reqs
 RUN /usr/local/bin/pip install --no-cache-dir -v -r /opt/nautobot/reqs \
   && /usr/local/bin/python -m venv /opt/nautobot \
   && /opt/nautobot/bin/pip install -U pip nautobot \
-  && /opt/nautobot/bin/pip install -r reqs \
+  && /opt/nautobot/bin/pip install -r /opt/nautobot/reqs \
   && rm -v /opt/nautobot/reqs
 USER nautobot
 WORKDIR /opt/nautobot

@@ -29,10 +29,9 @@ spec:
     spec:
       containers:
         - name: server
-          command:
-            - /bin/bash
-            - -c
-            - 'while true; do sleep 3600; done'
+          # command:
+            # - /bin/bash
+            # - /usr/local/bin/entrypoint.sh
             # - /bin/entrypoint.sh
           env:
             - name: NAUTOBOT_ALLOWED_HOSTS
@@ -86,9 +85,25 @@ spec:
             - name: NAUTOBOT_ROOT
               value: {{ .Values.config.root }}
             - name: NAUTOBOT_REDIS_HOST
-              value: redis.redis.svc.cluster.local
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: host
             - name: NAUTOBOT_REDIS_SCHEME
-              value: redis
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: scheme
+            - name: NAUTOBOT_REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: url
+            - name: NAUTOBOT_REDIS_CELERY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: celery_url
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
@@ -118,22 +133,21 @@ spec:
           volumeMounts:
             - name: {{ .Values.config.name }}
               mountPath: /opt/nautobot/.nautobot
+            - name: nautobot-entrypoint-sh
+              mountPath: /usr/local/bin/entrypoint.sh
+              subPath: entrypoint.sh
+            - name: nautobot-resolv
+              mountPath: /etc/resolv.conf
+              subPath: resolv.conf
         - name: scheduler
-          command:
-            - /bin/entrypoint.sh
-            # - /bin/bash
-            # - -c
-            # - 'while true; do sleep 3600; done'
-            # - /opt/nautobot/bin/nautobot-server
-            # - celery
-            # - --config
-            # - .nautobot/nautobot_config.py
-            # - beat
           env:
             - name: NAUTOBOT_ALLOWED_HOSTS
               value: {{ .Values.config.allowed_hosts | quote }}
             - name: NAUTOBOT_CELERY_BROKER_URL
-              value: {{ .Values.config.scheduler.broker }}
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: celery_url
             - name: NAUTOBOT_CELERY_RESULT_BACKEND
               value: {{ .Values.config.scheduler.results }}
             - name: NAUTOBOT_CACHES_BACKEND
@@ -179,23 +193,45 @@ spec:
             - name: NAUTOBOT_ROOT
               value: /opt/nautobot
             - name: NAUTOBOT_REDIS_HOST
-              value: redis.redis.svc.cluster.local
-            - name: NAUTOBOT_REDIS_SCHEMEspec.template.spec.containers
-              value: redis
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: host
+            - name: NAUTOBOT_REDIS_SCHEME
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: scheme
+            - name: NAUTOBOT_REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: url
+            - name: NAUTOBOT_REDIS_CELERY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: celery_url
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
+                  name: nautobot-superuser
                   key: secretKey
             - name: NAUTOBOT_SUPERUSER_API_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
+                  name: nautobot-superuser
                   key: token
             - name: NAUTOBOT_SUPERUSER_EMAIL
-              value: {{ .Values.superUser.email }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: email
             - name: NAUTOBOT_SUPERUSER_USERNAME
-              value: {{ .Values.superUser.username }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: username
             - name: NAUTOBOT_SUPERUSER_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -206,14 +242,17 @@ spec:
           image: "{{ .Values.config.scheduler.img.repository }}:{{ .Values.config.scheduler.img.tag }}"
           imagePullPolicy: Always
           ports:
-            - containerPort: 5673
+            - containerPort: 5672
               name: celery
           volumeMounts:
             - name: {{ .Values.config.name }}
               mountPath: /opt/nautobot/.nautobot
+            - name: nautobot-resolv
+              mountPath: /etc/resolv.conf
+              subPath: resolv.conf
         - name: worker
-          command:
-            - /bin/entrypoint.sh
+          # command:
+            # - /bin/entrypoint.sh
             # - /opt/nautobot/bin/nautobot-server
             # - celery
             # - --config
@@ -271,9 +310,25 @@ spec:
             - name: NAUTOBOT_ROOT
               value: {{ .Values.config.worker.root }}
             - name: NAUTOBOT_REDIS_HOST
-              value: redis.database.svc.cluster.local
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: host
             - name: NAUTOBOT_REDIS_SCHEME
-              value: redis
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: scheme
+            - name: NAUTOBOT_REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: url
+            - name: NAUTOBOT_REDIS_CELERY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: celery_url
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
@@ -285,9 +340,15 @@ spec:
                   name: {{ .Values.superUser.secret.name }}
                   key: token
             - name: NAUTOBOT_SUPERUSER_EMAIL
-              value: {{ .Values.superUser.email }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.superUser.secret.name }}
+                  key: email
             - name: NAUTOBOT_SUPERUSER_USERNAME
-              value: {{ .Values.superUser.username }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.superUser.secret.name }}
+                  key: username
             - name: NAUTOBOT_SUPERUSER_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -298,16 +359,34 @@ spec:
           image: "{{ .Values.config.worker.img.repository }}:{{ .Values.config.worker.img.tag }}"
           imagePullPolicy: Always
           ports:
-            - containerPort: 5672
+            - containerPort: 5673
               name: worker
           volumeMounts:
             - name: {{ .Values.config.name }}
               mountPath: /opt/nautobot/.nautobot
+            - name: nautobot-scheduler-entrypoint-sh
+              mountPath: /usr/local/bin/entrypoint.sh
+              subPath: entrypoint.sh
+            - name: nautobot-resolv
+              mountPath: /etc/resolv.conf
+              subPath: resolv.conf
       imagePullSecrets:
         - name: ghcr
       volumes:
         - name: {{ .Values.config.name }}
           configMap:
             name: {{ .Values.config.name }}
+        - name: nautobot-entrypoint-sh
+          configMap:
+            name: nautobot-entrypoint-sh
+        - name: nautobot-scheduler-entrypoint-sh
+          configMap:
+            name: nautobot-scheduler-entrypoint-sh
+        - name: nautobot-worker-entrypoint-sh
+          configMap:
+            name: nautobot-worker-entrypoint-sh
+        - name: nautobot-resolv
+          configMap:
+            name: nautobot-resolv
 {{- end -}}
 
