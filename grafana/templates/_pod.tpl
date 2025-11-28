@@ -51,7 +51,7 @@ initContainers:
       {{- toYaml . | nindent 6 }}
     {{- end }}
     volumeMounts:
-      - name: storage
+      - name: grafana
         mountPath: "/var/lib/grafana"
         {{- with .Values.persistence.subPath }}
         subPath: {{ tpl . $root }}
@@ -95,7 +95,7 @@ initContainers:
       - name: config
         mountPath: "/etc/grafana/download_dashboards.sh"
         subPath: download_dashboards.sh
-      - name: storage
+      - name: grafana
         mountPath: "/var/lib/grafana"
         {{- with .Values.persistence.subPath }}
         subPath: {{ tpl . $root }}
@@ -1000,6 +1000,9 @@ containers:
       - name: config
         mountPath: "/etc/grafana/grafana.ini"
         subPath: grafana.ini
+      - name: logins
+        mountPath: /etc/logins
+        readOnly: true
       {{- if .Values.ldap.enabled }}
       - name: ldap
         mountPath: "/etc/grafana/ldap.toml"
@@ -1011,7 +1014,7 @@ containers:
         subPath: {{ tpl (.subPath | default "") $root }}
         readOnly: {{ .readOnly }}
       {{- end }}
-      - name: storage
+      - name: grafana
         mountPath: "/var/lib/grafana"
         {{- with .Values.persistence.subPath }}
         subPath: {{ tpl . $root }}
@@ -1278,6 +1281,9 @@ volumes:
   - name: config
     configMap:
       name: {{ include "grafana.fullname" . }}
+  - name: logins
+    secret:
+      secretName: grafana-admin
   {{- $createConfigSecret := eq (include "grafana.shouldCreateConfigSecret" .) "true" -}}
   {{- if and .Values.createConfigmap $createConfigSecret }}
   - name: config-secret
@@ -1323,13 +1329,13 @@ volumes:
           path: ldap.toml
   {{- end }}
   {{- if and .Values.persistence.enabled (eq .Values.persistence.type "pvc") }}
-  - name: storage
+  - name: grafana
     persistentVolumeClaim:
       claimName: {{ tpl (.Values.persistence.existingClaim | default (include "grafana.fullname" .)) . }}
   {{- else if and .Values.persistence.enabled (has .Values.persistence.type $sts) }}
   {{/* nothing */}}
   {{- else }}
-  - name: storage
+  - name: grafana
     {{- if .Values.persistence.inMemory.enabled }}
     emptyDir:
       medium: Memory
