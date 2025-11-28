@@ -42,7 +42,7 @@ spec:
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      name: storage
+      name: grafana
     spec:
       accessModes:
         {{- range .Values.persistence.accessModes }}
