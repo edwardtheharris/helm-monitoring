@@ -58,7 +58,7 @@ automountServiceAccountToken: true
 service:
   port: 8080
   # Default to clusterIP for backward compatibility
-  type: ClusterIP
+  type: LoadBalancer
   ipDualStack:
     enabled: false
     ipFamilies: ["IPv6", "IPv4"]
@@ -78,7 +78,7 @@ customLabels: {}
 selectorOverride: {}
 
 ## set to true to add the release label so scraping of the servicemonitor with kube-prometheus-stack works out of the box
-releaseLabel: false
+releaseLabel: true
 
 hostNetwork: false
 
@@ -159,7 +159,7 @@ serviceAccount:
   create: true
   # The name of the ServiceAccount to use.
   # If not set and create is true, a name is generated using the fullname template
-  name:
+  name: kube-state-metrics
   # Reference to one or more secrets to be used when pulling images
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   imagePullSecrets: []
@@ -334,7 +334,8 @@ containerSecurityContext:
 
 ## Node labels for pod assignment
 ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
-nodeSelector: {}
+nodeSelector:
+  kubernetes.io/os: linux
 
 ## Affinity settings for pod assignment
 ## Can be defined as either a dict or string. String is useful for `tpl` templating.
@@ -433,7 +434,7 @@ collectors:
   - storageclasses
   - validatingwebhookconfigurations
   - volumeattachments
-  # - ingressclasses
+  - ingressclasses
   # - clusterrolebindings
   # - clusterroles
   # - roles
