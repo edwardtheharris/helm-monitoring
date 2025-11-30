@@ -44,13 +44,24 @@ To install this chart follow these steps.
    kubectl create ns nautobot
    ```
 
-2. Install the unittest Helm plugin.
+2. Build the containers
+
+   :::{code-block} shell
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot:0.0.1 \
+      -f container/Dockerfile --target nautobot . --push
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler:0.0.1 \
+      -f container/Dockerfile --target scheduler . --push
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker:0.0.1 \
+      -f container/Dockerfile --target worker . --push
+   :::
+
+3. Install the unittest Helm plugin.
 
    ```{code-block} shell
    helm plugin install https://github.com/helm-unittest/helm-unittest
    ```
 
-3. Run the unit tests.
+4. Run the unit tests.
 
    ```{code-block} shell
    helm unittest -f 'tests/*.yaml' .
@@ -72,13 +83,13 @@ To install this chart follow these steps.
    Time:        92.722398ms
    ```
 
-4. Install the chart with Helm.
+5. Install the chart with Helm.
 
    ```{code-block} shell
    helm -n nautobot install nautobot .
    ```
 
-5. Run the tests included with Helm.
+6. Run the tests included with Helm.
 
    ```{code-block} shell
    helm -n nautobot test nautobot
@@ -101,3 +112,18 @@ helm -n nautobot uninstall nautobot
 
 ```{autoyaml} values.yaml
 ```
+
+:::{note}
+
+A quick bit of sed to recursively edit files in-place.
+
+```{code-block} shell
+sed -i '' -e 's/csi-driver-lvm-linear/csi-lvm-linear/g' $(find ./ -type f)
+```
+
+:::
+
+:::{code-block} shell
+docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot:0.0.1 \
+  -f container/Dockerfile --target nautobot . --push
+:::
