@@ -133,20 +133,21 @@ config:
 # :end-before: "####\n"
 # ```
 db:
-  database: nautobot
-  engine: django.db.backends.postgresql
-  host: ""
-  name: postgres
-  password: ""
-  port: "5432"
+  database: c2VjcmV0Cg==
+  engine: c2VjcmV0Cg==
+  host: c2VjcmV0Cg==
+  name: c2VjcmV0Cg==
+  password: c2VjcmV0Cg==
+  port: c2VjcmV0Cg==
   timeout: "300"
-  username: ""
+  username: c2VjcmV0Cg==
 su:
-  email: ""
-  password: ""
-  secretKey: ""
-  token: ""
-  username: ""
+  email: c2VjcmV0Cg==
+  password: c2VjcmV0Cg==
+  secretKey: c2VjcmV0Cg==
+  token: c2VjcmV0Cg==
+  username: c2VjcmV0Cg==
+
 ####
 
 ###

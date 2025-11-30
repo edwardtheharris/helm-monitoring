@@ -47,11 +47,13 @@ To install this chart follow these steps.
 2. Build the containers
 
    :::{code-block} shell
-   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot:0.0.1 \
+   VERSION=0.1.0
+   export VERSION
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot:${VERSION} \
       -f container/Dockerfile --target nautobot . --push
-   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler:0.0.1 \
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler:${VERSION} \
       -f container/Dockerfile --target scheduler . --push
-   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker:0.0.1 \
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker:${VERSION} \
       -f container/Dockerfile --target worker . --push
    :::
 
@@ -120,7 +122,6 @@ A quick bit of sed to recursively edit files in-place.
 ```{code-block} shell
 sed -i '' -e 's/csi-driver-lvm-linear/csi-lvm-linear/g' $(find ./ -type f)
 ```
-
 :::
 
 :::{code-block} shell
