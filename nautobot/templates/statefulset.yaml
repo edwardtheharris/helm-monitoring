@@ -23,64 +23,6 @@ spec:
         app.kubernetes.io/name: {{ include "nautobot.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-      initContainers:
-        # - name: nautobot-init
-        #   args:
-        #     - 'cat /opt/nautobot/.nautobot/init.sh > /bin/init.sh; chmod +x /bin/init.sh; /bin/init.sh'
-        #   command:
-        #     - /bin/bash
-        #     - '-c'
-        #   env:
-        #     - name: NAUTOBOT_DB_ENGINE
-        #       value: {{ .Values.database.engine }}
-        #     - name: NAUTOBOT_DB_HOST
-        #       value: postgres.database.svc.cluster.local
-        #     - name: NAUTOBOT_DB_NAME
-        #       value: {{ .Values.database.database }}
-        #     - name: NAUTOBOT_DB_PASSWORD
-        #       valueFrom:
-        #         secretKeyRef:
-        #           name: nautobot-postgres
-        #           key: password
-        #     - name: NAUTOBOT_DB_PORT
-        #       value: {{ .Values.database.port | quote }}
-        #     - name: NAUTOBOT_DB_TIMEOUT
-        #       value: {{ .Values.database.timeout | quote }}
-        #     - name: NAUTOBOT_DB_USER
-        #       valueFrom:
-        #         secretKeyRef:
-        #           name: nautobot-postgres
-        #           key: username
-        #     - name: NAUTOBOT_ROOT
-        #       value: /opt/nautobot
-        #     - name: NAUTOBOT_SUPERUSER_API_TOKEN
-        #       valueFrom:
-        #         secretKeyRef:
-        #           name: {{ .Values.superUser.secret.name }}
-        #           key: token
-        #     - name: NAUTOBOT_SUPERUSER_EMAIL
-        #       valueFrom:
-        #         secretKeyRef:
-        #           name: {{ .Values.superUser.secret.name }}
-        #           key: email
-        #     - name: NAUTOBOT_SUPERUSER_PASSWORD
-        #       valueFrom:
-        #         secretKeyRef:
-        #           name: {{ .Values.superUser.secret.name }}
-        #           key: password
-        #     - name: NAUTOBOT_SUPERUSER_USERNAME
-        #       valueFrom:
-        #         secretKeyRef:
-        #           name: {{ .Values.superUser.secret.name }}
-        #           key: username
-        #   image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        #   imagePullPolicy: Always
-        #   volumeMounts:
-        #     - name: nautobot
-        #       mountPath: /opt/
-        #       subPath: nautobot
-        #     - name: nautobot-config
-        #       mountPath: /opt/nautobot/.nautobot
       containers:
         - name: server
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -106,18 +48,30 @@ spec:
             - name: NAUTOBOT_DEBUG
               value: 'True'
             - name: NAUTOBOT_DB_ENGINE
-              value: {{ .Values.database.engine }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: engine
             - name: NAUTOBOT_DB_HOST
-              value: 10.244.5.16
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: host
             - name: NAUTOBOT_DB_NAME
-              value: {{ .Values.database.database }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: name
             - name: NAUTOBOT_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
                   key: password
             - name: NAUTOBOT_DB_PORT
-              value: {{ .Values.database.port | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: host
             - name: NAUTOBOT_DB_TIMEOUT
               value: {{ .Values.database.timeout | quote }}
             - name: NAUTOBOT_DB_USER
@@ -193,18 +147,30 @@ spec:
             - name: NAUTOBOT_DEBUG
               value: 'True'
             - name: NAUTOBOT_DB_ENGINE
-              value: {{ .Values.database.engine }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: engine
             - name: NAUTOBOT_DB_HOST
-              value: 10.244.5.16
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: host
             - name: NAUTOBOT_DB_NAME
-              value: {{ .Values.database.database }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: name
             - name: NAUTOBOT_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
                   key: password
             - name: NAUTOBOT_DB_PORT
-              value: {{ .Values.database.port | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: host
             - name: NAUTOBOT_DB_TIMEOUT
               value: {{ .Values.database.timeout | quote }}
             - name: NAUTOBOT_DB_USER
@@ -306,14 +272,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
-                  key: database
+                  key: name
             - name: NAUTOBOT_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
                   key: password
             - name: NAUTOBOT_DB_PORT
-              value: {{ .Values.database.port | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: host
             - name: NAUTOBOT_DB_TIMEOUT
               value: {{ .Values.database.timeout | quote }}
             - name: NAUTOBOT_DB_USER
@@ -337,7 +306,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: nautobot-redis-config
-                  key: scheme 
+                  key: scheme
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
