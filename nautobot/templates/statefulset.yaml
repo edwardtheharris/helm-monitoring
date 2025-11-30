@@ -29,7 +29,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8000
-              name: nautobot
+              name: server
           env:
             - name: NAUTOBOT_ALLOWED_HOSTS
               value: {{ .Values.config.allowed_hosts | quote }}
@@ -61,7 +61,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
-                  key: name
+                  key: username
             - name: NAUTOBOT_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -71,9 +71,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
-                  key: host
+                  key: port
             - name: NAUTOBOT_DB_TIMEOUT
-              value: {{ .Values.database.timeout | quote }}
+              value: {{ .Values.db.timeout | quote }}
             - name: NAUTOBOT_DB_USER
               valueFrom:
                 secretKeyRef:
@@ -82,29 +82,44 @@ spec:
             - name: NAUTOBOT_ROOT
               value: /opt/nautobot
             - name: NAUTOBOT_REDIS_HOST
-              value: {{ .Values.config.worker.host }}
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: host
             - name: NAUTOBOT_REDIS_PORT
-              value: "6379"
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: port
             - name: NAUTOBOT_REDIS_SCHEME
-              value: redis
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: scheme
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
+                  name: nautobot-superuser
                   key: secretKey
             - name: NAUTOBOT_SUPERUSER_API_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
+                  name: nautobot-superuser
                   key: token
             - name: NAUTOBOT_SUPERUSER_EMAIL
-              value: {{ .Values.superUser.email }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: email
             - name: NAUTOBOT_SUPERUSER_NAME
-              value: {{ .Values.superUser.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: username
             - name: NAUTOBOT_SUPERUSER_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
+                  name: nautobot-superuser
                   key: password
             - name: NAUTOBOT_TIME_ZONE
               value: 'America/Los_Angeles'
@@ -114,132 +129,14 @@ spec:
               subPath: nautobot
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
-        - name: worker
-          command:
-            - /bin/bash
-            - -c
-            - 'while true; do sleep 3600; done'
-            # - bin/nautobot-server
-            # - celery
-            # - --config
-            # - .nautobot/nautobot_config.py
-            # - worker
-          image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - containerPort: 9700
-              name: worker
-          env:
-            - name: NAUTOBOT_ALLOWED_HOSTS
-              value: {{ .Values.config.allowed_hosts | quote }}
-            - name: NAUTOBOT_CACHES_BACKEND
-              value: {{ .Values.config.caches_backend }}
-            - name: NAUTOBOT_CELERY_BROKER_URL
-              value: "redis://redis.database.svc.cluster.local:6379/0"
-            - name: NAUTOBOT_CELERY_RESULT_BACKEND
-              value: {{ .Values.config.worker.results }}
-            - name: NAUTOBOT_CREATE_SUPERUSER
-              value: {{ .Values.superUser.create | quote }}
-            - name: NAUTOBOT_CORS_ALLOW_ALL_ORIGINS
-              value: 'True'
-            - name: NAUTOBOT_CELERY_TASK_DEFAULT_QUEUE
-              value: 'default-celery'
-            - name: NAUTOBOT_DEBUG
-              value: 'True'
-            - name: NAUTOBOT_DB_ENGINE
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: engine
-            - name: NAUTOBOT_DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: host
-            - name: NAUTOBOT_DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: name
-            - name: NAUTOBOT_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: password
-            - name: NAUTOBOT_DB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: host
-            - name: NAUTOBOT_DB_TIMEOUT
-              value: {{ .Values.database.timeout | quote }}
-            - name: NAUTOBOT_DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: username
-            - name: NAUTOBOT_ROOT
-              value: /opt/nautobot
-            - name: NAUTOBOT_REDIS_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: nautobot-redis-config
-                  key: host
-            - name: NAUTOBOT_REDIS_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: nautobot-redis-config
-                  key: port
-            - name: NAUTOBOT_REDIS_SCHEME
-              valueFrom:
-                configMapKeyRef:
-                  key: scheme
-                  name: nautobot-redis-config
-            - name: NAUTOBOT_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
-                  key: secretKey
-            - name: NAUTOBOT_SUPERUSER_API_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
-                  key: token
-            - name: NAUTOBOT_SUPERUSER_EMAIL
-              value: {{ .Values.superUser.email }}
-            - name: NAUTOBOT_SUPERUSER_NAME
-              value: {{ .Values.superUser.name }}
-            - name: NAUTOBOT_SUPERUSER_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
-                  key: password
-            - name: NAUTOBOT_TIME_ZONE
-              value: 'America/Los_Angeles'
-          volumeMounts:
-            - name: {{ .Values.persistence.name }}
-              mountPath: /opt/
-              subPath: nautobot
             - name: nautobot-resolv
               mountPath: /etc/resolv.conf
-            - name: nautobot-config
-              mountPath: /opt/nautobot/.nautobot
+              subPath: resolv.conf
         - name: scheduler
-          command:
-            - /bin/bash
-            - -c
-            - 'while true; do sleep 3600; done'
-            # - bin/nautobot-server
-            # - celery
-            # - --config
-            # - .nautobot/nautobot_config.py
-            # - beat
-            # - --loglevel
-            # - DEBUG
           image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 7890
+            - containerPort: 5672
               name: scheduler
           env:
             - name: NAUTOBOT_ALLOWED_HOSTS
@@ -272,7 +169,115 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
-                  key: name
+                  key: username
+            - name: NAUTOBOT_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: password
+            - name: NAUTOBOT_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: port
+            - name: NAUTOBOT_DB_TIMEOUT
+              value: {{ .Values.db.timeout | quote }}
+            - name: NAUTOBOT_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: username
+            - name: NAUTOBOT_ROOT
+              value: /opt/nautobot
+            - name: NAUTOBOT_REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: host
+            - name: NAUTOBOT_REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: port
+            - name: NAUTOBOT_REDIS_SCHEME
+              valueFrom:
+                configMapKeyRef:
+                  name: nautobot-redis
+                  key: scheme
+            - name: NAUTOBOT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: secretKey
+            - name: NAUTOBOT_SUPERUSER_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: token
+            - name: NAUTOBOT_SUPERUSER_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: email
+            - name: NAUTOBOT_SUPERUSER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: username
+            - name: NAUTOBOT_SUPERUSER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: password
+            - name: NAUTOBOT_TIME_ZONE
+              value: 'America/Los_Angeles'
+          volumeMounts:
+            - name: nautobot
+              mountPath: /opt/
+              subPath: nautobot
+            - name: nautobot-resolv
+              mountPath: /etc/resolv.conf
+              subPath: resolv.conf
+            - name: nautobot-config
+              mountPath: /opt/nautobot/.nautobot
+        - name: worker
+          image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 5673
+              name: worker
+          env:
+            - name: NAUTOBOT_ALLOWED_HOSTS
+              value: {{ .Values.config.allowed_hosts | quote }}
+            - name: NAUTOBOT_CACHES_BACKEND
+              value: {{ .Values.config.caches_backend }}
+            - name: NAUTOBOT_CELERY_BROKER_URL
+              value: "redis://redis.database.svc.cluster.local:6379/0"
+            - name: NAUTOBOT_CELERY_RESULT_BACKEND
+              value: {{ .Values.config.worker.results }}
+            - name: NAUTOBOT_CREATE_SUPERUSER
+              value: {{ .Values.superUser.create | quote }}
+            - name: NAUTOBOT_CORS_ALLOW_ALL_ORIGINS
+              value: 'True'
+            - name: NAUTOBOT_CELERY_TASK_DEFAULT_QUEUE
+              value: 'default-celery'
+            - name: NAUTOBOT_DEBUG
+              value: 'True'
+            - name: NAUTOBOT_DB_ENGINE
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: engine
+            - name: NAUTOBOT_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: host
+            - name: NAUTOBOT_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-postgres
+                  key: database
             - name: NAUTOBOT_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -284,7 +289,7 @@ spec:
                   name: nautobot-postgres
                   key: host
             - name: NAUTOBOT_DB_TIMEOUT
-              value: {{ .Values.database.timeout | quote }}
+              value: {{ .Values.db.timeout | quote }}
             - name: NAUTOBOT_DB_USER
               valueFrom:
                 secretKeyRef:
@@ -295,45 +300,52 @@ spec:
             - name: NAUTOBOT_REDIS_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: nautobot-redis-config
+                  name: nautobot-redis
                   key: host
             - name: NAUTOBOT_REDIS_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: nautobot-redis-config
+                  name: nautobot-redis
                   key: port
             - name: NAUTOBOT_REDIS_SCHEME
               valueFrom:
                 configMapKeyRef:
-                  name: nautobot-redis-config
                   key: scheme
+                  name: nautobot-redis
             - name: NAUTOBOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
+                  name: nautobot-superuser
                   key: secretKey
             - name: NAUTOBOT_SUPERUSER_API_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
+                  name: nautobot-superuser
                   key: token
             - name: NAUTOBOT_SUPERUSER_EMAIL
-              value: {{ .Values.superUser.email }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: email
             - name: NAUTOBOT_SUPERUSER_NAME
-              value: {{ .Values.superUser.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: nautobot-superuser
+                  key: username
             - name: NAUTOBOT_SUPERUSER_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.superUser.secret.name }}
+                  name: nautobot-superuser
                   key: password
             - name: NAUTOBOT_TIME_ZONE
               value: 'America/Los_Angeles'
           volumeMounts:
-            - name: {{ .Values.persistence.name }}
+            - name: nautobot
               mountPath: /opt/
               subPath: nautobot
             - name: nautobot-resolv
               mountPath: /etc/resolv.conf
+              subPath: resolv.conf
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
       imagePullSecrets:
@@ -356,7 +368,7 @@ spec:
                 path: nautobot_config.py
   volumeClaimTemplates:
     - metadata:
-        name: {{ .Values.persistence.name }}
+        name: nautobot
       spec:
         accessModes:
           - ReadWriteMany

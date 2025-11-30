@@ -11,13 +11,11 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
+    - port: 8000
+      targetPort: 8000
       protocol: TCP
       name: nautobot
   selector:
-    app.kubernetes.io/component: primary
-    app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/name: nautobot
 ---
 apiVersion: v1
@@ -25,7 +23,7 @@ kind: Service
 metadata:
   name: worker
   labels:
-    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/component: worker
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/name: worker
     app.kubernetes.io/part-of: nautobot
@@ -37,18 +35,16 @@ spec:
       protocol: TCP
       name: worker
   selector:
-    app.kubernetes.io/component: scheduler
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: worker
+    app.kubernetes.io/name: nautobot
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: celery-worker
+  name: scheduler
   labels:
     app.kubernetes.io/component: scheduler
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: celery-worker
+    app.kubernetes.io/name: scheduler
     app.kubernetes.io/part-of: nautobot
 spec:
   type: {{ .Values.service.type }}
@@ -56,9 +52,7 @@ spec:
     - port: 5673
       targetPort: 5673
       protocol: TCP
-      name: celery-worker
+      name: scheduler
   selector:
-    app.kubernetes.io/component: scheduler
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: celery-worker
+    app.kubernetes.io/name: nautobot
 {{ end }}

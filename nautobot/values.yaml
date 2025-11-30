@@ -196,7 +196,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  className: "nginx"
+  ingressClassName: "nginx"
   enabled: true
   hosts:
     - host: nautobot.svc.cluster.local
