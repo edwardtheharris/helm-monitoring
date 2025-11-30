@@ -67,7 +67,7 @@ config:
   allowed_hosts: "*"
   caches_backend: django_redis.cache.RedisCache
   scheduler:
-    location: "redis://redis.admin.com:6379/0"
+    location: "redis://redis.breeze-blocks.net:6379/0"
     livenessProbe:
       exec:
         command:
@@ -87,9 +87,8 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler
-      tag: "0.0.6"
-    name: scheduler-config
-    results: "redis://redis.admin.com:6379/0"
+      tag: "0.1.0"
+    results: "redis://redis.breeze-blocks.net:6379/0"
   worker:
     host: "192.168.5.25"
     livenessProbe:
@@ -111,9 +110,8 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
-      tag: "0.0.6"
-    name: worker-config
-    results: "redis://redis.admin.com:6379/0"
+      tag: "0.1.0"
+    results: "redis://redis.breeze-blocks.net:6379/0"
     root: "/opt/nautobot"
   name: nautobot-config
   root: /opt/nautobot
@@ -136,14 +134,14 @@ config:
 # :end-before: "###\n"
 # ```
 database:
-  database: nautobot
-  engine: django.db.backends.postgresql
-  host: 192.168.5.22
-  name: postgres
-  password: ""
-  port: "5432"
+  database: bmF1dG9ib3Q=
+  engine: ZGphbmdvLmRiLmJhY2tlbmRzLnBvc3RncmVzcWw=
+  host: cG9zdGdyZXMuZGF0YWJhc2Uuc3ZjLmNsdXN0ZXIubG9jYWw=
+  name: bmF1dG9ib3Q=
+  password: eFFXZFBHZ3NnN3dlTW9uN01vTE5pRHAqUEV4LTQ2cXEK
+  port: NTQzMg==
   timeout: "300"
-  username: ""
+  username: bmF1dG9ib3Q=
 ####
 
 ###
@@ -164,7 +162,7 @@ image:
   pullPolicy: Always
   repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.6"
+  tag: "0.1.0"
 imagePullSecrets:
   - name: ghcr
 ####
@@ -195,20 +193,20 @@ ingress:
     cert-manager.io/common-name: nautobot
     cert-manager.io/subject-organizationalunits: engineering
     cert-manager.io/subject-countries: US
-    cert-manager.io/email-sans: nautobot@admin.com
+    cert-manager.io/email-sans: nautobot@breeze-blocks.net
     cert-manager.io/subject-provinces: CA
     cert-manager.io/subject-localities: Los Angeles
   ingressClassName: "nginx"
   enabled: true
   hosts:
-    - host: nautobot.admin.com
+    - host: nautobot.breeze-blocks.net
       paths:
         - path: /
           pathType: Prefix
   tls:
     - secretName: nautobot-tls
       hosts:
-        - nautobot.admin.com
+        - nautobot.breeze-blocks.net
 ####
 
 ###
@@ -464,15 +462,24 @@ serviceAccount:
 # :start-at: "superUser:\n"
 # :end-before: "####\n"
 # ```
-superUser:
+db:
+  database: c2VjcmV0Cg==
+  engine: c2VjcmV0Cg==
+  host: c2VjcmV0Cg==
+  name: c2VjcmV0Cg==
+  password: c2VjcmV0Cg==
+  port: NTQzMg==
+  timeout: "300"
+  username: c2VjcmV0Cg==
+su:
   create: true
-  email: nautobot@admin.com
-  password: ""
+  email: c2VjcmV0Cg==
+  secretKey: c2VjcmV0Cg==
+  token: c2VjcmV0Cg==
+  password: c2VjcmV0Cg==
+  username: c2VjcmV0Cg==
   secret:
     name: nautobot-superuser
-  secretKey: ""
-  token: ""
-  username: ""
 ####
 
 ###
