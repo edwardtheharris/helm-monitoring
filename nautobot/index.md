@@ -46,11 +46,14 @@ To install this chart follow these steps.
 
 2. Build the containers
 
-   ```{code-block} shell
-   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot:0.0.1 -f container/Dockerfile --target nautobot . --push
-   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler:0.0.1 -f container/Dockerfile --target scheduler . --push
-   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker:0.0.1 -f container/Dockerfile --target worker . --push
-   ```
+   :::{code-block} shell
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot:0.0.1 \
+      -f container/Dockerfile --target nautobot . --push
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler:0.0.1 \
+      -f container/Dockerfile --target scheduler . --push
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker:0.0.1 \
+      -f container/Dockerfile --target worker . --push
+   :::
 
 3. Install the unittest Helm plugin.
 
@@ -117,6 +120,7 @@ A quick bit of sed to recursively edit files in-place.
 ```{code-block} shell
 sed -i '' -e 's/csi-driver-lvm-linear/csi-lvm-linear/g' $(find ./ -type f)
 ```
+
 :::
 
 :::{code-block} shell
