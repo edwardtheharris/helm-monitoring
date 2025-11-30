@@ -86,7 +86,7 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler
-      tag: "0.0.2"
+      tag: "0.0.3"
     name: scheduler-config
     results: "redis://redis.database.svc.cluster.local:6379/0"
     root: "/opt/celery"
@@ -111,7 +111,7 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
-      tag: "0.0.2"
+      tag: "0.0.3"
     name: worker-config
     results: "redis://redis.database.svc.cluster.local:6379/0"
     root: "/opt/nautobot"
