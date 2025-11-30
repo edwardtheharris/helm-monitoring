@@ -134,14 +134,14 @@ config:
 # :end-before: "###\n"
 # ```
 database:
-  database: bmF1dG9ib3Q=
-  engine: ZGphbmdvLmRiLmJhY2tlbmRzLnBvc3RncmVzcWw=
-  host: cG9zdGdyZXMuZGF0YWJhc2Uuc3ZjLmNsdXN0ZXIubG9jYWw=
-  name: bmF1dG9ib3Q=
-  password: eFFXZFBHZ3NnN3dlTW9uN01vTE5pRHAqUEV4LTQ2cXEK
-  port: NTQzMg==
+  database: ""
+  engine: ""
+  host: ""
+  name: ""
+  password: ""
+  port: ""
   timeout: "300"
-  username: bmF1dG9ib3Q=
+  username: ""
 ####
 
 ###
