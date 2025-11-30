@@ -129,10 +129,10 @@ config:
 # ```{literalinclude} /values.yaml
 # :caption: database
 # :language: yaml
-# :start-at: "database:\n"
-# :end-before: "###\n"
+# :start-at: "db:\n"
+# :end-before: "####\n"
 # ```
-database:
+db:
   database: nautobot
   engine: django.db.backends.postgresql
   host: ""
@@ -140,6 +140,12 @@ database:
   password: ""
   port: "5432"
   timeout: "300"
+  username: ""
+su:
+  email: ""
+  password: ""
+  secretKey: ""
+  token: ""
   username: ""
 ####
 

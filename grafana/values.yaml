@@ -126,7 +126,7 @@ image:
   # Overrides the Grafana image tag whose default is the chart appVersion
   tag: ""
   sha: ""
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
@@ -516,8 +516,8 @@ initChownData:
         - ALL
 
 # Administrator credentials when not using an existing secret (see below)
-# adminUser: admin
-# adminPassword: strongpassword
+#adminUser: admin
+#adminPassword: admin
 
 # Use an existing secret for the admin user.
 admin:
@@ -915,6 +915,12 @@ grafana.ini:
     url: https://grafana.net
   server:
     domain: grafana.breeze-blocks.net
+  database:
+    type: postgres
+    host: postgres.breeze-blocks.net
+    name: grafana
+    user: grafana
+    password: $__file{/etc/logins/postgres-password}
   ## grafana Authentication can be enabled with the following values on grafana.ini
   # server:
   # The full public facing url you use in browser, used for redirects and emails
@@ -1680,4 +1686,4 @@ extraObjects: []
 #
 # Alternatively, if you wish to allow secret values to be exposed in the rendered grafana.ini configmap,
 # you can disable this check by setting assertNoLeakedSecrets to false.
-assertNoLeakedSecrets: true
+assertNoLeakedSecrets: false
