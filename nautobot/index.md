@@ -116,7 +116,7 @@ helm -n nautobot uninstall nautobot
 ```
 
 :::{note}
-As noted in 
+As noted in
 [this GitGuardian Issue](https://dashboard.gitguardian.com/workspace/709490/incidents/23005714?occurrence=228077645&sort_published_at=true&page_size=5&page=1&source=20720276),
 the default values for the `db:`{l=yaml} and `su:`{l=yaml} sections are
 secrets, base64 encoded as the chart expects, but they all contain only
