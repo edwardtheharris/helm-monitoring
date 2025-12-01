@@ -33,10 +33,12 @@ RUN apk add --no-cache \
   && useradd -s /bin/bash -m -d /opt/${USER} -g ${USER} ${USER}
 COPY reqs /opt/nautobot/reqs
 RUN /usr/local/bin/pip install --no-cache-dir -v -r /opt/nautobot/reqs \
-  && /usr/local/bin/python -m venv /opt/nautobot \
-  && /opt/nautobot/bin/pip install -U pip nautobot \
-  && /opt/nautobot/bin/pip install -r /opt/nautobot/reqs \
+  && /usr/local/bin/pip install --no-cache-dir -U pip nautobot \
   && rm -v /opt/nautobot/reqs
+COPY local_requirements.txt /opt/nautobot/local_requirements.txt
+COPY thw04.json.gpg /opt/nautobot/thw04.json.gpg
+RUN /usr/local/bin/pip install --no-cache-dir -r /opt/nautobot/local_requirements.txt \
+  && rm /opt/nautobot/local_requirements.txt
 USER nautobot
 WORKDIR /opt/nautobot
 EXPOSE 8000
