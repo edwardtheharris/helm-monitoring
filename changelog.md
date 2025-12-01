@@ -82,6 +82,19 @@ title: Breeze Blocks Helm Repository Changelog
 - Closes #60
 - Update changelog
 - Closes #73
+- Update changelog
+- Closes #73
+- Merge pull request #86 from edwardtheharris/60-install-nautobot
+- Works for deployment to comms cluster
+- Closes #60
+- Merge branch 'main' into 73-the-database-connection-isnt-consistent-across-all-containers-in-the-pod
+- Merge branch '73-the-database-connection-isnt-consistent-across-all-containers-in-the-pod'
+- Of github.com:edwardtheharris/helm-monitoring into
+- 73-the-database-connection-isnt-consistent-across-all-containers-in-the-pod
+- Closes #73
+- Merge pull request #87 from edwardtheharris/73-the-database-connection-isnt-consistent-across-all-containers-in-the-pod
+- Update changelog
+- Closes # 73
 ## [0.0.2] - 2025-11-30
 
 ### 💼 Other - 0.0.2
