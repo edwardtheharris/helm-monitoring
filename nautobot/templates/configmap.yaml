@@ -29,32 +29,6 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nautobot-scheduler-entrypoint-sh
-  labels:
-    app.kubernetes.io/name: nautobot
-    app.kubernetes.io/instance: {{ .Release.Name }}
-data:
-  entrypoint.sh:
-    #!/bin/bash
-
-    while true; do sleep 3600; done
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nautobot-worker-entrypoint-sh
-  labels:
-    app.kubernetes.io/name: nautobot
-    app.kubernetes.io/instance: {{ .Release.Name }}
-data:
-  entrypoint.sh:
-    #!/bin/bash
-
-    while true; do sleep 3600; done
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
   name: nautobot-redis
   labels:
     app.kubernetes.io/name: nautobot

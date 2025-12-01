@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/component: primary
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: nautobot
+    app.kubernetes.io/name: {{ .Release.Name }}
     app.kubernetes.io/part-of: nautobot
 spec:
   type: {{ .Values.service.type }}
@@ -14,7 +14,7 @@ spec:
     - port: 8000
       targetPort: 8000
       protocol: TCP
-      name: nautobot
+      name: server
   selector:
     app.kubernetes.io/name: nautobot
 ---
@@ -26,7 +26,7 @@ metadata:
     app.kubernetes.io/component: worker
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/name: worker
-    app.kubernetes.io/part-of: nautobot
+    app.kubernetes.io/part-of: {{ .Release.Name }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -35,7 +35,7 @@ spec:
       protocol: TCP
       name: worker
   selector:
-    app.kubernetes.io/name: nautobot
+    app.kubernetes.io/part-of: nautobot
 ---
 apiVersion: v1
 kind: Service
@@ -45,7 +45,7 @@ metadata:
     app.kubernetes.io/component: scheduler
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/name: scheduler
-    app.kubernetes.io/part-of: nautobot
+    app.kubernetes.io/part-of: {{ .Release.Name }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -54,5 +54,5 @@ spec:
       protocol: TCP
       name: scheduler
   selector:
-    app.kubernetes.io/name: nautobot
+    app.kubernetes.io/part-of: nautobot
 {{ end }}
