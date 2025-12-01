@@ -9,10 +9,9 @@ title: Breeze Blocks Helm Repository Changelog
 
 
 <!--markdownlint-disable-->
-## [unreleased]
+## [0.0.3] - 2025-12-01
 
-
-### 💼 Other - [unreleased]
+### 💼 Other - 0.0.3
 
 
 - Merge pull request #83 from edwardtheharris/release-0.0.2
@@ -81,6 +80,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge branch '60-install-nautobot' of
 - Edwardtheharris/helm-monitoring into 60-install-nautobot
 - Closes #60
+- Update changelog
+- Closes #73
 ## [0.0.2] - 2025-11-30
 
 ### 💼 Other - 0.0.2
