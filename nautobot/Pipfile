@@ -9,6 +9,7 @@ loguru = "*"
 nautobot = {extras = ["sso"], version = "*"}
 celery = "*"
 pipenv = "*"
+version-query = "*"
 
 [dev-packages]
 "sphinxcontrib.autoyaml" = "*"

@@ -4,17 +4,17 @@ kind: StatefulSet
 metadata:
   annotations:
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: {{ .Values.nameOverride }}
+    app.kubernetes.io/name: {{ .Chart.Name }}
   labels:
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernets.io/name: {{ .Values.nameOverride }}
-  name: {{ .Values.fullnameOverride }}
+    app.kubernets.io/name: {{ .Chart.Name }}
+  name: {{ .Release.Name }}
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "nautobot.name" . }}
+      app.kubernetes.io/name: {{ .Release.Name }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-  serviceName: {{ .Values.nameOverride }}
+  serviceName: {{ .Release.Name }}
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
@@ -24,12 +24,12 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-        - name: server
+        - name: {{ .Release.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8000
-              name: server
+              name: {{ .Release.Name }}
           env:
             - name: NAUTOBOT_ALLOWED_HOSTS
               value: {{ .Values.config.allowed_hosts | quote }}
@@ -134,7 +134,6 @@ spec:
               subPath: resolv.conf
         - name: scheduler
           image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 5672
               name: scheduler
@@ -242,7 +241,7 @@ spec:
               mountPath: /opt/nautobot/.nautobot
         - name: worker
           image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: Always
           ports:
             - containerPort: 5673
               name: worker

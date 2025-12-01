@@ -1,0 +1,20 @@
+.PHONY : all
+
+VERSION::=$(shell echo "${VERSION,0.0.3}")
+
+nautobot : nautobot
+		docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot:$(VERSION)  --progress plain --push --target nautobot .
+		touch nautobot
+
+worker : worker
+		docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker:$(VERSION)  --progress plain --push --target worker .
+		touch worker
+
+scheduler : scheduler
+		docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler:$(VERSION)  --progress plain --push --target scheduler .
+		touch scheduler
+
+all: nautobot worker scheduler
+
+clean:
+		rm -fv nautobot worker scheduler
