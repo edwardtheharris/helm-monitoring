@@ -9,7 +9,7 @@ title: Breeze Blocks Helm Repository Changelog
 
 
 <!--markdownlint-disable-->
-## [0.0.2] - 2025-10-30
+## [0.0.2] - 2025-11-30
 
 ### 💼 Other - 0.0.2
 
@@ -70,6 +70,232 @@ title: Breeze Blocks Helm Repository Changelog
 - Closes #2
 - Update changelog
 - Closes #2
+- Update changelog
+-  Closes #2
+- Merge pull request #53 from edwardtheharris/release-0.0.2
+- Release 0.0.2
+- Closes #2
+- Update readme
+- Closes #49
+- Update grafana login
+- Closes #49
+- Fix grafana
+- Closes #49
+- Add quickstart to Grafana docs
+- Closes #49
+- Fix lint
+- Closes #49
+- Merge pull request #54 from edwardtheharris/49-fix-grafana-so-you-can-log-in
+- 49 fix grafana so you can log in
+- Closes #49
+- Merge branch '55-bump-starlette-from-0480-to-0491-in-the-pip-group-across-1-directory-51' into dependabot/pip/pip-91ab757ed1
+- Merge pull request #51 from edwardtheharris/dependabot/pip/pip-91ab757ed1
+- Bump starlette from 0.48.0 to 0.49.1 in the pip group across 1 directory
+- Closes #55
+- Merge pull request #56 from edwardtheharris/55-bump-starlette-from-0480-to-0491-in-the-pip-group-across-1-directory-51
+- 55 bump starlette from 0480 to 0491 in the pip group across 1 directory 51
+- Closes #55
+- Merge branch 'main' into 1-bump-version-query-from-1-6-3-to-1-7-0-40
+- Merge pull request #57 from edwardtheharris/1-bump-version-query-from-1-6-3-to-1-7-0-40
+- 1 bump version query from 1 6 3 to 1 7 0 40
+- Closes #1
+- Start basic tests
+- Closes #58
+- Add unit tests
+- Closes #58
+- Update values
+- Closes #58
+- Update values
+- Closes #58
+- Update workflow for lint
+- Closes #58
+- Add to chart, save test dashboard
+- Closes #58
+- Drop chart lock
+- Closes #58
+- Fix lint issue
+- Closes #58
+- Drop lint for prometheus
+- Closes #58
+- Merge pull request #59 from edwardtheharris/58-grafana-unit-tests
+- 58 grafana unit tests
+- Closes #58
+- Add nautobot install files
+- Closes #60
+- Update node exporter location
+- Closes #47
+- Update deps
+- Closes #47
+- Update charts
+- Closes #47
+- Update docs with index and readme
+- Closes #47
+- Update values and certs
+- Closes #47
+- Add values
+- Closes #47
+- Update charts files
+- Closes #47
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 47-update-prometheus-node-exporter-location
+- Closes #47
+- Merge pull request #48 from edwardtheharris/47-update-prometheus-node-exporter-location
+- Update node exporter location
+- Closes #47
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into 60-install-nautobot
+- Closes #60
+- Merge branch 'main' into 60-install-nautobot
+- Merge branch '60-install-nautobot' of
+- Edwardtheharris/helm-monitoring into 60-install-nautobot
+- Closes #60
+- Update values
+- Closes #60
+- Update prom values
+- Closes #60
+- Update nautobot
+- Closes #62
+- Fix docs
+- Closes #62
+- Merge pull request #63 from edwardtheharris/62-update-prometheus-values
+- 62 update prometheus values
+- Closes #62
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the /nautobot directory: [h11](https://github.com/python-hyper/h11) and [starlette](https://github.com/Kludex/starlette).
+- Updates `h11` from 0.14.0 to 0.16.0
+- - [Commits](https://github.com/python-hyper/h11/compare/v0.14.0...v0.16.0)
+- Updates `starlette` from 0.41.0 to 0.49.1
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/0.41.0...0.49.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: h11
+-   dependency-version: 0.16.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: starlette
+-   dependency-version: 0.49.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #64 from edwardtheharris/dependabot/pip/nautobot/pip-4b082669cb
+- Bump the pip group across 1 directory with 2 updates
+- Closes #65
+- Merge pull request #66 from edwardtheharris/65-bump-the-pip-group-across-1-directory-with-2-updates-64
+- 65 bump the pip group across 1 directory with 2 updates 64
+- Closes #65
+- Update static configs
+- Closes #68
+- Merge pull request #69 from edwardtheharris/68-add-configs-for-glances
+- Update static configs
+- Closes #68
+- Update prometheus values
+- Closes #70
+- Add kube state metrics
+- Closes #70
+- Drop file
+- Closes #70
+- Update values
+- Closes #70
+- Update lock
+- Closes #70
+- Fix bare url
+- Closes #70
+- Fix lint errors
+- Closes #70
+- Fix whitespace
+- Closes #70
+- Fix whitespace
+- Closes #70
+- Merge pull request #71 from edwardtheharris/70-add-kube-state-metrics
+- 70 add kube state metrics
+- Closes #70
+- Drop secret template
+- Closes #60
+- Update secrets
+- Close #60
+- Update docs, nautobot build
+- Closes #60
+- Update templates, config
+- Closes #60
+- Update values and services
+- Closes #60
+- Update config locations
+- Closes #60
+- Update reqs install
+- Closes #60
+- Fix statefulset
+- Closes #60
+- Adjust deployment
+- Closes #60
+- Update dockerfile
+- Closes #60
+- Update prometheus
+- Closes #60
+- Update statefulset, Dockerfile
+- Closes #60
+- Update container, statefulset, templates
+- Closes #60
+- Adjust configuration
+- Closes #60
+- Update values
+- Closes #60
+- Drop comms values
+- Closes #76
+- Update values files
+- Closes #76
+- Update values defaults
+- Closes #76
+- Update deployment values and template
+- Closes #76
+- Update template
+- Closes #76
+- Fix lint
+- Closes #76
+- Update templates
+- Closes #76
+- Reduce mount complexity
+- Closes #76
+- Clean up deployment template
+- Closes #76
+- Update uwsgi config
+- Closes #76
+- Fix pw so it's a secret
+- Closes #77
+- Merge pull request #78 from edwardtheharris/77-fix-grafana-chart
+- Fix pw so it's a secret
+- Closes #78
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into 76-ditto-the-deployment-template
+- Closes #76
+- Update values
+- Closes #76
+- Merge branch '76-ditto-the-deployment-template' of
+- Edwardtheharris/helm-monitoring
+- Into 76-ditto-the-deployment-template
+- Closes #76
+- Update line length
+- Closes #76
+- Update helm workflow
+- Closes #76
+- Drop kube-state-metrics from lint
+- Closes #76
+- Fix deployment template
+- Closes #76
+- Merge pull request #79 from edwardtheharris/76-ditto-the-deployment-template
+- 76 ditto the deployment template
+- Closes #76
+- Merge branch 'main' into 76-ditto-the-deployment-template
+- Add note about secrets
+- Closes #76
+- Fix traing spaces
+- Closes #76
+- Merge pull request #82 from edwardtheharris/76-ditto-the-deployment-template
+- Fix deployment template
+- Closes #82
 ## [0.0.1] - 2025-10-30
 
 ### 💼 Other - 0.0.1
@@ -317,6 +543,10 @@ title: Breeze Blocks Helm Repository Changelog
 -   update-type: version-update:semver-minor
 - ...
 - Dependabot[bot] <support@github.com>
+- Merge branch '1-bump-version-query-from-1-6-3-to-1-7-0-40' into 'main'
+- Bump version-query from 1.6.3 to 1.7.0
+- Closes #1
+- See merge request xandertheharris/helm-monitoring!1
 - Merge pull request #40 from edwardtheharris/dependabot/pip/version-query-1.7.0
 - Bump version-query from 1.6.3 to 1.7.0
 - Closes #41
@@ -326,6 +556,9 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #42 from edwardtheharris/1-bump-version-query-from-1-6-3-to-1-7-0-40
 - Bump version-query from 1.6.3 to 1.7.0
 - Closes #40
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into 1-bump-version-query-from-1-6-3-to-1-7-0-40
+- Closes #1
 - Add code for node exporter
 - Closes #44
 - Add node exporter that works
@@ -371,6 +604,20 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #50 from edwardtheharris/3-install-grafana
 - 3 install grafana
 - Closes #3
+- Bump starlette from 0.48.0 to 0.49.1 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [starlette](https://github.com/Kludex/starlette).
+- Updates `starlette` from 0.48.0 to 0.49.1
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/0.48.0...0.49.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: starlette
+-   dependency-version: 0.49.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
 - Update changelog
 - Fix changelog
 - 0.0.1

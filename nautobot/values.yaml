@@ -86,7 +86,7 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler
-      tag: "0.0.2"
+      tag: "0.0.3"
     name: scheduler-config
     results: "redis://redis.database.svc.cluster.local:6379/0"
     root: "/opt/celery"
@@ -111,7 +111,7 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
-      tag: "0.0.2"
+      tag: "0.0.3"
     name: worker-config
     results: "redis://redis.database.svc.cluster.local:6379/0"
     root: "/opt/nautobot"
@@ -133,20 +133,21 @@ config:
 # :end-before: "####\n"
 # ```
 db:
-  database: nautobot
-  engine: django.db.backends.postgresql
-  host: ""
-  name: postgres
-  password: ""
-  port: "5432"
+  database: c2VjcmV0Cg==
+  engine: c2VjcmV0Cg==
+  host: c2VjcmV0Cg==
+  name: c2VjcmV0Cg==
+  password: c2VjcmV0Cg==
+  port: c2VjcmV0Cg==
   timeout: "300"
-  username: ""
+  username: c2VjcmV0Cg==
 su:
-  email: ""
-  password: ""
-  secretKey: ""
-  token: ""
-  username: ""
+  email: c2VjcmV0Cg==
+  password: c2VjcmV0Cg==
+  secretKey: c2VjcmV0Cg==
+  token: c2VjcmV0Cg==
+  username: c2VjcmV0Cg==
+
 ####
 
 ###
@@ -195,7 +196,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  className: "nginx"
+  ingressClassName: "nginx"
   enabled: true
   hosts:
     - host: nautobot.svc.cluster.local
