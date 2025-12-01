@@ -1,0 +1,84 @@
+{{- if eq .Values.type "Deployment" }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    name: {{ .Values.persistence.name }}
+    app.kubernetes.io/component: primary
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ .Values.persistence.name }}
+    volume.kubernetes.io/storage-provisioner: lvm.csi.metal-stack.io
+  finalizers:
+    - kubernetes.io/pvc-protection
+  labels:
+    app.kubernetes.io/component: primary
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ .Values.persistence.name }}
+  name: {{ .Values.persistence.name }}
+spec:
+  accessModes:
+    - ReadWriteMany
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    name: worker
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: worker
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    volume.kubernetes.io/storage-provisioner: lvm.csi.metal-stack.io
+  finalizers:
+    - kubernetes.io/pvc-protection
+  labels:
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: worker
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+  name: worker
+spec:
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: csi-lvm-linear
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    name: scheduler
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: scheduler
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    volume.kubernetes.io/storage-provisioner: lvm.csi.metal-stack.io
+  finalizers:
+    - kubernetes.io/pvc-protection
+  labels:
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: scheduler
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+  name: scheduler
+spec:
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: csi-lvm-linear
+  volumeMode: Filesystem
+{{ end }}

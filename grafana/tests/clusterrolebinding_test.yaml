@@ -1,0 +1,37 @@
+###
+# ```{rubric} clusterrolebinding Test Suite
+# ```
+# ---
+# Tests to validate the deployment of the described clusterrolebinding.
+#
+# ```{literalinclude} /tests/clusterrolebinding_test.yaml
+# :language: yaml
+# :start-at: "suite: test for clusterrolebindings\n"
+# :end-before: "###\n"
+# ```
+suite: test for clusterrolebindings
+release:
+  name: grafana
+templates:
+  - templates/clusterrolebinding.yaml
+values:
+  - ../values.yaml
+
+###
+# ```{rubric} clusterrolebinding Tests
+# ```
+# ---
+# Tests for clusterrolebinding Template
+#
+# ```{literalinclude} /tests/clusterrolebinding_test.yaml
+# :language: yaml
+# :start-at: "tests:\n"
+# ```
+tests:
+  - it: should be a ClusterRoleBinding
+    asserts:
+      - isKind:
+          of: ClusterRoleBinding
+  - it: ClusterRoleBinding should match snapshot
+    asserts:
+      - matchSnapshot: {}

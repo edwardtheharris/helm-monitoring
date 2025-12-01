@@ -109,9 +109,9 @@ livenessProbe:
   httpGet:
     path: /api/health
     port: 3000
-  initialDelaySeconds: 60
-  timeoutSeconds: 30
-  failureThreshold: 10
+  initialDelaySeconds: 600
+  timeoutSeconds: 300
+  failureThreshold: 100
 
 ## Use an alternate scheduler, e.g. "stork".
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
@@ -126,7 +126,7 @@ image:
   # Overrides the Grafana image tag whose default is the chart appVersion
   tag: ""
   sha: ""
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
@@ -307,6 +307,12 @@ ingress:
   # Values can be templated
   annotations:
     cert-manager.io/cluster-issuer: comms-svc-int
+    cert-manager.io/common-name: grafana
+    cert-manager.io/subject-organizationalunits: engineering
+    cert-manager.io/subject-countries: US
+    cert-manager.io/email-sans: grafana@breeze-blocks.net
+    cert-manager.io/subject-provinces: CA
+    cert-manager.io/subject-localities: Los Angeles
     # kubernetes.io/tls-acme: "true"
   labels: {}
   path: /
@@ -439,12 +445,12 @@ extraContainerVolumes: []
 persistence:
   type: pvc
   enabled: true
-  storageClassName: csi-lvm-linear
+  storageClassName: csi-lvm-striped
   ## (Optional) Use this to bind the claim to an existing PersistentVolume (PV) by name.
   volumeName: ""
   accessModes:
     - ReadWriteOnce
-  size: 10Gi
+  size: 100Gi
   # annotations: {}
   finalizers:
     - kubernetes.io/pvc-protection
@@ -510,13 +516,13 @@ initChownData:
         - ALL
 
 # Administrator credentials when not using an existing secret (see below)
-adminUser: admin
-adminPassword: strongpassword
+#adminUser: admin
+#adminPassword: admin
 
 # Use an existing secret for the admin user.
 admin:
   ## Name of the secret. Can be templated.
-  # existingSecret: grafana-admin
+  existingSecret: grafana-admin
   userKey: admin-user
   passwordKey: admin-password
 
@@ -909,6 +915,12 @@ grafana.ini:
     url: https://grafana.net
   server:
     domain: grafana.breeze-blocks.net
+  database:
+    type: postgres
+    host: postgres.breeze-blocks.net
+    name: grafana
+    user: grafana
+    password: $__file{/etc/logins/postgres-password}
   ## grafana Authentication can be enabled with the following values on grafana.ini
   # server:
   # The full public facing url you use in browser, used for redirects and emails
@@ -1527,7 +1539,7 @@ imageRenderer:
   revisionHistoryLimit: 10
   networkPolicy:
     # Enable a NetworkPolicy to limit inbound traffic to only the created grafana pods
-    limitIngress: true
+    limitIngress: false
     # Enable a NetworkPolicy to limit outbound traffic to only the created grafana pods
     limitEgress: false
     # Allow additional services to access image-renderer (eg. Prometheus operator when ServiceMonitor is enabled)
@@ -1674,4 +1686,4 @@ extraObjects: []
 #
 # Alternatively, if you wish to allow secret values to be exposed in the rendered grafana.ini configmap,
 # you can disable this check by setting assertNoLeakedSecrets to false.
-assertNoLeakedSecrets: true
+assertNoLeakedSecrets: false

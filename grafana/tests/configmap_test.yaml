@@ -1,0 +1,45 @@
+###
+# ```{rubric} ConfigMap Test Suite
+# ```
+# ---
+# Tests to validate the deployment of the described ConfigMap.
+#
+# ```{literalinclude} /tests/statefulset_test.yaml
+# :language: yaml
+# :start-at: "suite: test for statefulset\n"
+# :end-before: "###\n"
+# ```
+suite: test for configmap
+release:
+  name: grafana
+templates:
+  - templates/configmap.yaml
+values:
+  - ../values.yaml
+
+###
+# ```{rubric} ConfigMap Tests
+# ```
+# ---
+# Tests for ConfigMap Template
+#
+# ```{literalinclude} /tests/statefulset_test.yaml
+# :language: yaml
+# :start-at: "tests:\n"
+# ```
+tests:
+  - it: should be a ConfigMap
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - equal:
+          path: metadata.name
+          value: grafana
+  - it: ConfigMap should match snapshot
+    asserts:
+      - matchSnapshot:
+          path: metadata
+  # or you can snapshot the whole manifest
+  # - it: manifest should match snapshot
+  #   asserts:
+  #     - matchSnapshot: {}

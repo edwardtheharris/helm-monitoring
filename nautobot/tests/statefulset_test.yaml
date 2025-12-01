@@ -1,0 +1,20 @@
+###
+# ```{rubric} StatefulSet Test Suite
+# ```
+# ---
+# Tests to validate the deployment of the described StatefulSet.
+suite: test for statefulset
+release:
+  name: nautobot
+set:
+  type: StatefulSet
+templates:
+  - statefulset.yaml
+tests:
+  - asserts:
+      - isKind:
+          of: StatefulSet
+      - equal:
+          path: metadata.name
+          value: nautobot
+    it: should be a StatefulSet

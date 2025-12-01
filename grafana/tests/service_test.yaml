@@ -1,0 +1,38 @@
+###
+# ```{rubric} Service Test Suite
+# ```
+# ---
+# Tests to validate the deployment of the described Service.
+#
+# ```{literalinclude} /tests/service_test.yaml
+# :language: yaml
+# :start-at: "suite: test for service\n"
+# :end-before: "###\n"
+# ```
+suite: test for service
+release:
+  name: grafana
+templates:
+  - templates/service.yaml
+values:
+  - ../values.yaml
+
+###
+# ```{rubric} Service Tests
+# ```
+# ---
+# Tests for Service Template
+#
+# ```{literalinclude} /tests/service_test.yaml
+# :language: yaml
+# :start-at: "tests:\n"
+# ```
+tests:
+  - it: should be a Service
+    asserts:
+      - isKind:
+          of: Service
+  - it: Service should match snapshot
+    asserts:
+      - matchSnapshot:
+          path: metadata

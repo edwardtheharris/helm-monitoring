@@ -41,6 +41,7 @@ exclude_patterns = [
     "**/NOTES.txt.md",
     "**/NOTES.txt",
     ".venv/*",
+    "**/.venv/*",
     ".tmp/*",
     ".pytest_cache/*",
     "resources/templates/NOTES.txt",
