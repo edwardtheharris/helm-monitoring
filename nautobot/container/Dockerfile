@@ -23,28 +23,34 @@ RUN apk add --no-cache \
   redis \
   shadow \
   sudo \
+  wget \
   vim \
   xmlsec-dev \
   zlib-dev \
+  && wget https://bootstrap.pypa.io/get-pip.py \
+  && python get-pip.py \
   && groupadd ${USER} \
   && useradd -s /bin/bash -m -d /opt/${USER} -g ${USER} ${USER}
+COPY reqs /opt/nautobot/reqs
+RUN /usr/local/bin/pip install --no-cache-dir -v -r /opt/nautobot/reqs \
+  && /usr/local/bin/python -m venv /opt/nautobot \
+  && /opt/nautobot/bin/pip install -U pip nautobot \
+  && /opt/nautobot/bin/pip install -r /opt/nautobot/reqs \
+  && rm -v /opt/nautobot/reqs
 USER nautobot
 WORKDIR /opt/nautobot
-RUN python -m venv . \
-  && bin/pip install -U pip nautobot
-COPY reqs /opt/nautobot/reqs
-RUN bin/pip install -v -r reqs \
-  && rm -v reqs
 EXPOSE 8000
 COPY --chmod=+x nautobot-entrypoint.sh /bin/entrypoint.sh
 CMD ["/bin/entrypoint.sh"]
 
 FROM nautobot AS worker
 USER nautobot
+EXPOSE 5672
 COPY --chmod=+x worker-entrypoint.sh /bin/entrypoint.sh
 CMD ["/bin/entrypoint.sh"]
 
 FROM worker AS scheduler
+EXPOSE 5673
 COPY --chmod=+x scheduler-entrypoint.sh /bin/entrypoint.sh
 CMD ["/bin/entrypoint.sh"]
 

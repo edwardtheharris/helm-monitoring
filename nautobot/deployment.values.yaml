@@ -26,8 +26,9 @@
 # :end-before: "####\n"
 # ```
 affinity: {}
-
 ####
+
+###
 # ```{rubric} Autoscaling
 # ```
 # ---
@@ -47,18 +48,20 @@ autoscaling:
   enabled: false
   maxReplicas: 0
   minReplicas: 0
+####
 
 ###
 # ```{rubric} Nautobot Config
 # ```
 # ---
 # Configure the Nautobot deployment.
+# These values are used to configure the nautobot services.
 #
 # ```{literalinclude} /values.yaml
 # :caption: config
 # :language: yaml
 # :start-at: "config:\n"
-# :end-before: "###\n"
+# :end-before: "####\n"
 # ```
 config:
   allowed_hosts: "*"
@@ -84,8 +87,7 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler
-      tag: "0.0.6"
-    name: scheduler-config
+      tag: "0.1.0"
     results: "redis://redis.breeze-blocks.net:6379/0"
   worker:
     host: "192.168.5.25"
@@ -108,12 +110,12 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
-      tag: "0.0.6"
-    name: worker-config
+      tag: "0.1.0"
     results: "redis://redis.breeze-blocks.net:6379/0"
     root: "/opt/nautobot"
   name: nautobot-config
   root: /opt/nautobot
+####
 
 ###
 # ```{rubric} Database
@@ -122,6 +124,9 @@ config:
 # Configure a relational database connection, MySQL and PostgreSQL are
 # supported.
 #
+# These values are sensitive and should be kept in a vault or other
+# secret manager.
+#
 # ```{literalinclude} /values.yaml
 # :caption: database
 # :language: yaml
@@ -129,20 +134,21 @@ config:
 # :end-before: "###\n"
 # ```
 database:
-  database: nautobot
-  engine: django.db.backends.postgresql
-  host: 192.168.5.22
-  name: postgres
+  database: ""
+  engine: ""
+  host: ""
+  name: ""
   password: ""
-  port: "5432"
+  port: ""
   timeout: "300"
   username: ""
+####
 
 ###
-# ```{rubric} Full Name Override
+# ```{rubric} Container image and name settings
 # ```
 # ---
-# Override the full name of the release.
+# Define the image, tag and repository to be deployed.
 #
 # ```{literalinclude} /values.yaml
 # :caption: fullname override
@@ -151,42 +157,15 @@ database:
 # :end-before: "###\n"
 # ```
 fullnameOverride: "nautobot"
-
-###
-# ```{rubric} Container image settings
-# ```
-# ---
-# Define the image, tag and repository to be deployed.
-#
-# ```{literalinclude} /values.yaml
-# :caption: image
-# :language: yaml
-# :start-at: "image:\n"
-# :end-before: "###\n"
-# ```
+nameOverride: nautobot
 image:
   pullPolicy: Always
   repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.6"
-  secret:
-    name: ghcr
-    data: ""
-
-###
-# ```{rubric} Image Pull Secrets
-# ```
-# ---
-# Secrets required to pull the deployment image.
-#
-# ```{literalinclude} /values.yaml
-# :caption: imagePullSecrets
-# :language: yaml
-# :start-at: "imagePullSecrets:\n"
-# :end-before: "###\n"
-# ```
+  tag: "0.1.0"
 imagePullSecrets:
   - name: ghcr
+####
 
 ###
 # ```{rubric} Ingress
@@ -198,7 +177,7 @@ imagePullSecrets:
 # :caption: ingress
 # :language: yaml
 # :start-at: "ingress:\n"
-# :end-before: "###\n"
+# :end-before: "####\n"
 # ```
 #
 # ```{code-block} yaml
@@ -228,6 +207,7 @@ ingress:
     - secretName: nautobot-tls
       hosts:
         - nautobot.breeze-blocks.net
+####
 
 ###
 # ```{rubric} Liveness Probe
@@ -239,7 +219,7 @@ ingress:
 # :caption: liveness probe
 # :language: yaml
 # :start-at: "livenessProbe:\n"
-# :end-before: "###\n"
+# :end-before: "####\n"
 # ```
 livenessProbe:
   exec:
@@ -257,6 +237,7 @@ livenessProbe:
   successThreshold: 1
   # When the probe times out
   timeoutSeconds: 5
+####
 
 ###
 # ```{rubric} Name Override
@@ -414,20 +395,6 @@ resources:
     memory: 4096Mi
 
 ###
-# ```{rubric} Security Context
-# ```
-# ---
-# Set a security context on the workloads.
-#
-# ```{literalinclude} /values.yaml
-# :caption: securityContext
-# :language: yaml
-# :start-at: "securityContext: {}\n"
-# :end-before: "###\n"
-# ```
-securityContext: {}
-
-###
 # ```{rubric} Service
 # ```
 # ---
@@ -437,7 +404,7 @@ securityContext: {}
 # :caption: service
 # :language: yaml
 # :start-at: "service:\n"
-# :end-before: "###\n"
+# :end-before: "####\n"
 # ```
 #
 # ```{code-block} yaml
@@ -454,6 +421,7 @@ service:
   port: 8000
   targetPort: 8000
   type: LoadBalancer
+####
 
 ###
 # ```{rubric} Service Account
@@ -465,7 +433,7 @@ service:
 # :caption: serviceAccount
 # :language: yaml
 # :start-at: "serviceAccount:\n"
-# :end-before: "###\n"
+# :end-before: "####\n"
 # ```
 serviceAccount:
   # Annotations to add to the service account
@@ -478,58 +446,41 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: "nautobot"
-
-###
-# ```{rubric} Single Sign On
-# ```
-# ---
-# Configuration for Single Sign On
-#
-# ```{literalinclude} /values.yaml
-# :caption: sso
-# :language: yaml
-# :start-at: "sso:\n"
-# :end-before: "###\n"
-# ```
-sso:
-  social_auth_github_key: ""
-  social_auth_github_secret: ""
+####
 
 ###
 # ```{rubric} Super User Config
 # ```
 # ---
 # When enabled, will create a super user account during deployment.
+# These values are sensitive and should be kept in a vault or similar
+# secret manager.
 #
 # ```{literalinclude} /values.yaml
 # :caption: superUser
 # :language: yaml
 # :start-at: "superUser:\n"
-# :end-before: "###\n"
+# :end-before: "####\n"
 # ```
-superUser:
+db:
+  database: c2VjcmV0Cg==
+  engine: c2VjcmV0Cg==
+  host: c2VjcmV0Cg==
+  name: c2VjcmV0Cg==
+  password: c2VjcmV0Cg==
+  port: NTQzMg==
+  timeout: "300"
+  username: c2VjcmV0Cg==
+su:
   create: true
-  email: nautobot@breeze-blocks.net
-  password: ""
+  email: c2VjcmV0Cg==
+  secretKey: c2VjcmV0Cg==
+  token: c2VjcmV0Cg==
+  password: c2VjcmV0Cg==
+  username: c2VjcmV0Cg==
   secret:
     name: nautobot-superuser
-  secretKey: "57evlrs^0pmu5#ys=9t6==lf6hdz&amp;$1)qq-(%f1noo_b+nsy@f"
-  token: ""
-  username: ""
-
-###
-# ```{rubric} Tolerations
-# ```
-# ---
-# Define taints that will be tolerated to run workloads on nodes.
-#
-# ```{literalinclude} /values.yaml
-# :caption: tolerations
-# :language: yaml
-# :start-at: "tolerations: []\n"
-# :end-before: "###\n"
-# ```
-tolerations: []
+####
 
 ###
 # ```{rubric} Type
@@ -537,13 +488,14 @@ tolerations: []
 # ---
 # May be set to `Deployment` or `StatefulSet`.
 #
-# ```{literalinclude} /values.yaml
+# ```{literalinclude} /nautobot/deployment.values.yaml
 # :caption: type
 # :language: yaml
 # :start-at: "type: Deployment\n"
-# :end-before: "###\n"
+# :end-before: "####\n"
 # ```
-type: StatefulSet
+type: Deployment
+####
 
 ###
 # ```{rubric} Volume Mounts
