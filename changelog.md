@@ -9,6 +9,78 @@ title: Breeze Blocks Helm Repository Changelog
 
 
 <!--markdownlint-disable-->
+## [unreleased]
+
+
+### 💼 Other - [unreleased]
+
+
+- Merge pull request #83 from edwardtheharris/release-0.0.2
+- Add changelog
+- Closes #83
+- Fix statefulset template
+- Closes #75
+- Fix deployment values
+- Closes #75
+- Drop uwsgi
+- Closes #75
+- Update version values
+- Closes #75
+- Clean up statefulset template
+- Closes #75
+- Fix statefulset templates
+- Closes #75
+- Update ignore
+- Closes #75
+- Merge pull request #84 from edwardtheharris/75-the-statefulset-template-is-a-mess
+- Fix statefulset template
+- Closes #75
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 60-install-nautobot
+- Closes #60
+- Add missing data and requirements
+- Closes #60
+- Update Dockerfile
+- Closes #60
+- Closes #72
+- Closes #73
+- Closes #74
+- Works for deployment to comms cluster
+- Closes #60
+- Fix container versioning
+- Closes #72
+- Bump starlette from 0.49.0 to 0.49.1 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [starlette](https://github.com/Kludex/starlette).
+- Updates `starlette` from 0.49.0 to 0.49.1
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/0.49.0...0.49.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: starlette
+-   dependency-version: 0.49.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #80 from edwardtheharris/dependabot/pip/pip-91ab757ed1
+- Bump starlette from 0.49.0 to 0.49.1 in the pip group across 1 directory
+- Closes #81
+- Merge pull request #67 from edwardtheharris/60-install-nautobot
+- 60 install nautobot
+- Closes #60
+- Closes #72
+- Closes #73
+- Closes #74
+- Merge branch 'main' into 81-bump-starlette-from-0490-to-0491-in-the-pip-group-across-1-directory-80
+- Merge pull request #85 from edwardtheharris/81-bump-starlette-from-0490-to-0491-in-the-pip-group-across-1-directory-80
+- 81 bump starlette from 0490 to 0491 in the pip group across 1 directory 80
+- Closes #81
+- Merge branch 'main' into 60-install-nautobot
+- Merge branch '60-install-nautobot' of
+- Edwardtheharris/helm-monitoring into 60-install-nautobot
+- Closes #60
 ## [0.0.2] - 2025-11-30
 
 ### 💼 Other - 0.0.2
@@ -187,11 +259,55 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #66 from edwardtheharris/65-bump-the-pip-group-across-1-directory-with-2-updates-64
 - 65 bump the pip group across 1 directory with 2 updates 64
 - Closes #65
+- Drop secret template
+- Closes #60
+- Update secrets
+- Close #60
+- Update docs, nautobot build
+- Closes #60
+- Update templates, config
+- Closes #60
+- Update values and services
+- Closes #60
+- Update config locations
+- Closes #60
+- Update reqs install
+- Closes #60
+- Fix statefulset
+- Closes #60
+- Adjust deployment
+- Closes #60
+- Merge branch '60-install-nautobot' of
+- Edwardtheharris/helm-monitoring into 60-install-nautobot
+- Closes #60
+- Update dockerfile
+- Closes #60
+- Update prometheus
+- Closes #60
+- Update statefulset, Dockerfile
+- Closes #60
+- Update container, statefulset, templates
+- Closes #60
+- Merge branch '60-install-nautobot' of
+- Edwardtheharris/helm-monitoring into 60-install-nautobot
+- Closes #60
+- Update configmap
+- Closes #60
 - Update static configs
 - Closes #68
 - Merge pull request #69 from edwardtheharris/68-add-configs-for-glances
 - Update static configs
 - Closes #68
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into 60-install-nautobot
+- Closes #60
+- Adjust configuration
+- Closes #60
+- Update settings, pipfile
+- Closes #60
+- Merge branch '60-install-nautobot' of
+- Edwardtheharris/helm-monitoring into 60-install-nautobot
+- Closes #60
 - Update prometheus values
 - Closes #70
 - Add kube state metrics
@@ -213,6 +329,12 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #71 from edwardtheharris/70-add-kube-state-metrics
 - 70 add kube state metrics
 - Closes #70
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 60-install-nautobot
+- Closes #60
+- Update values
+- Closes #60
 - Drop secret template
 - Closes #60
 - Update secrets
@@ -296,6 +418,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #82 from edwardtheharris/76-ditto-the-deployment-template
 - Fix deployment template
 - Closes #82
+- Add changelog
+- 0.0.2
 ## [0.0.1] - 2025-10-30
 
 ### 💼 Other - 0.0.1
