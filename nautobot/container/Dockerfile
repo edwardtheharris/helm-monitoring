@@ -5,9 +5,10 @@ ARG VERSION
 ARG USER=nautobot
 LABEL io.ghcr.edwardtheharris.helm-nautobot.editor="Xander Harris"
 LABEL io.ghcr.edwardtheharris.helm-nautobot.name="${USER}"
-LABEL org.opencontainers.image.source="https://github.com/edwardtheharris/helm-monitoring"
-LABEL org.opencontainers.image.description="Runs ${USER} for nautobot on Kubernetes."
 LABEL io.ghcr.edwardtheharris.helm-nautobot.version="${VERSION}"
+LABEL org.opencontainers.image.base.name="nautobot/nautobot"
+LABEL org.opencontainers.image.description="Runs ${USER} for nautobot on Kubernetes."
+LABEL org.opencontainers.image.source="https://github.com/edwardtheharris/helm-monitoring"
 VOLUME ["/opt/nautobot"]
 RUN apk add --no-cache \
   alpine-sdk \
@@ -46,12 +47,19 @@ COPY --chmod=+x nautobot-entrypoint.sh /bin/entrypoint.sh
 CMD ["/bin/entrypoint.sh"]
 
 FROM nautobot AS worker
-USER nautobot
+LABEL org.opencontainers.image.source="https://github.com/edwardtheharris/helm-monitoring"
+LABEL org.opencontainers.image.description="Celery Worker for Nautobot"
+LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.base.name="nautobot/worker"
 EXPOSE 5672
 COPY --chmod=+x worker-entrypoint.sh /bin/entrypoint.sh
 CMD ["/bin/entrypoint.sh"]
 
-FROM worker AS scheduler
+FROM nautobot AS scheduler
+LABEL org.opencontainers.image.source="https://github.com/edwardtheharris/helm-monitoring"
+LABEL org.opencontainers.image.description="Celery Scheduler for Nautobot"
+LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.base.name="nautobot/scheduler"
 EXPOSE 5673
 COPY --chmod=+x scheduler-entrypoint.sh /bin/entrypoint.sh
 CMD ["/bin/entrypoint.sh"]

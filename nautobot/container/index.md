@@ -8,35 +8,38 @@ date: 2024-08-06
 title: Nautobot Containers
 ---
 
-This project uses two containers, one for Nautobot and the other for Celery.
+{term}`Nautobot` requires a
+[celery scheduler](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html)
+and at least one
+[celery worker](https://docs.celeryq.dev/en/stable/userguide/workers.html)
+for full functionality so containers
+with those services running are included in the deployment along
+with the code to build them in this directory.
 
-To build the nautobot container you run the build command below.
+To build the {term}`Nautobot` container you run the build command below.
+
+```{note}
+It's not strcitly required but having access to a Python virtual environment
+with a working copy of [version-query](https://pypi.org/project/version-query/)
+is helpful for determining the version.
+
+There is a Pipfile to allow for easy installation of all build requirements.
+```
+
+## Build {term}`nautobot`
 
 ```{code-block} shell
 :caption: build nautobot
 
-VERSION=0.0.2
-
-export VERSION
-
-docker build --build-arg VERSION="${VERSION}" \
-  --build-arg PYTHON_VERSION='3.12' \
-  -t ghcr.io/edwardtheharris/helm-nautobot/nautobot:${VERSION} \
-  --progress plain --push -f container/Dockerfile .
+make nautobot
 ```
-
-The Celery container requires the `celery` user, which is passed in as a build
-argument as shown below.
 
 ```{code-block} shell
-:caption: build celery
+:caption: build nautobot with no cache
 
-VERSION=0.0.2
-
-export VERSION
-
-docker build --build-arg PYTHON_VERSION='3.12' --build-arg USER=celery \
-    --build-arg="${VERSION}" \
-    -t ghcr.io/edwardtheharris/helm-nautobot/celery:${VERSION} \
-    --progress plain --push -f container/Dockerfile .
+make nautobot CACHE='--no-cache'
 ```
+
+## Build {term}`worker`
+
+
