@@ -9,7 +9,7 @@ loki:
     configs:
       - from: "2024-04-01"
         store: tsdb
-        object_store: s3
+        object_store: filesystem
         schema: v13
         index:
           prefix: loki_index_
@@ -26,7 +26,25 @@ loki:
     filesystem:
       chunks_directory: /var/loki/chunks
       rules_directory: /var/loki/rules
-
+gateway:
+  enabled: true
+  service:
+    port: 80
+    type: LoadBalancer
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: comms-svc-int
+    ingressClassName: nginx
+    hosts:
+      - host: loki.breeze-blocks.net
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: gateway-tls
+        hosts:
+          - loki.breeze-blocks.net
 minio:
   enabled: false
 deploymentMode: SingleBinary
