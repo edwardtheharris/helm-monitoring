@@ -1,9 +1,9 @@
 ---
 abstract: >-
-    Documentation index for the Helm Monitoring package.
+  Documentation index for the Helm Monitoring package.
 authors:
-   - name: Xander Harris
-     email: xandertheharris@gmail.com
+  - name: Xander Harris
+    email: xandertheharris@gmail.com
 date: 2025-09-033
 title: Monitoring Helm Chart
 ---
@@ -26,6 +26,7 @@ kube-state-metrics/index
 nautobot/index
 prometheus/index
 prometheus-node-exporter/index
+promtail/index
 tests/index
 ```
 
@@ -42,9 +43,9 @@ security
 
 ## Indices and tables
 
-* {ref}`genindex`
-* {ref}`modindex`
-* {ref}`search`
+- {ref}`genindex`
+- {ref}`modindex`
+- {ref}`search`
 
 ```{glossary}
 Grafana
@@ -79,10 +80,13 @@ Typical Helm chart rules.
 ### Chart
 
 ```{autoyaml} Chart.yaml
+
 ```
 
 ```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
+
 ```
+
 <!--
 ### Values
 
