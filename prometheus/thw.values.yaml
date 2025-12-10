@@ -227,7 +227,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: prometheus.comms.breeze-blocks.net
+  baseURL: prometheus.breeze-blocks.net
 
   ## Additional server container environment variables
   ##
@@ -389,7 +389,7 @@ server:
       cert-manager.io/common-name: prometheus
       cert-manager.io/subject-organizationalunits: engineering
       cert-manager.io/subject-countries: US
-      cert-manager.io/email-sans: prometheus.comms.breeze-blocks.net
+      cert-manager.io/email-sans: prometheus@breeze-blocks.net
       cert-manager.io/subject-provinces: CA
       cert-manager.io/subject-localities: Los Angeles
       #   kubernetes.io/ingress.class: nginx
@@ -406,7 +406,7 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts:
-      - prometheus.comms.breeze-blocks.net
+      - prometheus.breeze-blocks.net
     #   - prometheus.domain.com
     #   - domain.com/prometheus
 
@@ -428,7 +428,7 @@ server:
     tls:
       - secretName: prometheus-tls
         hosts:
-          - prometheus.comms.breeze-blocks.net
+          - prometheus.breeze-blocks.net
 
   ## route (map) allows configuration of HTTPRoute resources
   ## Requires Gateway API resources and suitable controller installed within the cluster
