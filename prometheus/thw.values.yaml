@@ -379,9 +379,7 @@ server:
     ## If true, Prometheus server Ingress will be created
     ##
     enabled: true
-
-    ingressClassName: "nginx"
-
+    # ingressClassName: "nginx"
     ## Prometheus server Ingress annotations
     ##
     annotations:
@@ -392,16 +390,11 @@ server:
       cert-manager.io/email-sans: pr@breeze-blocks.net
       cert-manager.io/subject-provinces: CA
       cert-manager.io/subject-localities: Los Angeles
-      #   kubernetes.io/ingress.class: nginx
-    #   kubernetes.io/tls-acme: 'true'
-
     ## Prometheus server Ingress additional labels
     ##
     extraLabels: {}
-
     ## Redirect ingress to an additional defined port on the service
     # servicePort: 8081
-
     ## Prometheus server Ingress hostnames with optional path (passed through tpl)
     ## Must be provided if Ingress is enabled
     ##
@@ -410,12 +403,9 @@ server:
       - thw-pr.breeze-blocks.net
     #   - prometheus.domain.com
     #   - domain.com/prometheus
-
     path: /
-
     # pathType is only for k8s >= 1.18
     pathType: Prefix
-
     ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services. (passed through tpl)
     extraPaths: []
     # - path: /*
@@ -431,7 +421,6 @@ server:
         hosts:
           - pr.breeze-blocks.net
           - thw-pr.breeze-blocks.net
-
   ## route (map) allows configuration of HTTPRoute resources
   ## Requires Gateway API resources and suitable controller installed within the cluster
   ## Ref. https://gateway-api.sigs.k8s.io/guides/http-routing/
