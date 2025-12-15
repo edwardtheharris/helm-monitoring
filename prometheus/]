@@ -80,19 +80,28 @@ spec:
   selector:
     app.kubernetes.io/name: {{ .Release.Name }}
   type: LoadBalancer
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: bar-canary-svc
-#   labels:
-#     example: http-routing
-# spec:
-#   ports:
-#   - name: http
-#     protocol: TCP
-#     port: 8080
-#     targetPort: 3000
-#   selector:
-#     app: bar-canary-backend
-# 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bar-canary-svc
+  labels:
+    example: http-routing
+spec:
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8080
+    targetPort: 3000
+  selector:
+    app: bar-canary-backend
+  clusterIP: 10.102.172.74
+  clusterIPs:
+  - 10.102.172.74
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster
+
