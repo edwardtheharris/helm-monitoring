@@ -386,7 +386,9 @@ server:
     ##
     annotations:
       cert-manager.io/cluster-issuer: comms-svc-int
-      cert-manager.io/common-name: pcomms.breeze-blocks.net
+      cert-manager.io/common-name: p.breeze-blocks.net
+      cert-manager.io/ip-sans: "192.168.5.49"
+      cert-manager.io/uri-sans: "https://pcomms.breeze-blocks.net,https://comms.breeze-blocks.net,https://p.breeze-blocks.net"
       cert-manager.io/subject-organizations: breeze blocks international
       cert-manager.io/subject-organizationalunits: engineering
       cert-manager.io/subject-countries: US
@@ -406,7 +408,8 @@ server:
     ##
     hosts:
       - pcomms.breeze-blocks.net
-    #   - prometheus.domain.com
+      - comms.breeze-blocks.net
+      - p.breeze-blocks.net
     #   - domain.com/prometheus
 
     path: /
@@ -428,6 +431,8 @@ server:
       - secretName: prometheus-tls
         hosts:
           - pcomms.breeze-blocks.net
+          - comms.breeze-blocks.net
+          - p.breeze-blocks.net
 
   ## route (map) allows configuration of HTTPRoute resources
   ## Requires Gateway API resources and suitable controller installed within the cluster
@@ -435,27 +440,42 @@ server:
   route:
     main:
       ## Enable this route
-      enabled: false
+      enabled: true
 
       ## ApiVersion set by default to "gateway.networking.k8s.io/v1"
-      apiVersion: ""
+      apiVersion: "gateway.networking.k8s.io/v1"
       ## kind set by default to HTTPRoute
-      kind: ""
+      kind: "HTTPRoute"
 
       ## Annotations to attach to the HTTPRoute resource
-      annotations: {}
+      annotations:
+        cert-manager.io/cluster-issuer: comms-svc-int
+        cert-manager.io/common-name: p.breeze-blocks.net
+        cert-manager.io/ip-sans: "192.168.5.49"
+        cert-manager.io/uri-sans: "https://pcomms.breeze-blocks.net,https://comms.breeze-blocks.net,https://p.breeze-blocks.net"
+        cert-manager.io/subject-organizations: breeze blocks international
+        cert-manager.io/subject-organizationalunits: engineering
+        cert-manager.io/subject-countries: US
+        cert-manager.io/email-sans: prometheus@breeze-blocks.net
+        cert-manager.io/subject-provinces: CA
+        cert-manager.io/subject-localities: Los Angeles
       ## Labels to attach to the HTTPRoute resource
       labels: {}
 
       ## ParentRefs refers to resources this HTTPRoute is to be attached to (Gateways)
-      parentRefs: []
+      parentRefs:
+        - group: gateway.networking.k8s.io
+          kind: Gateway
+          name: envoy-gateway
         # - name: contour
         #   sectionName: http
 
       ## Hostnames (templated) defines a set of hostnames that should match against the HTTP Host
       ## header to select a HTTPRoute used to process the request
-      hostnames: []
-        # - my.example.com
+      hostnames:
+        - p.breeze-blocks.net
+        - pcomms.breeze-blocks.net
+        - comms.breeze-blocks.net
 
       ## additionalRules (templated) allows adding custom rules to the route
       additionalRules: []
@@ -475,7 +495,7 @@ server:
       ## To redirect HTTP traffic to HTTPS, you need to have a Gateway with both HTTP and HTTPS listeners.
       ## Matches and filters do not take effect if enabled.
       ## Ref. https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/
-      httpsRedirect: false
+      httpsRedirect: true
 
   ## Server Deployment Strategy type
   strategy:

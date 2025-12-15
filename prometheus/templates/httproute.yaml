@@ -1,4 +1,4 @@
-{{- range $name, $route := .Values.server.route }}
+{{- $route := .Values.server.route.main -}}
 {{- if $route.enabled }}
 ---
 apiVersion: {{ $route.apiVersion | default "gateway.networking.k8s.io/v1" }}
@@ -43,3 +43,30 @@ spec:
     {{- end }}
 {{- end }}
 {{- end }}
+---
+- apiVersion: gateway.networking.k8s.io/v1
+  kind: HTTPRoute
+  metadata:
+    labels:
+      app.kubernetes.io/name: prometheus
+    name: prometheus
+  spec:
+    hostnames:
+    - p.breeze-blocks.net
+    - comms.breeze-blocks.net
+    - pcomms.breeze-blocks.net
+    parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: prometheus-gateway
+    rules:
+    - backendRefs:
+      - group: ""
+        kind: Service
+        name: prometheus
+        port: 9090
+        weight: 1
+      matches:
+      - path:
+          type: PathPrefix
+          value: /
