@@ -244,7 +244,8 @@ podPortName: grafana
 gossipPortName: gossip
 ## Deployment annotations
 # annotations: {}
-
+postgres:
+  password: ""
 ## Expose the grafana service to be accessed from outside the cluster (LoadBalancer service).
 ## or access it from within the cluster (ClusterIP service). Set the service type and the port to serve it.
 ## ref: http://kubernetes.io/docs/user-guide/services/
@@ -299,50 +300,6 @@ hostAliases: []
   #   hostnames:
   #     - "my.host.com"
 
-ingress:
-  enabled: true
-  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
-  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-  ingressClassName: nginx
-  # Values can be templated
-  annotations:
-    cert-manager.io/cluster-issuer: comms-svc-int
-    cert-manager.io/common-name: grafana
-    cert-manager.io/subject-organizationalunits: engineering
-    cert-manager.io/subject-countries: US
-    cert-manager.io/email-sans: grafana@breeze-blocks.net
-    cert-manager.io/subject-provinces: CA
-    cert-manager.io/subject-localities: Los Angeles
-    # kubernetes.io/tls-acme: "true"
-  labels: {}
-  path: /
-
-  # pathType is only for k8s >= 1.1=
-  pathType: Prefix
-
-  hosts:
-    - grafana.breeze-blocks.net
-  ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
-  extraPaths: []
-  # - path: /*
-  #   backend:
-  #     serviceName: ssl-redirect
-  #     servicePort: use-annotation
-  ## Or for k8s > 1.19
-  # - path: /*
-  #   pathType: Prefix
-  #   backend:
-  #     service:
-  #       name: ssl-redirect
-  #       port:
-  #         name: use-annotation
-
-  #tls: []
-  tls:
-    - secretName: grafana-tls
-      hosts:
-        - grafana.breeze-blocks.net
-
 # -- BETA: Configure the gateway routes for the chart here.
 # More routes can be added by adding a dictionary key like the 'main' route.
 # Be aware that this is an early beta of this feature,
@@ -352,7 +309,7 @@ ingress:
 route:
   main:
     # -- Enables or disables the route
-    enabled: false
+    enabled: true
 
     # -- Set the route apiVersion, e.g. gateway.networking.k8s.io/v1 or gateway.networking.k8s.io/v1alpha2
     apiVersion: gateway.networking.k8s.io/v1
@@ -360,12 +317,16 @@ route:
     # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
     kind: HTTPRoute
 
-    annotations: {}
+    annotations:
+      app.kubernetes.io/name: grafana
     labels: {}
 
-    hostnames: []
+    hostnames:
+      - grafana.breeze-blocks.net
+      - grafana.monitoring.svc.cluster.local
     # - my-filter.example.com
-    parentRefs: []
+    parentRefs:
+      - name: grafana-gateway
     # - name: acme-gw
 
     matches:
@@ -377,7 +338,15 @@ route:
     filters: []
 
     ## Additional custom rules that can be added to the route
-    additionalRules: []
+    additionalRules:
+      - backendRefs:
+          - group: gateway.envoyproxy.io
+            kind: Backend
+            name: grafana
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
 
 resources: {}
 #  limits:
@@ -917,10 +886,10 @@ grafana.ini:
     domain: grafana.breeze-blocks.net
   database:
     type: postgres
-    host: postgres.breeze-blocks.net
+    host: postgres.database.svc.cluster.local
     name: grafana
     user: grafana
-    password: $__file{/etc/logins/postgres-password}
+    password: $__file{/etc/postgres/postgres-password}
   ## grafana Authentication can be enabled with the following values on grafana.ini
   # server:
   # The full public facing url you use in browser, used for redirects and emails
