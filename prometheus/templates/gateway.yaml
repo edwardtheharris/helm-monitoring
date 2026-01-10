@@ -1,17 +1,12 @@
-
-apiVersion: gateway.networking.k8s.io/v1
-kind: GatewayClass
-metadata:
-  name: {{ .Release.Name }}
-spec:
-  controllerName: gateway.envoyproxy.io/gatewayclass-controller
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: {{ .Release.Name }}
+  # annotations:
+  #   cert-manager.io/cluster-issuer: comms-svc-int
 spec:
-  gatewayClassName: {{ .Release.Name }}
+  gatewayClassName: eg
   listeners:
     - name: http
       protocol: HTTP
