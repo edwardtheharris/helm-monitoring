@@ -3,17 +3,29 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: {{ .Release.Name }}
-  # annotations:
-  #   cert-manager.io/cluster-issuer: comms-svc-int
+  annotations:
+    cert-manager.io/cluster-issuer: comms-svc-int
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
 spec:
   gatewayClassName: eg
   listeners:
     - name: http
-      protocol: HTTP
       port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same
     - name: https
-      protocol: HTTPS
+      hostname: prometheus.breeze-blocks.net
       port: 443
-    - name: prometheus
-      protocol: TCP
-      port: 9090
+      protocol: HTTPS
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: "{{ .Release.Name }}-tls"
+            kind: Secret
+            group: ""
