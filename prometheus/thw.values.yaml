@@ -227,7 +227,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: pr.breeze-blocks.net
+  baseURL: thw-pr.breeze-blocks.net
 
   ## Additional server container environment variables
   ##
@@ -378,7 +378,7 @@ server:
   ingress:
     ## If true, Prometheus server Ingress will be created
     ##
-    enabled: true
+    enabled: false
     # ingressClassName: "nginx"
     ## Prometheus server Ingress annotations
     ##
@@ -399,9 +399,8 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts:
-      - pr.breeze-blocks.net
       - thw-pr.breeze-blocks.net
-    #   - prometheus.domain.com
+      - prometheus.monitoring.svc.cluster.local
     #   - domain.com/prometheus
     path: /
     # pathType is only for k8s >= 1.18
@@ -427,27 +426,29 @@ server:
   route:
     main:
       ## Enable this route
-      enabled: false
+      enabled: true 
 
       ## ApiVersion set by default to "gateway.networking.k8s.io/v1"
-      apiVersion: ""
+      apiVersion: gateway.networking.k8s.io/v1
       ## kind set by default to HTTPRoute
-      kind: ""
+      kind: HTTPRoute
 
       ## Annotations to attach to the HTTPRoute resource
       annotations: {}
       ## Labels to attach to the HTTPRoute resource
-      labels: {}
+      labels:
+        app.kubernetes.io/name: prometheus
 
       ## ParentRefs refers to resources this HTTPRoute is to be attached to (Gateways)
-      parentRefs: []
-        # - name: contour
-        #   sectionName: http
+      parentRefs: 
+        - name: prometheus
+          sectionName: http
 
       ## Hostnames (templated) defines a set of hostnames that should match against the HTTP Host
       ## header to select a HTTPRoute used to process the request
-      hostnames: []
-        # - my.example.com
+      hostnames:
+        - thw-pr.breeze-blcoks.net
+        - prometheus.monitoring.svc.cluster.local
 
       ## additionalRules (templated) allows adding custom rules to the route
       additionalRules: []
