@@ -375,58 +375,13 @@ server:
   ## Override the prometheus.server.fullname for all objects related to the Prometheus server
   fullnameOverride: prometheus
 
-  ingress:
-    ## If true, Prometheus server Ingress will be created
-    ##
-    enabled: false
-    # ingressClassName: "nginx"
-    ## Prometheus server Ingress annotations
-    ##
-    annotations:
-      cert-manager.io/cluster-issuer: thw-svc-int
-      cert-manager.io/common-name: prometheus
-      cert-manager.io/subject-organizationalunits: engineering
-      cert-manager.io/subject-countries: US
-      cert-manager.io/email-sans: pr@breeze-blocks.net
-      cert-manager.io/subject-provinces: CA
-      cert-manager.io/subject-localities: Los Angeles
-    ## Prometheus server Ingress additional labels
-    ##
-    extraLabels: {}
-    ## Redirect ingress to an additional defined port on the service
-    # servicePort: 8081
-    ## Prometheus server Ingress hostnames with optional path (passed through tpl)
-    ## Must be provided if Ingress is enabled
-    ##
-    hosts:
-      - thw-pr.breeze-blocks.net
-      - prometheus.monitoring.svc.cluster.local
-    #   - domain.com/prometheus
-    path: /
-    # pathType is only for k8s >= 1.18
-    pathType: Prefix
-    ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services. (passed through tpl)
-    extraPaths: []
-    # - path: /*
-    #   backend:
-    #     serviceName: ssl-redirect
-    #     servicePort: use-annotation
-
-    ## Prometheus server Ingress TLS configuration (hosts passed through tpl)
-    ## Secrets must be manually created in the namespace
-    ##
-    tls:
-      - secretName: prometheus-tls
-        hosts:
-          - pr.breeze-blocks.net
-          - thw-pr.breeze-blocks.net
   ## route (map) allows configuration of HTTPRoute resources
   ## Requires Gateway API resources and suitable controller installed within the cluster
   ## Ref. https://gateway-api.sigs.k8s.io/guides/http-routing/
   route:
     main:
       ## Enable this route
-      enabled: true 
+      enabled: true
 
       ## ApiVersion set by default to "gateway.networking.k8s.io/v1"
       apiVersion: gateway.networking.k8s.io/v1
@@ -434,20 +389,21 @@ server:
       kind: HTTPRoute
 
       ## Annotations to attach to the HTTPRoute resource
-      annotations: {}
+      annotations:
+        cert-manager.io/cluster-issuer: thw-svc-int
       ## Labels to attach to the HTTPRoute resource
       labels:
         app.kubernetes.io/name: prometheus
 
       ## ParentRefs refers to resources this HTTPRoute is to be attached to (Gateways)
-      parentRefs: 
+      parentRefs:
         - name: prometheus
           sectionName: http
 
       ## Hostnames (templated) defines a set of hostnames that should match against the HTTP Host
       ## header to select a HTTPRoute used to process the request
       hostnames:
-        - thw-pr.breeze-blcoks.net
+        - thw-pr.breeze-blocks.net
         - prometheus.monitoring.svc.cluster.local
 
       ## additionalRules (templated) allows adding custom rules to the route
@@ -468,7 +424,7 @@ server:
       ## To redirect HTTP traffic to HTTPS, you need to have a Gateway with both HTTP and HTTPS listeners.
       ## Matches and filters do not take effect if enabled.
       ## Ref. https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/
-      httpsRedirect: false
+      httpsRedirect: true
 
   ## Server Deployment Strategy type
   strategy:
