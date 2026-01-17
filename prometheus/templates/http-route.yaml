@@ -9,8 +9,9 @@ spec:
   parentRefs:
     - name: {{ .Release.Name }}
   hostnames:
-    - prometheus.breeze-blocks.net
-    - prometheus.monitoring.svc.cluster.local
+  {{ range $.Values.server.route.main.hostnames }}
+    - {{ . }}
+  {{- end }}
   rules:
     - backendRefs:
         - name: {{ .Release.Name }}

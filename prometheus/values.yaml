@@ -378,7 +378,7 @@ server:
   ingress:
     ## If true, Prometheus server Ingress will be created
     ##
-    enabled: true
+    enabled: false
 
     ingressClassName: "nginx"
 
@@ -436,27 +436,28 @@ server:
   route:
     main:
       ## Enable this route
-      enabled: false
+      enabled: true
 
       ## ApiVersion set by default to "gateway.networking.k8s.io/v1"
-      apiVersion: ""
+      apiVersion: gateway.networking.k8s.io/v1
       ## kind set by default to HTTPRoute
-      kind: ""
+      kind: HTTPRoute
 
       ## Annotations to attach to the HTTPRoute resource
       annotations: {}
       ## Labels to attach to the HTTPRoute resource
-      labels: {}
+      labels:
+        app.kubernetes.io/name: prometheus
 
       ## ParentRefs refers to resources this HTTPRoute is to be attached to (Gateways)
-      parentRefs: []
-        # - name: contour
-        #   sectionName: http
+      parentRefs:
+        - name: prometheus
+          sectionName: http
 
       ## Hostnames (templated) defines a set of hostnames that should match against the HTTP Host
       ## header to select a HTTPRoute used to process the request
-      hostnames: []
-        # - my.example.com
+      hostnames:
+        - thw-pr.breeze-blocks.net
 
       ## additionalRules (templated) allows adding custom rules to the route
       additionalRules: []

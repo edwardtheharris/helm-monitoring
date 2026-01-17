@@ -4,7 +4,7 @@ kind: Gateway
 metadata:
   name: {{ .Release.Name }}
   annotations:
-    cert-manager.io/cluster-issuer: comms-svc-int
+    cert-manager.io/cluster-issuer: {{ .Values.server.route.main.clusterIssuer }}
   labels:
     app.kubernetes.io/name: {{ .Release.Name }}
 spec:
@@ -17,7 +17,7 @@ spec:
         namespaces:
           from: Same
     - name: https
-      hostname: prometheus.breeze-blocks.net
+      hostname: {{ .Values.server.route.main.hostname }}
       port: 443
       protocol: HTTPS
       allowedRoutes:
