@@ -124,7 +124,7 @@ image:
   # -- Docker image repository
   repository: grafana/grafana
   # Overrides the Grafana image tag whose default is the chart appVersion
-  tag: ""
+  tag: main
   sha: ""
   pullPolicy: Always
 
@@ -360,12 +360,24 @@ route:
     # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
     kind: HTTPRoute
 
+<<<<<<< Updated upstream
     annotations: {}
     labels: {}
+=======
+    annotations:
+      cert-manager.io/cluster-issuer: comms-svc-int
+    labels:
+      app.kubernetes.io/name: grafana
+>>>>>>> Stashed changes
 
     hostnames: []
     # - my-filter.example.com
+<<<<<<< Updated upstream
     parentRefs: []
+=======
+    parentRefs:
+      - name: eg
+>>>>>>> Stashed changes
     # - name: acme-gw
 
     matches:
@@ -920,7 +932,11 @@ grafana.ini:
     host: postgres.breeze-blocks.net
     name: grafana
     user: grafana
+<<<<<<< Updated upstream
     password: $__file{/etc/logins/postgres-password}
+=======
+    password: $__file{/etc/postgres/password}
+>>>>>>> Stashed changes
   ## grafana Authentication can be enabled with the following values on grafana.ini
   # server:
   # The full public facing url you use in browser, used for redirects and emails
