@@ -4,8 +4,6 @@ kind: HTTPRoute
 metadata:
   name: grafana-http
 spec:
-  hostnames:
-  - grafana.breeze-blocks.net
   parentRefs:
   - group: gateway.networking.k8s.io
     kind: Gateway
@@ -23,3 +21,10 @@ spec:
         value: /
     # timeouts:
     #   request: "2s"
+  hostnames:
+    - grafana.breeze-blocks.net
+    - grafana.monitoring.svc.cluster.local
+  rules:
+    - backendRefs:
+        - name: grafana
+          port: 80
