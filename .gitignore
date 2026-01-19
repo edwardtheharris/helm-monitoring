@@ -1,6 +1,8 @@
 venv/
 secrets/
 charts/
+secrets/
+**/secrets/
 __snapshot__/
 .debug/
 .gnupg/

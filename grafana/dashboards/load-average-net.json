@@ -19,13 +19,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 0,
   "links": [],
+  "liveNow": true,
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "ff37t43hn6yo0a"
+        "uid": "af9paorav6a68d"
       },
       "fieldConfig": {
         "defaults": {
@@ -125,7 +126,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.2.0",
+      "pluginVersion": "12.4.0-20866657294",
       "repeat": "hostname",
       "repeatDirection": "h",
       "targets": [
@@ -147,7 +148,6 @@
           },
           "editorMode": "code",
           "expr": "node_load5{node=\"$hostname\"}",
-          "hide": false,
           "instant": false,
           "legendFormat": "load avg 5 $hostname",
           "range": true,
@@ -160,7 +160,6 @@
           },
           "editorMode": "code",
           "expr": "node_load15{node=\"$hostname\"}",
-          "hide": false,
           "instant": false,
           "legendFormat": "load avg 15 $hostname",
           "range": true,
@@ -186,6 +185,7 @@
         "allowCustomValue": false,
         "current": {
           "text": [
+            "backup",
             "cms00",
             "cms01",
             "cms02",
@@ -196,6 +196,7 @@
             "ns01",
             "ns03",
             "ns04",
+            "ostium",
             "sulla",
             "thw00",
             "thw01",
@@ -205,6 +206,7 @@
             "whac"
           ],
           "value": [
+            "backup",
             "cms00",
             "cms01",
             "cms02",
@@ -215,6 +217,7 @@
             "ns01",
             "ns03",
             "ns04",
+            "ostium",
             "sulla",
             "thw00",
             "thw01",
@@ -223,6 +226,10 @@
             "thw04",
             "whac"
           ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "af9paorav6a68d"
         },
         "definition": "label_values(node_load1,node)",
         "description": "",
@@ -237,17 +244,19 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "load avg all hosts",
   "uid": "dugvwrf",
-  "version": 26
-}
+  "version": 9,
+  "weekStart": ""
+
