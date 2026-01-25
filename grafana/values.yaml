@@ -237,6 +237,8 @@ downloadDashboards:
 # configMapAnnotations: {}
 # argocd.argoproj.io/sync-options: Replace=true
 
+# -- Detecting C compiler ABI info
+
 ## Pod Labels
 # podLabels: {}
 
@@ -326,7 +328,7 @@ route:
       - grafana.monitoring.svc.cluster.local
     # - my-filter.example.com
     parentRefs:
-      - name: grafana-gateway
+      - name: eg
     # - name: acme-gw
 
     matches:
@@ -832,6 +834,7 @@ dashboards: {}
   #       $RAW_JSON
   #   custom-dashboard:
   #     file: dashboards/custom-dashboard.json
+
   #   prometheus-stats:
   #     gnetId: 2
   #     revision: 2
@@ -889,7 +892,7 @@ grafana.ini:
     host: postgres.database.svc.cluster.local
     name: grafana
     user: grafana
-    password: $__file{/etc/postgres/postgres-password}
+    password: $__file{/etc/postgres/password}
   ## grafana Authentication can be enabled with the following values on grafana.ini
   # server:
   # The full public facing url you use in browser, used for redirects and emails

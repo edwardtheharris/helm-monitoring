@@ -1,47 +1,21 @@
-{{- range $name, $route := .Values.route }}
-  {{- if $route.enabled -}}
 ---
-apiVersion: {{ $route.apiVersion | default "gateway.networking.k8s.io/v1" }}
-kind: {{ $route.kind | default "HTTPRoute" }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
-  {{- with $route.annotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
-  name: {{ template "grafana.fullname" $ }}{{ if ne $name "main" }}-{{ $name }}{{ end }}
-  namespace: {{ template "grafana.namespace" $ }}
-  labels:
-    app: {{ template "grafana.name" $ }}-prometheus
-    {{- include "grafana.labels" $ | nindent 4 }}
-    {{- with $route.labels }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
+  name: backend
 spec:
-  {{- with $route.parentRefs }}
   parentRefs:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
-  {{- with $route.hostnames }}
+    - name: eg
   hostnames:
-    {{- tpl (toYaml .) $ | nindent 4 }}
-  {{- end }}
+    - "grafana.breeze-blocks.net"
   rules:
-    {{- if $route.additionalRules }}
-    {{- tpl (toYaml $route.additionalRules) $ | nindent 4 }}
-    {{- end }}
     - backendRefs:
-        - name: {{ include "grafana.fullname" $ }}
-          port: {{ $.Values.service.port }}
-          group: ''
+        - group: ""
           kind: Service
+          name: grafana
+          port: 3000
           weight: 1
-      {{- with $route.filters }}
-      filters:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with $route.matches }}
       matches:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-  {{- end }}
-{{- end }}
+        - path:
+            type: PathPrefix
+            value: /
