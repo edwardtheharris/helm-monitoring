@@ -1,34 +1,48 @@
-# This file contains the base resources that the docs/user/HTTP_ROUTING.md guide relies on.
-# This includes a GatewayClass, Gateway, Services and Deployments that are used as backends
-# for routing traffic.
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: grafana-gateway
-  annotations:
-    cert-manager.io/cluster-issuer: comms-svc-int
+  name: grafana
   labels:
     app.kubernetes.io/name: grafana
+    app.kubernetes.io/component: http-routing
 spec:
   gatewayClassName: eg
   listeners:
-    - name: http
-      port: 80
+    - name: grafana 
       protocol: HTTP
-      allowedRoutes:
-        namespaces:
-          from: Same
-    - name: https
-      hostname: grafana.breeze-blocks.net
-      port: 443
-      protocol: HTTPS
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: grafana-tls
-            kind: Secret
-            group: ""
+      port: 80
+
+# This file contains the base resources that the docs/user/HTTP_ROUTING.md guide relies on.
+# This includes a GatewayClass, Gateway, Services and Deployments that are used as backends
+# for routing traffic.
+#@ ---
+#@ apiVersion: gateway.networking.k8s.io/v1
+#@ kind: Gateway
+#@ metadata:
+#@   name: grafana
+#@   annotations: {}
+#@   labels:
+#@     app.kubernetes.io/name: grafana
+#@ spec:
+#@   gatewayClassName: eg
+#@   listeners:
+#@     - name: http
+#@       port: 80
+#@       protocol: HTTP
+#@       allowedRoutes:
+#@         namespaces:
+#@           from: All
+#@     # - name: https
+    #   hostname: grafana.breeze-blocks.net
+    #   port: 443
+    #   protocol: HTTPS
+    #   allowedRoutes:
+    #     namespaces:
+    #       from: All
+    #   tls:
+    #     mode: Terminate
+    #     certificateRefs:
+    #       - name: grafana-tls
+    #         kind: Secret
+    #         group: ""
