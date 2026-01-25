@@ -2,12 +2,12 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: grafana-http
+  name: grafana
 spec:
   parentRefs:
   - group: gateway.networking.k8s.io
     kind: Gateway
-    name: eg
+    name: grafana
   rules:
   - backendRefs:
     - group: ""

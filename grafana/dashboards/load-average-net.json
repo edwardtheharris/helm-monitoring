@@ -110,12 +110,7 @@
       "id": 1,
       "options": {
         "legend": {
-          "calcs": [
-            "lastNotNull",
-            "firstNotNull",
-            "max",
-            "min"
-          ],
+          "calcs": ["lastNotNull", "firstNotNull", "max", "min"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -174,11 +169,7 @@
   "preload": true,
   "refresh": "5s",
   "schemaVersion": 42,
-  "tags": [
-    "load",
-    "net",
-    "all"
-  ],
+  "tags": ["load", "net", "all"],
   "templating": {
     "list": [
       {
@@ -259,4 +250,4 @@
   "uid": "dugvwrf",
   "version": 9,
   "weekStart": ""
-
+}
