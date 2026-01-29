@@ -1314,6 +1314,10 @@ serverFiles:
 # must be a string so you have to add a | after extraScrapeConfigs:
 # example adds prometheus-blackbox-exporter scrape config
 extraScrapeConfigs: |
+  - job_name: postgres-exporter
+    honor_labels: true
+    static_configs:
+    - prometheus-prometheus-postgres-exporter.svc.cluster.local:9187
   - job_name: node-exporter
     honor_labels: true
     relabel_configs:
@@ -1373,20 +1377,35 @@ extraScrapeConfigs: |
           - thw03.breeze-blocks.net:9091
           - thw04.breeze-blocks.net:9091
           - whac.breeze-blocks.net:9091
-  # - job_name: 'prometheus-blackbox-exporter'
-  #   metrics_path: /probe
-  #   params:
-  #     module: [http_2xx]
-  #   static_configs:
-  #     - targets:
-  #       - https://example.com
-  #   relabel_configs:
-  #     - source_labels: [__address__]
-  #       target_label: __param_target
-  #     - source_labels: [__param_target]
-  #       target_label: instance
-  #     - target_label: __address__
-  #       replacement: prometheus-blackbox-exporter:9115
+    - job_name: 'jellyfin-exporter'
+      honor_labels: true
+      metrics_path: /metrics
+      static_configs:
+        - targets:
+          - http://media.breeze-blocks.net
+          - http://music.breeze-blocks.net
+          - http://media.backup.breeze-blocks.net
+      relabel_configs:
+        - source_labels: [__address__]
+          target_label: __param_target
+        - source_labels: [__param_target]
+          target_label: instance
+        - target_label: __address__
+          replacement: __param_target
+        - action: labelkeep
+          regex: (.+)
+        - source_labels:
+            - "__address__"
+          action: replace
+          regex: ([a-z0-9]+).+
+          target_label: node
+          replacement: $1
+        - action: replace
+          regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+          replacement: $1.$2
+          source_labels:
+            - "__address__"
+          target_label: hostname
 
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts

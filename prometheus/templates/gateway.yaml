@@ -3,10 +3,9 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: {{ .Release.Name }}
-  annotations:
-    cert-manager.io/cluster-issuer: {{ .Values.server.route.main.clusterIssuer }}
   labels:
     app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: http-routing
 spec:
   gatewayClassName: eg
   listeners:
@@ -15,17 +14,4 @@ spec:
       protocol: HTTP
       allowedRoutes:
         namespaces:
-          from: Same
-    - name: https
-      hostname: {{ .Values.server.route.main.hostname }}
-      port: 443
-      protocol: HTTPS
-      allowedRoutes:
-        namespaces:
           from: All
-      tls:
-        mode: Terminate
-        certificateRefs:
-          - name: "{{ .Release.Name }}-tls"
-            kind: Secret
-            group: ""
