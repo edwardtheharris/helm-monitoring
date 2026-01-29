@@ -1383,6 +1383,7 @@ extraScrapeConfigs: |
       static_configs:
         - targets:
           - http://media.breeze-blocks.net
+          - http://music.breeze-blocks.net
           - http://media.backup.breeze-blocks.net
       relabel_configs:
         - source_labels: [__address__]
