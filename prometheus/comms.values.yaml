@@ -227,7 +227,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: pcomms.breeze-blocks.net
+  baseURL: prometheus.breeze-blocks.net
 
   ## Additional server container environment variables
   ##
@@ -375,65 +375,6 @@ server:
   ## Override the prometheus.server.fullname for all objects related to the Prometheus server
   fullnameOverride: prometheus
 
-  ingress:
-    ## If true, Prometheus server Ingress will be created
-    ##
-    enabled: true
-
-    ingressClassName: "nginx"
-
-    ## Prometheus server Ingress annotations
-    ##
-    annotations:
-      cert-manager.io/cluster-issuer: comms-svc-int
-      cert-manager.io/common-name: p.breeze-blocks.net
-      cert-manager.io/ip-sans: "192.168.5.49"
-      cert-manager.io/uri-sans: "https://pcomms.breeze-blocks.net,https://comms.breeze-blocks.net,https://p.breeze-blocks.net"
-      cert-manager.io/subject-organizations: breeze blocks international
-      cert-manager.io/subject-organizationalunits: engineering
-      cert-manager.io/subject-countries: US
-      cert-manager.io/email-sans: prometheus@breeze-blocks.net
-      cert-manager.io/subject-provinces: CA
-      cert-manager.io/subject-localities: Los Angeles
-
-    ## Prometheus server Ingress additional labels
-    ##
-    extraLabels: {}
-
-    ## Redirect ingress to an additional defined port on the service
-    # servicePort: 8081
-
-    ## Prometheus server Ingress hostnames with optional path (passed through tpl)
-    ## Must be provided if Ingress is enabled
-    ##
-    hosts:
-      - pcomms.breeze-blocks.net
-      - comms.breeze-blocks.net
-      - p.breeze-blocks.net
-    #   - domain.com/prometheus
-
-    path: /
-
-    # pathType is only for k8s >= 1.18
-    pathType: Prefix
-
-    ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services. (passed through tpl)
-    extraPaths: []
-    # - path: /*
-    #   backend:
-    #     serviceName: ssl-redirect
-    #     servicePort: use-annotation
-
-    ## Prometheus server Ingress TLS configuration (hosts passed through tpl)
-    ## Secrets must be manually created in the namespace
-    ##
-    tls:
-      - secretName: prometheus-tls
-        hosts:
-          - pcomms.breeze-blocks.net
-          - comms.breeze-blocks.net
-          - p.breeze-blocks.net
-
   ## route (map) allows configuration of HTTPRoute resources
   ## Requires Gateway API resources and suitable controller installed within the cluster
   ## Ref. https://gateway-api.sigs.k8s.io/guides/http-routing/
@@ -448,34 +389,34 @@ server:
       kind: "HTTPRoute"
 
       ## Annotations to attach to the HTTPRoute resource
-      annotations:
-        cert-manager.io/cluster-issuer: comms-svc-int
-        cert-manager.io/common-name: p.breeze-blocks.net
-        cert-manager.io/ip-sans: "192.168.5.49"
-        cert-manager.io/uri-sans: "https://pcomms.breeze-blocks.net,https://comms.breeze-blocks.net,https://p.breeze-blocks.net"
-        cert-manager.io/subject-organizations: breeze blocks international
-        cert-manager.io/subject-organizationalunits: engineering
-        cert-manager.io/subject-countries: US
-        cert-manager.io/email-sans: prometheus@breeze-blocks.net
-        cert-manager.io/subject-provinces: CA
-        cert-manager.io/subject-localities: Los Angeles
+      annotations: {}
+        #  cert-manager.io/cluster-issuer: comms-svc-int
+        #  cert-manager.io/common-name: p.breeze-blocks.net
+        #  cert-manager.io/ip-sans: "192.168.5.49"
+        #  cert-manager.io/uri-sans: "https://pcomms.breeze-blocks.net,https://comms.breeze-blocks.net,https://p.breeze-blocks.net"
+        #  cert-manager.io/subject-organizations: breeze blocks international
+        #  cert-manager.io/subject-organizationalunits: engineering
+        #  cert-manager.io/subject-countries: US
+        #  cert-manager.io/email-sans: prometheus@breeze-blocks.net
+        #  cert-manager.io/subject-provinces: CA
+        #  cert-manager.io/subject-localities: Los Angeles
       ## Labels to attach to the HTTPRoute resource
-      labels: {}
+      labels:
+        app.kubernetes.io/name: prometheus
+        app.kubernetes.io/component: http-routing
 
       ## ParentRefs refers to resources this HTTPRoute is to be attached to (Gateways)
       parentRefs:
         - group: gateway.networking.k8s.io
           kind: Gateway
-          name: envoy-gateway
+          name: prometheus
         # - name: contour
         #   sectionName: http
 
       ## Hostnames (templated) defines a set of hostnames that should match against the HTTP Host
       ## header to select a HTTPRoute used to process the request
       hostnames:
-        - p.breeze-blocks.net
-        - pcomms.breeze-blocks.net
-        - comms.breeze-blocks.net
+        - prometheus.breeze-blocks.net
 
       ## additionalRules (templated) allows adding custom rules to the route
       additionalRules: []
@@ -495,7 +436,7 @@ server:
       ## To redirect HTTP traffic to HTTPS, you need to have a Gateway with both HTTP and HTTPS listeners.
       ## Matches and filters do not take effect if enabled.
       ## Ref. https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/
-      httpsRedirect: true
+      httpsRedirect: false
 
   ## Server Deployment Strategy type
   strategy:
@@ -1317,7 +1258,13 @@ extraScrapeConfigs: |
   - job_name: postgres-exporter
     honor_labels: true
     static_configs:
-    - prometheus-prometheus-postgres-exporter.svc.cluster.local:9187
+    - targets:
+      - prometheus-prometheus-postgres-exporter-66475bbdcb-8pkbq.monitoring.svc.cluster.local:9187
+  - job_name: redis-exporter
+    honor_labels: true
+    static_configs:
+    - targets:
+      - redis-exporter-prometheus-redis-exporter-65584c7c79-5k5nw.database.svc.cluster.local:9121
   - job_name: node-exporter
     honor_labels: true
     relabel_configs:
@@ -1340,7 +1287,6 @@ extraScrapeConfigs: |
     static_configs:
       - targets:
           - backup.breeze-blocks.net:9100
-          - cart.breeze-blocks.net:9100
           - marius.breeze-blocks.net:9100
           - media.breeze-blocks.net:9100
           - ns01.breeze-blocks.net:9100
@@ -1358,7 +1304,6 @@ extraScrapeConfigs: |
     static_configs:
       - targets:
           - backup.breeze-blocks.net:9091
-          - cart.breeze-blocks.net:9091
           - cms00.breeze-blocks.net:9091
           - cms01.breeze-blocks.net:9091
           - cms02.breeze-blocks.net:9091
@@ -1377,35 +1322,29 @@ extraScrapeConfigs: |
           - thw03.breeze-blocks.net:9091
           - thw04.breeze-blocks.net:9091
           - whac.breeze-blocks.net:9091
-    - job_name: 'jellyfin-exporter'
-      honor_labels: true
-      metrics_path: /metrics
-      static_configs:
-        - targets:
-          - http://media.breeze-blocks.net
-          - http://music.breeze-blocks.net
-          - http://media.backup.breeze-blocks.net
-      relabel_configs:
-        - source_labels: [__address__]
-          target_label: __param_target
-        - source_labels: [__param_target]
-          target_label: instance
-        - target_label: __address__
-          replacement: __param_target
-        - action: labelkeep
-          regex: (.+)
-        - source_labels:
-            - "__address__"
-          action: replace
-          regex: ([a-z0-9]+).+
-          target_label: node
-          replacement: $1
-        - action: replace
-          regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
-          replacement: $1.$2
-          source_labels:
-            - "__address__"
-          target_label: hostname
+  - job_name: 'jellyfin-exporter'
+    honor_labels: true
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - http://media.breeze-blocks.net
+        - http://music.breeze-blocks.net
+        - http://media.backup.breeze-blocks.net
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
 
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts
