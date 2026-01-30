@@ -17,7 +17,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                node() {
+                node(label='any') {
                   echo("Checkout ${env.BRANCH_NAME} from GitHub. . .")
                   checkout scm
                 }
