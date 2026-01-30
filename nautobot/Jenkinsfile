@@ -7,7 +7,7 @@ pipeline {
         defaultContainer 'helm'
         inheritFrom 'helm'
         namespace 'jenkins'
-        yamlFile 'jenkins.yaml'
+        yamlFile 'nautobot/jenkins.yaml'
       }
     }
     environment {
