@@ -1,11 +1,13 @@
 pipeline {
-    agent kubernetes {
-      agentContainer 'jnlp'
-      agentInjection true
-      cloud 'the-hard-way'
-      defaultContainer 'helm'
-      inheritFrom 'helm'
-      namespace 'jenkins'
+    agent {
+      kubernetes {
+        agentContainer 'jnlp'
+        agentInjection true
+        cloud 'the-hard-way'
+        defaultContainer 'helm'
+        inheritFrom 'helm'
+        namespace 'jenkins'
+      }
     }
     environment {
       MY_KUBECONFIG='comms-kubeconfig'
