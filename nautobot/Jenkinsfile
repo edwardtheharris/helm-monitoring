@@ -1,10 +1,25 @@
 pipeline {
-    agent any
-
+    agent kubernetes {
+      agentContainer 'jnlp'
+      agentInjection true
+      cloud 'the-hard-way'
+      defaultContainer 'helm'
+      inheritFrom 'helm'
+      namespace 'jenkins'
+    }
+    environment {
+      MY_KUBECONFIG='comms-kubeconfig'
+    }
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building..'
+                node(label='helm') {
+                  withKubeConfig(caCertificate: '', clusterName: 'comms', contextName: 'comms', credentialsId: 'comms-kubeconfig', namespace: 'nautobot', restrictKubeConfigAccess: false, serverUrl: 'https://192.168.5.33:6443') {
+                    echo('Building. . .')
+                    checkout scm
+                    sh('kubectl geti all')
+                  }
+                }
             }
         }
         stage('Test') {
