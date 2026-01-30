@@ -29,7 +29,8 @@ spec:
       volumeMounts:
         - name: dockersock
           mountPath: /var/run/docker.sock
-  imagePullSecret: ghcr
+  imagePullSecrets:
+    - name: ghcr
   volumes:
     - name: dockersock
       hostPath:
