@@ -22,17 +22,17 @@ pipeline {
             }
         }
         stage('Test') {
-            steps {
-                node(label='helm') {
-                  withKubeConfig(caCertificate: '', clusterName: 'comms', contextName: "${env.k_context}", credentialsId: "${env.MY_KUBECONFIG}", namespace: 'monitoring', restrictKubeConfigAccess: false, serverUrl: 'https://192.168.5.33:6443') {
-                    ansiColor('xterm') {
-                      echo 'Testing kubectl. . .'
-                      echo("check for working kubectl")
-                      sh("kubectl get all")
-                    }
-                  }
+          steps {
+            node(label='helm') {
+              withKubeConfig(caCertificate: '', clusterName: 'comms', contextName: "${env.k_context}", credentialsId: "${env.MY_KUBECONFIG}", namespace: 'monitoring', restrictKubeConfigAccess: false, serverUrl: 'https://192.168.5.33:6443') {
+                ansiColor('xterm') {
+                  echo 'Testing kubectl. . .'
+                  echo("check for working kubectl")
+                  sh("kubectl get all")
                 }
+              }
             }
+          }
         }
         stage('Deploy') {
             steps {
