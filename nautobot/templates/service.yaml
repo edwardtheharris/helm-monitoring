@@ -11,10 +11,10 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: 8000
+    - port: 80
       targetPort: 8000
       protocol: TCP
-      name: server
+      name: nautobot 
   selector:
     app.kubernetes.io/name: nautobot
 ---
