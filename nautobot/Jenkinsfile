@@ -3,7 +3,7 @@ pipeline {
       kubernetes {
         agentContainer 'jnlp'
         agentInjection true
-        cloud 'the-hard-way'
+        cloud 'comms'
         defaultContainer 'helm'
         inheritFrom 'helm'
         namespace 'monitoring'
