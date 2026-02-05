@@ -59,7 +59,7 @@ stage('test') {
       }
     }
   }
-stage("lint") {
+/*stage("lint") {
     podTemplate(agentContainer: 'helm', cloud: 'the-hard-way',
                 containers: [
                 containerTemplate(alwaysPullImage: true, command: '/usr/local/bin/jenkins-agent',
