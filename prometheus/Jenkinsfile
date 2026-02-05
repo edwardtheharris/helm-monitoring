@@ -88,7 +88,6 @@ stage("lint") {
       }
     }
   }
-}
 stage("helm unittests") {
   podTemplate(agentContainer: 'helm', cloud: 'the-hard-way',
               containers: [
