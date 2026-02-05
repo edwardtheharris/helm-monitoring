@@ -52,16 +52,15 @@ stage("lint") {
       node("${env.POD_LABEL}") {
         container("helm") {
           ansiColor('xterm') {
-              echo("lint the helm chart on ${env.BRANCH_NAME}")
-              checkout scm
-              dir('helm-monitoring/prometheus') {
-                sh(script: '''
-                  #!/bin/bash
-                  for i in comms.values.yaml thw.values.yaml values.yaml; do
-                    helm lint . -f $i
-                  done
-                ''', label: "lint the chart")
-              }
+            echo("lint the helm chart on ${env.BRANCH_NAME}")
+            checkout scm
+            sh(script: '''
+              #!/bin/bash
+              cd helm-monnitoring/prometheus
+              for i in comms.values.yaml thw.values.yaml values.yaml; do
+                helm lint . -f $i
+              done
+            ''', label: "lint the chart")
           }
         }
       }
