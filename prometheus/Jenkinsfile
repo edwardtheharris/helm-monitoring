@@ -32,7 +32,6 @@ stage('preliminary checkout') {
       }
     }
   }
-}
 /*stage('test') {
   podTemplate(agentContainer: 'helm', cloud: 'comms',
               containers: [
