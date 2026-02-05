@@ -1,19 +1,19 @@
 ###
-# ```{rubric} Cluster Role Tests
+# ```{rubric} HTTP Route Tests
 # ```
 # ---
 # Test suite for cluster roles.
 #
-# ```{literalinclude} prometheus/tests/test_clusterrole.yaml
+# ```{literalinclude} prometheus/tests/test_http-route.yaml
 # :language: yaml
-# :caption: tessts/test_clusterrole.yaml
-# :start-at: "suite: 'ClusterRole test suite'
+# :caption: tessts/test_http-route.yaml
+# :start-at: "suite: 'http-route test suite'
 # ```
-suite: "Cluster Role Test Suite"
+suite: "HTTP Route Test Suite"
 release:
   name: prometheus
 templates:
-  - templates/clusterrole.yaml
+  - templates/http-route.yaml
 values:
   - ../values.yaml
 tests:

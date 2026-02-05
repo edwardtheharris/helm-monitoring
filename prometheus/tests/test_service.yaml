@@ -1,19 +1,19 @@
 ###
-# ```{rubric} Cluster Role Tests
+# ```{rubric} Service Tests
 # ```
 # ---
-# Test suite for cluster roles.
+# Test suite for services.
 #
-# ```{literalinclude} prometheus/tests/test_clusterrole.yaml
+# ```{literalinclude} prometheus/tests/test_service.yaml
 # :language: yaml
-# :caption: tessts/test_clusterrole.yaml
-# :start-at: "suite: 'ClusterRole test suite'
+# :caption: tessts/test_service.yaml
+# :start-at: "suite: 'service test suite'
 # ```
-suite: "Cluster Role Test Suite"
+suite: "Service Test Suite"
 release:
   name: prometheus
 templates:
-  - templates/clusterrole.yaml
+  - templates/service.yaml
 values:
   - ../values.yaml
 tests:

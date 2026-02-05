@@ -1,22 +1,32 @@
 ###
-# ```{rubric} Cluster Role Tests
+# ```{rubric} Gateway Tests
 # ```
 # ---
-# Test suite for cluster roles.
+# Test suite for gateways.
 #
-# ```{literalinclude} prometheus/tests/test_clusterrole.yaml
+# ```{literalinclude} prometheus/tests/test_gateway.yaml
 # :language: yaml
-# :caption: tessts/test_clusterrole.yaml
-# :start-at: "suite: 'ClusterRole test suite'
+# :caption: tessts/test_gateway.yaml
+# :start-at: "suite: 'gateway test suite'
 # ```
-suite: "Cluster Role Test Suite"
+suite: "Gateway Test Suite"
 release:
   name: prometheus
 templates:
-  - templates/clusterrole.yaml
+  - templates/gateway.yaml
 values:
   - ../values.yaml
 tests:
   - it: should match the snapshot
     asserts:
       - matchSnapshot: {}
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}
+    values:
+      - ../thw.values.yaml
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}
+    values:
+      - ../comms.values.yaml

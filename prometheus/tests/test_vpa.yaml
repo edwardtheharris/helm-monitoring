@@ -1,19 +1,19 @@
 ###
-# ```{rubric} Cluster Role Tests
+# ```{rubric} VPA Tests
 # ```
 # ---
-# Test suite for cluster roles.
+# Test suite for vpas.
 #
-# ```{literalinclude} prometheus/tests/test_clusterrole.yaml
+# ```{literalinclude} prometheus/tests/test_vpa.yaml
 # :language: yaml
-# :caption: tessts/test_clusterrole.yaml
-# :start-at: "suite: 'ClusterRole test suite'
+# :caption: tessts/test_vpa.yaml
+# :start-at: "suite: 'vpa test suite'
 # ```
-suite: "Cluster Role Test Suite"
+suite: "VPA Test Suite"
 release:
   name: prometheus
 templates:
-  - templates/clusterrole.yaml
+  - templates/vpa.yaml
 values:
   - ../values.yaml
 tests:

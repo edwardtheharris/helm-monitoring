@@ -1,19 +1,19 @@
 ###
-# ```{rubric} Cluster Role Tests
+# ```{rubric} Pod Disruption Budget Tests
 # ```
 # ---
-# Test suite for cluster roles.
+# Test suite for pod disruption budgets.
 #
-# ```{literalinclude} prometheus/tests/test_clusterrole.yaml
+# ```{literalinclude} prometheus/tests/test_pdb.yaml
 # :language: yaml
-# :caption: tessts/test_clusterrole.yaml
-# :start-at: "suite: 'ClusterRole test suite'
+# :caption: tessts/test_pdb.yaml
+# :start-at: "suite: 'pdb test suite'
 # ```
-suite: "Cluster Role Test Suite"
+suite: "Pod Disruption Budget Test Suite"
 release:
   name: prometheus
 templates:
-  - templates/clusterrole.yaml
+  - templates/pdb.yaml
 values:
   - ../values.yaml
 tests:

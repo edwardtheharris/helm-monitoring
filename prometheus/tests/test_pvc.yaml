@@ -1,19 +1,19 @@
 ###
-# ```{rubric} Cluster Role Tests
+# ```{rubric} PersistentVolumeClaim Tests
 # ```
 # ---
-# Test suite for cluster roles.
+# Test suite for persistent volume claims.
 #
-# ```{literalinclude} prometheus/tests/test_clusterrole.yaml
+# ```{literalinclude} prometheus/tests/test_pvc.yaml
 # :language: yaml
-# :caption: tessts/test_clusterrole.yaml
-# :start-at: "suite: 'ClusterRole test suite'
+# :caption: tessts/test_pvc.yaml
+# :start-at: "suite: 'PersistentVolumeClaim test suite'
 # ```
-suite: "Cluster Role Test Suite"
+suite: "PersistentVolumeClaim Test Suite"
 release:
   name: prometheus
 templates:
-  - templates/clusterrole.yaml
+  - templates/pvc.yaml
 values:
   - ../values.yaml
 tests:
