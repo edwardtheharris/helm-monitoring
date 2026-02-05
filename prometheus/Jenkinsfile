@@ -57,7 +57,7 @@ stage("lint") {
               checkout scm
               sh(script: '''
                 #!/bin/bash
-                for i in thw.values.yaml values.yaml; do
+                for i in comms.values.yaml thw.values.yaml values.yaml; do
                   helm lint . -f $i
                 done
               ''', label: "lint the chart")
