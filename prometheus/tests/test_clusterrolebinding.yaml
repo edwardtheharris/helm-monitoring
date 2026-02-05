@@ -1,16 +1,22 @@
-{{- if and .Values.rbac.create (empty .Values.server.namespaces) (empty .Values.server.useExistingClusterRoleName) -}}
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  labels:
-    {{- include "prometheus.server.labels" . | nindent 4 }}
-  name: {{ include "prometheus.clusterRoleName" . }}
-subjects:
-  - kind: ServiceAccount
-    name: {{ template "prometheus.serviceAccountName.server" . }}
-    namespace: {{ include "prometheus.namespace" . }}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: {{ include "prometheus.clusterRoleName" . }}
-{{- end }}
+###
+# ```{rubric} Cluster Role Binding Tests
+# ```
+# ---
+# Test suite for cluster role bindings.
+#
+# ```{literalinclude} prometheus/tests/test_clusterrolebinding.yaml
+# :language: yaml
+# :caption: tessts/test_clusterrolebinding.yaml
+# :start-at: "suite: 'ClusterRoleBinding test suite'
+# ```
+suite: "Cluster Role Binding Test Suite"
+release:
+  name: prometheus
+templates:
+  - templates/clusterrolebinding.yaml
+values:
+  - ../values.yaml
+tests:
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}

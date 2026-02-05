@@ -1,16 +1,22 @@
-{{- if .Values.networkPolicy.enabled }}
-apiVersion: {{ template "prometheus.networkPolicy.apiVersion" . }}
-kind: NetworkPolicy
-metadata:
-  name: {{ template "prometheus.server.fullname" . }}
-  namespace: {{ include "prometheus.namespace" . }}
-  labels:
-    {{- include "prometheus.server.labels" . | nindent 4 }}
-spec:
-  podSelector:
-    matchLabels:
-      {{- include "prometheus.server.matchLabels" . | nindent 6 }}
-  ingress:
-    - ports:
-      - port: {{ default (include "prometheus.port" .) .Values.server.portName }}
-{{- end }}
+###
+# ```{rubric} Cluster Role Tests
+# ```
+# ---
+# Test suite for cluster roles.
+#
+# ```{literalinclude} prometheus/tests/test_clusterrole.yaml
+# :language: yaml
+# :caption: tessts/test_clusterrole.yaml
+# :start-at: "suite: 'ClusterRole test suite'
+# ```
+suite: "Cluster Role Test Suite"
+release:
+  name: prometheus
+templates:
+  - templates/clusterrole.yaml
+values:
+  - ../values.yaml
+tests:
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}
