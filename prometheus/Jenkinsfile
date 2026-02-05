@@ -8,7 +8,7 @@
   } */
 env.POD_LABEL="helm"
 stage('preliminary checkout') {
-  podTemplate(agentContainer: 'helm', cloud: 'comms',
+  podTemplate(agentContainer: 'helm', cloud: 'the-hard-way',
               containers: [
                 containerTemplate(alwaysPullImage: true, command: '/usr/local/bin/jenkins-agent',
                                   image: 'ghcr.io/edwardtheharris/helm-jenkins/helm:0.0.2-00',
@@ -33,7 +33,7 @@ stage('preliminary checkout') {
     }
   }
 stage('test') {
-  podTemplate(agentContainer: 'helm', cloud: 'comms',
+  podTemplate(agentContainer: 'helm', cloud: 'the-hard-way',
               containers: [
                 containerTemplate(alwaysPullImage: true, command: '/usr/local/bin/jenkins-agent',
                                   image: 'ghcr.io/edwardtheharris/helm-jenkins/helm:0.0.2-00',
@@ -60,8 +60,7 @@ stage('test') {
     }
   }
 stage("lint") {
-  kubeconfig(caCertificate: 'LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJT0p5c2tvUW1HMFF3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TlRFeU1Ea3hORFUyTURWYUZ3MHpOVEV5TURjeE5UQXhNRFZhTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUURLR1Y4VnZIMWNteU5BZFJKV0JJVTlLNGJNeU9seEtuN2NsRlc1TlVUSE15cndzWVEyOStkMEhIOEMKWFp2dVoxSmx2YU5LYUhxOCsyM1dmeGo3NnVsUXQvSXF6bTNHYy9CZjNKalVHb2tFc3NJSDEyM0xrUjQ3Wk9EWgpqcVF1SUxES2pZM3hPSHlYVG1NbnFqelRoMWROVE9KNkZtc21MZjlpU3VRMHptMmFFTWhreE1FS0t3N1pURytzCjAxdGtjQkx6dnVRUkdIbUVpVXdDV3BXNitwN1hvOHRrZ09qeWtSdW8yb3NOcEorQkVUL1BVSHhJNVNLRUtjMzQKUG9SbWFwNVNmUHdxampKTWRiR3J3WURzeSt0QXBlcjJSeENoVXZEQmxMcFZiNzBzUWVpY2UrbnN3R1BjWm15Zwo5ekNGcFQ1VkJuRWliYzZPVkVERFFOZW5tQ1VoQWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJRZUZXWWkrNmNJWFV6a1hwUFBlN1FKRURMUUZ6QVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQ1lkTHFSVGpXbApLMkI4ZkloeFFoMTNqaC9Id3k1bXJCUTZKdTZES2xQVXdDeWMwYVhGRWVwcnArZEhqbmJ5MkFrWWZZMzNFSWFjClZ6VVNhQW9JYWYrUHBXdFhYY2dyREFVUVo5VFI5YkZmSVppd3BGcWJSeU9BWUxPajNGaktzR2dYVk9hSHVPb2kKWEVVK1puU0Q1bTZMNFcwWU1VRVVVUEVsdU01dDVyZW55OGV4VjRBdFdlNXVEZnJvS3hBMGVrQk9uUGlzYVdWRApmdlRuT29mVmRGSlZkTGp6dEJrcytCck5ieE1oRllvZm91SEU2K1RhS3dTVTNpclJFSk5ZQ1FSV0F5aGNyZHBqClBPak5QdC8vRHd3K3dKTG1Qbm84ZUlPc0k0OEgyRWtoOVE0YVpIc3FDaCtWNW9DQWszRnFkRVBpa3NDOUN5RmkKOGFaT3FWVUhqWkxDCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K', credentialsId: 'comms-client-cert-key', serverUrl: 'https://192.168.5.33:6443') {
-    podTemplate(agentContainer: 'helm', cloud: 'comms',
+    podTemplate(agentContainer: 'helm', cloud: 'the-hard-way',
                 containers: [
                 containerTemplate(alwaysPullImage: true, command: '/usr/local/bin/jenkins-agent',
                         image: 'ghcr.io/edwardtheharris/helm-jenkins/helm:0.0.2-00', livenessProbe: containerLivenessProbe(execArgs: '',
