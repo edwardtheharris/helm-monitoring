@@ -6,6 +6,7 @@
       namespace 'jenkins'
     }
   } */
+env.POD_LABEL="helm"
 stage('preliminary checkout') {
   podTemplate(agentContainer: 'helm', cloud: 'comms',
               containers: [
@@ -30,7 +31,6 @@ stage('preliminary checkout') {
   }
 }
 stage('test') {
-  env.POD_LABEL="helm"
   podTemplate(agentContainer: 'helm', cloud: 'comms',
               containers: [
                 containerTemplate(alwaysPullImage: true, command: '/usr/local/bin/jenkins-agent',
