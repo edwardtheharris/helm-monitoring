@@ -1,21 +1,15 @@
-pipeline {
-    agent any
+parallel {
 
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
+  stages {
+    stage('prometheus') {
+      echo("Build, test and deploy Prometheus.")
+      build("helm/monitoring/prometheus")
+    }
         stage('Test') {
-            steps {
                 echo 'Testing..'
-            }
         }
         stage('Deploy') {
-            steps {
                 echo 'Deploying....'
-            }
         }
     }
-}
+  }
