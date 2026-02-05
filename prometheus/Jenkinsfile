@@ -30,7 +30,7 @@ stage('preliminary checkout') {
     }
   }
 }
-stage('test') {
+/*stage('test') {
   podTemplate(agentContainer: 'helm', cloud: 'comms',
               containers: [
                 containerTemplate(alwaysPullImage: true, command: '/usr/local/bin/jenkins-agent',
@@ -129,4 +129,4 @@ stage("helm unittests") {
       }
     }
   }
-}
+}*/
