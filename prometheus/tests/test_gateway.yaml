@@ -1,0 +1,17 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: http-routing
+spec:
+  gatewayClassName: eg
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
