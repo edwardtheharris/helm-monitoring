@@ -135,7 +135,7 @@
             "uid": "ff37t43hn6yo0a"
           },
           "editorMode": "code",
-          "expr": "glances_network_bytes_recv{node=\"$hostname\"}",
+          "expr": "glances_network_bytes_recv{node=\"$hostname\",interface_name!~\"veth+\"}",
           "instant": false,
           "legendFormat": "$hostname {{interface_name}}",
           "range": true,
@@ -147,7 +147,7 @@
             "uid": "ff37t43hn6yo0a"
           },
           "editorMode": "code",
-          "expr": "glances_network_bytes_sent{node=\"$hostname\"}*-1\n",
+          "expr": "glances_network_bytes_sent{node=\"$hostname\",interface_name!~\"veth+\"}*-1\n",
           "instant": false,
           "legendFormat": "$hostname {{interface_name}}",
           "range": true,
@@ -181,7 +181,7 @@
             "ns03",
             "ns04",
             "ostium",
-            "sulla",
+            "sulla-felix",
             "thw00",
             "thw01",
             "thw02",
@@ -202,7 +202,7 @@
             "ns03",
             "ns04",
             "ostium",
-            "sulla",
+            "sulla-felix",
             "thw00",
             "thw01",
             "thw02",
@@ -215,7 +215,7 @@
           "type": "prometheus",
           "uid": "afba3nndoeuwwf"
         },
-        "definition": "label_values(node_load1,node)",
+        "definition": "label_values(glances_cpu_irq,node)",
         "description": "",
         "label": "hostname",
         "multi": true,
@@ -223,11 +223,12 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(node_load1,node)",
+          "query": "label_values(glances_cpu_irq,node)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
+        "sort": 1,
         "type": "query"
       }
     ]
@@ -240,6 +241,5 @@
   "timezone": "browser",
   "title": "net traffic all hosts",
   "uid": "duzr7gz",
-  "version": 7
+  "version": 14
 }
-
