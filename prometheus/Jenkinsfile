@@ -8,7 +8,7 @@
   } */
 stage('checkout') {
   env.POD_LABEL="helm"
-  podTemplate(agentContainer: 'helm', cloud: 'the-hard-way',
+  podTemplate(agentContainer: 'helm', cloud: 'the-hard-wa',
               containers: [
               containerTemplate(alwaysPullImage: true, command: '/usr/local/bin/jenkins-agent',
                       image: 'ghcr.io/edwardtheharris/helm-jenkins/helm:0.0.1-10', livenessProbe: containerLivenessProbe(execArgs: '',
