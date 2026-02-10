@@ -6,8 +6,6 @@ title: Loki Helm Chart Values
 ## Tables of Chart Values
 
 ```{toctree}
-md/adminapi
-md/backend
 ```
 
 ### singleBinary values
@@ -117,7 +115,10 @@ md/backend
   - true
 - - singleBinary.persistence.enableStatefulSetRecreationForSizeChange
   - bool
-  - Enable StatefulSetRecreation for changes to PVC size. This means that the StatefulSet will be deleted, recreated (with the same name) and rolled when a change to the PVC size is detected. That way the PVC can be resized without manual intervention.
+  - Enable StatefulSetRecreation for changes to PVC size. This means
+    that the StatefulSet will be deleted, recreated (with the
+    same name) and rolled when a change to the PVC size is detected.
+    That way the PVC can be resized without manual intervention.
   - false
 - - singleBinary.persistence.enabled
   - bool

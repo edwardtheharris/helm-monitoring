@@ -1,6 +1,6 @@
 
 
-minio	object	Configuration for the minio subchart	
+minio	object	Configuration for the minio subchart
 
 {
   "address": null,

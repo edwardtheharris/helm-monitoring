@@ -1,0 +1,101 @@
+
+
+sidecar.enableUniqueFilenames	bool	Ensure that rule files aren't conflicting and being overwritten by prefixing their name with the namespace they are defined in.
+
+false
+
+sidecar.image.pullPolicy	string	Docker image pull policy
+
+"IfNotPresent"
+
+sidecar.image.repository	string	The Docker registry and image for the k8s sidecar
+
+"docker.io/kiwigrid/k8s-sidecar"
+
+sidecar.image.sha	string	Docker image sha. If empty, no sha will be used
+
+""
+
+sidecar.image.tag	string	Docker image tag
+
+"1.30.10"
+
+sidecar.livenessProbe	object	Liveness probe definition. Probe is disabled on the sidecar by default.
+
+{}
+
+sidecar.readinessProbe	object	Readiness probe definition. Probe is disabled on the sidecar by default.
+
+{}
+
+sidecar.resources	object	Resource requests and limits for the sidecar
+
+{}
+
+sidecar.rules.enabled	bool	Whether or not to create a sidecar to ingest rule from specific ConfigMaps and/or Secrets.
+
+true
+
+sidecar.rules.folder	string	Folder into which the rules will be placed.
+
+"/rules"
+
+sidecar.rules.folderAnnotation	string	The annotation overwriting the folder value. The annotation value can be either an absolute or a relative path. Relative paths will be relative to FOLDER. Useful for multi-tenancy setups.
+
+null
+
+sidecar.rules.label	string	Label that the configmaps/secrets with rules will be marked with.
+
+"loki_rule"
+
+sidecar.rules.labelValue	string	Label value that the configmaps/secrets with rules will be set to.
+
+""
+
+sidecar.rules.logLevel	string	Log level of the sidecar container.
+
+"INFO"
+
+sidecar.rules.resource	string	Search in configmap, secret, or both.
+
+"both"
+
+sidecar.rules.script	string	Absolute path to the shell script to execute after a configmap or secret has been reloaded.
+
+null
+
+sidecar.rules.searchNamespace	string	Comma separated list of namespaces. If specified, the sidecar will search for config-maps/secrets inside these namespaces. Otherwise the namespace in which the sidecar is running will be used. It's also possible to specify 'ALL' to search in all namespaces.
+
+null
+
+sidecar.rules.watchClientTimeout	int	WatchClientTimeout: is a client-side timeout, configuring your local socket. If you have a network outage dropping all packets with no RST/FIN, this is how long your client waits before realizing & dropping the connection. Defaults to 66sec.
+
+60
+
+sidecar.rules.watchMethod	string	Method to use to detect ConfigMap changes. With WATCH the sidecar will do a WATCH request, with SLEEP it will list all ConfigMaps, then sleep for 60 seconds.
+
+"WATCH"
+
+sidecar.rules.watchServerTimeout	int	WatchServerTimeout: request to the server, asking it to cleanly close the connection after that. defaults to 60sec; much higher values like 3600 seconds (1h) are feasible for non-Azure K8S.
+
+60
+
+sidecar.securityContext	object	The SecurityContext for the sidecar.
+
+{
+  "allowPrivilegeEscalation": false,
+  "capabilities": {
+    "drop": [
+      "ALL"
+    ]
+  },
+  "readOnlyRootFilesystem": true
+}
+
+sidecar.skipTlsVerify	bool	Set to true to skip tls verification for kube api calls.
+
+false
+
+sidecar.startupProbe	object	Startup probe definition. Probe is disabled on the sidecar by default.
+
+{}
