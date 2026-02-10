@@ -1,7 +1,16 @@
 venv/
+secrets/
+charts/
+secrets/
+**/secrets/
+__snapshot__/
+.debug/
 .gnupg/
 *.xml
+*.values.yaml
 .values.yaml
+*.tgz
+charts/
 .vscode/
 _build
 .venv/

@@ -1,0 +1,37 @@
+###
+# ```{rubric} Role Test Suite
+# ```
+# ---
+# Tests to validate the deployment of the described Role.
+#
+# ```{literalinclude} /tests/roles_test.yaml
+# :language: yaml
+# :start-at: "suite: test for roles\n"
+# :end-before: "###\n"
+# ```
+suite: test for roles
+release:
+  name: grafana
+templates:
+  - templates/role.yaml
+values:
+  - ../values.yaml
+
+###
+# ```{rubric} Role Tests
+# ```
+# ---
+# Tests for Role Template
+#
+# ```{literalinclude} /tests/roles_test.yaml
+# :language: yaml
+# :start-at: "tests:\n"
+# ```
+tests:
+  - it: should be a Role
+    asserts:
+      - isKind:
+          of: Role
+  - it: Role should match snapshot
+    asserts:
+      - matchSnapshot: {}

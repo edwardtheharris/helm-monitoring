@@ -1,9 +1,9 @@
 ---
 abstract: >-
-    Documentation index for the Helm Monitoring package.
+  Documentation index for the Helm Monitoring package.
 authors:
-   - name: Xander Harris
-     email: xandertheharris@gmail.com
+  - name: Xander Harris
+    email: xandertheharris@gmail.com
 date: 2025-09-033
 title: Monitoring Helm Chart
 ---
@@ -22,9 +22,11 @@ stack to bare metal {term}`Kubernetes` clusters.
 :caption: contents
 
 grafana/index
-loki/index
+kube-state-metrics/index
+nautobot/index
 prometheus/index
 prometheus-node-exporter/index
+promtail/index
 tests/index
 ```
 
@@ -41,11 +43,22 @@ security
 
 ## Indices and tables
 
-* {ref}`genindex`
-* {ref}`modindex`
-* {ref}`search`
+- {ref}`genindex`
+- {ref}`modindex`
+- {ref}`search`
 
 ```{glossary}
+Grafana
+  [Grafana Open Source Software (OSS)](https://grafana.com/docs/grafana/latest/)
+  enables you to query,
+  visualize, alert on, and explore your metrics, logs,
+  and traces wherever they’re stored. Grafana data source
+  plugins enable you to query data sources including time series
+  databases like Prometheus and CloudWatch, logging tools like Loki and
+  Elasticsearch, NoSQL/SQL databases like Postgres, CI/CD tooling like
+  GitHub, and many more. Grafana OSS provides you with tools to
+  display that data on live dashboards with insightful graphs and visualizations.
+
 GitHub
    Most likely the site this repository is hosted on. More information is
    available [here](https://github.com).
@@ -67,10 +80,13 @@ Typical Helm chart rules.
 ### Chart
 
 ```{autoyaml} Chart.yaml
+
 ```
 
 ```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
+
 ```
+
 <!--
 ### Values
 

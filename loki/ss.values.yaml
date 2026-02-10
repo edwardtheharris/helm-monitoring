@@ -31,6 +31,20 @@ gateway:
   service:
     port: 80
     type: LoadBalancer
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: comms-svc-int
+    ingressClassName: nginx
+    hosts:
+      - host: loki.breeze-blocks.net
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: gateway-tls
+        hosts:
+          - loki.breeze-blocks.net
 minio:
   enabled: false
 deploymentMode: SingleBinary
@@ -38,7 +52,7 @@ deploymentMode: SingleBinary
 singleBinary:
   persistence:
     storageClass: csi-lvm-linear
-    size: 100Gi
+    size: 100G
   replicas: 1
 
 # Zero out replica counts of other deployment modes

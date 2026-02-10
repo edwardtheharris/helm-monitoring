@@ -1,0 +1,58 @@
+{{ if .Values.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.nameOverride }}
+  labels:
+    app.kubernetes.io/component: primary
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/part-of: nautobot
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+      name: server
+  selector:
+    app.kubernetes.io/name: nautobot
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker
+  labels:
+    app.kubernetes.io/component: worker
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: worker
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 5672
+      targetPort: 5672
+      protocol: TCP
+      name: worker
+  selector:
+    app.kubernetes.io/part-of: nautobot
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scheduler
+  labels:
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: scheduler
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 5673
+      targetPort: 5673
+      protocol: TCP
+      name: scheduler
+  selector:
+    app.kubernetes.io/part-of: nautobot
+{{ end }}

@@ -150,6 +150,7 @@ cadvisor:
 # ```{rubric} global values
 # ```
 # ---
+# Values to be applied to all charts globally.
 global:
   ## Reference to one or more secrets to be used when pulling images
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -182,9 +183,16 @@ global:
 ###
 # ```{rubric} Loki values
 # ```
+# ---
+# Values used to deploy Loki.
 loki:
   enabled: true
 
+###
+# ```{rubric} Loki values
+# ```
+# ---
+# Values used to deploy Loki.
 prometheus-node-exporter:
   enabled: true
 
@@ -241,6 +249,8 @@ prometheus:
           - prometheus.breeze-blocks.net
   ingressPerReplica:
     enabled: true
+  networkPolicy:
+    enabled: false
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ##
   # - name: "image-pull-secret"
@@ -410,130 +420,6 @@ prometheus:
 windowsMonitoring:
   ## Deploys the windows-exporter and Windows-specific dashboards and rules (job name must be 'windows-exporter')
   enabled: false
-
-alertmanager:
-  ## Annotations for Alertmanager
-  ##
-  enabled: false
-  annotations: {}
-
-  ## Api that prometheus will use to communicate with alertmanager. Possible values are v1, v2
-  ##
-  apiVersion: v2
-  hosts:
-    - host: alertmanager.breeze-blocks.net
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls:
-    - secretName: alertmanager-tls
-      hosts:
-        - alertmanager.breeze-blocks.net
-
-  ###
-  # ```{rubric} Liveness Probe
-  # ```
-  # ---
-  # Set a command to test for liveness.
-  #
-  # ```{literalinclude} /values.yaml
-  # :caption: liveness probe
-  # :language: yaml
-  # :start-at: "livenessProbe:\n"
-  # :end-before: "###\n"
-  # ```
-  livenessProbe:
-    exec:
-      command:
-        - /opt/monitoring/bin/monitoring-server
-        - status
-    # When to give up and restart the container
-    failureThreshold: 3
-    # Delay before the first probe is initiated
-    initialDelaySeconds: 30
-    # How often to perform the probe
-    periodSeconds: 10
-    # Minimum consecutive successes for the probe to
-    # be considered successful after having failed
-    successThreshold: 1
-    # When the probe times out
-    timeoutSeconds: 5
-
-    ## @param alertmanager.enableFeatures Enable access to Alertmanager disabled features.
-    ##
-    enableFeatures: []
-
-    ## Service account for Alertmanager to use.
-    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
-    ##
-    serviceAccount:
-      create: true
-      name: alert-manager
-      annotations: {}
-      automountServiceAccountToken: true
-
-    ## Configure pod disruption budgets for Alertmanager
-    ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget
-    ##
-    podDisruptionBudget:
-      enabled: false
-      minAvailable: 1
-      maxUnavailable: ""
-    name: monitoring
-    size: 5Gi
-    storageClass: csi-driver-lvm-linear
-
-  ## Alertmanager configuration directives
-  ## ref: https://prometheus.io/docs/alerting/configuration/#configuration-file
-  ##      https://prometheus.io/webtools/alerting/routing-tree-editor/
-  ##
-  config:
-    global:
-      resolve_timeout: 5m
-    inhibit_rules:
-      - source_matchers:
-          - "severity = critical"
-        target_matchers:
-          - "severity =~ warning|info"
-        equal:
-          - "namespace"
-          - "alertname"
-      - source_matchers:
-          - "severity = warning"
-        target_matchers:
-          - "severity = info"
-        equal:
-          - "namespace"
-          - "alertname"
-      - source_matchers:
-          - "alertname = InfoInhibitor"
-        target_matchers:
-          - "severity = info"
-        equal:
-          - "namespace"
-      - target_matchers:
-          - "alertname = InfoInhibitor"
-    route:
-      group_by: ["namespace"]
-      group_wait: 30s
-      group_interval: 5m
-      repeat_interval: 12h
-      receiver: "null"
-      routes:
-        - receiver: "null"
-          matchers:
-            - alertname = "Watchdog"
-    receivers:
-      - name: "null"
-    templates:
-      - "/etc/alertmanager/config/*.tmpl"
-
-  ## Alertmanager configuration directives (as string type, preferred over the config hash map)
-  ## stringConfig will be used only, if tplConfig is true
-  ## ref: https://prometheus.io/docs/alerting/configuration/#configuration-file
-  ##      https://prometheus.io/webtools/alerting/routing-tree-editor/
-  ##
-  stringConfig: ""
 
 ###
 # ```{rubric} Pod Labels

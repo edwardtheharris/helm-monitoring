@@ -3,6 +3,8 @@
 # This is a YAML-formatted file.
 # eclare variables to be passed into your templates.
 
+alertmanager:
+  enabled: false
 rbac:
   create: true
 
@@ -23,6 +25,10 @@ serviceAccounts:
 
 ## Additional labels to attach to all resources
 commonMetaLabels: {}
+## Enable creation of NetworkPolicy resources.
+##
+networkPolicy:
+  enabled: false
 
 ## Monitors ConfigMap changes and POSTs to a URL
 ## Ref: https://github.com/prometheus-operator/prometheus-operator/tree/main/cmd/prometheus-config-reloader
@@ -126,7 +132,7 @@ configmapReload:
 server:
   ## Prometheus server container name
   ##
-  name: prometheus
+  name: "prometheus"
 
   ## Opt out of automounting Kubernetes API credentials.
   ## If set it will override serviceAccounts.server.automountServiceAccountToken value for ServiceAccount.
@@ -144,7 +150,7 @@ server:
 
   ## If set it will override prometheus.server.fullname value for ClusterRole and ClusterRoleBinding
   ##
-  clusterRoleNameOverride: ""
+  clusterRoleNameOverride: "prometheus"
 
   # Enable only the release namespace for monitoring. By default all namespaces are monitored.
   # If releaseNamespace and namespaces are both set a merged list will be monitored.
@@ -221,7 +227,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: "prometheus.breeze-blocks.net"
+  baseURL: prometheus.comms.breeze-blocks.net
 
   ## Additional server container environment variables
   ##
@@ -243,27 +249,28 @@ server:
   # List of flags to override default parameters, e.g:
   # - --enable-feature=agent
   # - --storage.agent.retention.max-time=30m
-  # - --config.file=/etc/prometheus/prometheus.yml
-  defaultFlagsOverride: []
+  defaultFlagsOverride:
+    - --config.file=/etc/prometheus/prometheus.yml
+    - --web.enable-lifecycle
 
   extraFlags:
-    - web.enable-lifecycle
+    # - web.enable-lifecycle
     ## web.enable-admin-api flag controls access to the administrative HTTP API which includes functionality such as
     ## deleting time series. This is disabled by default.
-    # - web.enable-admin-api
+    - web.enable-admin-api
     ##
     ## storage.tsdb.no-lockfile flag controls BD locking
     # - storage.tsdb.no-lockfile
     ##
     ## storage.tsdb.wal-compression flag enables compression of the write-ahead log (WAL)
-    # - storage.tsdb.wal-compression
+    - storage.tsdb.wal-compression
 
   ## Path to a configuration file on prometheus server container FS
   configPath: /etc/prometheus/prometheus.yml
 
   ### The data directory used by prometheus to set --storage.tsdb.path
   ### When empty server.persistentVolume.mountPath is used instead
-  storagePath: ""
+  storagePath: "/var/lib/prometheus/data"
 
   global:
     ## How frequently to scrape targets by default
@@ -371,7 +378,7 @@ server:
   ingress:
     ## If true, Prometheus server Ingress will be created
     ##
-    enabled: true
+    enabled: false
 
     ingressClassName: "nginx"
 
@@ -379,7 +386,13 @@ server:
     ##
     annotations:
       cert-manager.io/cluster-issuer: comms-svc-int
-    #   kubernetes.io/ingress.class: nginx
+      cert-manager.io/common-name: prometheus
+      cert-manager.io/subject-organizationalunits: engineering
+      cert-manager.io/subject-countries: US
+      cert-manager.io/email-sans: prometheus.comms.breeze-blocks.net
+      cert-manager.io/subject-provinces: CA
+      cert-manager.io/subject-localities: Los Angeles
+      #   kubernetes.io/ingress.class: nginx
     #   kubernetes.io/tls-acme: 'true'
 
     ## Prometheus server Ingress additional labels
@@ -393,7 +406,7 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts:
-      - prometheus.breeze-blocks.net
+      - prometheus.comms.breeze-blocks.net
     #   - prometheus.domain.com
     #   - domain.com/prometheus
 
@@ -415,7 +428,7 @@ server:
     tls:
       - secretName: prometheus-tls
         hosts:
-          - prometheus.breeze-blocks.net
+          - prometheus.comms.breeze-blocks.net
 
   ## route (map) allows configuration of HTTPRoute resources
   ## Requires Gateway API resources and suitable controller installed within the cluster
@@ -423,27 +436,28 @@ server:
   route:
     main:
       ## Enable this route
-      enabled: false
+      enabled: true
 
       ## ApiVersion set by default to "gateway.networking.k8s.io/v1"
-      apiVersion: ""
+      apiVersion: gateway.networking.k8s.io/v1
       ## kind set by default to HTTPRoute
-      kind: ""
+      kind: HTTPRoute
 
       ## Annotations to attach to the HTTPRoute resource
       annotations: {}
       ## Labels to attach to the HTTPRoute resource
-      labels: {}
+      labels:
+        app.kubernetes.io/name: prometheus
 
       ## ParentRefs refers to resources this HTTPRoute is to be attached to (Gateways)
-      parentRefs: []
-        # - name: contour
-        #   sectionName: http
+      parentRefs:
+        - name: prometheus
+          sectionName: http
 
       ## Hostnames (templated) defines a set of hostnames that should match against the HTTP Host
       ## header to select a HTTPRoute used to process the request
-      hostnames: []
-        # - my.example.com
+      hostnames:
+        - thw-pr.breeze-blocks.net
 
       ## additionalRules (templated) allows adding custom rules to the route
       additionalRules: []
@@ -535,7 +549,7 @@ server:
     ## If set it will override the name of the created persistent volume claim
     ## generated by the stateful set.
     ##
-    statefulSetNameOverride: ""
+    statefulSetNameOverride: "prometheus"
 
     ## Prometheus server data Persistent Volume access modes
     ## Must match those of existing PV or dynamic provisioner
@@ -563,7 +577,7 @@ server:
 
     ## Prometheus server data Persistent Volume size
     ##
-    size: 8Gi
+    size: 100Gi
 
     ## Prometheus server data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
@@ -572,7 +586,7 @@ server:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: csi-lvm-mirror
+    storageClass: csi-lvm-linear
 
     ## Subdirectory of Prometheus server data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
@@ -1278,12 +1292,69 @@ serverFiles:
           - source_labels: [__meta_kubernetes_pod_node_name]
             action: replace
             target_label: node
-
 # adds additional scrape configs to prometheus.yml
 # must be a string so you have to add a | after extraScrapeConfigs:
 # example adds prometheus-blackbox-exporter scrape config
-extraScrapeConfigs:
-  ""
+extraScrapeConfigs: |
+  - job_name: node-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+          - backup.breeze-blocks.net:9100
+          - cart.breeze-blocks.net:9100
+          - marius.breeze-blocks.net:9100
+          - media.breeze-blocks.net:9100
+          - ns01.breeze-blocks.net:9100
+          - ns03.breeze-blocks.net:9100
+          - ns04.breeze-blocks.net:9100
+          - ostium.breeze-blocks.net:9100
+          - sulla-felix.breeze-blocks.net:9100
+          - thw00.breeze-blocks.net:9100
+          - thw01.breeze-blocks.net:9100
+          - thw02.breeze-blocks.net:9100
+          - thw03.breeze-blocks.net:9100
+          - thw04.breeze-blocks.net:9100
+          - whac.breeze-blocks.net:9100
+  - job_name: glances-exporter
+    static_configs:
+      - targets:
+          - backup.breeze-blocks.net:9091
+          - cart.breeze-blocks.net:9091
+          - cms00.breeze-blocks.net:9091
+          - cms01.breeze-blocks.net:9091
+          - cms02.breeze-blocks.net:9091
+          - cms03.breeze-blocks.net:9091
+          - cms04.breeze-blocks.net:9091
+          - marius.breeze-blocks.net:9091
+          - media.breeze-blocks.net:9091
+          - ns01.breeze-blocks.net:9091
+          - ns03.breeze-blocks.net:9091
+          - ns04.breeze-blocks.net:9091
+          - ostium.breeze-blocks.net:9091
+          - sulla-felix.breeze-blocks.net:9091
+          - thw00.breeze-blocks.net:9091
+          - thw01.breeze-blocks.net:9091
+          - thw02.breeze-blocks.net:9091
+          - thw03.breeze-blocks.net:9091
+          - thw04.breeze-blocks.net:9091
+          - whac.breeze-blocks.net:9091
   # - job_name: 'prometheus-blackbox-exporter'
   #   metrics_path: /probe
   #   params:
@@ -1306,11 +1377,6 @@ alertRelabelConfigs: {}
   # - source_labels: [dc]
   #   regex: (.+)\d+
   #   target_label: dc
-
-networkPolicy:
-  ## Enable creation of NetworkPolicy resources.
-  ##
-  enabled: false
 
 # Force namespace of namespaced resources
 forceNamespace: ""
