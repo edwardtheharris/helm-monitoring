@@ -33,7 +33,6 @@ tests/index
 ```{toctree}
 :caption: meta
 
-.github/index
 contributing
 changelog
 license
