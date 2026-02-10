@@ -1,0 +1,427 @@
+
+
+monitoring	object	Monitoring section determines which monitoring features to enable	
+
+{
+  "dashboards": {
+    "annotations": {},
+    "enabled": false,
+    "labels": {
+      "grafana_dashboard": "1"
+    },
+    "namespace": null
+  },
+  "rules": {
+    "additionalGroups": [],
+    "additionalRuleAnnotations": {},
+    "additionalRuleLabels": {},
+    "alerting": true,
+    "annotations": {},
+    "disabled": {},
+    "enabled": false,
+    "labels": {},
+    "namespace": null
+  },
+  "selfMonitoring": {
+    "enabled": false,
+    "grafanaAgent": {
+      "annotations": {},
+      "enableConfigReadAPI": false,
+      "installOperator": false,
+      "labels": {},
+      "priorityClassName": null,
+      "resources": {},
+      "tolerations": []
+    },
+    "logsInstance": {
+      "annotations": {},
+      "clients": null,
+      "labels": {}
+    },
+    "podLogs": {
+      "additionalPipelineStages": [],
+      "annotations": {},
+      "apiVersion": "monitoring.grafana.com/v1alpha1",
+      "labels": {},
+      "relabelings": []
+    },
+    "tenant": {
+      "name": "self-monitoring",
+      "password": null,
+      "secretNamespace": "{{ include \"loki.namespace\" . }}"
+    }
+  },
+  "serviceMonitor": {
+    "annotations": {},
+    "enabled": false,
+    "interval": "15s",
+    "labels": {},
+    "metricRelabelings": [],
+    "metricsInstance": {
+      "annotations": {},
+      "enabled": true,
+      "labels": {},
+      "remoteWrite": null
+    },
+    "namespaceSelector": {},
+    "relabelings": [],
+    "scheme": "http",
+    "scrapeTimeout": null,
+    "tlsConfig": null
+  }
+}
+
+monitoring.dashboards.annotations	object	Additional annotations for the dashboards ConfigMap	
+
+{}
+
+monitoring.dashboards.enabled	bool	If enabled, create configmap with dashboards for monitoring Loki	
+
+false
+
+monitoring.dashboards.labels	object	Labels for the dashboards ConfigMap	
+
+{
+  "grafana_dashboard": "1"
+}
+
+monitoring.dashboards.namespace	string	Alternative namespace to create dashboards ConfigMap in	
+
+null
+
+monitoring.rules	object	Recording rules for monitoring Loki, required for some dashboards	
+
+{
+  "additionalGroups": [],
+  "additionalRuleAnnotations": {},
+  "additionalRuleLabels": {},
+  "alerting": true,
+  "annotations": {},
+  "disabled": {},
+  "enabled": false,
+  "labels": {},
+  "namespace": null
+}
+
+monitoring.rules.additionalGroups	list	Additional groups to add to the rules file	
+
+[]
+
+monitoring.rules.additionalRuleAnnotations	object	Additional annotations for PrometheusRule alerts	
+
+{}
+
+monitoring.rules.additionalRuleLabels	object	Additional labels for PrometheusRule alerts	
+
+{}
+
+monitoring.rules.alerting	bool	Include alerting rules	
+
+true
+
+monitoring.rules.annotations	object	Additional annotations for the rules PrometheusRule resource	
+
+{}
+
+monitoring.rules.disabled	object	If you disable all the alerts and keep .monitoring.rules.alerting set to true, the chart will fail to render.	
+
+{}
+
+monitoring.rules.enabled	bool	If enabled, create PrometheusRule resource with Loki recording rules	
+
+false
+
+monitoring.rules.labels	object	Additional labels for the rules PrometheusRule resource	
+
+{}
+
+monitoring.rules.namespace	string	Alternative namespace to create PrometheusRule resources in	
+
+null
+
+monitoring.selfMonitoring	object	DEPRECATED Self monitoring determines whether Loki should scrape its own logs. This feature relies on Grafana Agent Operator, which is deprecated. It will create custom resources for GrafanaAgent, LogsInstance, and PodLogs to configure scrape configs to scrape its own logs with the labels expected by the included dashboards.	
+
+{
+  "enabled": false,
+  "grafanaAgent": {
+    "annotations": {},
+    "enableConfigReadAPI": false,
+    "installOperator": false,
+    "labels": {},
+    "priorityClassName": null,
+    "resources": {},
+    "tolerations": []
+  },
+  "logsInstance": {
+    "annotations": {},
+    "clients": null,
+    "labels": {}
+  },
+  "podLogs": {
+    "additionalPipelineStages": [],
+    "annotations": {},
+    "apiVersion": "monitoring.grafana.com/v1alpha1",
+    "labels": {},
+    "relabelings": []
+  },
+  "tenant": {
+    "name": "self-monitoring",
+    "password": null,
+    "secretNamespace": "{{ include \"loki.namespace\" . }}"
+  }
+}
+
+monitoring.selfMonitoring.grafanaAgent	object	DEPRECATED Grafana Agent configuration	
+
+{
+  "annotations": {},
+  "enableConfigReadAPI": false,
+  "installOperator": false,
+  "labels": {},
+  "priorityClassName": null,
+  "resources": {},
+  "tolerations": []
+}
+
+monitoring.selfMonitoring.grafanaAgent.annotations	object	Grafana Agent annotations	
+
+{}
+
+monitoring.selfMonitoring.grafanaAgent.enableConfigReadAPI	bool	Enable the config read api on port 8080 of the agent	
+
+false
+
+monitoring.selfMonitoring.grafanaAgent.installOperator	bool	DEPRECATED Controls whether to install the Grafana Agent Operator and its CRDs. Note that helm will not install CRDs if this flag is enabled during an upgrade. In that case install the CRDs manually from https://github.com/grafana/agent/tree/main/production/operator/crds	
+
+false
+
+monitoring.selfMonitoring.grafanaAgent.labels	object	Additional Grafana Agent labels	
+
+{}
+
+monitoring.selfMonitoring.grafanaAgent.priorityClassName	string	The name of the PriorityClass for GrafanaAgent pods	
+
+null
+
+monitoring.selfMonitoring.grafanaAgent.resources	object	Resource requests and limits for the grafanaAgent pods	
+
+{}
+
+monitoring.selfMonitoring.grafanaAgent.tolerations	list	Tolerations for GrafanaAgent pods	
+
+[]
+
+monitoring.selfMonitoring.logsInstance.annotations	object	LogsInstance annotations	
+
+{}
+
+monitoring.selfMonitoring.logsInstance.clients	string	Additional clients for remote write	
+
+null
+
+monitoring.selfMonitoring.logsInstance.labels	object	Additional LogsInstance labels	
+
+{}
+
+monitoring.selfMonitoring.podLogs.additionalPipelineStages	list	Additional pipeline stages to process logs after scraping https://grafana.com/docs/agent/latest/operator/api/#pipelinestagespec-a-namemonitoringgrafanacomv1alpha1pipelinestagespeca	
+
+[]
+
+monitoring.selfMonitoring.podLogs.annotations	object	PodLogs annotations	
+
+{}
+
+monitoring.selfMonitoring.podLogs.apiVersion	string	PodLogs version	
+
+"monitoring.grafana.com/v1alpha1"
+
+monitoring.selfMonitoring.podLogs.labels	object	Additional PodLogs labels	
+
+{}
+
+monitoring.selfMonitoring.podLogs.relabelings	list	PodLogs relabel configs to apply to samples before scraping https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig	
+
+[]
+
+monitoring.selfMonitoring.tenant	object	Tenant to use for self monitoring	
+
+{
+  "name": "self-monitoring",
+  "password": null,
+  "secretNamespace": "{{ include \"loki.namespace\" . }}"
+}
+
+monitoring.selfMonitoring.tenant.name	string	Name of the tenant	
+
+"self-monitoring"
+
+monitoring.selfMonitoring.tenant.password	string	Password of the gateway for Basic auth	
+
+null
+
+monitoring.selfMonitoring.tenant.secretNamespace	string	Namespace to create additional tenant token secret in. Useful if your Grafana instance is in a separate namespace. Token will still be created in the canary namespace.	
+
+The same namespace as the loki chart is installed in.
+
+monitoring.serviceMonitor	object	ServiceMonitor configuration	
+
+{
+  "annotations": {},
+  "enabled": false,
+  "interval": "15s",
+  "labels": {},
+  "metricRelabelings": [],
+  "metricsInstance": {
+    "annotations": {},
+    "enabled": true,
+    "labels": {},
+    "remoteWrite": null
+  },
+  "namespaceSelector": {},
+  "relabelings": [],
+  "scheme": "http",
+  "scrapeTimeout": null,
+  "tlsConfig": null
+}
+
+monitoring.serviceMonitor.annotations	object	ServiceMonitor annotations	
+
+{}
+
+monitoring.serviceMonitor.enabled	bool	If enabled, ServiceMonitor resources for Prometheus Operator are created	
+
+false
+
+monitoring.serviceMonitor.interval	string	ServiceMonitor scrape interval Default is 15s because included recording rules use a 1m rate, and scrape interval needs to be at least 1/4 rate interval.	
+
+"15s"
+
+monitoring.serviceMonitor.labels	object	Additional ServiceMonitor labels	
+
+{}
+
+monitoring.serviceMonitor.metricRelabelings	list	ServiceMonitor metric relabel configs to apply to samples before ingestion https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#endpoint	
+
+[]
+monitoring.serviceMonitor.metricsInstance	object	DEPRECATED If defined, will create a MetricsInstance for the Grafana Agent Operator.	
+
+{
+  "annotations": {},
+  "enabled": true,
+  "labels": {},
+  "remoteWrite": null
+}
+
+monitoring.serviceMonitor.metricsInstance.annotations	object	MetricsInstance annotations	
+
+{}
+
+monitoring.serviceMonitor.metricsInstance.enabled	bool	If enabled, MetricsInstance resources for Grafana Agent Operator are created	
+
+true
+
+monitoring.serviceMonitor.metricsInstance.labels	object	Additional MetricsInstance labels	
+
+{}
+
+monitoring.serviceMonitor.metricsInstance.remoteWrite	string	If defined a MetricsInstance will be created to remote write metrics.	
+
+null
+
+monitoring.serviceMonitor.namespaceSelector	object	Namespace selector for ServiceMonitor resources	
+
+{}
+
+monitoring.serviceMonitor.relabelings	list	ServiceMonitor relabel configs to apply to samples before scraping https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#relabelconfig	
+
+[]
+
+monitoring.serviceMonitor.scheme	string	ServiceMonitor will use http by default, but you can pick https as well	
+
+"http"
+
+monitoring.serviceMonitor.scrapeTimeout	string	ServiceMonitor scrape timeout in Go duration format (e.g. 15s)	
+
+null
+
+monitoring.serviceMonitor.tlsConfig	string	ServiceMonitor will use these tlsConfig settings to make the health check requests	
+
+null
+
+nameOverride	string	Overrides the chart's name	
+
+null
+
+namespaceOverride	string	Overrides the chart's namespace	
+
+null
+
+
+networkPolicy.alertmanager.namespaceSelector	object	Specifies the namespace the alertmanager is running in	
+
+{}
+
+networkPolicy.alertmanager.podSelector	object	Specifies the alertmanager Pods. As this is cross-namespace communication, you also need the namespaceSelector.	
+
+{}
+
+networkPolicy.alertmanager.port	int	Specify the alertmanager port used for alerting	
+
+9093
+
+networkPolicy.discovery.namespaceSelector	object	Specifies the namespace the discovery Pods are running in	
+
+{}
+
+networkPolicy.discovery.podSelector	object	Specifies the Pods labels used for discovery. As this is cross-namespace communication, you also need the namespaceSelector.	
+
+{}
+
+networkPolicy.discovery.port	int	Specify the port used for discovery	
+
+null
+
+networkPolicy.egressKubeApiserver.enabled	bool	Enable additional cilium egress rules to kube-apiserver for backend.	
+
+false
+
+networkPolicy.egressWorld.enabled	bool	Enable additional cilium egress rules to external world for write, read and backend.	
+
+false
+
+networkPolicy.enabled	bool	Specifies whether Network Policies should be created	
+
+false
+
+networkPolicy.externalStorage.cidrs	list	Specifies specific network CIDRs you want to limit access to	
+
+[]
+
+networkPolicy.externalStorage.ports	list	Specify the port used for external storage, e.g. AWS S3	
+
+[]
+
+networkPolicy.flavor	string	Specifies whether the policies created will be standard Network Policies (flavor: kubernetes) or Cilium Network Policies (flavor: cilium)	
+
+"kubernetes"
+
+networkPolicy.ingress.namespaceSelector	object	Specifies the namespaces which are allowed to access the http port	
+
+{}
+
+networkPolicy.ingress.podSelector	object	Specifies the Pods which are allowed to access the http port. As this is cross-namespace communication, you also need the namespaceSelector.	
+
+{}
+
+networkPolicy.metrics.cidrs	list	Specifies specific network CIDRs which are allowed to access the metrics port. In case you use namespaceSelector, you also have to specify your kubelet networks here. The metrics ports are also used for probes.	
+
+[]
+
+networkPolicy.metrics.namespaceSelector	object	Specifies the namespaces which are allowed to access the metrics port	
+
+{}
+
+networkPolicy.metrics.podSelector	object	Specifies the Pods which are allowed to access the metrics port. As this is cross-namespace communication, you also need the namespaceSelector.	
+
+{}
+

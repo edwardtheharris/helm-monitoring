@@ -1,0 +1,329 @@
+
+ingester	object	Configuration for the ingester	
+
+{
+  "addIngesterNamePrefix": false,
+  "affinity": {
+    "podAntiAffinity": {
+      "requiredDuringSchedulingIgnoredDuringExecution": [
+        {
+          "labelSelector": {
+            "matchLabels": {
+              "app.kubernetes.io/component": "ingester",
+              "app.kubernetes.io/instance": "{{ .Release.Name }}",
+              "app.kubernetes.io/name": "{{ include \"loki.name\" . }}"
+            }
+          },
+          "topologyKey": "kubernetes.io/hostname"
+        }
+      ]
+    }
+  },
+  "appProtocol": {
+    "grpc": ""
+  },
+  "autoscaling": {
+    "behavior": {
+      "enabled": false,
+      "scaleDown": {},
+      "scaleUp": {}
+    },
+    "customMetrics": [],
+    "enabled": false,
+    "maxReplicas": 3,
+    "minReplicas": 1,
+    "targetCPUUtilizationPercentage": 60,
+    "targetMemoryUtilizationPercentage": null
+  },
+  "command": null,
+  "dnsConfig": {},
+  "extraArgs": [],
+  "extraContainers": [],
+  "extraEnv": [],
+  "extraEnvFrom": [],
+  "extraVolumeMounts": [],
+  "extraVolumes": [],
+  "hostAliases": [],
+  "hostUsers": "nil",
+  "image": {
+    "registry": null,
+    "repository": null,
+    "tag": null
+  },
+  "initContainers": [],
+  "labels": {},
+  "lifecycle": {},
+  "livenessProbe": {},
+  "maxUnavailable": 1,
+  "nodeSelector": {},
+  "persistence": {
+    "claims": [
+      {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "name": "data",
+        "size": "10Gi",
+        "storageClass": null
+      }
+    ],
+    "enableStatefulSetAutoDeletePVC": false,
+    "enabled": false,
+    "inMemory": false,
+    "whenDeleted": "Retain",
+    "whenScaled": "Retain"
+  },
+  "podAnnotations": {},
+  "podLabels": {},
+  "priorityClassName": null,
+  "readinessProbe": {},
+  "replicas": 0,
+  "resources": {},
+  "rolloutGroupPrefix": null,
+  "serviceAnnotations": {},
+  "serviceLabels": {},
+  "serviceType": "ClusterIP",
+  "terminationGracePeriodSeconds": 300,
+  "tolerations": [],
+  "topologySpreadConstraints": [
+    {
+      "labelSelector": {
+        "matchLabels": {
+          "app.kubernetes.io/component": "ingester",
+          "app.kubernetes.io/instance": "{{ .Release.Name }}",
+          "app.kubernetes.io/name": "{{ include \"loki.name\" . }}"
+        }
+      },
+      "maxSkew": 1,
+      "topologyKey": "kubernetes.io/hostname",
+      "whenUnsatisfiable": "ScheduleAnyway"
+    }
+  ],
+  "updateStrategy": {
+    "type": "RollingUpdate"
+  },
+  "zoneAwareReplication": {
+    "enabled": true,
+    "maxUnavailablePct": 33,
+    "migration": {
+      "enabled": false,
+      "excludeDefaultZone": false,
+      "readPath": false,
+      "writePath": false
+    },
+    "zoneA": {
+      "annotations": {},
+      "extraAffinity": {},
+      "nodeSelector": null,
+      "podAnnotations": {}
+    },
+    "zoneB": {
+      "annotations": {},
+      "extraAffinity": {},
+      "nodeSelector": null,
+      "podAnnotations": {}
+    },
+    "zoneC": {
+      "annotations": {},
+      "extraAffinity": {},
+      "nodeSelector": null,
+      "podAnnotations": {}
+    }
+  }
+}
+
+ingester.affinity	object	Affinity for ingester pods. Ignored if zoneAwareReplication is enabled. The value will be passed through tpl.	
+
+Hard node anti-affinity
+
+ingester.appProtocol	object	Adds the appProtocol field to the ingester service. This allows ingester to work with istio protocol selection.	
+
+{
+  "grpc": ""
+}
+
+ingester.appProtocol.grpc	string	Set the optional grpc service protocol. Ex: "grpc", "http2" or "https"	
+
+""
+
+ingester.autoscaling.behavior.enabled	bool	Enable autoscaling behaviours	
+
+false
+
+ingester.autoscaling.behavior.scaleDown	object	define scale down policies, must conform to HPAScalingRules	
+
+{}
+
+ingester.autoscaling.behavior.scaleUp	object	define scale up policies, must conform to HPAScalingRules	
+
+{}
+
+ingester.autoscaling.customMetrics	list	Allows one to define custom metrics using the HPA/v2 schema (for example, Pods, Object or External metrics)	
+
+[]
+
+ingester.autoscaling.enabled	bool	Enable autoscaling for the ingester	
+
+false
+
+ingester.autoscaling.maxReplicas	int	Maximum autoscaling replicas for the ingester	
+
+3
+
+ingester.autoscaling.minReplicas	int	Minimum autoscaling replicas for the ingester	
+
+1
+
+ingester.autoscaling.targetCPUUtilizationPercentage	int	Target CPU utilisation percentage for the ingester	
+
+60
+
+ingester.autoscaling.targetMemoryUtilizationPercentage	string	Target memory utilisation percentage for the ingester	
+
+null
+
+ingester.command	string	Command to execute instead of defined in Docker image	
+
+null
+
+ingester.dnsConfig	object	DNSConfig for ingester pods	
+
+{}
+
+ingester.extraArgs	list	Additional CLI args for the ingester	
+
+[]
+
+ingester.extraContainers	list	Containers to add to the ingester pods	
+
+[]
+
+ingester.extraEnv	list	Environment variables to add to the ingester pods	
+
+[]
+
+ingester.extraEnvFrom	list	Environment variables from secrets or configmaps to add to the ingester pods	
+
+[]
+
+ingester.extraVolumeMounts	list	Volume mounts to add to the ingester pods	
+
+[]
+
+ingester.extraVolumes	list	Volumes to add to the ingester pods	
+
+[]
+
+ingester.hostAliases	list	hostAliases to add	
+
+[]
+
+ingester.hostUsers	string	Use the host's user namespace in the ingester	
+
+"nil"
+
+ingester.image.registry	string	The Docker registry for the ingester image. Overrides `loki.image.registry`	
+
+null
+
+ingester.image.repository	string	Docker image repository for the ingester image. Overrides `loki.image.repository`	
+
+null
+
+ingester.image.tag	string	Docker image tag for the ingester image. Overrides `loki.image.tag`	
+
+null
+
+ingester.initContainers	list	Init containers to add to the ingester pods	
+
+[]
+
+ingester.lifecycle	object	Lifecycle for the ingester container	
+
+{}
+
+ingester.livenessProbe	object	liveness probe settings for ingester pods. If empty use `loki.livenessProbe`	
+
+{}
+
+ingester.maxUnavailable	int	Pod Disruption Budget maxUnavailable	
+
+1
+
+ingester.nodeSelector	object	Node selector for ingester pods	
+
+{}
+
+ingester.persistence.claims	list	List of the ingester PVCs	
+
+ingester.persistence.claims[0].accessModes	list	Set access modes on the PersistentVolumeClaim	
+
+[
+  "ReadWriteOnce"
+]
+
+ingester.persistence.enableStatefulSetAutoDeletePVC	bool	Enable StatefulSetAutoDeletePVC feature	
+
+false
+
+ingester.persistence.enabled	bool	Enable creating PVCs which is required when using boltdb-shipper	
+
+false
+
+ingester.persistence.inMemory	bool	Use emptyDir with ramdisk for storage. **Please note that all data in ingester will be lost on pod restart**	
+
+false
+
+ingester.podAnnotations	object	Annotations for ingester pods	
+
+{}
+
+ingester.podLabels	object	Labels for ingester pods	
+
+{}
+
+ingester.readinessProbe	object	readiness probe settings for ingester pods. If empty, use `loki.readinessProbe`	
+
+{}
+
+ingester.replicas	int	Number of replicas for the ingester, when zoneAwareReplication.enabled is true, the total number of replicas will match this value with each zone having 1/3rd of the total replicas.	
+
+0
+
+ingester.resources	object	Resource requests and limits for the ingester	
+
+{}
+
+ingester.serviceAnnotations	object	Annotations for ingestor service	
+
+{}
+
+ingester.serviceLabels	object	Labels for ingestor service	
+
+{}
+
+ingester.serviceType	string	Service type for ingestor service	
+
+"ClusterIP"
+
+ingester.terminationGracePeriodSeconds	int	Grace period to allow the ingester to shutdown before it is killed. Especially for the ingestor, this must be increased. It must be long enough so ingesters can be gracefully shutdown flushing/transferring all data and to successfully leave the member ring on shutdown.	
+
+300
+
+ingester.tolerations	list	Tolerations for ingester pods	
+
+[]
+
+ingester.topologySpreadConstraints	list	topologySpread for ingester pods. The value will be passed through tpl.	
+
+Defaults to allow skew no more than 1 node
+
+ingester.updateStrategy	object	UpdateStrategy for the ingester StatefulSets.	
+
+{
+  "type": "RollingUpdate"
+}
+
+ingester.updateStrategy.type	string	One of 'OnDelete' or 'RollingUpdate'	
+
+"RollingUpdate"

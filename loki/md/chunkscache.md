@@ -1,0 +1,418 @@
+
+
+chunksCache.addresses	string	Comma separated addresses list in DNS Service Discovery format	
+
+"dnssrvnoa+_memcached-client._tcp.{{ include \"loki.resourceName\" (dict \"ctx\" $ \"component\" \"chunks-cache\" \"suffix\" $.Values.chunksCache.suffix ) }}.{{ include \"loki.namespace\" $ }}.svc"
+
+chunksCache.affinity	object	Affinity for chunks-cache pods	
+
+{}
+
+chunksCache.allocatedMemory	int	Amount of memory allocated to chunks-cache for object storage (in MB).	
+
+8192
+
+chunksCache.annotations	object	Annotations for the chunks-cache pods	
+
+{}
+
+chunksCache.batchSize	int	Batchsize for sending and receiving chunks from chunks cache	
+
+4
+
+chunksCache.connectionLimit	int	Maximum number of connections allowed	
+
+16384
+
+chunksCache.defaultValidity	string	Specify how long cached chunks should be stored in the chunks-cache before being expired	
+
+"0s"
+
+chunksCache.dnsConfig	object	DNSConfig for chunks-cache	
+
+{}
+
+chunksCache.enabled	bool	Specifies whether memcached based chunks-cache should be enabled	
+
+true
+
+chunksCache.extraArgs	object	Additional CLI args for chunks-cache	
+
+{}
+
+chunksCache.extraContainers	list	Additional containers to be added to the chunks-cache pod.	
+
+[]
+
+chunksCache.extraExtendedOptions	string	Add extended options for chunks-cache memcached container. The format is the same as for the memcached -o/--extend flag. Example: extraExtendedOptions: 'tls,no_hashexpand'	
+
+""
+
+chunksCache.extraVolumeMounts	list	Additional volume mounts to be added to the chunks-cache pod (applies to both memcached and exporter containers). Example: extraVolumeMounts: - name: extra-volume mountPath: /etc/extra-volume readOnly: true	
+
+[]
+
+chunksCache.extraVolumes	list	Additional volumes to be added to the chunks-cache pod (applies to both memcached and exporter containers). Example: extraVolumes: - name: extra-volume secret: secretName: extra-volume-secret	
+
+[]
+
+chunksCache.hostUsers	string	Use the host's user namespace in chunks-cache pods	
+
+"nil"
+
+chunksCache.initContainers	list	Extra init containers for chunks-cache pods	
+
+[]
+
+chunksCache.l2	object	l2 memcache configuration	
+
+{
+  "addresses": "dnssrvnoa+_memcached-client._tcp.{{ include \"loki.resourceName\" (dict \"ctx\" $ \"component\" \"chunks-cache\" \"suffix\" $.Values.chunksCache.l2.suffix ) }}.{{ include \"loki.namespace\" $ }}.svc",
+  "affinity": {},
+  "allocatedMemory": 8192,
+  "annotations": {},
+  "batchSize": 4,
+  "connectionLimit": 16384,
+  "defaultValidity": "0s",
+  "dnsConfig": {},
+  "enabled": false,
+  "extraArgs": {},
+  "extraContainers": [],
+  "extraExtendedOptions": "",
+  "extraVolumeMounts": [],
+  "extraVolumes": [],
+  "hostUsers": "nil",
+  "initContainers": [],
+  "l2ChunkCacheHandoff": "345600s",
+  "maxItemMemory": 5,
+  "maxUnavailable": 1,
+  "nodeSelector": {},
+  "parallelism": 5,
+  "persistence": {
+    "enabled": false,
+    "labels": {},
+    "mountPath": "/data",
+    "storageClass": null,
+    "storageSize": "10G"
+  },
+  "podAnnotations": {},
+  "podLabels": {},
+  "podManagementPolicy": "Parallel",
+  "port": 11211,
+  "priorityClassName": null,
+  "replicas": 1,
+  "resources": null,
+  "service": {
+    "annotations": {},
+    "labels": {}
+  },
+  "statefulStrategy": {
+    "type": "RollingUpdate"
+  },
+  "suffix": "l2",
+  "terminationGracePeriodSeconds": 60,
+  "timeout": "2000ms",
+  "tolerations": [],
+  "topologySpreadConstraints": [],
+  "writebackBuffer": 500000,
+  "writebackParallelism": 1,
+  "writebackSizeLimit": "500MB"
+}
+
+chunksCache.l2.addresses	string	Comma separated addresses list in DNS Service Discovery format	
+
+"dnssrvnoa+_memcached-client._tcp.{{ include \"loki.resourceName\" (dict \"ctx\" $ \"component\" \"chunks-cache\" \"suffix\" $.Values.chunksCache.l2.suffix ) }}.{{ include \"loki.namespace\" $ }}.svc"
+
+chunksCache.l2.affinity	object	Affinity for chunks-cache-l2 pods	
+
+{}
+
+chunksCache.l2.allocatedMemory	int	Amount of memory allocated to chunks-cache-l2 for object storage (in MB).	
+
+8192
+
+chunksCache.l2.annotations	object	Annotations for the chunks-cache-l2 pods	
+
+{}
+
+chunksCache.l2.batchSize	int	Batchsize for sending and receiving chunks from chunks cache	
+
+4
+
+chunksCache.l2.connectionLimit	int	Maximum number of connections allowed	
+
+16384
+
+chunksCache.l2.defaultValidity	string	Specify how long cached chunks should be stored in the chunks-cache-l2 before being expired	
+
+"0s"
+
+chunksCache.l2.dnsConfig	object	DNSConfig for chunks-cache-l2	
+
+{}
+
+chunksCache.l2.enabled	bool	Specifies whether memcached based chunks-cache-l2 should be enabled	
+
+false
+
+chunksCache.l2.extraArgs	object	Additional CLI args for chunks-cache-l2	
+
+{}
+
+chunksCache.l2.extraContainers	list	Additional containers to be added to the chunks-cache-l2 pod.	
+
+[]
+
+chunksCache.l2.extraExtendedOptions	string	Add extended options for chunks-cache-l2 memcached container. The format is the same as for the memcached -o/--extend flag. Example: extraExtendedOptions: 'tls,no_hashexpand'	
+
+""
+
+chunksCache.l2.extraVolumeMounts	list	Additional volume mounts to be added to the chunks-cache-l2 pod (applies to both memcached and exporter containers). Example: extraVolumeMounts: - name: extra-volume mountPath: /etc/extra-volume readOnly: true	
+
+[]
+
+chunksCache.l2.extraVolumes	list	Additional volumes to be added to the chunks-cache-l2 pod (applies to both memcached and exporter containers). Example: extraVolumes: - name: extra-volume secret: secretName: extra-volume-secret	
+
+[]
+
+chunksCache.l2.hostUsers	string	Use the host's user namespace in chunks-cache-l2 pods	
+
+"nil"
+
+chunksCache.l2.initContainers	list	Extra init containers for chunks-cache-l2 pods	
+
+[]
+
+chunksCache.l2.l2ChunkCacheHandoff	string	The age of chunks should be transfered from l1 cache to l2 4 days	
+
+"345600s"
+
+chunksCache.l2.maxItemMemory	int	Maximum item memory for chunks-cache-l2 (in MB).	
+
+5
+
+chunksCache.l2.maxUnavailable	int	Pod Disruption Budget maxUnavailable	
+
+1
+
+chunksCache.l2.nodeSelector	object	Node selector for chunks-cach-l2 pods	
+
+{}
+
+chunksCache.l2.parallelism	int	Parallel threads for sending and receiving chunks from chunks cache	
+
+5
+
+chunksCache.l2.persistence	object	Persistence settings for the chunks-cache-l2	
+
+{
+  "enabled": false,
+  "labels": {},
+  "mountPath": "/data",
+  "storageClass": null,
+  "storageSize": "10G"
+}
+
+chunksCache.l2.persistence.enabled	bool	Enable creating PVCs for the chunks-cache-l2	
+
+false
+
+chunksCache.l2.persistence.mountPath	string	Volume mount path	
+
+"/data"
+
+chunksCache.l2.persistence.storageClass	string	Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).	
+
+null
+
+chunksCache.l2.persistence.storageSize	string	Size of persistent disk, must be in G or Gi	
+
+"10G"
+
+chunksCache.l2.podAnnotations	object	Annotations for chunks-cache-l2 pods	
+
+{}
+
+chunksCache.l2.podLabels	object	Labels for chunks-cache-l2 pods	
+
+{}
+
+chunksCache.l2.podManagementPolicy	string	Management policy for chunks-cache-l2 pods	
+
+"Parallel"
+
+chunksCache.l2.port	int	Port of the chunks-cache-l2 service	
+
+11211
+
+chunksCache.l2.priorityClassName	string	The name of the PriorityClass for chunks-cache-l2 pods	
+
+null
+
+chunksCache.l2.replicas	int	Specify how long cached chunks should be stored in the chunks-cache-l2 before being expired	
+
+1
+
+chunksCache.l2.resources	string	Resource requests and limits for the chunks-cache-l2 By default a safe memory limit will be requested based on allocatedMemory value (floor (* 1.2 allocatedMemory)).	
+
+null
+
+chunksCache.l2.service	object	Service annotations and labels	
+
+{
+  "annotations": {},
+  "labels": {}
+}
+
+chunksCache.l2.statefulStrategy	object	Stateful chunks-cache strategy	
+
+{
+  "type": "RollingUpdate"
+}
+
+chunksCache.l2.suffix	string	Append to the name of the resources to make names different for l1 and l2	
+
+"l2"
+
+chunksCache.l2.terminationGracePeriodSeconds	int	Grace period to allow the chunks-cache-l2 to shutdown before it is killed	
+
+60
+
+chunksCache.l2.timeout	string	Memcached operation timeout	
+
+"2000ms"
+
+chunksCache.l2.tolerations	list	Tolerations for chunks-cache-l2 pods	
+
+[]
+
+chunksCache.l2.topologySpreadConstraints	list	topologySpreadConstraints allows to customize the default topologySpreadConstraints. This can be either a single dict as shown below or a slice of topologySpreadConstraints. labelSelector is taken from the constraint itself (if it exists) or is generated by the chart using the same selectors as for services.	
+
+[]
+
+chunksCache.l2.writebackBuffer	int	Max number of objects to use for cache write back	
+
+500000
+
+chunksCache.l2.writebackParallelism	int	Number of parallel threads for cache write back	
+
+1
+
+chunksCache.l2.writebackSizeLimit	string	Max memory to use for cache write back	
+
+"500MB"
+
+chunksCache.maxItemMemory	int	Maximum item memory for chunks-cache (in MB).	
+
+5
+
+chunksCache.maxUnavailable	int	Pod Disruption Budget maxUnavailable	
+
+1
+
+chunksCache.nodeSelector	object	Node selector for chunks-cache pods	
+
+{}
+
+chunksCache.parallelism	int	Parallel threads for sending and receiving chunks from chunks cache	
+
+5
+
+chunksCache.persistence	object	Persistence settings for the chunks-cache	
+
+{
+  "enabled": false,
+  "labels": {},
+  "mountPath": "/data",
+  "storageClass": null,
+  "storageSize": "10G"
+}
+
+chunksCache.persistence.enabled	bool	Enable creating PVCs for the chunks-cache	
+
+false
+
+chunksCache.persistence.mountPath	string	Volume mount path	
+
+"/data"
+
+chunksCache.persistence.storageClass	string	Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).	
+
+null
+
+chunksCache.persistence.storageSize	string	Size of persistent disk, must be in G or Gi	
+
+"10G"
+
+chunksCache.podAnnotations	object	Annotations for chunks-cache pods	
+
+{}
+
+chunksCache.podLabels	object	Labels for chunks-cache pods	
+
+{}
+
+chunksCache.podManagementPolicy	string	Management policy for chunks-cache pods	
+
+"Parallel"
+
+chunksCache.port	int	Port of the chunks-cache service	
+
+11211
+
+chunksCache.priorityClassName	string	The name of the PriorityClass for chunks-cache pods	
+
+null
+
+chunksCache.replicas	int	Specify how long cached chunks should be stored in the chunks-cache before being expired	
+
+1
+
+chunksCache.resources	string	Resource requests and limits for the chunks-cache By default a safe memory limit will be requested based on allocatedMemory value (floor (* 1.2 allocatedMemory)).	
+
+null
+
+chunksCache.service	object	Service annotations and labels	
+
+{
+  "annotations": {},
+  "labels": {}
+}
+
+chunksCache.statefulStrategy	object	Stateful chunks-cache strategy	
+
+{
+  "type": "RollingUpdate"
+}
+
+chunksCache.suffix	string	Append to the name of the resources to make names different for l1 and l2	
+
+""
+
+chunksCache.terminationGracePeriodSeconds	int	Grace period to allow the chunks-cache to shutdown before it is killed	
+
+60
+
+chunksCache.timeout	string	Memcached operation timeout	
+
+"2000ms"
+
+chunksCache.tolerations	list	Tolerations for chunks-cache pods	
+
+[]
+
+chunksCache.topologySpreadConstraints	list	topologySpreadConstraints allows to customize the default topologySpreadConstraints. This can be either a single dict as shown below or a slice of topologySpreadConstraints. labelSelector is taken from the constraint itself (if it exists) or is generated by the chart using the same selectors as for services.	
+
+[]
+
+chunksCache.writebackBuffer	int	Max number of objects to use for cache write back	
+
+500000
+
+chunksCache.writebackParallelism	int	Number of parallel threads for cache write back	
+
+1
+
+chunksCache.writebackSizeLimit	string	Max memory to use for cache write back	
+
+"500MB"

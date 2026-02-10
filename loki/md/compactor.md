@@ -1,0 +1,251 @@
+
+
+clusterLabelOverride	string	Overrides the chart's cluster label	
+
+null
+
+compactor	object	Configuration for the compactor	
+
+{
+  "affinity": {
+    "podAntiAffinity": {
+      "requiredDuringSchedulingIgnoredDuringExecution": [
+        {
+          "labelSelector": {
+            "matchLabels": {
+              "app.kubernetes.io/component": "compactor",
+              "app.kubernetes.io/instance": "{{ .Release.Name }}",
+              "app.kubernetes.io/name": "{{ include \"loki.name\" . }}"
+            }
+          },
+          "topologyKey": "kubernetes.io/hostname"
+        }
+      ]
+    }
+  },
+  "appProtocol": {
+    "grpc": ""
+  },
+  "command": null,
+  "dnsConfig": {},
+  "extraArgs": [],
+  "extraContainers": [],
+  "extraEnv": [],
+  "extraEnvFrom": [],
+  "extraVolumeMounts": [],
+  "extraVolumes": [],
+  "hostAliases": [],
+  "hostUsers": "nil",
+  "image": {
+    "registry": null,
+    "repository": null,
+    "tag": null
+  },
+  "initContainers": [],
+  "livenessProbe": {},
+  "nodeSelector": {},
+  "persistence": {
+    "claims": [
+      {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "annotations": {},
+        "labels": {},
+        "name": "data",
+        "size": "10Gi",
+        "storageClass": null
+      }
+    ],
+    "enableStatefulSetAutoDeletePVC": false,
+    "enabled": false,
+    "size": "10Gi",
+    "storageClass": null,
+    "whenDeleted": "Retain",
+    "whenScaled": "Retain"
+  },
+  "podAnnotations": {},
+  "podLabels": {},
+  "priorityClassName": null,
+  "readinessProbe": {},
+  "replicas": 0,
+  "resources": {},
+  "serviceAccount": {
+    "annotations": {},
+    "automountServiceAccountToken": true,
+    "create": false,
+    "imagePullSecrets": [],
+    "name": null
+  },
+  "serviceAnnotations": {},
+  "serviceLabels": {},
+  "serviceType": "ClusterIP",
+  "terminationGracePeriodSeconds": 30,
+  "tolerations": []
+}
+
+compactor.affinity	object	Affinity for compactor pods. The value will be passed through tpl.	
+
+Hard node anti-affinity
+
+compactor.appProtocol	object	Set the optional grpc service protocol. Ex: "grpc", "http2" or "https"	
+
+{
+  "grpc": ""
+}
+
+compactor.command	string	Command to execute instead of defined in Docker image	
+
+null
+
+compactor.dnsConfig	object	DNSConfig for compactor pods	
+
+{}
+
+compactor.extraArgs	list	Additional CLI args for the compactor	
+
+[]
+
+compactor.extraContainers	list	Containers to add to the compactor pods	
+
+[]
+
+compactor.extraEnv	list	Environment variables to add to the compactor pods	
+
+[]
+
+compactor.extraEnvFrom	list	Environment variables from secrets or configmaps to add to the compactor pods	
+
+[]
+
+compactor.extraVolumeMounts	list	Volume mounts to add to the compactor pods	
+
+[]
+
+compactor.extraVolumes	list	Volumes to add to the compactor pods	
+
+[]
+
+compactor.hostAliases	list	hostAliases to add	
+
+[]
+
+compactor.hostUsers	string	Use the host's user namespace in the compactor	
+
+"nil"
+
+compactor.image.registry	string	The Docker registry for the compactor image. Overrides `loki.image.registry`	
+
+null
+
+compactor.image.repository	string	Docker image repository for the compactor image. Overrides `loki.image.repository`	
+
+null
+
+compactor.image.tag	string	Docker image tag for the compactor image. Overrides `loki.image.tag`	
+
+null
+
+compactor.initContainers	list	Init containers to add to the compactor pods	
+
+[]
+
+compactor.livenessProbe	object	liveness probe settings for ingester pods. If empty use `loki.livenessProbe`	
+
+{}
+
+compactor.nodeSelector	object	Node selector for compactor pods	
+
+{}
+
+compactor.persistence.claims	list	List of the compactor PVCs	
+
+compactor.persistence.claims[0].accessModes	list	Set access modes on the PersistentVolumeClaim	
+
+[
+  "ReadWriteOnce"
+]
+
+compactor.persistence.claims[0].annotations	object	Annotations for compactor PVCs	
+
+{}
+
+compactor.persistence.claims[0].labels	object	Labels for compactor PVCs	
+
+{}
+
+compactor.persistence.enableStatefulSetAutoDeletePVC	bool	Enable StatefulSetAutoDeletePVC feature	
+
+false
+
+compactor.persistence.enabled	bool	Enable creating PVCs for the compactor	
+
+false
+
+compactor.persistence.size	string	Size of persistent disk	
+
+"10Gi"
+
+compactor.persistence.storageClass	string	Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).	
+
+null
+
+compactor.podAnnotations	object	Annotations for compactor pods	
+
+{}
+
+compactor.podLabels	object	Labels for compactor pods	
+
+{}
+
+compactor.priorityClassName	string	The name of the PriorityClass for compactor pods	
+
+null
+
+compactor.readinessProbe	object	readiness probe settings for ingester pods. If empty, use `loki.readinessProbe`	
+
+{}
+
+compactor.replicas	int	Number of replicas for the compactor	
+
+0
+
+compactor.resources	object	Resource requests and limits for the compactor	
+
+{}
+
+compactor.serviceAccount.annotations	object	Annotations for the compactor service account	
+
+{}
+
+compactor.serviceAccount.automountServiceAccountToken	bool	Set this toggle to false to opt out of automounting API credentials for the service account	
+
+true
+
+compactor.serviceAccount.imagePullSecrets	list	Image pull secrets for the compactor service account	
+
+[]
+
+compactor.serviceAccount.name	string	The name of the ServiceAccount to use for the compactor. If not set and create is true, a name is generated by appending "-compactor" to the common ServiceAccount.	
+
+null
+
+compactor.serviceAnnotations	object	Annotations for compactor service	
+
+{}
+
+compactor.serviceLabels	object	Labels for compactor service	
+
+{}
+
+compactor.serviceType	string	Service type for compactor service	
+
+"ClusterIP"
+
+compactor.terminationGracePeriodSeconds	int	Grace period to allow the compactor to shutdown before it is killed	
+
+30
+
+compactor.tolerations	list	Tolerations for compactor pods	
+
+[]
