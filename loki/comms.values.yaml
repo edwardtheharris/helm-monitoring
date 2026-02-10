@@ -37,8 +37,12 @@ deploymentMode: SingleBinary
 
 singleBinary:
   persistence:
+    selector:
+      pv.kubernetes.io/name: loki
     storageClass: csi-lvm-linear
     size: 100Gi
+    whenDeleted: Retain
+    whenScaled: Retain
   replicas: 1
 
 # Zero out replica counts of other deployment modes

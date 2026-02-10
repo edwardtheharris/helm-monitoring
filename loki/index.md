@@ -87,16 +87,16 @@ md/backend
   - string
   - Docker image repository for the single binary image. Overrides `loki.image.repository`
   - null
-- - singleBinary.image.tag	
-  - string	
+- - singleBinary.image.tag
+  - string
   - Docker image tag for the single binary image. Overrides `loki.image.tag`
   - null
-- - singleBinary.initContainers	
-  - list	
+- - singleBinary.initContainers
+  - list
   - Init containers to add to the single binary pods
   - []
-- - singleBinary.nodeSelector	
-  - object	
+- - singleBinary.nodeSelector
+  - object
   - Node selector for single binary pods
   - {}
 - - singleBinary.persistence.accessModes
@@ -135,9 +135,13 @@ md/backend
   - string
   - Size of persistent disk
   - "10Gi"
-- - singleBinary.persistence.storageClass
+- - `singleBinary.persistence.storageClass`
   - string
-  - Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
+  - Storage class to be used. If defined, storageClassName: .
+    If set to "-", storageClassName: "",
+    which disables dynamic provisioning. If empty or set to null,
+    no storageClassName spec is set, choosing the default
+    provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
   - null
 - - singleBinary.persistence.whenDeleted
   - string
