@@ -13,11 +13,6 @@ readme
 tests/index
 ```
 
-### {term}`Grafana` {file}`values.yaml`
-
-```{autoyaml} grafana/values.yaml
-```
-
 Routing is handled with
 [Envoy HTTP routing](https://gateway.envoyproxy.io/docs/tasks/traffic/http-routing/).
 The easiest thing to do is likely to download the routing example from the

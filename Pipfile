@@ -9,6 +9,7 @@ gitpython = "*"
 sphinx-autobuild = "*"
 pipenv = "*"
 sphinx-copybutton = "*"
+sphinxcontrib-autoyaml = "*"
 
 [dev-packages]
 myst-parser = {extras = ["linkify"], version = "*"}

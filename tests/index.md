@@ -24,12 +24,3 @@ title: Unit Tests
 
    helm unittest -f 'tests/*.yaml' .
    ```
-
-## Test Suites
-
-This provides the following suites.
-
-### StatefulSet Suite
-
-```{autoyaml} tests/statefulset_test.yaml
-```

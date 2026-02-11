@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fbb269d677e170eda323f8a559ba6c7b01d52c6fe64a9e0dd886ed9995c00cd9"
+            "sha256": "5fc896c35ca85ecea0c9dea6b67e78b1ffffac2b0ea411ae3e6bfcb107753ffb"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -406,6 +406,14 @@
             "markers": "python_version >= '3.10'",
             "version": "==4.1.0"
         },
+        "ruamel.yaml": {
+            "hashes": [
+                "sha256:27592957fedf6e0b62f281e96effd28043345e0e66001f97683aa9a40c667c93",
+                "sha256:53eb66cd27849eff968ebf8f0bf61f46cdac2da1d1f3576dd4ccee9b25c31993"
+            ],
+            "markers": "python_version >= '3.9'",
+            "version": "==0.19.1"
+        },
         "setuptools": {
             "hashes": [
                 "sha256:22e0a2d69474c6ae4feb01951cb69d515ed23728cf96d05513d36e42b62b37cb",
@@ -463,6 +471,15 @@
             ],
             "markers": "python_version >= '3.9'",
             "version": "==2.0.0"
+        },
+        "sphinxcontrib-autoyaml": {
+            "hashes": [
+                "sha256:50b0db1ad7ff888774609d3b8bdda7b008423af156aeb94a04d79e0be610b136",
+                "sha256:a380aa799b536d0c18393ae13d9097a183ab25585420d48999223fe735784973"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.6'",
+            "version": "==1.1.3"
         },
         "sphinxcontrib-devhelp": {
             "hashes": [
@@ -1290,6 +1307,7 @@
                 "sha256:7741722357dd75f8190766926071fed3bdc211c74dd2d7d4df5404da95930ddb",
                 "sha256:c84fdd4e782504495fe4f2c0b3413d6c2bf388589bb352d439b2a3bb99991978"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.12'",
             "version": "==9.1.0"
         },

@@ -40,6 +40,7 @@ exclude_patterns = [
     "charts/**",
     "**/NOTES.txt.md",
     "**/NOTES.txt",
+    "**/*requirements.txt",
     ".venv/*",
     "**/.venv/*",
     ".tmp/*",
