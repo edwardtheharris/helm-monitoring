@@ -25,6 +25,8 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}
+          command: [ "/opt/nautobot/bin/nautobot-server"]
+          args: ["--config-path","/opt/nautobot/.nautobot/nautobot_config.py", "runserver", "0.0.0.0:8000"]
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
