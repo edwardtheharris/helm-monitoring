@@ -11,8 +11,3 @@ This chart installs [kube state metrics](https://artifacthub.io/packages/helm/pr
 ```{toctree}
 readme
 ```
-
-### Prometheus {file}`values.yaml`
-
-```{autoyaml} kube-state-metrics/values.yaml
-```

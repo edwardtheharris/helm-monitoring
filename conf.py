@@ -40,6 +40,7 @@ exclude_patterns = [
     "charts/**",
     "**/NOTES.txt.md",
     "**/NOTES.txt",
+    "**/*requirements.txt",
     ".venv/*",
     "**/.venv/*",
     ".tmp/*",
@@ -49,7 +50,7 @@ exclude_patterns = [
 
 extensions = [
     "myst_parser",
-    "sphinx_design",
+    "sphinx_copybutton",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.githubpages",

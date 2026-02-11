@@ -1,0 +1,277 @@
+---
+date: 2026-02-10
+title: Backend values
+---
+
+## Helm Chart Backend Values
+
+
+````{list-table}
+:header-rows: 1
+- - name
+  - type
+  - Description
+  - defaul
+- - backend
+  - object
+  - Configuration for the backend pod(s)
+  - ```{code-block} json
+    {
+      "afinity": {
+        "podAntiAffinity": {
+          "requiredDuringSchedulingIgnoredDuringExecution": [
+            {
+              "labelSelector": {
+                "matchLabels": {
+                  "app.kubernetes.io/component": "backend",
+                  "app.kubernetes.io/instance": "{{ .Release.Name }}",
+                  "app.kubernetes.io/name": "{{ include \"loki.name\" . }}"
+                }
+              },
+              "topologyKey": "kubernetes.io/hostname"
+            }
+          ]
+        }
+      },
+      "annotations": {},
+      "autoscaling": {
+        "behavior": {},
+        "enabled": false,
+        "maxReplicas": 6,
+        "minReplicas": 3,
+        "targetCPUUtilizationPercentage": 60,
+        "targetMemoryUtilizationPercentage": null
+      },
+      "dnsConfig": {},
+      "extraArgs": [],
+      "extraContainers": [],
+      "extraEnv": [],
+      "extraEnvFrom": [],
+      "extraVolumeMounts": [],
+      "extraVolumes": [],
+      "hostUsers": "nil",
+      "image": {
+        "registry": null,
+        "repository": null,
+        "tag": null
+      },
+      "initContainers": [],
+      "nodeSelector": {},
+      "persistence": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "annotations": {},
+        "dataVolumeParameters": {
+          "emptyDir": {}
+        },
+        "enableStatefulSetAutoDeletePVC": true,
+        "labels": {},
+        "selector": null,
+        "size": "10Gi",
+        "storageClass": null,
+        "volumeClaimsEnabled": true
+      },
+      "podAnnotations": {},
+      "podLabels": {},
+      "podManagementPolicy": "Parallel",
+      "priorityClassName": null,
+      "replicas": 3,
+      "resources": {},
+      "selectorLabels": {},
+      "service": {
+        "annotations": {},
+        "labels": {},
+        "type": "ClusterIP"
+      },
+      "targetModule": "backend",
+      "terminationGracePeriodSeconds": 300,
+      "tolerations": [],
+      "topologySpreadConstraints": []
+    }
+    ```
+````
+
+<!--
+
+backend.affinity	object	Affinity for backend pods. The value will be passed through tpl.
+
+Hard node anti-affinity
+
+backend.annotations	object	Annotations for backend StatefulSet
+
+{}
+
+backend.autoscaling.behavior	object	Behavior policies while scaling.
+
+{}
+
+backend.autoscaling.enabled	bool	Enable autoscaling for the backend.
+
+false
+
+backend.autoscaling.maxReplicas	int	Maximum autoscaling replicas for the backend.
+
+6
+
+backend.autoscaling.minReplicas	int	Minimum autoscaling replicas for the backend.
+
+3
+
+backend.autoscaling.targetCPUUtilizationPercentage	int	Target CPU utilization percentage for the backend.
+
+60
+
+backend.autoscaling.targetMemoryUtilizationPercentage	string	Target memory utilization percentage for the backend.
+
+null
+
+backend.dnsConfig	object	DNS config for backend pods
+
+{}
+
+backend.extraArgs	list	Additional CLI args for the backend
+
+[]
+
+backend.extraContainers	list	Containers to add to the backend pods
+
+[]
+
+backend.extraEnv	list	Environment variables to add to the backend pods
+
+[]
+
+backend.extraEnvFrom	list	Environment variables from secrets or configmaps to add to the backend pods
+
+[]
+
+backend.extraVolumeMounts	list	Volume mounts to add to the backend pods
+
+[]
+
+backend.extraVolumes	list	Volumes to add to the backend pods
+
+[]
+
+backend.hostUsers	string	Use the host's user namespace in the backend pods.
+
+"nil"
+
+backend.image.registry	string	The Docker registry for the backend image. Overrides `loki.image.registry`
+
+null
+
+backend.image.repository	string	Docker image repository for the backend image. Overrides `loki.image.repository`
+
+null
+
+backend.image.tag	string	Docker image tag for the backend image. Overrides `loki.image.tag`
+
+null
+
+backend.initContainers	list	Init containers to add to the backend pods
+
+[]
+
+backend.nodeSelector	object	Node selector for backend pods
+
+{}
+
+backend.persistence.accessModes	list	Set access modes on the PersistentVolumeClaim
+
+[
+  "ReadWriteOnce"
+]
+
+backend.persistence.annotations	object	Annotations for volume claim
+
+{}
+
+backend.persistence.dataVolumeParameters	object	Parameters used for the `data` volume when volumeClaimEnabled if false
+
+{
+  "emptyDir": {}
+}
+
+backend.persistence.enableStatefulSetAutoDeletePVC	bool	Enable StatefulSetAutoDeletePVC feature
+
+true
+
+backend.persistence.labels	object	Labels for volume claim
+
+{}
+
+backend.persistence.selector	string	Selector for persistent disk
+
+null
+
+backend.persistence.size	string	Size of persistent disk
+
+"10Gi"
+
+backend.persistence.storageClass	string	Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
+
+null
+
+backend.persistence.volumeClaimsEnabled	bool	Enable volume claims in pod spec
+
+true
+
+backend.podAnnotations	object	Annotations for backend pods
+
+{}
+
+backend.podLabels	object	Additional labels for each `backend` pod
+
+{}
+
+backend.podManagementPolicy	string	The default is to deploy all pods in parallel.
+
+"Parallel"
+
+backend.priorityClassName	string	The name of the PriorityClass for backend pods
+
+null
+
+backend.replicas	int	Number of replicas for the backend
+
+3
+
+backend.resources	object	Resource requests and limits for the backend
+
+{}
+
+backend.selectorLabels	object	Additional selector labels for each `backend` pod
+
+{}
+
+backend.service.annotations	object	Annotations for backend Service
+
+{}
+
+backend.service.labels	object	Additional labels for backend Service
+
+{}
+
+backend.service.type	string	Service type for backend Service
+
+"ClusterIP"
+
+backend.targetModule	string	Comma-separated list of Loki modules to load for the backend
+
+"backend"
+
+backend.terminationGracePeriodSeconds	int	Grace period to allow the backend to shutdown before it is killed. Especially for the ingester, this must be increased. It must be long enough so backends can be gracefully shutdown flushing/transferring all data and to successfully leave the member ring on shutdown.
+
+300
+
+backend.tolerations	list	Tolerations for backend pods
+
+[]
+
+backend.topologySpreadConstraints	list	Topology Spread Constraints for backend pods The value will be passed through tpl.
+
+[]
+
+-->
