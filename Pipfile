@@ -8,6 +8,7 @@ loguru = "*"
 gitpython = "*"
 sphinx-autobuild = "*"
 pipenv = "*"
+sphinx-copybutton = "*"
 
 [dev-packages]
 myst-parser = {extras = ["linkify"], version = "*"}
