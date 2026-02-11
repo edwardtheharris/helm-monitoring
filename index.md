@@ -23,6 +23,7 @@ stack to bare metal {term}`Kubernetes` clusters.
 
 grafana/index
 kube-state-metrics/index
+loki/index
 nautobot/index
 prometheus/index
 prometheus-node-exporter/index
@@ -33,7 +34,6 @@ tests/index
 ```{toctree}
 :caption: meta
 
-.github/index
 contributing
 changelog
 license
@@ -71,25 +71,20 @@ Kubernetes
    An ancient Greek word that means 'sailor' or 'navigator', it is the
    most common container orchestration system currently in use. More
    information is available [here](https://kubernetes.io).
+
+Nautobot
+   Nautobot is an extensible and flexible Network Source of Truth and Network
+    Automation Platform that is the cornerstone of any network
+    automation architecture.
+
+worker
+    A celery worker for use in managing message queues for Nautobot.
 ```
 
 ## Usage
 
 Typical Helm chart rules.
 
-### Chart
-
-```{autoyaml} Chart.yaml
-
-```
-
 ```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
 
 ```
-
-<!--
-### Values
-
-```{autoyaml} values.yaml
-```
--->
