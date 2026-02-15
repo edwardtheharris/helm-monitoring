@@ -1,0 +1,245 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "net traffic for all hosts on the network.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 0,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "afba3nndoeuwwf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": true,
+            "axisColorMode": "series",
+            "axisGridShow": true,
+            "axisLabel": "$hostname net traffic in (out)",
+            "axisPlacement": "auto",
+            "axisWidth": -1,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 80,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "fieldMinMax": true,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": 0
+              },
+              {
+                "color": "blue",
+                "value": 25
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 50
+              },
+              {
+                "color": "super-light-blue",
+                "value": 75
+              },
+              {
+                "color": "red",
+                "value": 80
+              },
+              {
+                "color": "dark-red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "maxPerRow": 4,
+      "options": {
+        "legend": {
+          "calcs": ["lastNotNull", "firstNotNull", "max", "min"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "repeat": "hostname",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff37t43hn6yo0a"
+          },
+          "editorMode": "code",
+          "expr": "glances_network_bytes_recv{node=\"$hostname\",interface_name!~\"veth+\"}",
+          "instant": false,
+          "legendFormat": "$hostname {{interface_name}}",
+          "range": true,
+          "refId": "load avg 5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ff37t43hn6yo0a"
+          },
+          "editorMode": "code",
+          "expr": "glances_network_bytes_sent{node=\"$hostname\",interface_name!~\"veth+\"}*-1\n",
+          "instant": false,
+          "legendFormat": "$hostname {{interface_name}}",
+          "range": true,
+          "refId": "load avg 15"
+        }
+      ],
+      "title": "net traffic $hostname",
+      "transparent": true,
+      "type": "timeseries"
+    }
+  ],
+  "preload": true,
+  "refresh": "5s",
+  "schemaVersion": 42,
+  "tags": ["net", "traffic"],
+  "templating": {
+    "list": [
+      {
+        "allowCustomValue": true,
+        "current": {
+          "text": [
+            "backup",
+            "cms00",
+            "cms01",
+            "cms02",
+            "cms03",
+            "cms04",
+            "marius",
+            "media",
+            "ns01",
+            "ns03",
+            "ns04",
+            "ostium",
+            "sulla-felix",
+            "thw00",
+            "thw01",
+            "thw02",
+            "thw03",
+            "thw04",
+            "whac"
+          ],
+          "value": [
+            "backup",
+            "cms00",
+            "cms01",
+            "cms02",
+            "cms03",
+            "cms04",
+            "marius",
+            "media",
+            "ns01",
+            "ns03",
+            "ns04",
+            "ostium",
+            "sulla-felix",
+            "thw00",
+            "thw01",
+            "thw02",
+            "thw03",
+            "thw04",
+            "whac"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "afba3nndoeuwwf"
+        },
+        "definition": "label_values(glances_cpu_irq,node)",
+        "description": "",
+        "label": "hostname",
+        "multi": true,
+        "name": "hostname",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(glances_cpu_irq,node)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "net traffic all hosts",
+  "uid": "duzr7gz",
+  "version": 14
+}
