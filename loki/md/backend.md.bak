@@ -5,7 +5,6 @@ title: Backend values
 
 ## Helm Chart Backend Values
 
-
 ````{list-table}
 :header-rows: 1
 - - name

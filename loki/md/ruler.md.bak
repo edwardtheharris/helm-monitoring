@@ -1,5 +1,5 @@
 
-rollout_operator	object	Setting for the Grafana Rollout Operator https://github.com/grafana/helm-charts/tree/main/charts/rollout-operator
+rollout_operator object Setting for the Grafana Rollout Operator <https://github.com/grafana/helm-charts/tree/main/charts/rollout-operator>
 
 {
   "enabled": false,
@@ -23,7 +23,7 @@ rollout_operator	object	Setting for the Grafana Rollout Operator https://github.
   }
 }
 
-rollout_operator.podSecurityContext	object	podSecurityContext is the pod security context for the rollout operator. When installing on OpenShift, override podSecurityContext settings with rollout_operator: podSecurityContext: fsGroup: null runAsGroup: null runAsUser: null
+rollout_operator.podSecurityContext object podSecurityContext is the pod security context for the rollout operator. When installing on OpenShift, override podSecurityContext settings with rollout_operator: podSecurityContext: fsGroup: null runAsGroup: null runAsUser: null
 
 {
   "fsGroup": 10001,
@@ -35,7 +35,7 @@ rollout_operator.podSecurityContext	object	podSecurityContext is the pod securit
   }
 }
 
-ruler	object	Configuration for the ruler
+ruler object Configuration for the ruler
 
 {
   "affinity": {
@@ -100,178 +100,178 @@ ruler	object	Configuration for the ruler
   "topologySpreadConstraints": []
 }
 
-ruler.affinity	object	Affinity for ruler pods. The value will be passed through tpl.
+ruler.affinity object Affinity for ruler pods. The value will be passed through tpl.
 
 Hard node anti-affinity
 
-ruler.appProtocol	object	Set the optional grpc service protocol. Ex: "grpc", "http2" or "https"
+ruler.appProtocol object Set the optional grpc service protocol. Ex: "grpc", "http2" or "https"
 
 {
   "grpc": ""
 }
 
-ruler.command	string	Command to execute instead of defined in Docker image
+ruler.command string Command to execute instead of defined in Docker image
 
 null
 
-ruler.directories	object	Directories containing rules files. If used, you must also configure `loki.rulerConfig.storage` to use local storage.
+ruler.directories object Directories containing rules files. If used, you must also configure `loki.rulerConfig.storage` to use local storage.
 
 {}
 
-ruler.dnsConfig	object	DNSConfig for ruler pods
+ruler.dnsConfig object DNSConfig for ruler pods
 
 {}
 
-ruler.enabled	bool	The ruler component is optional and can be disabled if desired.
+ruler.enabled bool The ruler component is optional and can be disabled if desired.
 
 true
 
-ruler.extraArgs	list	Additional CLI args for the ruler
+ruler.extraArgs list Additional CLI args for the ruler
 
 []
 
-ruler.extraContainers	list	Containers to add to the ruler pods
+ruler.extraContainers list Containers to add to the ruler pods
 
 []
 
-ruler.extraEnv	list	Environment variables to add to the ruler pods
+ruler.extraEnv list Environment variables to add to the ruler pods
 
 []
 
-ruler.extraEnvFrom	list	Environment variables from secrets or configmaps to add to the ruler pods
+ruler.extraEnvFrom list Environment variables from secrets or configmaps to add to the ruler pods
 
 []
 
-ruler.extraVolumeMounts	list	Volume mounts to add to the ruler pods
+ruler.extraVolumeMounts list Volume mounts to add to the ruler pods
 
 []
 
-ruler.extraVolumes	list	Volumes to add to the ruler pods
+ruler.extraVolumes list Volumes to add to the ruler pods
 
 []
 
-ruler.hostAliases	list	hostAliases to add
+ruler.hostAliases list hostAliases to add
 
 []
 
-ruler.hostUsers	string	Use the host's user namespace in the ruler
+ruler.hostUsers string Use the host's user namespace in the ruler
 
 "nil"
 
-ruler.image.registry	string	The Docker registry for the ruler image. Overrides `loki.image.registry`
+ruler.image.registry string The Docker registry for the ruler image. Overrides `loki.image.registry`
 
 null
 
-ruler.image.repository	string	Docker image repository for the ruler image. Overrides `loki.image.repository`
+ruler.image.repository string Docker image repository for the ruler image. Overrides `loki.image.repository`
 
 null
 
-ruler.image.tag	string	Docker image tag for the ruler image. Overrides `loki.image.tag`
+ruler.image.tag string Docker image tag for the ruler image. Overrides `loki.image.tag`
 
 null
 
-ruler.initContainers	list	Init containers to add to the ruler pods
+ruler.initContainers list Init containers to add to the ruler pods
 
 []
 
-ruler.maxUnavailable	string	Pod Disruption Budget maxUnavailable
+ruler.maxUnavailable string Pod Disruption Budget maxUnavailable
 
 null
 
-ruler.nodeSelector	object	Node selector for ruler pods
+ruler.nodeSelector object Node selector for ruler pods
 
 {}
 
-ruler.persistence.accessModes	list	Set access modes on the PersistentVolumeClaim
+ruler.persistence.accessModes list Set access modes on the PersistentVolumeClaim
 
 [
   "ReadWriteOnce"
 ]
 
-ruler.persistence.annotations	object	Annotations for ruler PVCs
+ruler.persistence.annotations object Annotations for ruler PVCs
 
 {}
 
-ruler.persistence.enabled	bool	Enable creating PVCs which is required when using recording rules
+ruler.persistence.enabled bool Enable creating PVCs which is required when using recording rules
 
 false
 
-ruler.persistence.labels	object	Labels for ruler PVCs
+ruler.persistence.labels object Labels for ruler PVCs
 
 {}
 
-ruler.persistence.size	string	Size of persistent disk
+ruler.persistence.size string Size of persistent disk
 
 "10Gi"
 
-ruler.persistence.storageClass	string	Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
+ruler.persistence.storageClass string Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
 
 null
 
-ruler.podAnnotations	object	Annotations for ruler pods
+ruler.podAnnotations object Annotations for ruler pods
 
 {}
 
-ruler.podLabels	object	Labels for compactor pods
+ruler.podLabels object Labels for compactor pods
 
 {}
 
-ruler.priorityClassName	string	The name of the PriorityClass for ruler pods
+ruler.priorityClassName string The name of the PriorityClass for ruler pods
 
 null
 
-ruler.replicas	int	Number of replicas for the ruler
+ruler.replicas int Number of replicas for the ruler
 
 0
 
-ruler.resources	object	Resource requests and limits for the ruler
+ruler.resources object Resource requests and limits for the ruler
 
 {}
 
-ruler.serviceAnnotations	object	Annotations for ruler service
+ruler.serviceAnnotations object Annotations for ruler service
 
 {}
 
-ruler.serviceLabels	object	Labels for ruler service
+ruler.serviceLabels object Labels for ruler service
 
 {}
 
-ruler.sidecar	bool	Whether to enable the rules sidecar
+ruler.sidecar bool Whether to enable the rules sidecar
 
 false
 
-ruler.terminationGracePeriodSeconds	int	Grace period to allow the ruler to shutdown before it is killed
+ruler.terminationGracePeriodSeconds int Grace period to allow the ruler to shutdown before it is killed
 
 300
 
-ruler.tolerations	list	Tolerations for ruler pods
+ruler.tolerations list Tolerations for ruler pods
 
 []
 
-ruler.topologySpreadConstraints	list	Topology Spread Constraints for ruler pods The value will be passed through tpl.
+ruler.topologySpreadConstraints list Topology Spread Constraints for ruler pods The value will be passed through tpl.
 
 []
 
-serviceAccount.annotations	object	Annotations for the service account
+serviceAccount.annotations object Annotations for the service account
 
 {}
 
-serviceAccount.automountServiceAccountToken	bool	Set this toggle to false to opt out of automounting API credentials for the service account
+serviceAccount.automountServiceAccountToken bool Set this toggle to false to opt out of automounting API credentials for the service account
 
 true
 
-serviceAccount.create	bool	Specifies whether a ServiceAccount should be created
+serviceAccount.create bool Specifies whether a ServiceAccount should be created
 
 true
 
-serviceAccount.imagePullSecrets	list	Image pull secrets for the service account
+serviceAccount.imagePullSecrets list Image pull secrets for the service account
 
 []
 
-serviceAccount.labels	object	Labels for the service account
+serviceAccount.labels object Labels for the service account
 
 {}
 
-serviceAccount.name	string	The name of the ServiceAccount to use. If not set and create is true, a name is generated using the fullname template
+serviceAccount.name string The name of the ServiceAccount to use. If not set and create is true, a name is generated using the fullname template
 
 null
