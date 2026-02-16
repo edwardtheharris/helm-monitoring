@@ -1299,6 +1299,7 @@ extraScrapeConfigs: |
           - thw02.breeze-blocks.net:9100
           - thw03.breeze-blocks.net:9100
           - thw04.breeze-blocks.net:9100
+          - thw05.breeze-blocks.net:9100
           - whac.breeze-blocks.net:9100
   - job_name: glances-exporter
     static_configs:
@@ -1321,6 +1322,7 @@ extraScrapeConfigs: |
           - thw02.breeze-blocks.net:9091
           - thw03.breeze-blocks.net:9091
           - thw04.breeze-blocks.net:9091
+          - thw05.breeze-blocks.net:9091
           - whac.breeze-blocks.net:9091
   - job_name: 'jellyfin-exporter'
     honor_labels: true
