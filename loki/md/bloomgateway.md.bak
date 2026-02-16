@@ -1,5 +1,5 @@
 
-bloomGateway	object	Configuration for the bloom-gateway
+bloomGateway object Configuration for the bloom-gateway
 
 {
   "affinity": {
@@ -77,164 +77,164 @@ bloomGateway	object	Configuration for the bloom-gateway
   "tolerations": []
 }
 
-bloomGateway.affinity	object	Affinity for bloom-gateway pods. The value will be passed through tpl.
+bloomGateway.affinity object Affinity for bloom-gateway pods. The value will be passed through tpl.
 
 Hard node anti-affinity
 
-bloomGateway.appProtocol	object	Set the optional grpc service protocol. Ex: "grpc", "http2" or "https"
+bloomGateway.appProtocol object Set the optional grpc service protocol. Ex: "grpc", "http2" or "https"
 
 {
   "grpc": ""
 }
 
-bloomGateway.command	string	Command to execute instead of defined in Docker image
+bloomGateway.command string Command to execute instead of defined in Docker image
 
 null
 
-bloomGateway.dnsConfig	object	DNSConfig for bloom-gateway pods
+bloomGateway.dnsConfig object DNSConfig for bloom-gateway pods
 
 {}
 
-bloomGateway.extraArgs	list	Additional CLI args for the bloom-gateway
+bloomGateway.extraArgs list Additional CLI args for the bloom-gateway
 
 []
 
-bloomGateway.extraContainers	list	Containers to add to the bloom-gateway pods
+bloomGateway.extraContainers list Containers to add to the bloom-gateway pods
 
 []
 
-bloomGateway.extraEnv	list	Environment variables to add to the bloom-gateway pods
+bloomGateway.extraEnv list Environment variables to add to the bloom-gateway pods
 
 []
 
-bloomGateway.extraEnvFrom	list	Environment variables from secrets or configmaps to add to the bloom-gateway pods
+bloomGateway.extraEnvFrom list Environment variables from secrets or configmaps to add to the bloom-gateway pods
 
 []
 
-bloomGateway.extraVolumeMounts	list	Volume mounts to add to the bloom-gateway pods
+bloomGateway.extraVolumeMounts list Volume mounts to add to the bloom-gateway pods
 
 []
 
-bloomGateway.extraVolumes	list	Volumes to add to the bloom-gateway pods
+bloomGateway.extraVolumes list Volumes to add to the bloom-gateway pods
 
 []
 
-bloomGateway.hostAliases	list	hostAliases to add
+bloomGateway.hostAliases list hostAliases to add
 
 []
 
-bloomGateway.hostUsers	string	Use the host's user namespace in the bloom-gateway
+bloomGateway.hostUsers string Use the host's user namespace in the bloom-gateway
 
 "nil"
 
-bloomGateway.image.registry	string	The Docker registry for the bloom-gateway image. Overrides `loki.image.registry`
+bloomGateway.image.registry string The Docker registry for the bloom-gateway image. Overrides `loki.image.registry`
 
 null
 
-bloomGateway.image.repository	string	Docker image repository for the bloom-gateway image. Overrides `loki.image.repository`
+bloomGateway.image.repository string Docker image repository for the bloom-gateway image. Overrides `loki.image.repository`
 
 null
 
-bloomGateway.image.tag	string	Docker image tag for the bloom-gateway image. Overrides `loki.image.tag`
+bloomGateway.image.tag string Docker image tag for the bloom-gateway image. Overrides `loki.image.tag`
 
 null
 
-bloomGateway.initContainers	list	Init containers to add to the bloom-gateway pods
+bloomGateway.initContainers list Init containers to add to the bloom-gateway pods
 
 []
 
-bloomGateway.livenessProbe	object	liveness probe settings for ingester pods. If empty use `loki.livenessProbe`
+bloomGateway.livenessProbe object liveness probe settings for ingester pods. If empty use `loki.livenessProbe`
 
 {}
 
-bloomGateway.nodeSelector	object	Node selector for bloom-gateway pods
+bloomGateway.nodeSelector object Node selector for bloom-gateway pods
 
 {}
 
-bloomGateway.persistence.annotations	object	Annotations for bloom-gateway PVCs
+bloomGateway.persistence.annotations object Annotations for bloom-gateway PVCs
 
 {}
 
-bloomGateway.persistence.claims	list	List of the bloom-gateway PVCs
+bloomGateway.persistence.claims list List of the bloom-gateway PVCs
 
-bloomGateway.persistence.claims[0].accessModes	list	Set access modes on the PersistentVolumeClaim
+bloomGateway.persistence.claims[0].accessModes list Set access modes on the PersistentVolumeClaim
 
 [
   "ReadWriteOnce"
 ]
 
-bloomGateway.persistence.claims[0].size	string	Size of persistent disk
+bloomGateway.persistence.claims[0].size string Size of persistent disk
 
 "10Gi"
 
-bloomGateway.persistence.enableStatefulSetAutoDeletePVC	bool	Enable StatefulSetAutoDeletePVC feature
+bloomGateway.persistence.enableStatefulSetAutoDeletePVC bool Enable StatefulSetAutoDeletePVC feature
 
 false
 
-bloomGateway.persistence.enabled	bool	Enable creating PVCs for the bloom-gateway
+bloomGateway.persistence.enabled bool Enable creating PVCs for the bloom-gateway
 
 false
 
-bloomGateway.persistence.labels	object	Labels for bloom gateway PVCs
+bloomGateway.persistence.labels object Labels for bloom gateway PVCs
 
 {}
 
-bloomGateway.podAnnotations	object	Annotations for bloom-gateway pods
+bloomGateway.podAnnotations object Annotations for bloom-gateway pods
 
 {}
 
-bloomGateway.podLabels	object	Labels for bloom-gateway pods
+bloomGateway.podLabels object Labels for bloom-gateway pods
 
 {}
 
-bloomGateway.priorityClassName	string	The name of the PriorityClass for bloom-gateway pods
+bloomGateway.priorityClassName string The name of the PriorityClass for bloom-gateway pods
 
 null
 
-bloomGateway.readinessProbe	object	readiness probe settings for ingester pods. If empty, use `loki.readinessProbe`
+bloomGateway.readinessProbe object readiness probe settings for ingester pods. If empty, use `loki.readinessProbe`
 
 {}
 
-bloomGateway.replicas	int	Number of replicas for the bloom-gateway
+bloomGateway.replicas int Number of replicas for the bloom-gateway
 
 0
 
-bloomGateway.resources	object	Resource requests and limits for the bloom-gateway
+bloomGateway.resources object Resource requests and limits for the bloom-gateway
 
 {}
 
-bloomGateway.serviceAccount.annotations	object	Annotations for the bloom-gateway service account
+bloomGateway.serviceAccount.annotations object Annotations for the bloom-gateway service account
 
 {}
 
-bloomGateway.serviceAccount.automountServiceAccountToken	bool	Set this toggle to false to opt out of automounting API credentials for the service account
+bloomGateway.serviceAccount.automountServiceAccountToken bool Set this toggle to false to opt out of automounting API credentials for the service account
 
 true
 
-bloomGateway.serviceAccount.imagePullSecrets	list	Image pull secrets for the bloom-gateway service account
+bloomGateway.serviceAccount.imagePullSecrets list Image pull secrets for the bloom-gateway service account
 
 []
 
-bloomGateway.serviceAccount.name	string	The name of the ServiceAccount to use for the bloom-gateway. If not set and create is true, a name is generated by appending "-bloom-gateway" to the common ServiceAccount.
+bloomGateway.serviceAccount.name string The name of the ServiceAccount to use for the bloom-gateway. If not set and create is true, a name is generated by appending "-bloom-gateway" to the common ServiceAccount.
 
 null
 
-bloomGateway.serviceAnnotations	object	Annotations for bloom-gateway service
+bloomGateway.serviceAnnotations object Annotations for bloom-gateway service
 
 {}
 
-bloomGateway.serviceLabels	object	Labels for bloom-gateway service
+bloomGateway.serviceLabels object Labels for bloom-gateway service
 
 {}
 
-bloomGateway.startupProbe	object	startup probe settings for ingester pods. If empty, use `loki.startupProbe`
+bloomGateway.startupProbe object startup probe settings for ingester pods. If empty, use `loki.startupProbe`
 
 {}
 
-bloomGateway.terminationGracePeriodSeconds	int	Grace period to allow the bloom-gateway to shutdown before it is killed
+bloomGateway.terminationGracePeriodSeconds int Grace period to allow the bloom-gateway to shutdown before it is killed
 
 30
 
-bloomGateway.tolerations	list	Tolerations for bloom-gateway pods
+bloomGateway.tolerations list Tolerations for bloom-gateway pods
 
 []

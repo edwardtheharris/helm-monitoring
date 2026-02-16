@@ -1,13 +1,13 @@
 
-memberlist.service.annotations	object
+memberlist.service.annotations object
 
 {}
 
-memberlist.service.publishNotReadyAddresses	bool
+memberlist.service.publishNotReadyAddresses bool
 
 false
 
-memcached.containerSecurityContext	object	The SecurityContext for memcached containers
+memcached.containerSecurityContext object The SecurityContext for memcached containers
 
 {
   "allowPrivilegeEscalation": false,
@@ -19,23 +19,23 @@ memcached.containerSecurityContext	object	The SecurityContext for memcached cont
   "readOnlyRootFilesystem": true
 }
 
-memcached.enabled	bool	Enable the built in memcached server provided by the chart
+memcached.enabled bool Enable the built in memcached server provided by the chart
 
 true
 
-memcached.image.pullPolicy	string	Memcached Docker image pull policy
+memcached.image.pullPolicy string Memcached Docker image pull policy
 
 "IfNotPresent"
 
-memcached.image.repository	string	Memcached Docker image repository
+memcached.image.repository string Memcached Docker image repository
 
 "memcached"
 
-memcached.image.tag	string	Memcached Docker image tag
+memcached.image.tag string Memcached Docker image tag
 
 "1.6.39-alpine"
 
-memcached.livenessProbe	object	Liveness probe for memcached pods
+memcached.livenessProbe object Liveness probe for memcached pods
 
 {
   "failureThreshold": 3,
@@ -47,7 +47,7 @@ memcached.livenessProbe	object	Liveness probe for memcached pods
   "timeoutSeconds": 5
 }
 
-memcached.podSecurityContext	object	The SecurityContext override for memcached pods
+memcached.podSecurityContext object The SecurityContext override for memcached pods
 
 {
   "fsGroup": 11211,
@@ -56,11 +56,11 @@ memcached.podSecurityContext	object	The SecurityContext override for memcached p
   "runAsUser": 11211
 }
 
-memcached.priorityClassName	string	The name of the PriorityClass for memcached pods
+memcached.priorityClassName string The name of the PriorityClass for memcached pods
 
 null
 
-memcached.readinessProbe	object	Readiness probe for memcached pods (probe port defaults to container port)
+memcached.readinessProbe object Readiness probe for memcached pods (probe port defaults to container port)
 
 {
   "failureThreshold": 6,
@@ -72,11 +72,11 @@ memcached.readinessProbe	object	Readiness probe for memcached pods (probe port d
   "timeoutSeconds": 3
 }
 
-memcached.startupProbe	object	Startup probe for memcached pods
+memcached.startupProbe object Startup probe for memcached pods
 
 {}
 
-memcachedExporter.containerSecurityContext	object	The SecurityContext for memcached exporter containers
+memcachedExporter.containerSecurityContext object The SecurityContext for memcached exporter containers
 
 {
   "allowPrivilegeEscalation": false,
@@ -88,27 +88,27 @@ memcachedExporter.containerSecurityContext	object	The SecurityContext for memcac
   "readOnlyRootFilesystem": true
 }
 
-memcachedExporter.enabled	bool	Whether memcached metrics should be exported
+memcachedExporter.enabled bool Whether memcached metrics should be exported
 
 true
 
-memcachedExporter.extraArgs	object	Extra args to add to the exporter container. Example: extraArgs: memcached.tls.enable: true memcached.tls.cert-file: /certs/cert.crt memcached.tls.key-file: /certs/cert.key memcached.tls.ca-file: /certs/ca.crt memcached.tls.insecure-skip-verify: false memcached.tls.server-name: memcached
+memcachedExporter.extraArgs object Extra args to add to the exporter container. Example: extraArgs: memcached.tls.enable: true memcached.tls.cert-file: /certs/cert.crt memcached.tls.key-file: /certs/cert.key memcached.tls.ca-file: /certs/ca.crt memcached.tls.insecure-skip-verify: false memcached.tls.server-name: memcached
 
 {}
 
-memcachedExporter.image.pullPolicy	string
+memcachedExporter.image.pullPolicy string
 
 "IfNotPresent"
 
-memcachedExporter.image.repository	string
+memcachedExporter.image.repository string
 
 "prom/memcached-exporter"
 
-memcachedExporter.image.tag	string
+memcachedExporter.image.tag string
 
 "v0.15.3"
 
-memcachedExporter.livenessProbe	object	Liveness probe for memcached exporter
+memcachedExporter.livenessProbe object Liveness probe for memcached exporter
 
 {
   "failureThreshold": 3,
@@ -121,7 +121,7 @@ memcachedExporter.livenessProbe	object	Liveness probe for memcached exporter
   "timeoutSeconds": 5
 }
 
-memcachedExporter.readinessProbe	object	Readiness probe for memcached exporter
+memcachedExporter.readinessProbe object Readiness probe for memcached exporter
 
 {
   "failureThreshold": 3,
@@ -134,19 +134,19 @@ memcachedExporter.readinessProbe	object	Readiness probe for memcached exporter
   "timeoutSeconds": 3
 }
 
-memcachedExporter.resources.limits	object
+memcachedExporter.resources.limits object
 
 {}
 
-memcachedExporter.resources.requests	object
+memcachedExporter.resources.requests object
 
 {}
 
-memcachedExporter.startupProbe	object	Startup probe for memcached exporter
+memcachedExporter.startupProbe object Startup probe for memcached exporter
 
 {}
 
-migrate	object	Options that may be necessary when performing a migration from another helm chart
+migrate object Options that may be necessary when performing a migration from another helm chart
 
 {
   "fromDistributed": {
@@ -155,17 +155,17 @@ migrate	object	Options that may be necessary when performing a migration from an
   }
 }
 
-migrate.fromDistributed	object	When migrating from a distributed chart like loki-distributed or enterprise-logs
+migrate.fromDistributed object When migrating from a distributed chart like loki-distributed or enterprise-logs
 
 {
   "enabled": false,
   "memberlistService": ""
 }
 
-migrate.fromDistributed.enabled	bool	Set to true if migrating from a distributed helm chart
+migrate.fromDistributed.enabled bool Set to true if migrating from a distributed helm chart
 
 false
 
-migrate.fromDistributed.memberlistService	string	If migrating from a distributed service, provide the distributed deployment's memberlist service DNS so the new deployment can join its ring.
+migrate.fromDistributed.memberlistService string If migrating from a distributed service, provide the distributed deployment's memberlist service DNS so the new deployment can join its ring.
 
 ""

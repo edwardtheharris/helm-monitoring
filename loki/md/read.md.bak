@@ -1,26 +1,25 @@
 
-
-rbac.namespaced	bool	Whether to install RBAC in the namespace only or cluster-wide. Useful if you want to watch ConfigMap globally.
+rbac.namespaced bool Whether to install RBAC in the namespace only or cluster-wide. Useful if you want to watch ConfigMap globally.
 
 false
 
-rbac.pspAnnotations	object	Specify PSP annotations Ref: https://kubernetes.io/docs/reference/access-authn-authz/psp-to-pod-security-standards/#podsecuritypolicy-annotations
+rbac.pspAnnotations object Specify PSP annotations Ref: <https://kubernetes.io/docs/reference/access-authn-authz/psp-to-pod-security-standards/#podsecuritypolicy-annotations>
 
 {}
 
-rbac.pspEnabled	bool	If pspEnabled true, a PodSecurityPolicy is created for K8s that use psp.
+rbac.pspEnabled bool If pspEnabled true, a PodSecurityPolicy is created for K8s that use psp.
 
 false
 
-rbac.sccAllowHostDirVolumePlugin	bool	Toggle this to true to allow the use of hostPath volumes on OpenShift
+rbac.sccAllowHostDirVolumePlugin bool Toggle this to true to allow the use of hostPath volumes on OpenShift
 
 false
 
-rbac.sccEnabled	bool	For OpenShift set pspEnabled to 'false' and sccEnabled to 'true' to use the SecurityContextConstraints.
+rbac.sccEnabled bool For OpenShift set pspEnabled to 'false' and sccEnabled to 'true' to use the SecurityContextConstraints.
 
 false
 
-read	object	Configuration for the read pod(s)
+read object Configuration for the read pod(s)
 
 {
   "affinity": {
@@ -95,102 +94,102 @@ read	object	Configuration for the read pod(s)
   "topologySpreadConstraints": []
 }
 
-read.affinity	object	Affinity for read pods. The value will be passed through tpl.
+read.affinity object Affinity for read pods. The value will be passed through tpl.
 
 Hard node anti-affinity
 
-read.annotations	object	Annotations for read deployment
+read.annotations object Annotations for read deployment
 
 {}
 
-read.autoscaling.behavior	object	Behavior policies while scaling.
+read.autoscaling.behavior object Behavior policies while scaling.
 
 {}
 
-read.autoscaling.enabled	bool	Enable autoscaling for the read, this is only used if `queryIndex.enabled: true`
+read.autoscaling.enabled bool Enable autoscaling for the read, this is only used if `queryIndex.enabled: true`
 
 false
 
-read.autoscaling.maxReplicas	int	Maximum autoscaling replicas for the read
+read.autoscaling.maxReplicas int Maximum autoscaling replicas for the read
 
 6
 
-read.autoscaling.minReplicas	int	Minimum autoscaling replicas for the read
+read.autoscaling.minReplicas int Minimum autoscaling replicas for the read
 
 2
-read.autoscaling.targetCPUUtilizationPercentage	int	Target CPU utilisation percentage for the read
+read.autoscaling.targetCPUUtilizationPercentage int Target CPU utilisation percentage for the read
 
 60
 
-read.autoscaling.targetMemoryUtilizationPercentage	string	Target memory utilisation percentage for the read
+read.autoscaling.targetMemoryUtilizationPercentage string Target memory utilisation percentage for the read
 
 null
 
-read.dnsConfig	object	DNS config for read pods
+read.dnsConfig object DNS config for read pods
 
 {}
 
-read.extraArgs	list	Additional CLI args for the read
+read.extraArgs list Additional CLI args for the read
 
 []
 
-read.extraContainers	list	Containers to add to the read pods
+read.extraContainers list Containers to add to the read pods
 
 []
 
-read.extraEnv	list	Environment variables to add to the read pods
+read.extraEnv list Environment variables to add to the read pods
 
 []
 
-read.extraEnvFrom	list	Environment variables from secrets or configmaps to add to the read pods
+read.extraEnvFrom list Environment variables from secrets or configmaps to add to the read pods
 
 []
 
-read.extraVolumeMounts	list	Volume mounts to add to the read pods
+read.extraVolumeMounts list Volume mounts to add to the read pods
 
 []
 
-read.extraVolumes	list	Volumes to add to the read pods
+read.extraVolumes list Volumes to add to the read pods
 
 []
 
-read.hostUsers	string	Use the host's user namespace in the read pods.
+read.hostUsers string Use the host's user namespace in the read pods.
 
 "nil"
 
-read.image.registry	string	The Docker registry for the read image. Overrides `loki.image.registry`
+read.image.registry string The Docker registry for the read image. Overrides `loki.image.registry`
 
 null
 
-read.image.repository	string	Docker image repository for the read image. Overrides `loki.image.repository`
+read.image.repository string Docker image repository for the read image. Overrides `loki.image.repository`
 
 null
 
-read.image.tag	string	Docker image tag for the read image. Overrides `loki.image.tag`
+read.image.tag string Docker image tag for the read image. Overrides `loki.image.tag`
 
 null
 
-read.initContainers	list	init containers to add to the read pods
+read.initContainers list init containers to add to the read pods
 
 []
 
-read.legacyReadTarget	bool	Whether or not to use the 2 target type simple scalable mode (read, write) or the 3 target type (read, write, backend). Legacy refers to the 2 target type, so true will run two targets, false will run 3 targets.
+read.legacyReadTarget bool Whether or not to use the 2 target type simple scalable mode (read, write) or the 3 target type (read, write, backend). Legacy refers to the 2 target type, so true will run two targets, false will run 3 targets.
 
 false
 
-read.lifecycle	object	Lifecycle for the read container
+read.lifecycle object Lifecycle for the read container
 
 {}
 
-read.livenessProbe	object	liveness probe settings for read pods. If empty, applies no livenessProbe
+read.livenessProbe object liveness probe settings for read pods. If empty, applies no livenessProbe
 
 {}
 
-read.nodeSelector	object	Node selector for read pods
+read.nodeSelector object Node selector for read pods
 
 {}
 
-read.persistence	object	read.persistence is used only if legacyReadTarget is set to true
+read.persistence object read.persistence is used only if legacyReadTarget is set to true
 
 {
   "accessModes": [
@@ -204,88 +203,88 @@ read.persistence	object	read.persistence is used only if legacyReadTarget is set
   "storageClass": null
 }
 
-read.persistence.accessModes	list	Set access modes on the PersistentVolumeClaim
+read.persistence.accessModes list Set access modes on the PersistentVolumeClaim
 
 [
   "ReadWriteOnce"
 ]
 
-read.persistence.annotations	object	Annotations for volume claim
+read.persistence.annotations object Annotations for volume claim
 
 {}
 
-read.persistence.enableStatefulSetAutoDeletePVC	bool	Enable StatefulSetAutoDeletePVC feature
+read.persistence.enableStatefulSetAutoDeletePVC bool Enable StatefulSetAutoDeletePVC feature
 
 true
 
-read.persistence.labels	object	Labels for volume claim
+read.persistence.labels object Labels for volume claim
 
 {}
 
-read.persistence.selector	string	Selector for persistent disk
+read.persistence.selector string Selector for persistent disk
 
 null
 
-read.persistence.size	string	Size of persistent disk
+read.persistence.size string Size of persistent disk
 
 "10Gi"
 
-read.persistence.storageClass	string	Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
+read.persistence.storageClass string Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
 
 null
 
-read.podAnnotations	object	Annotations for read pods
+read.podAnnotations object Annotations for read pods
 
 {}
 
-read.podLabels	object	Additional labels for each `read` pod
+read.podLabels object Additional labels for each `read` pod
 
 {}
 
-read.podManagementPolicy	string	The default is to deploy all pods in parallel.
+read.podManagementPolicy string The default is to deploy all pods in parallel.
 
 "Parallel"
 
-read.priorityClassName	string	The name of the PriorityClass for read pods
+read.priorityClassName string The name of the PriorityClass for read pods
 
 null
 
-read.replicas	int	Number of replicas for the read
+read.replicas int Number of replicas for the read
 
 3
 
-read.resources	object	Resource requests and limits for the read
+read.resources object Resource requests and limits for the read
 
 {}
 
-read.selectorLabels	object	Additional selector labels for each `read` pod
+read.selectorLabels object Additional selector labels for each `read` pod
 
 {}
 
-read.service.annotations	object	Annotations for read Service
+read.service.annotations object Annotations for read Service
 
 {}
 
-read.service.labels	object	Additional labels for read Service
+read.service.labels object Additional labels for read Service
 
 {}
 
-read.service.type	string	Service Type for read Service
+read.service.type string Service Type for read Service
 
 "ClusterIP"
 
-read.targetModule	string	Comma-separated list of Loki modules to load for the read
+read.targetModule string Comma-separated list of Loki modules to load for the read
 
 "read"
 
-read.terminationGracePeriodSeconds	int	Grace period to allow the read to shutdown before it is killed
+read.terminationGracePeriodSeconds int Grace period to allow the read to shutdown before it is killed
 
 30
 
-read.tolerations	list	Tolerations for read pods
+read.tolerations list Tolerations for read pods
 
 []
 
-read.topologySpreadConstraints	list	Topology Spread Constraints for read pods The value will be passed through tpl.
+read.topologySpreadConstraints list Topology Spread Constraints for read pods The value will be passed through tpl.
 
 []
