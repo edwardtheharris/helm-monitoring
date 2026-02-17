@@ -1260,11 +1260,6 @@ extraScrapeConfigs: |
     static_configs:
     - targets:
       - prometheus-prometheus-postgres-exporter-66475bbdcb-8pkbq.monitoring.svc.cluster.local:9187
-  - job_name: redis-exporter
-    honor_labels: true
-    static_configs:
-    - targets:
-      - redis-exporter-prometheus-redis-exporter-65584c7c79-5k5nw.database.svc.cluster.local:9121
   - job_name: node-exporter
     honor_labels: true
     relabel_configs:
@@ -1329,9 +1324,9 @@ extraScrapeConfigs: |
     metrics_path: /metrics
     static_configs:
       - targets:
-        - http://media.breeze-blocks.net
-        - http://music.breeze-blocks.net
-        - http://media.backup.breeze-blocks.net
+        - http://media.breeze-blocks.net:8096
+        - http://music.breeze-blocks.net:8097
+        - http://media.backup.breeze-blocks.net:8096
     relabel_configs:
       - action: labelkeep
         regex: (.+)
@@ -1347,6 +1342,15 @@ extraScrapeConfigs: |
         source_labels:
           - "__address__"
         target_label: hostname
+  - job_name: systemd-exporter
+    honor_labels: true
+    static_configs:
+      - targets:
+          - http://backup.breeze-blocks.net:9558
+          - http://marius.breeze-blocks.net:9558
+          - http://media.breeze-blocks.net:9558
+          - http://sulla-felix.breeze-blocks.net:9558
+          - http://whac.breeze-blocks.net:9558
 
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts
