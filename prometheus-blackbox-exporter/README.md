@@ -1,4 +1,5 @@
 # Prometheus Blackbox Exporter
+<!--markdownlint-disable-->
 
 Prometheus exporter for blackbox testing
 
