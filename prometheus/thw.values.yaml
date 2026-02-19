@@ -1315,7 +1315,7 @@ extraScrapeConfigs: |
   - job_name: 'thw-blackbox-exporter'
     metrics_path: /probe
     params:
-    module: [http_2xx,http_3xx,http_4xx,http_5xx]
+      module: [http_2xx,http_3xx,http_4xx,http_5xx]
     static_configs:
       - targets:
           - http://thw-bb.breeze-blocks.net:9115
