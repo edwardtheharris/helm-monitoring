@@ -1350,7 +1350,7 @@ extraScrapeConfigs: |
   - job_name: 'cms-blackbox-exporter'
     metrics_path: /probe
     params:
-    module: [http_2xx,http_3xx,http_4xx,http_5xx]
+      module: [http_2xx,http_3xx,http_4xx,http_5xx]
     static_configs:
       - targets:
           - http://cms-bb.breeze-blocks.net:9115
