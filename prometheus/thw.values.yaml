@@ -127,7 +127,7 @@ configmapReload:
     ## configmap-reload resource requests and limits
     ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
     ##
-    resources: 
+    resources:
       requests:
         cpu: 100m
         memory: 128Mi
@@ -1315,7 +1315,7 @@ extraScrapeConfigs: |
   - job_name: 'thw-blackbox-exporter'
     metrics_path: /probe
     params:
-    module: [http_2xx,http_3xx,http_4xx,http_5xx]
+      module: [http_2xx,http_3xx,http_4xx,http_5xx]
     static_configs:
       - targets:
           - http://thw-bb.breeze-blocks.net:9115
@@ -1324,8 +1324,6 @@ extraScrapeConfigs: |
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
-      - target_label: __address__
-        replacement: prometheus-blackbox-exporter:9115
 
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts

@@ -1329,9 +1329,9 @@ extraScrapeConfigs: |
     metrics_path: /metrics
     static_configs:
       - targets:
-        - http://media.breeze-blocks.net
-        - http://music.breeze-blocks.net
-        - http://media.backup.breeze-blocks.net
+        - media.breeze-blocks.net
+        - music.breeze-blocks.net
+        - media.backup.breeze-blocks.net
     relabel_configs:
       - action: labelkeep
         regex: (.+)
@@ -1350,17 +1350,15 @@ extraScrapeConfigs: |
   - job_name: 'cms-blackbox-exporter'
     metrics_path: /probe
     params:
-    module: [http_2xx,http_3xx,http_4xx,http_5xx]
+      module: [http_2xx,http_3xx,http_4xx,http_5xx]
     static_configs:
       - targets:
-          - http://cms-bb.breeze-blocks.net:9115
+          - cms-bb.breeze-blocks.net:9115
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
-      - target_label: __address__
-        replacement: prometheus-blackbox-exporter:9115
 
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts
