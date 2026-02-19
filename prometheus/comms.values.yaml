@@ -1329,9 +1329,9 @@ extraScrapeConfigs: |
     metrics_path: /metrics
     static_configs:
       - targets:
-        - http://media.breeze-blocks.net
-        - http://music.breeze-blocks.net
-        - http://media.backup.breeze-blocks.net
+        - media.breeze-blocks.net
+        - music.breeze-blocks.net
+        - media.backup.breeze-blocks.net
     relabel_configs:
       - action: labelkeep
         regex: (.+)
@@ -1353,7 +1353,7 @@ extraScrapeConfigs: |
       module: [http_2xx,http_3xx,http_4xx,http_5xx]
     static_configs:
       - targets:
-          - http://cms-bb.breeze-blocks.net:9115
+          - cms-bb.breeze-blocks.net:9115
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
