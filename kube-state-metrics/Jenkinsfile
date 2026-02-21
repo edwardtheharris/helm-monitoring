@@ -15,7 +15,7 @@ stage('checkout') {
     node("${env.POD_LABEL}") {
       gitHubPRStatus(githubPRMessage('${GITHUB_PR_COND_REF} run started'))
       container('helm') {
-        ansiColor('css') {
+        ansiColor('xterm') {
           checkout(scm)
           sh("helm create ${env.JOB_BASE_NAME}")
           tar(archive: true, compress: false, defaultExcludes: false,
@@ -40,7 +40,7 @@ stage("lint") {
                 name: 'helm', namespace: 'jenkins') {
     node("${env.POD_LABEL}") {
       container("helm") {
-        ansiColor('css') {
+        ansiColor('xterm') {
             echo("lint the helm chart on ${env.BRANCH_NAME}")
             checkout scm
             sh(script: '''
@@ -70,16 +70,16 @@ stage("helm unittests") {
     parallel helm: {
       node("${env.POD_LABEL}") {
         container('helm') {
-          ansiColor('css') {
+          ansiColor('xterm') {
             checkout scm
             dir("kube-state-metrics") {
               echo("Run helm unittests for ${env.BRANCH_NAME}")
-              sh("helm unittest -u -f 'tests/*.yaml' . --color")
+              sh("helm unittest -u -f 'tests/*.yaml' .")
             }
           }
         }
         container('helm') {
-          ansiColor('css') {
+          ansiColor('xterm') {
             checkout scm
             dir('kube-state-metrics') {
               echo("Save report for ${env.BRANCH_NAME}")
@@ -89,7 +89,7 @@ stage("helm unittests") {
           }
         }
         container('helm') {
-          ansiColor('css') {
+          ansiColor('xterm') {
             checkout scm
             dir("kube-state-metrics") {
               echo("Publish report for ${env.BRANCH_NAME}")
