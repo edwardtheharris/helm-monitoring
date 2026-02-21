@@ -11,7 +11,7 @@
 # ```
 suite: test for clusterrolebinding
 release:
-  name: chart
+  name: kube-state-metrics
 templates:
   - templates/clusterrolebinding.yaml
 values:
@@ -31,4 +31,4 @@ tests:
   - asserts:
       - isKind:
           of: ClusterRoleBinding
-      - snapshotMatches: {}
+      - matchSnapshot: {}
