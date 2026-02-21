@@ -1,34 +1,34 @@
 ###
-# ```{rubric} networkpolicy Test Suite
+# ```{rubric} role Test Suite
 # ```
 # ---
-# Tests to validate the networkpolicy of the described networkpolicy.
+# Tests to validate the role of the described networkpolicy.
 #
-# ```{literalinclude} /tests/networkpolicy_test.yaml
+# ```{literalinclude} /tests/role_test.yaml
 # :language: yaml
-# :start-at: "suite: test for networkpolicy\n"
+# :start-at: "suite: test for role\n"
 # :end-before: "###\n"
 # ```
-suite: test for networkpolicy
+suite: test for role
 release:
   name: kube-state-metrics
 templates:
-  - templates/networkpolicy.yaml
+  - role.yaml
 values:
   - ../values.yaml
 
 ###
-# ```{rubric} networkpolicy Tests
+# ```{rubric} role Tests
 # ```
 # ---
-# Tests for networkpolicy Template
+# Tests for role Template
 #
-# ```{literalinclude} /tests/networkpolicy_test.yaml
+# ```{literalinclude} /tests/role_test.yaml
 # :language: yaml
 # :start-at: "tests:\n"
 # ```
 tests:
   - asserts:
       - isKind:
-          of: NetworkPolicy
+          of: Role
       - matchSnapshot: {}
