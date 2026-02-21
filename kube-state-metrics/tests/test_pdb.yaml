@@ -13,7 +13,7 @@ suite: test for pdb
 release:
   name: kube-state-metrics
 templates:
-  - pdb.yaml
+  - templates/pdb.yaml
 values:
   - ../values.yaml
 
@@ -32,3 +32,6 @@ tests:
       - isKind:
           of: PodDisruptionBudget
       - matchSnapshot: {}
+    set:
+      podDisruptionBudget:
+        enabled: true
