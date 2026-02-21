@@ -30,5 +30,5 @@ values:
 tests:
   - asserts:
       - isKind:
-          of: deployment
+          of: Deployment
       - matchSnapshot: {}
