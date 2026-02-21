@@ -13,7 +13,7 @@ suite: test for clusterrolebinding
 release:
   name: kube-state-metrics
 templates:
-  - kube-state-metrics/templates/clusterrolebinding.yaml
+  - clusterrolebinding.yaml
 values:
   - ../values.yaml
 
