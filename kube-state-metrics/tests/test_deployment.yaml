@@ -1,18 +1,34 @@
+###
+# ```{rubric} deployment Test Suite
+# ```
+# ---
+# Tests to validate the deployment of the described deployment.
+#
+# ```{literalinclude} /tests/deployment_test.yaml
+# :language: yaml
+# :start-at: "suite: test for deployment\n"
+# :end-before: "###\n"
+# ```
+suite: test for deployment
+release:
+  name: kube-state-metrics
 templates:
   - templates/deployment.yaml
+values:
+  - ../values.yaml
+
+###
+# ```{rubric} deployment Tests
+# ```
+# ---
+# Tests for deployment Template
+#
+# ```{literalinclude} /tests/deployment_test.yaml
+# :language: yaml
+# :start-at: "tests:\n"
+# ```
 tests:
-  - it: pod spec should match snapshot
-    asserts:
-      - matchSnapshot:
-          path: spec.template.spec
-  # or you can snapshot the whole manifest
-  - it: manifest should match snapshot
-    asserts:
+  - asserts:
+      - isKind:
+          of: deployment
       - matchSnapshot: {}
-  - it: manifest should match snapshot and pattern and not match another pattern
-    asserts:
-      - matchSnapshot:
-          matchRegex:
-            pattern: .*app.*
-          notMatchRegex:
-            pattern: .*bcde.*

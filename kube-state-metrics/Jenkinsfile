@@ -1,4 +1,5 @@
 env.POD_LABEL="helm"
+env.PROJECT_NAME="kube-state-metrics"
 stage('checkout') {
   podTemplate(agentContainer: 'helm', cloud: 'the-hard-way',
               containers: [
@@ -72,7 +73,7 @@ stage("helm unittests") {
           ansiColor('xterm') {
             checkout scm
             echo("Run helm unittests for ${env.BRANCH_NAME}")
-            sh("helm unittest --color -u -f 'tests/*.yaml' .")
+            sh("helm unittest --color -u -f ${env.PROJECT_NAME}/tests/*.yaml' .")
           }
         }
         container('helm') {
