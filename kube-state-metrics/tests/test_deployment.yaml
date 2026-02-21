@@ -1,0 +1,34 @@
+###
+# ```{rubric} deployment Test Suite
+# ```
+# ---
+# Tests to validate the deployment of the described deployment.
+#
+# ```{literalinclude} /tests/deployment_test.yaml
+# :language: yaml
+# :start-at: "suite: test for deployment\n"
+# :end-before: "###\n"
+# ```
+suite: test for deployment
+release:
+  name: kube-state-metrics
+templates:
+  - templates/deployment.yaml
+values:
+  - ../values.yaml
+
+###
+# ```{rubric} deployment Tests
+# ```
+# ---
+# Tests for deployment Template
+#
+# ```{literalinclude} /tests/deployment_test.yaml
+# :language: yaml
+# :start-at: "tests:\n"
+# ```
+tests:
+  - asserts:
+      - isKind:
+          of: Deployment
+      - matchSnapshot: {}
