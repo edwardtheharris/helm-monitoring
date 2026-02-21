@@ -71,24 +71,30 @@ stage("helm unittests") {
       node("${env.POD_LABEL}") {
         container('helm') {
           ansiColor('css') {
-            checkout scm
-            echo("Run helm unittests for ${env.BRANCH_NAME}")
-            sh("helm unittest . -u -f ${env.PROJECT_NAME}/tests/*.yaml")
+            checkout("scm")
+            dir("kube-state-metrics") {
+              echo("Run helm unittests for ${env.BRANCH_NAME}")
+              sh("helm unittest . -u -f ${env.PROJECT_NAME}/tests/*.yaml")
+            }
+          }
+        }
+        container('helm') {
+          ansiColor('css') {
+            checkout(scm)
+            dir('kube-state-metrics') {
+              echo("Save report for ${env.BRANCH_NAME}")
+              sh("helm unittest . -u -t JUnit -o results-${env.BRANCH_NAME}.xml -f ${env.PROJECT_NAME}/tests/*.yaml")
+              junit("results-${env.BRANCH_NAME}.xml")
+            }
           }
         }
         container('helm') {
           ansiColor('css') {
             checkout scm
-            echo("Save report for ${env.BRANCH_NAME}")
-            sh("helm unittest . -u -t JUnit -o results-${env.BRANCH_NAME}.xml -f ${env.PROJECT_NAME}/tests/*.yaml")
-            junit("results-${env.BRANCH_NAME}.xml")
-          }
-        }
-        container('helm') {
-          ansiColor('css') {
-            checkout scm
-            echo("Publish report for ${env.BRANCH_NAME}")
-            githubPRComment(comment: githubPRMessage(sh("helm unittest . --color -u -f ${env_PROJECT_NAME}/tests/*yaml'")))
+            dir("kube-state-metrics") {
+              echo("Publish report for ${env.BRANCH_NAME}")
+              githubPRComment(comment: githubPRMessage(sh("helm unittest . --color -u -f ${env_PROJECT_NAME}/tests/*yaml'")))
+            }
           }
         }
       }
