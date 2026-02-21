@@ -13,7 +13,7 @@ suite: test for role
 release:
   name: kube-state-metrics
 templates:
-  - role.yaml
+  - templates/role.yaml
 values:
   - ../values.yaml
 
@@ -32,3 +32,6 @@ tests:
       - isKind:
           of: Role
       - matchSnapshot: {}
+    set:
+      namespace: monitoring
+      useClusterRole: false
