@@ -1,0 +1,171 @@
+
+memberlist.service.annotations object
+
+{}
+
+memberlist.service.publishNotReadyAddresses bool
+
+false
+
+memcached.containerSecurityContext object The SecurityContext for memcached containers
+
+{
+  "allowPrivilegeEscalation": false,
+  "capabilities": {
+    "drop": [
+      "ALL"
+    ]
+  },
+  "readOnlyRootFilesystem": true
+}
+
+memcached.enabled bool Enable the built in memcached server provided by the chart
+
+true
+
+memcached.image.pullPolicy string Memcached Docker image pull policy
+
+"IfNotPresent"
+
+memcached.image.repository string Memcached Docker image repository
+
+"memcached"
+
+memcached.image.tag string Memcached Docker image tag
+
+"1.6.39-alpine"
+
+memcached.livenessProbe object Liveness probe for memcached pods
+
+{
+  "failureThreshold": 3,
+  "initialDelaySeconds": 30,
+  "periodSeconds": 10,
+  "tcpSocket": {
+    "port": "client"
+  },
+  "timeoutSeconds": 5
+}
+
+memcached.podSecurityContext object The SecurityContext override for memcached pods
+
+{
+  "fsGroup": 11211,
+  "runAsGroup": 11211,
+  "runAsNonRoot": true,
+  "runAsUser": 11211
+}
+
+memcached.priorityClassName string The name of the PriorityClass for memcached pods
+
+null
+
+memcached.readinessProbe object Readiness probe for memcached pods (probe port defaults to container port)
+
+{
+  "failureThreshold": 6,
+  "initialDelaySeconds": 5,
+  "periodSeconds": 5,
+  "tcpSocket": {
+    "port": "client"
+  },
+  "timeoutSeconds": 3
+}
+
+memcached.startupProbe object Startup probe for memcached pods
+
+{}
+
+memcachedExporter.containerSecurityContext object The SecurityContext for memcached exporter containers
+
+{
+  "allowPrivilegeEscalation": false,
+  "capabilities": {
+    "drop": [
+      "ALL"
+    ]
+  },
+  "readOnlyRootFilesystem": true
+}
+
+memcachedExporter.enabled bool Whether memcached metrics should be exported
+
+true
+
+memcachedExporter.extraArgs object Extra args to add to the exporter container. Example: extraArgs: memcached.tls.enable: true memcached.tls.cert-file: /certs/cert.crt memcached.tls.key-file: /certs/cert.key memcached.tls.ca-file: /certs/ca.crt memcached.tls.insecure-skip-verify: false memcached.tls.server-name: memcached
+
+{}
+
+memcachedExporter.image.pullPolicy string
+
+"IfNotPresent"
+
+memcachedExporter.image.repository string
+
+"prom/memcached-exporter"
+
+memcachedExporter.image.tag string
+
+"v0.15.3"
+
+memcachedExporter.livenessProbe object Liveness probe for memcached exporter
+
+{
+  "failureThreshold": 3,
+  "httpGet": {
+    "path": "/metrics",
+    "port": "http-metrics"
+  },
+  "initialDelaySeconds": 30,
+  "periodSeconds": 10,
+  "timeoutSeconds": 5
+}
+
+memcachedExporter.readinessProbe object Readiness probe for memcached exporter
+
+{
+  "failureThreshold": 3,
+  "httpGet": {
+    "path": "/metrics",
+    "port": "http-metrics"
+  },
+  "initialDelaySeconds": 5,
+  "periodSeconds": 5,
+  "timeoutSeconds": 3
+}
+
+memcachedExporter.resources.limits object
+
+{}
+
+memcachedExporter.resources.requests object
+
+{}
+
+memcachedExporter.startupProbe object Startup probe for memcached exporter
+
+{}
+
+migrate object Options that may be necessary when performing a migration from another helm chart
+
+{
+  "fromDistributed": {
+    "enabled": false,
+    "memberlistService": ""
+  }
+}
+
+migrate.fromDistributed object When migrating from a distributed chart like loki-distributed or enterprise-logs
+
+{
+  "enabled": false,
+  "memberlistService": ""
+}
+
+migrate.fromDistributed.enabled bool Set to true if migrating from a distributed helm chart
+
+false
+
+migrate.fromDistributed.memberlistService string If migrating from a distributed service, provide the distributed deployment's memberlist service DNS so the new deployment can join its ring.
+
+""

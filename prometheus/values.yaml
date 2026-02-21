@@ -132,7 +132,7 @@ configmapReload:
 server:
   ## Prometheus server container name
   ##
-  name: prometheus
+  name: "prometheus"
 
   ## Opt out of automounting Kubernetes API credentials.
   ## If set it will override serviceAccounts.server.automountServiceAccountToken value for ServiceAccount.
@@ -150,7 +150,7 @@ server:
 
   ## If set it will override prometheus.server.fullname value for ClusterRole and ClusterRoleBinding
   ##
-  clusterRoleNameOverride: ""
+  clusterRoleNameOverride: "prometheus"
 
   # Enable only the release namespace for monitoring. By default all namespaces are monitored.
   # If releaseNamespace and namespaces are both set a merged list will be monitored.
@@ -227,7 +227,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: prometheus.breeze-blocks.net
+  baseURL: prometheus.comms.breeze-blocks.net
 
   ## Additional server container environment variables
   ##
@@ -270,7 +270,7 @@ server:
 
   ### The data directory used by prometheus to set --storage.tsdb.path
   ### When empty server.persistentVolume.mountPath is used instead
-  storagePath: ""
+  storagePath: "/var/lib/prometheus/data"
 
   global:
     ## How frequently to scrape targets by default
@@ -378,7 +378,7 @@ server:
   ingress:
     ## If true, Prometheus server Ingress will be created
     ##
-    enabled: true
+    enabled: false
 
     ingressClassName: "nginx"
 
@@ -386,10 +386,10 @@ server:
     ##
     annotations:
       cert-manager.io/cluster-issuer: comms-svc-int
-      cert-manager.io/common-name: grafana
+      cert-manager.io/common-name: prometheus
       cert-manager.io/subject-organizationalunits: engineering
       cert-manager.io/subject-countries: US
-      cert-manager.io/email-sans: grafana@breeze-blocks.net
+      cert-manager.io/email-sans: prometheus.comms.breeze-blocks.net
       cert-manager.io/subject-provinces: CA
       cert-manager.io/subject-localities: Los Angeles
       #   kubernetes.io/ingress.class: nginx
@@ -406,7 +406,7 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts:
-      - prometheus.breeze-blocks.net
+      - prometheus.comms.breeze-blocks.net
     #   - prometheus.domain.com
     #   - domain.com/prometheus
 
@@ -428,7 +428,7 @@ server:
     tls:
       - secretName: prometheus-tls
         hosts:
-          - prometheus.breeze-blocks.net
+          - prometheus.comms.breeze-blocks.net
 
   ## route (map) allows configuration of HTTPRoute resources
   ## Requires Gateway API resources and suitable controller installed within the cluster
@@ -436,27 +436,28 @@ server:
   route:
     main:
       ## Enable this route
-      enabled: false
+      enabled: true
 
       ## ApiVersion set by default to "gateway.networking.k8s.io/v1"
-      apiVersion: ""
+      apiVersion: gateway.networking.k8s.io/v1
       ## kind set by default to HTTPRoute
-      kind: ""
+      kind: HTTPRoute
 
       ## Annotations to attach to the HTTPRoute resource
       annotations: {}
       ## Labels to attach to the HTTPRoute resource
-      labels: {}
+      labels:
+        app.kubernetes.io/name: prometheus
 
       ## ParentRefs refers to resources this HTTPRoute is to be attached to (Gateways)
-      parentRefs: []
-        # - name: contour
-        #   sectionName: http
+      parentRefs:
+        - name: prometheus
+          sectionName: http
 
       ## Hostnames (templated) defines a set of hostnames that should match against the HTTP Host
       ## header to select a HTTPRoute used to process the request
-      hostnames: []
-        # - my.example.com
+      hostnames:
+        - thw-pr.breeze-blocks.net
 
       ## additionalRules (templated) allows adding custom rules to the route
       additionalRules: []

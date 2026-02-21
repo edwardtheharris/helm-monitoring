@@ -29,7 +29,5 @@ title: Unit Tests
 
 This provides the following suites.
 
-### StatefulSet Suite
-
-```{autoyaml} tests/statefulset_test.yaml
+```{sectionauthor} Xander Harris <xandertheharris@gmail.com>
 ```

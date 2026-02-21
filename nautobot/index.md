@@ -44,13 +44,26 @@ To install this chart follow these steps.
    kubectl create ns nautobot
    ```
 
-2. Install the unittest Helm plugin.
+2. Build the containers
+
+   :::{code-block} shell
+   VERSION=0.1.0
+   export VERSION
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot:${VERSION} \
+      -f container/Dockerfile --target nautobot . --push
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler:${VERSION} \
+      -f container/Dockerfile --target scheduler . --push
+   docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker:${VERSION} \
+      -f container/Dockerfile --target worker . --push
+   :::
+
+3. Install the unittest Helm plugin.
 
    ```{code-block} shell
    helm plugin install https://github.com/helm-unittest/helm-unittest
    ```
 
-3. Run the unit tests.
+4. Run the unit tests.
 
    ```{code-block} shell
    helm unittest -f 'tests/*.yaml' .
@@ -72,13 +85,13 @@ To install this chart follow these steps.
    Time:        92.722398ms
    ```
 
-4. Install the chart with Helm.
+5. Install the chart with Helm.
 
    ```{code-block} shell
    helm -n nautobot install nautobot .
    ```
 
-5. Run the tests included with Helm.
+6. Run the tests included with Helm.
 
    ```{code-block} shell
    helm -n nautobot test nautobot
@@ -92,12 +105,44 @@ This can be done in the usual way.
 helm -n nautobot uninstall nautobot
 ```
 
-### Chart
+:::{note}
+As noted in
+[this GitGuardian Issue](https://dashboard.gitguardian.com/workspace/709490/incidents/23005714?occurrence=228077645&sort_published_at=true&page_size=5&page=1&source=20720276),
+the default values for the `db:`{l=yaml} and `su:`{l=yaml} sections are
+secrets, base64 encoded as the chart expects, but they all contain only
+the word 'secret' once decoded. You would be well advised to make a copy
+of {file}`values.yaml` to configure your instance with and replace all
+of the base64-encoded values with actual values.
+:::
 
-```{autoyaml} Chart.yaml
+### Other information
+
+:::{note}
+
+A quick bit of sed to recursively edit files in-place.
+
+```{code-block} shell
+sed -i '' -e 's/csi-driver-lvm-linear/csi-lvm-linear/g' $(find ./ -type f)
 ```
 
-### Values
+```{epigraph}
+Somewhat ironically, the author of this little bit of sed was told after
+a job intervew a few days after writing and using this exact code that he
+"did not have the shell scripting skills necessary" to operate a GitLab
+instance. This despite a CV that includes positions in which he was
+required to exactly that. The author comforts his still jobless mind by
+remember that whoever they hired for that spot did not do as good a job
+as he would have but instead filled the configurations with AI slop and
+subsequently completely destroyed that company's ability to operate computers.
 
-```{autoyaml} values.yaml
+Welcome to the dystopia.
+
+-- ed
 ```
+
+:::
+
+:::{code-block} shell
+docker build -t ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot:0.0.1 \
+  -f container/Dockerfile --target nautobot . --push
+:::

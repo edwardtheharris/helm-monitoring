@@ -1,10 +1,12 @@
 venv/
+secrets/
 charts/
+secrets/
+**/secrets/
 __snapshot__/
 .debug/
 .gnupg/
 *.xml
-.values.yaml
 *.tgz
 charts/
 .vscode/
