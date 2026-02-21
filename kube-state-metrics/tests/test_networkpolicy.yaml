@@ -33,5 +33,5 @@ tests:
           of: NetworkPolicy
       - matchSnapshot: {}
     set:
-      networkpolicy:
+      networkPolicy:
         enabled: true
