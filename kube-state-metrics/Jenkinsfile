@@ -74,7 +74,7 @@ stage("helm unittests") {
             checkout scm
             dir("kube-state-metrics") {
               echo("Run helm unittests for ${env.BRANCH_NAME}")
-              sh("helm unittest -u -f 'tests/*.yaml' . --color always")
+              sh("helm unittest -u -f 'tests/*.yaml' . --color")
             }
           }
         }
