@@ -93,7 +93,7 @@ stage("helm unittests") {
             checkout scm
             dir("kube-state-metrics") {
               echo("Publish report for ${env.BRANCH_NAME}")
-              githubPRComment(comment: githubPRMessage(sh("helm unittest --color -u -f ${env_PROJECT_NAME}/tests/*.yaml .")))
+              githubPRComment(comment: githubPRMessage(sh("helm unittest --color -u -f 'tests/*.yaml' .")))
             }
           }
         }
