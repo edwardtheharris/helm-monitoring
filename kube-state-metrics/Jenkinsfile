@@ -74,7 +74,7 @@ stage("helm unittests") {
             checkout scm
             dir("kube-state-metrics") {
               echo("Run helm unittests for ${env.BRANCH_NAME}")
-              sh("helm unittest -u -f 'tests/*.yaml' .")
+              sh("helm unittest -u -f 'tests/*.yaml' . --color")
             }
           }
         }
@@ -83,7 +83,7 @@ stage("helm unittests") {
             checkout scm
             dir('kube-state-metrics') {
               echo("Save report for ${env.BRANCH_NAME}")
-              sh("helm unittest -u -t JUnit -o results-${env.BRANCH_NAME}.xml -f 'tests/*.yaml' .")
+              sh("helm unittest -u -t JUnit -o results-${env.BRANCH_NAME}.xml -f 'tests/*.yaml' . --color")
               junit("results-${env.BRANCH_NAME}.xml")
             }
           }
@@ -93,7 +93,7 @@ stage("helm unittests") {
             checkout scm
             dir("kube-state-metrics") {
               echo("Publish report for ${env.BRANCH_NAME}")
-              githubPRComment(comment: githubPRMessage(sh("helm unittest --color -u -f 'tests/*.yaml' .")))
+              githubPRComment(comment: githubPRMessage(sh("helm unittest -u -f 'tests/*.yaml' . --color")))
             }
           }
         }
