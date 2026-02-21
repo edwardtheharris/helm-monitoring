@@ -22,7 +22,7 @@ stage('checkout') {
     }
   }
 }
-stage('create') {
+stage('test') {
   podTemplate(agentContainer: 'helm', cloud: 'the-hard-way',
               containers: [
                 containerTemplate(alwaysPullImage: true, command: '/usr/local/bin/jenkins-agent',
