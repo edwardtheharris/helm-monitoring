@@ -70,7 +70,7 @@ stage("lint") {
             sh(script: '''
               #!/bin/bash
               ls --color -lah
-              for i in comms.values.yaml thw.values.yaml values.yaml; do
+              for i in values.yaml; do
                 helm lint . -f $i
               done
             ''', label: "lint the chart")
