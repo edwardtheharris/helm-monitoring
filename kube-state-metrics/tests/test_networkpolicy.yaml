@@ -32,3 +32,6 @@ tests:
       - isKind:
           of: NetworkPolicy
       - matchSnapshot: {}
+    set:
+      networkpolicy:
+        enabled: true
