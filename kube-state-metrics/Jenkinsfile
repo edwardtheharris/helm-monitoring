@@ -71,7 +71,7 @@ stage("helm unittests") {
       node("${env.POD_LABEL}") {
         container('helm') {
           ansiColor('css') {
-            checkout("scm")
+            checkout scm
             dir("kube-state-metrics") {
               echo("Run helm unittests for ${env.BRANCH_NAME}")
               sh("helm unittest . -u -f ${env.PROJECT_NAME}/tests/*.yaml")
@@ -80,7 +80,7 @@ stage("helm unittests") {
         }
         container('helm') {
           ansiColor('css') {
-            checkout(scm)
+            checkout scm
             dir('kube-state-metrics') {
               echo("Save report for ${env.BRANCH_NAME}")
               sh("helm unittest . -u -t JUnit -o results-${env.BRANCH_NAME}.xml -f ${env.PROJECT_NAME}/tests/*.yaml")
