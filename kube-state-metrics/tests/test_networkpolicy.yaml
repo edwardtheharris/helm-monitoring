@@ -13,7 +13,7 @@ suite: test for networkpolicy
 release:
   name: kube-state-metrics
 templates:
-  - templates/networkpolicy.yaml
+  - networkpolicy.yaml
 values:
   - ../values.yaml
 
