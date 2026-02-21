@@ -73,14 +73,14 @@ stage("helm unittests") {
           ansiColor('css') {
             checkout scm
             echo("Run helm unittests for ${env.BRANCH_NAME}")
-            sh("helm unittest . --color always -u -f ${env.PROJECT_NAME}/tests/*.yaml")
+            sh("helm unittest . -u -f ${env.PROJECT_NAME}/tests/*.yaml")
           }
         }
         container('helm') {
           ansiColor('css') {
             checkout scm
             echo("Save report for ${env.BRANCH_NAME}")
-            sh("helm unittest . --color always -u -t JUnit -o results-${env.BRANCH_NAME}.xml -f ${env.PROJECT_NAME}/tests/*.yaml")
+            sh("helm unittest . -u -t JUnit -o results-${env.BRANCH_NAME}.xml -f ${env.PROJECT_NAME}/tests/*.yaml")
             junit("results-${env.BRANCH_NAME}.xml")
           }
         }
