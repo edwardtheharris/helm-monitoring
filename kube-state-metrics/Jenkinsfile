@@ -73,7 +73,7 @@ stage("helm unittests") {
           ansiColor('css') {
             checkout scm
             echo("Run helm unittests for ${env.BRANCH_NAME}")
-            sh("helm unittest . --color -always -u -f ${env.PROJECT_NAME}/tests/*.yaml")
+            sh("helm unittest . --color always -u -f ${env.PROJECT_NAME}/tests/*.yaml")
           }
         }
         container('helm') {
