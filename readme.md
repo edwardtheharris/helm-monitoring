@@ -11,14 +11,14 @@ date: 2024-08-17
 title: Readme
 ---
 
-<!--markdownlint-disable-->
-
 [![CodeQL](https://github.com/edwardtheharris/helm-template/actions/workflows/codeql.yml/badge.svg)](https://github.com/edwardtheharris/helm-template/actions/workflows/codeql.yml)
 [![Dependabot Updates](https://github.com/edwardtheharris/helm-template/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/edwardtheharris/helm-template/actions/workflows/dependabot/dependabot-updates)
 [![Documentation](https://github.com/edwardtheharris/helm-template/actions/workflows/documentation.yml/badge.svg)](https://github.com/edwardtheharris/helm-template/actions/workflows/documentation.yml)
 [![OSSAR](https://github.com/edwardtheharris/helm-template/actions/workflows/ossar.yml/badge.svg)](https://github.com/edwardtheharris/helm-template/actions/workflows/ossar.yml)
 [![Test Helm Chart](https://github.com/edwardtheharris/helm-template/actions/workflows/helm.yml/badge.svg)](https://github.com/edwardtheharris/helm-template/actions/workflows/helm.yml)
 [![wakatime](https://wakatime.com/badge/github/edwardtheharris/helm-template.svg)](https://wakatime.com/badge/github/edwardtheharris/helm-template)
+
+[![Hire me at Toptal](https://talent.toptal.com/portal/static/media/blue.6d7d54a7.png)](https://www.toptal.com/developers/resume/xander-harris#M5ok2o)
 
 Installs the [kube-prometheus stack](https://github.com/prometheus-operator/kube-prometheus),
 a collection of Kubernetes manifests, [Grafana](http://grafana.com/) dashboards,
@@ -31,8 +31,8 @@ See the [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus
 README for details about components, dashboards, and alerts.
 
 ```{note}
-This chart was formerly named `prometheus-operator` chart, now renamed to 
-more clearly reflect that it installs the `kube-prometheus` project stack, 
+This chart was formerly named `prometheus-operator` chart, now renamed to
+more clearly reflect that it installs the `kube-prometheus` project stack,
 within which Prometheus Operator is only one component.
 ```
 
@@ -910,8 +910,6 @@ helm show values prometheus-community/kube-prometheus-stack
 
 You may also `helm show values` on this chart's [dependencies](#dependencies) for additional options.
 
-(multiple-releases)=
-
 ### Multiple releases
 
 The same chart can be used to run multiple Prometheus instances in the same cluster if required. To achieve this, it is necessary to run only one instance of prometheus-operator and a pair of alertmanager pods for an HA configuration, while all other components need to be disabled. To disable a dependency during installation, set `kubeStateMetrics.enabled`, `nodeExporter.enabled` and `grafana.enabled` to `false`.
@@ -948,6 +946,10 @@ You can enable automatic self-signed TLS certificate provisioning via cert-manag
 ### Limitations
 
 Because the operator can only run as a single pod, there is potential for this component failure to cause rule deployment failure. Because this risk is outweighed by the benefit of having validation, the feature is enabled by default.
+
+## Developing Prometheus Rules and Grafana Dashboards
+
+This chart Grafana Dashboards and Prometheus Rules are just a copy from [prometheus-operator/prometheus-operator](https://github.com/prometheus-operator/prometheus-operator) and other sources, synced (with alterations) by scripts in [hack](hack) folder. In order to introduce any changes you need to first [add them to the original repository](https://github.com/prometheus-operator/kube-prometheus/blob/main/docs/customizations/developing-prometheus-rules-and-grafana-dashboards.md) and then sync there by scripts.
 
 ## Further Information
 
