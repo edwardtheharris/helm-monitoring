@@ -1308,8 +1308,7 @@ extraScrapeConfigs: |
           - thw02.breeze-blocks.net:9091
           - thw03.breeze-blocks.net:9091
           - thw04.breeze-blocks.net:9091
-          - >-
-            thw05.breeze-blocks.net:9091
+          - thw05.breeze-blocks.net:9091
           - >-
             whac.breeze-blocks.net:9091
   - job_name: 'thw-blackbox-exporter'
@@ -1318,12 +1317,22 @@ extraScrapeConfigs: |
       module: [http_2xx,http_3xx,http_4xx,http_5xx]
     static_configs:
       - targets:
-          - http://thw-bb.breeze-blocks.net:9115
+          - thw-bb.breeze-blocks.net:9115
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
+  - job_name: 'gluster-exporter'
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - thw00.breeze-blocks.net:9713
+          - thw01.breeze-blocks.net:9713
+          - thw02.breeze-blocks.net:9713
+          - thw03.breeze-blocks.net:9713
+          - thw04.breeze-blocks.net:9713
+          - thw05.breeze-blocks.net:9713
 
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts
