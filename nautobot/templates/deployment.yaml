@@ -300,7 +300,7 @@ spec:
                   name: nautobot-postgres
                   key: port
             - name: NAUTOBOT_DB_TIMEOUT
-              value: {{ .Values.database.timeout | quote }}
+              value: {{ .Values.db.timeout | quote }}
             - name: NAUTOBOT_DB_USER
               valueFrom:
                 secretKeyRef:
