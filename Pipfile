@@ -10,6 +10,7 @@ sphinx-autobuild = "*"
 pipenv = "*"
 sphinx-copybutton = "*"
 sphinxcontrib-autoyaml = "*"
+commitizen = "*"
 
 [dev-packages]
 myst-parser = {extras = ["linkify"], version = "*"}
