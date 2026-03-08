@@ -1260,11 +1260,6 @@ extraScrapeConfigs: |
     static_configs:
     - targets:
       - prometheus-prometheus-postgres-exporter-66475bbdcb-8pkbq.monitoring.svc.cluster.local:9187
-  - job_name: redis-exporter
-    honor_labels: true
-    static_configs:
-    - targets:
-      - redis-exporter-prometheus-redis-exporter-65584c7c79-5k5nw.database.svc.cluster.local:9121
   - job_name: node-exporter
     honor_labels: true
     relabel_configs:
@@ -1299,7 +1294,6 @@ extraScrapeConfigs: |
           - thw02.breeze-blocks.net:9100
           - thw03.breeze-blocks.net:9100
           - thw04.breeze-blocks.net:9100
-          - thw05.breeze-blocks.net:9100
           - whac.breeze-blocks.net:9100
   - job_name: glances-exporter
     static_configs:
@@ -1322,16 +1316,15 @@ extraScrapeConfigs: |
           - thw02.breeze-blocks.net:9091
           - thw03.breeze-blocks.net:9091
           - thw04.breeze-blocks.net:9091
-          - thw05.breeze-blocks.net:9091
           - whac.breeze-blocks.net:9091
   - job_name: 'jellyfin-exporter'
     honor_labels: true
     metrics_path: /metrics
     static_configs:
       - targets:
-        - media.breeze-blocks.net
-        - music.breeze-blocks.net
-        - media.backup.breeze-blocks.net
+        - http://media.breeze-blocks.net:8096
+        - http://music.breeze-blocks.net:8097
+        - http://media.backup.breeze-blocks.net:8096
     relabel_configs:
       - action: labelkeep
         regex: (.+)
@@ -1347,18 +1340,15 @@ extraScrapeConfigs: |
         source_labels:
           - "__address__"
         target_label: hostname
-  - job_name: 'cms-blackbox-exporter'
-    metrics_path: /probe
-    params:
-      module: [http_2xx,http_3xx,http_4xx,http_5xx]
+  - job_name: systemd-exporter
+    honor_labels: true
     static_configs:
       - targets:
-          - cms-bb.breeze-blocks.net:9115
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: instance
+          - http://backup.breeze-blocks.net:9558
+          - http://marius.breeze-blocks.net:9558
+          - http://media.breeze-blocks.net:9558
+          - http://sulla-felix.breeze-blocks.net:9558
+          - http://whac.breeze-blocks.net:9558
 
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts
