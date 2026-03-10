@@ -7,9 +7,10 @@ name = "pypi"
 loguru = "*"
 gitpython = "*"
 sphinx-autobuild = "*"
-pipenv = "*"
 sphinx-copybutton = "*"
 sphinxcontrib-autoyaml = "*"
+pipenv = "*"
+version-query = "*"
 
 [dev-packages]
 myst-parser = {extras = ["linkify"], version = "*"}
