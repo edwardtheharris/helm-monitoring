@@ -18,6 +18,8 @@ loki:
     enabled: true
   ruler:
     enable_api: true
+  server:
+    http_listen_port: 3100
   storage:
     type: csi-lvm-linear
     bucketNames:

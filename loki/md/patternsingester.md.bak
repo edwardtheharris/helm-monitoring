@@ -1,5 +1,5 @@
 
-patternIngester	object	Configuration for the pattern ingester
+patternIngester object Configuration for the pattern ingester
 
 {
   "affinity": {
@@ -80,171 +80,171 @@ patternIngester	object	Configuration for the pattern ingester
   "topologySpreadConstraints": []
 }
 
-patternIngester.affinity	object	Affinity for pattern ingester pods. The value will be passed through tpl.
+patternIngester.affinity object Affinity for pattern ingester pods. The value will be passed through tpl.
 
 Hard node anti-affinity
 
-patternIngester.appProtocol	object	Set the optional grpc service protocol. Ex: "grpc", "http2" or "https"
+patternIngester.appProtocol object Set the optional grpc service protocol. Ex: "grpc", "http2" or "https"
 
 {
   "grpc": ""
 }
 
-patternIngester.command	string	Command to execute instead of defined in Docker image
+patternIngester.command string Command to execute instead of defined in Docker image
 
 null
 
-patternIngester.dnsConfig	object	DNSConfig for pattern ingester pods
+patternIngester.dnsConfig object DNSConfig for pattern ingester pods
 
 {}
 
-patternIngester.extraArgs	list	Additional CLI args for the pattern ingester
+patternIngester.extraArgs list Additional CLI args for the pattern ingester
 
 []
 
-patternIngester.extraContainers	list	Containers to add to the pattern ingester pods
+patternIngester.extraContainers list Containers to add to the pattern ingester pods
 
 []
 
-patternIngester.extraEnv	list	Environment variables to add to the pattern ingester pods
+patternIngester.extraEnv list Environment variables to add to the pattern ingester pods
 
 []
 
-patternIngester.extraEnvFrom	list	Environment variables from secrets or configmaps to add to the pattern ingester pods
+patternIngester.extraEnvFrom list Environment variables from secrets or configmaps to add to the pattern ingester pods
 
 []
 
-patternIngester.extraVolumeMounts	list	Volume mounts to add to the pattern ingester pods
+patternIngester.extraVolumeMounts list Volume mounts to add to the pattern ingester pods
 
 []
-patternIngester.extraVolumes	list	Volumes to add to the pattern ingester pods
-
-[]
-
-patternIngester.hostAliases	list	hostAliases to add
+patternIngester.extraVolumes list Volumes to add to the pattern ingester pods
 
 []
 
-patternIngester.hostUsers	string	Use the host's user namespace in the pattern ingester
+patternIngester.hostAliases list hostAliases to add
+
+[]
+
+patternIngester.hostUsers string Use the host's user namespace in the pattern ingester
 
 "nil"
 
-patternIngester.image.registry	string	The Docker registry for the pattern ingester image. Overrides `loki.image.registry`
+patternIngester.image.registry string The Docker registry for the pattern ingester image. Overrides `loki.image.registry`
 
 null
 
-patternIngester.image.repository	string	Docker image repository for the pattern ingester image. Overrides `loki.image.repository`
+patternIngester.image.repository string Docker image repository for the pattern ingester image. Overrides `loki.image.repository`
 
 null
 
-patternIngester.image.tag	string	Docker image tag for the pattern ingester image. Overrides `loki.image.tag`
+patternIngester.image.tag string Docker image tag for the pattern ingester image. Overrides `loki.image.tag`
 
 null
 
-patternIngester.initContainers	list	Init containers to add to the pattern ingester pods
+patternIngester.initContainers list Init containers to add to the pattern ingester pods
 
 []
 
-patternIngester.livenessProbe	object	liveness probe settings for ingester pods. If empty use `loki.livenessProbe`
+patternIngester.livenessProbe object liveness probe settings for ingester pods. If empty use `loki.livenessProbe`
 
 {}
 
-patternIngester.maxUnavailable	string	Pod Disruption Budget maxUnavailable
+patternIngester.maxUnavailable string Pod Disruption Budget maxUnavailable
 
 null
 
-patternIngester.nodeSelector	object	Node selector for pattern ingester pods
+patternIngester.nodeSelector object Node selector for pattern ingester pods
 
 {}
 
-patternIngester.persistence.claims	list	List of the pattern ingester PVCs
+patternIngester.persistence.claims list List of the pattern ingester PVCs
 
-patternIngester.persistence.claims[0].accessModes	list	Set access modes on the PersistentVolumeClaim
+patternIngester.persistence.claims[0].accessModes list Set access modes on the PersistentVolumeClaim
 
 [
   "ReadWriteOnce"
 ]
 
-patternIngester.persistence.claims[0].annotations	object	Annotations for pattern ingester PVCs
+patternIngester.persistence.claims[0].annotations object Annotations for pattern ingester PVCs
 
 {}
 
-patternIngester.persistence.claims[0].labels	object	Labels for pattern ingester PVCs
+patternIngester.persistence.claims[0].labels object Labels for pattern ingester PVCs
 
 {}
 
-patternIngester.persistence.enableStatefulSetAutoDeletePVC	bool	Enable StatefulSetAutoDeletePVC feature
+patternIngester.persistence.enableStatefulSetAutoDeletePVC bool Enable StatefulSetAutoDeletePVC feature
 
 false
 
-patternIngester.persistence.enabled	bool	Enable creating PVCs for the pattern ingester
+patternIngester.persistence.enabled bool Enable creating PVCs for the pattern ingester
 
 false
 
-patternIngester.persistence.size	string	Size of persistent disk
+patternIngester.persistence.size string Size of persistent disk
 
 "10Gi"
 
-patternIngester.persistence.storageClass	string	Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
+patternIngester.persistence.storageClass string Storage class to be used. If defined, storageClassName: . If set to "-", storageClassName: "", which disables dynamic provisioning. If empty or set to null, no storageClassName spec is set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
 
 null
 
-patternIngester.podAnnotations	object	Annotations for pattern ingester pods
+patternIngester.podAnnotations object Annotations for pattern ingester pods
 
 {}
 
-patternIngester.podLabels	object	Labels for pattern ingester pods
+patternIngester.podLabels object Labels for pattern ingester pods
 
 {}
 
-patternIngester.priorityClassName	string	The name of the PriorityClass for pattern ingester pods
+patternIngester.priorityClassName string The name of the PriorityClass for pattern ingester pods
 
 null
 
-patternIngester.readinessProbe	object	readiness probe settings for ingester pods. If empty, use `loki.readinessProbe`
+patternIngester.readinessProbe object readiness probe settings for ingester pods. If empty, use `loki.readinessProbe`
 
 {}
 
-patternIngester.replicas	int	Number of replicas for the pattern ingester
+patternIngester.replicas int Number of replicas for the pattern ingester
 
 0
 
-patternIngester.resources	object	Resource requests and limits for the pattern ingester
+patternIngester.resources object Resource requests and limits for the pattern ingester
 
 {}
 
-patternIngester.serviceAccount.annotations	object	Annotations for the pattern ingester service account
+patternIngester.serviceAccount.annotations object Annotations for the pattern ingester service account
 
 {}
 
-patternIngester.serviceAccount.automountServiceAccountToken	bool	Set this toggle to false to opt out of automounting API credentials for the service account
+patternIngester.serviceAccount.automountServiceAccountToken bool Set this toggle to false to opt out of automounting API credentials for the service account
 
 true
 
-patternIngester.serviceAccount.imagePullSecrets	list	Image pull secrets for the pattern ingester service account
+patternIngester.serviceAccount.imagePullSecrets list Image pull secrets for the pattern ingester service account
 
 []
 
-patternIngester.serviceAccount.name	string	The name of the ServiceAccount to use for the pattern ingester. If not set and create is true, a name is generated by appending "-pattern-ingester" to the common ServiceAccount.
+patternIngester.serviceAccount.name string The name of the ServiceAccount to use for the pattern ingester. If not set and create is true, a name is generated by appending "-pattern-ingester" to the common ServiceAccount.
 
 null
 
-patternIngester.serviceAnnotations	object	Annotations for pattern ingester service
+patternIngester.serviceAnnotations object Annotations for pattern ingester service
 
 {}
 
-patternIngester.serviceLabels	object	Labels for pattern ingester service
+patternIngester.serviceLabels object Labels for pattern ingester service
 
 {}
 
-patternIngester.terminationGracePeriodSeconds	int	Grace period to allow the pattern ingester to shutdown before it is killed
+patternIngester.terminationGracePeriodSeconds int Grace period to allow the pattern ingester to shutdown before it is killed
 
 30
 
-patternIngester.tolerations	list	Tolerations for pattern ingester pods
+patternIngester.tolerations list Tolerations for pattern ingester pods
 
 []
 
-patternIngester.topologySpreadConstraints	list	Topology Spread Constraints for pattern ingester pods The value will be passed through tpl.
+patternIngester.topologySpreadConstraints list Topology Spread Constraints for pattern ingester pods The value will be passed through tpl.
 
 []

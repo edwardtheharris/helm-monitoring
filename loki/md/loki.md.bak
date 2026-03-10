@@ -1,26 +1,25 @@
 
-
-kubeVersionOverride	string	Overrides the version used to determine compatibility of resources with the target Kubernetes cluster. This is useful when using `helm template`, because then helm will use the client version of kubectl as the Kubernetes version, which may or may not match your cluster's server version. Example: 'v1.24.4'. Set to null to use the version that helm devises.
+kubeVersionOverride string Overrides the version used to determine compatibility of resources with the target Kubernetes cluster. This is useful when using `helm template`, because then helm will use the client version of kubectl as the Kubernetes version, which may or may not match your cluster's server version. Example: 'v1.24.4'. Set to null to use the version that helm devises.
 
 null
 
-loki	object	Configuration for running Loki
+loki object Configuration for running Loki
 
 See values.yaml
 
-loki.analytics	object	Optional analytics configuration
+loki.analytics object Optional analytics configuration
 
 {}
 
-loki.annotations	object	Common annotations for all deployments/StatefulSets
+loki.annotations object Common annotations for all deployments/StatefulSets
 
 {}
 
-loki.block_builder	object	Optional block builder configuration
+loki.block_builder object Optional block builder configuration
 
 {}
 
-loki.commonConfig	object	Check https://grafana.com/docs/loki/latest/configuration/#common_config for more info on how to provide a common configuration
+loki.commonConfig object Check <https://grafana.com/docs/loki/latest/configuration/#common_config> for more info on how to provide a common configuration
 
 {
   "compactor_grpc_address": "{{ include \"loki.compactorAddress\" . }}",
@@ -28,31 +27,31 @@ loki.commonConfig	object	Check https://grafana.com/docs/loki/latest/configuratio
   "replication_factor": 3
 }
 
-loki.commonConfig.compactor_grpc_address	string	The gRPC address of the compactor. The use of compactor_grpc_address is prefered over compactor_address. If a customized compactor_address is set, compactor_grpc_address should be set to an empty string.
+loki.commonConfig.compactor_grpc_address string The gRPC address of the compactor. The use of compactor_grpc_address is prefered over compactor_address. If a customized compactor_address is set, compactor_grpc_address should be set to an empty string.
 
 "{{ include \"loki.compactorAddress\" . }}"
 
-loki.compactor	object	Optional compactor configuration
+loki.compactor object Optional compactor configuration
 
 {}
 
-loki.compactor_grpc_client	object	Optional compactor grpc client configuration
+loki.compactor_grpc_client object Optional compactor grpc client configuration
 
 {}
 
-loki.config	string	Config file contents for Loki
+loki.config string Config file contents for Loki
 
 See values.yaml
 
-loki.configObjectName	string	The name of the object which Loki will mount as a volume containing the config. If the configStorageType is Secret, this will be the name of the Secret, if it is ConfigMap, this will be the name of the ConfigMap. The value will be passed through tpl.
+loki.configObjectName string The name of the object which Loki will mount as a volume containing the config. If the configStorageType is Secret, this will be the name of the Secret, if it is ConfigMap, this will be the name of the ConfigMap. The value will be passed through tpl.
 
 "{{ include \"loki.name\" . }}"
 
-loki.configStorageType	string	Defines what kind of object stores the configuration, a ConfigMap or a Secret. In order to move sensitive information (such as credentials) from the ConfigMap/Secret to a more secure location (e.g. vault), it is possible to use [environment variables in the configuration](https://grafana.com/docs/loki/latest/configuration/#use-environment-variables-in-the-configuration). Such environment variables can be then stored in a separate Secret and injected via the global.extraEnvFrom value. For details about environment injection from a Secret please see [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/#use-case-as-container-environment-variables).
+loki.configStorageType string Defines what kind of object stores the configuration, a ConfigMap or a Secret. In order to move sensitive information (such as credentials) from the ConfigMap/Secret to a more secure location (e.g. vault), it is possible to use [environment variables in the configuration](https://grafana.com/docs/loki/latest/configuration/#use-environment-variables-in-the-configuration). Such environment variables can be then stored in a separate Secret and injected via the global.extraEnvFrom value. For details about environment injection from a Secret please see [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/#use-case-as-container-environment-variables).
 
 "ConfigMap"
 
-loki.containerSecurityContext	object	The SecurityContext for Loki containers
+loki.containerSecurityContext object The SecurityContext for Loki containers
 
 {
   "allowPrivilegeEscalation": false,
@@ -64,61 +63,61 @@ loki.containerSecurityContext	object	The SecurityContext for Loki containers
   "readOnlyRootFilesystem": true
 }
 
-loki.distributor	object	Optional distributor configuration
+loki.distributor object Optional distributor configuration
 
 {}
 
-loki.dnsConfig	object	DNS config for Loki pods
+loki.dnsConfig object DNS config for Loki pods
 
 {}
 
-loki.enableServiceLinks	bool	Should enableServiceLinks be enabled. Default to enable
+loki.enableServiceLinks bool Should enableServiceLinks be enabled. Default to enable
 
 true
 
-loki.extraMemberlistConfig	object	Extra memberlist configuration
+loki.extraMemberlistConfig object Extra memberlist configuration
 
 {}
 
-loki.generatedConfigObjectName	string	The name of the Secret or ConfigMap that will be created by this chart. If empty, no configmap or secret will be created. The value will be passed through tpl.
+loki.generatedConfigObjectName string The name of the Secret or ConfigMap that will be created by this chart. If empty, no configmap or secret will be created. The value will be passed through tpl.
 
 "{{ include \"loki.name\" . }}"
 
-loki.image.digest	string	Overrides the image tag with an image digest
+loki.image.digest string Overrides the image tag with an image digest
 
 null
 
-loki.image.pullPolicy	string	Docker image pull policy
+loki.image.pullPolicy string Docker image pull policy
 
 "IfNotPresent"
 
-loki.image.registry	string	The Docker registry
+loki.image.registry string The Docker registry
 
 "docker.io"
 
-loki.image.repository	string	Docker image repository
+loki.image.repository string Docker image repository
 
 "grafana/loki"
 
-loki.image.tag	string	Overrides the image tag whose default is the chart's appVersion
+loki.image.tag string Overrides the image tag whose default is the chart's appVersion
 
 "3.5.5"
 
-loki.index_gateway	object	Optional index gateway configuration
+loki.index_gateway object Optional index gateway configuration
 
 {
   "mode": "simple"
 }
 
-loki.ingester	object	Optional ingester configuration
+loki.ingester object Optional ingester configuration
 
 {}
 
-loki.ingester_client	object	Optional ingester client configuration
+loki.ingester_client object Optional ingester client configuration
 
 {}
 
-loki.limits_config	object	Limits config
+loki.limits_config object Limits config
 
 {
   "max_cache_freshness_per_query": "10m",
@@ -129,29 +128,29 @@ loki.limits_config	object	Limits config
   "volume_enabled": true
 }
 
-loki.memberlistConfig	object	memberlist configuration (overrides embedded default)
+loki.memberlistConfig object memberlist configuration (overrides embedded default)
 
 {}
 
-loki.operational_config	object	Optional operational configuration
+loki.operational_config object Optional operational configuration
 
 {}
 
-loki.pattern_ingester	object	Optional pattern ingester configuration
+loki.pattern_ingester object Optional pattern ingester configuration
 
 {
   "enabled": false
 }
 
-loki.podAnnotations	object	Common annotations for all pods
+loki.podAnnotations object Common annotations for all pods
 
 {}
 
-loki.podLabels	object	Common labels for all pods
+loki.podLabels object Common labels for all pods
 
 {}
 
-loki.podSecurityContext	object	The SecurityContext for Loki pods
+loki.podSecurityContext object The SecurityContext for Loki pods
 
 {
   "fsGroup": 10001,
@@ -160,23 +159,23 @@ loki.podSecurityContext	object	The SecurityContext for Loki pods
   "runAsUser": 10001
 }
 
-loki.querier	object	Optional querier configuration
+loki.querier object Optional querier configuration
 
 {}
 
-loki.query_range	object	Optional querier configuration
+loki.query_range object Optional querier configuration
 
 {}
 
-loki.query_scheduler	object	Additional query scheduler config
+loki.query_scheduler object Additional query scheduler config
 
 {}
 
-loki.revisionHistoryLimit	int	The number of old ReplicaSets to retain to allow rollback
+loki.revisionHistoryLimit int The number of old ReplicaSets to retain to allow rollback
 
 10
 
-loki.rulerConfig	object	Check https://grafana.com/docs/loki/latest/configuration/#ruler for more info on configuring ruler
+loki.rulerConfig object Check <https://grafana.com/docs/loki/latest/configuration/#ruler> for more info on configuring ruler
 
 {
   "wal": {
@@ -184,15 +183,15 @@ loki.rulerConfig	object	Check https://grafana.com/docs/loki/latest/configuration
   }
 }
 
-loki.runtimeConfig	object	Provides a reloadable runtime configuration file for some specific configuration
+loki.runtimeConfig object Provides a reloadable runtime configuration file for some specific configuration
 
 {}
 
-loki.schemaConfig	object	Check https://grafana.com/docs/loki/latest/configuration/#schema_config for more info on how to configure schemas
+loki.schemaConfig object Check <https://grafana.com/docs/loki/latest/configuration/#schema_config> for more info on how to configure schemas
 
 {}
 
-loki.server	object	Check https://grafana.com/docs/loki/latest/configuration/#server for more info on the server configuration.
+loki.server object Check <https://grafana.com/docs/loki/latest/configuration/#server> for more info on the server configuration.
 
 {
   "grpc_listen_port": 9095,
@@ -201,16 +200,15 @@ loki.server	object	Check https://grafana.com/docs/loki/latest/configuration/#ser
   "http_server_write_timeout": "600s"
 }
 
-loki.serviceAnnotations	object	Common annotations for all services
+loki.serviceAnnotations object Common annotations for all services
 
 {}
 
-loki.serviceLabels	object	Common labels for all services
+loki.serviceLabels object Common labels for all services
 
 {}
 
-
-loki.storage	object	In case of using thanos storage, enable use_thanos_objstore and the configuration should be done inside the object_store section.
+loki.storage object In case of using thanos storage, enable use_thanos_objstore and the configuration should be done inside the object_store section.
 
 {
   "azure": {
@@ -292,11 +290,11 @@ loki.storage	object	In case of using thanos storage, enable use_thanos_objstore 
   "use_thanos_objstore": false
 }
 
-loki.storage.s3.backoff_config	object	Check https://grafana.com/docs/loki/latest/configure/#s3_storage_config for more info on how to provide a backoff_config
+loki.storage.s3.backoff_config object Check <https://grafana.com/docs/loki/latest/configure/#s3_storage_config> for more info on how to provide a backoff_config
 
 {}
 
-loki.storage_config	object	Additional storage config
+loki.storage_config object Additional storage config
 
 {
   "bloom_shipper": {
@@ -304,27 +302,26 @@ loki.storage_config	object	Additional storage config
   },
   "boltdb_shipper": {
 
-loki.tenants	list	Tenants list to be created on nginx htpasswd file, with name and password or passwordHash keys
+loki.tenants list Tenants list to be created on nginx htpasswd file, with name and password or passwordHash keys
 
 Example:
 
  tenants:
-   - name: "test-user-1"
+
+- name: "test-user-1"
      password: "test-password-1"
-   - name: "test-user-2"
+- name: "test-user-2"
      passwordHash: "$2y$10$7O40CaY1yz7fu9O24k2/u.ct/wELYHRBsn25v/7AyuQ8E8hrLqpva" # generated using `htpasswd -nbBC10 test-user-2 test-password-2`
-
-
 
 []
 
-loki.tracing	object	Enable tracing
+loki.tracing object Enable tracing
 
 {
   "enabled": false
 }
 
-loki.ui	object	Optional Loki UI: Provides access to a operators UI for Loki distributed. When enabled UI will be available at /ui/ of loki-gateway
+loki.ui object Optional Loki UI: Provides access to a operators UI for Loki distributed. When enabled UI will be available at /ui/ of loki-gateway
 
 {
   "enabled": false,
@@ -333,51 +330,51 @@ loki.ui	object	Optional Loki UI: Provides access to a operators UI for Loki dist
   }
 }
 
-loki.useTestSchema	bool	a real Loki install requires a proper schemaConfig defined above this, however for testing or playing around you can enable useTestSchema
+loki.useTestSchema bool a real Loki install requires a proper schemaConfig defined above this, however for testing or playing around you can enable useTestSchema
 
 false
 
-lokiCanary.affinity	object	Affinity for canary pods
+lokiCanary.affinity object Affinity for canary pods
 
 {}
 
-lokiCanary.annotations	object	Additional annotations for the `loki-canary` Daemonset
+lokiCanary.annotations object Additional annotations for the `loki-canary` Daemonset
 
 {}
 
-lokiCanary.dnsConfig	object	DNS config for canary pods
+lokiCanary.dnsConfig object DNS config for canary pods
 
 {}
 
-lokiCanary.enabled	bool
+lokiCanary.enabled bool
 
 true
 
-lokiCanary.extraArgs	list	Additional CLI arguments for the `loki-canary' command
+lokiCanary.extraArgs list Additional CLI arguments for the `loki-canary' command
 
 []
 
-lokiCanary.extraEnv	list	Environment variables to add to the canary pods
+lokiCanary.extraEnv list Environment variables to add to the canary pods
 
 []
 
-lokiCanary.extraEnvFrom	list	Environment variables from secrets or configmaps to add to the canary pods
+lokiCanary.extraEnvFrom list Environment variables from secrets or configmaps to add to the canary pods
 
 []
 
-lokiCanary.extraVolumeMounts	list	Volume mounts to add to the canary pods
+lokiCanary.extraVolumeMounts list Volume mounts to add to the canary pods
 
 []
 
-lokiCanary.extraVolumes	list	Volumes to add to the canary pods
+lokiCanary.extraVolumes list Volumes to add to the canary pods
 
 []
 
-lokiCanary.hostUsers	string	Use the host's user namespace in loki-canary pods
+lokiCanary.hostUsers string Use the host's user namespace in loki-canary pods
 
 "nil"
 
-lokiCanary.image	object	Image to use for loki canary
+lokiCanary.image object Image to use for loki canary
 
 {
   "digest": null,
@@ -387,39 +384,39 @@ lokiCanary.image	object	Image to use for loki canary
   "tag": null
 }
 
-lokiCanary.image.digest	string	Overrides the image tag with an image digest
+lokiCanary.image.digest string Overrides the image tag with an image digest
 
 null
 
-lokiCanary.image.pullPolicy	string	Docker image pull policy
+lokiCanary.image.pullPolicy string Docker image pull policy
 
 "IfNotPresent"
 
-lokiCanary.image.registry	string	The Docker registry
+lokiCanary.image.registry string The Docker registry
 
 "docker.io"
 
-lokiCanary.image.repository	string	Docker image repository
+lokiCanary.image.repository string Docker image repository
 
 "grafana/loki-canary"
 
-lokiCanary.image.tag	string	Overrides the image tag whose default is the chart's appVersion
+lokiCanary.image.tag string Overrides the image tag whose default is the chart's appVersion
 
 null
 
-lokiCanary.kind	string	The type of the loki canary k8s rollout. This can be a DaemonSet or Deployment.
+lokiCanary.kind string The type of the loki canary k8s rollout. This can be a DaemonSet or Deployment.
 
 "DaemonSet"
 
-lokiCanary.labelname	string	The name of the label to look for at loki when doing the checks.
+lokiCanary.labelname string The name of the label to look for at loki when doing the checks.
 
 "pod"
 
-lokiCanary.lokiurl	string	If set overwrites the default value set by loki.host helper function. Use this if gateway not enabled.
+lokiCanary.lokiurl string If set overwrites the default value set by loki.host helper function. Use this if gateway not enabled.
 
 null
 
-lokiCanary.nodeSelector	object	Node selector for canary pods
+lokiCanary.nodeSelector object Node selector for canary pods
 
     "index_gateway_client": {
       "server_address": "{{ include \"loki.indexGatewayAddress\" . }}"
@@ -437,44 +434,44 @@ lokiCanary.nodeSelector	object	Node selector for canary pods
   }
 }
 
-loki.structuredConfig	object	Structured loki configuration, takes precedence over `loki.config`, `loki.schemaConfig`, `loki.storageConfig`
+loki.structuredConfig object Structured loki configuration, takes precedence over `loki.config`, `loki.schemaConfig`, `loki.storageConfig`
 
 {}
 {}
 
-lokiCanary.podLabels	object	Additional labels for each `loki-canary` pod
+lokiCanary.podLabels object Additional labels for each `loki-canary` pod
 
 {}
 
-lokiCanary.priorityClassName	string	The name of the PriorityClass for loki-canary pods
+lokiCanary.priorityClassName string The name of the PriorityClass for loki-canary pods
 
 null
 
-lokiCanary.push	bool
+lokiCanary.push bool
 
 true
 
-lokiCanary.replicas	int	Replicas for `loki-canary` when using a Deployment
+lokiCanary.replicas int Replicas for `loki-canary` when using a Deployment
 
 1
 
-lokiCanary.resources	object	Resource requests and limits for the canary
+lokiCanary.resources object Resource requests and limits for the canary
 
 {}
 
-lokiCanary.service.annotations	object	Annotations for loki-canary Service
+lokiCanary.service.annotations object Annotations for loki-canary Service
 
 {}
 
-lokiCanary.service.labels	object	Additional labels for loki-canary Service
+lokiCanary.service.labels object Additional labels for loki-canary Service
 
 {}
 
-lokiCanary.tolerations	list	Tolerations for canary pods
+lokiCanary.tolerations list Tolerations for canary pods
 
 []
 
-lokiCanary.updateStrategy	object	Update strategy for the `loki-canary` Daemonset pods
+lokiCanary.updateStrategy object Update strategy for the `loki-canary` Daemonset pods
 
 {
   "rollingUpdate": {
