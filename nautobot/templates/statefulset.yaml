@@ -135,6 +135,8 @@ spec:
               mountPath: /etc/resolv.conf
               subPath: resolv.conf
         - name: scheduler
+          command: [ "/opt/nautobot/bin/nautobot-server"]
+          args: ["--config","/opt/nautobot/.nautobot/nautobot_config.py", "celery", "beat"]
           image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 5672
@@ -242,6 +244,8 @@ spec:
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
         - name: worker
+          command: [ "/opt/nautobot/bin/nautobot-server"]
+          args: ["--config","/opt/nautobot/.nautobot/nautobot_config.py", "celery", "worker"]
           image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: Always
           ports:
