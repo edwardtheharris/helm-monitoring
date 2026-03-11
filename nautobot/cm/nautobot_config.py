@@ -32,7 +32,7 @@ CACHES = {
             ),
         ),
         "LOCATION": os.environ.get(
-            "NAUTOBOT_REDIS_URL", "redis://redis.database.svc.cluster.local/0"
+            "NAUTOBOT_REDIS_URL", "redis://redis.breeze-blocks.net:6379/0"
         ),
         "TIMEOUT": 300,
         "OPTIONS": {
@@ -54,7 +54,7 @@ CACHES = {
 # Celery broker URL used to tell workers where queues are located
 #
 CELERY_BROKER_URL = os.environ.get(
-    "NAUTOBOT_REDIS_CELERY_URL", "redis://redis.database.svc.cluster.local/0"
+    "NAUTOBOT_REDIS_CELERY_URL", "redis://redis.breeze-blocks.net:6379/0"
 )
 
 # Optional configuration dict for Celery to use custom SSL certificates to connect to Redis.
