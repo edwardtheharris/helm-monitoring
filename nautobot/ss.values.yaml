@@ -67,7 +67,7 @@ config:
   allowed_hosts: "*"
   caches_backend: django_redis.cache.RedisCache
   scheduler:
-    location: "redis://redis.breeze-blocks.net:6379/0"
+    location: "redis://cms-redis.database.svc.cluster.local:6379/0"
     livenessProbe:
       exec:
         command:
@@ -89,7 +89,7 @@ config:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler
       tag: "0.0.8"
     name: scheduler-config
-    results: "redis://redis.breeze-blocks.net:6379/0"
+    results: "redis://cms-redis.database.svc.cluster.local:6379/0"
   worker:
     host: "192.168.5.25"
     livenessProbe:
@@ -113,7 +113,7 @@ config:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
       tag: "0.0.8"
     name: worker-config
-    results: "redis://redis.breeze-blocks.net:6379/0"
+    results: "redis://cms-redis.database.svc.cluster.local:6379/0"
     root: "/opt/nautobot"
   name: nautobot-config
   root: /opt/nautobot
