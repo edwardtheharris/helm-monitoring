@@ -3017,6 +3017,7 @@
 				}
 			],
 			"title": "Filesystem Space Available",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -3113,6 +3114,7 @@
 				}
 			],
 			"title": "Filesystem Used",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -3210,6 +3212,7 @@
 				}
 			],
 			"title": "Disk I/O Utilization",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -3375,6 +3378,7 @@
 				}
 			],
 			"title": "Pressure Stall Information",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -3472,7 +3476,7 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
 				"y": 92
@@ -3514,6 +3518,7 @@
 				}
 			],
 			"title": "Memory Committed",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -3578,7 +3583,7 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
 				"y": 92
@@ -3637,6 +3642,7 @@
 				}
 			],
 			"title": "Memory Writeback and Dirty",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -3701,10 +3707,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 102
+				"y": 104
 			},
 			"id": 131,
 			"options": {
@@ -3742,6 +3748,7 @@
 				}
 			],
 			"title": "Memory Slab",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -3803,13 +3810,38 @@
 					},
 					"unit": "bytes"
 				},
-				"overrides": []
+				"overrides": [
+					{
+						"__systemRef": "hideSeriesFrom",
+						"matcher": {
+							"id": "byNames",
+							"options": {
+								"mode": "exclude",
+								"names": [
+									"ShmemHugePages – Shared memory (shmem/tmpfs) allocated with HugePages"
+								],
+								"prefix": "All except:",
+								"readOnly": true
+							}
+						},
+						"properties": [
+							{
+								"id": "custom.hideFrom",
+								"value": {
+									"legend": false,
+									"tooltip": true,
+									"viz": true
+								}
+							}
+						]
+					}
+				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 102
+				"y": 104
 			},
 			"id": 138,
 			"options": {
@@ -3868,6 +3900,7 @@
 				}
 			],
 			"title": "Memory Shared and Mapped",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -3963,10 +3996,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 112
+				"y": 116
 			},
 			"id": 136,
 			"options": {
@@ -4005,6 +4038,7 @@
 				}
 			],
 			"title": "Memory LRU Active / Inactive (%)",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -4069,10 +4103,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 112
+				"y": 116
 			},
 			"id": 191,
 			"options": {
@@ -4129,6 +4163,7 @@
 				}
 			],
 			"title": "Memory LRU Active / Inactive Detail",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -4193,10 +4228,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 122
+				"y": 128
 			},
 			"id": 160,
 			"options": {
@@ -4246,6 +4281,7 @@
 				}
 			],
 			"title": "Memory Kernel / CPU / IO",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -4337,10 +4373,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 122
+				"y": 128
 			},
 			"id": 70,
 			"options": {
@@ -4387,6 +4423,7 @@
 				}
 			],
 			"title": "Memory Vmalloc",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -4451,10 +4488,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 132
+				"y": 140
 			},
 			"id": 129,
 			"options": {
@@ -4492,6 +4529,7 @@
 				}
 			],
 			"title": "Memory Anonymous",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -4572,10 +4610,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 132
+				"y": 140
 			},
 			"id": 137,
 			"options": {
@@ -4614,6 +4652,7 @@
 				}
 			],
 			"title": "Memory Unevictable and MLocked",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -4953,10 +4992,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 142
+				"y": 152
 			},
 			"id": 128,
 			"options": {
@@ -5005,6 +5044,7 @@
 				}
 			],
 			"title": "Memory DirectMap",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -5069,10 +5109,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 142
+				"y": 152
 			},
 			"id": 140,
 			"options": {
@@ -5128,6 +5168,7 @@
 				}
 			],
 			"title": "Memory HugePages",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -5136,7 +5177,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 152
+				"y": 164
 			},
 			"id": 267,
 			"panels": [],
@@ -5217,10 +5258,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 153
+				"y": 165
 			},
 			"id": 176,
 			"options": {
@@ -5258,6 +5299,7 @@
 				}
 			],
 			"title": "Memory Pages In / Out",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -5334,10 +5376,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 153
+				"y": 165
 			},
 			"id": 22,
 			"options": {
@@ -5375,6 +5417,7 @@
 				}
 			],
 			"title": "Memory Pages Swap In / Out",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -5473,10 +5516,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 163
+				"y": 177
 			},
 			"id": 175,
 			"options": {
@@ -5524,6 +5567,7 @@
 				}
 			],
 			"title": "Memory Page Faults",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -5604,10 +5648,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 163
+				"y": 177
 			},
 			"id": 307,
 			"options": {
@@ -5637,6 +5681,7 @@
 				}
 			],
 			"title": "OOM Killer",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -5645,7 +5690,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 173
+				"y": 189
 			},
 			"id": 293,
 			"panels": [],
@@ -5713,10 +5758,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 174
+				"y": 190
 			},
 			"id": 260,
 			"options": {
@@ -5766,6 +5811,7 @@
 				}
 			],
 			"title": "Time Synchronized Drift",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -5829,10 +5875,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 174
+				"y": 190
 			},
 			"id": 291,
 			"options": {
@@ -5862,6 +5908,7 @@
 				}
 			],
 			"title": "Time PLL Adjust",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -5925,10 +5972,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 184
+				"y": 202
 			},
 			"id": 168,
 			"options": {
@@ -5990,6 +6037,7 @@
 				}
 			],
 			"title": "Time Synchronized Status",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -6053,10 +6101,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 184
+				"y": 202
 			},
 			"id": 333,
 			"options": {
@@ -6096,6 +6144,7 @@
 				}
 			],
 			"title": "PPS Frequency / Stability",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -6159,10 +6208,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 194
+				"y": 214
 			},
 			"id": 334,
 			"options": {
@@ -6202,6 +6251,7 @@
 				}
 			],
 			"title": "PPS Time Accuracy",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -6269,10 +6319,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 194
+				"y": 214
 			},
 			"id": 335,
 			"options": {
@@ -6332,6 +6382,7 @@
 				}
 			],
 			"title": "PPS Sync Events",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -6340,7 +6391,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 204
+				"y": 226
 			},
 			"id": 312,
 			"panels": [],
@@ -6413,10 +6464,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 205
+				"y": 227
 			},
 			"id": 62,
 			"options": {
@@ -6454,12 +6505,13 @@
 				}
 			],
 			"title": "Processes Status",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
 			"datasource": {
 				"type": "prometheus",
-				"uid": "${ds_prometheus}"
+				"uid": "cfh4m99kk5lhcc"
 			},
 			"description": "Current number of processes in each state (e.g., running, sleeping, zombie). Requires --collector.processes to be enabled in node_exporter",
 			"fieldConfig": {
@@ -6603,10 +6655,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 205
+				"y": 227
 			},
 			"id": 315,
 			"options": {
@@ -6625,8 +6677,12 @@
 			"pluginVersion": "12.3.0",
 			"targets": [
 				{
+					"datasource": {
+						"type": "prometheus",
+						"uid": "cfh4m99kk5lhcc"
+					},
 					"editorMode": "code",
-					"expr": "node_processes_state{instance=\"$node\",job=\"$job\"}",
+					"expr": "",
 					"format": "time_series",
 					"interval": "",
 					"legendFormat": "{{ state }}",
@@ -6636,6 +6692,7 @@
 				}
 			],
 			"title": "Processes Detailed States",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -6700,10 +6757,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 215
+				"y": 239
 			},
 			"id": 148,
 			"options": {
@@ -6732,6 +6789,7 @@
 				}
 			],
 			"title": "Processes Forks",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -6812,10 +6870,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 215
+				"y": 239
 			},
 			"id": 305,
 			"options": {
@@ -6867,6 +6925,7 @@
 				}
 			],
 			"title": "CPU Saturation per Core",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -6961,7 +7020,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 0,
-				"y": 225
+				"y": 251
 			},
 			"id": 313,
 			"options": {
@@ -6981,7 +7040,7 @@
 			"targets": [
 				{
 					"editorMode": "code",
-					"expr": "node_processes_pids{instance=\"$node\",job=\"$job\"}",
+					"expr": "",
 					"format": "time_series",
 					"interval": "",
 					"legendFormat": "Number of PIDs",
@@ -7001,6 +7060,7 @@
 				}
 			],
 			"title": "PIDs Number and Limit",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -7092,10 +7152,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 225
+				"y": 251
 			},
 			"id": 314,
 			"options": {
@@ -7135,6 +7195,7 @@
 				}
 			],
 			"title": "Threads Number and Limit",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -7143,7 +7204,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 235
+				"y": 263
 			},
 			"id": 269,
 			"panels": [],
@@ -7212,10 +7273,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 236
+				"y": 264
 			},
 			"id": 8,
 			"options": {
@@ -7253,6 +7314,7 @@
 				}
 			],
 			"title": "Context Switches / Interrupts",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -7344,10 +7406,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 236
+				"y": 264
 			},
 			"id": 7,
 			"options": {
@@ -7403,6 +7465,7 @@
 				}
 			],
 			"title": "System Load",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -7527,10 +7590,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 246
+				"y": 276
 			},
 			"id": 321,
 			"options": {
@@ -7580,6 +7643,7 @@
 				}
 			],
 			"title": "CPU Frequency Scaling",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -7643,10 +7707,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 246
+				"y": 276
 			},
 			"id": 306,
 			"options": {
@@ -7676,6 +7740,7 @@
 				}
 			],
 			"title": "CPU Schedule Timeslices",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -7740,10 +7805,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 256
+				"y": 288
 			},
 			"id": 259,
 			"options": {
@@ -7773,6 +7838,7 @@
 				}
 			],
 			"title": "IRQ Detail",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -7864,10 +7930,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 256
+				"y": 288
 			},
 			"id": 151,
 			"options": {
@@ -7905,6 +7971,7 @@
 				}
 			],
 			"title": "Entropy",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -7913,7 +7980,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 266
+				"y": 300
 			},
 			"id": 304,
 			"panels": [],
@@ -8002,10 +8069,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 267
+				"y": 301
 			},
 			"id": 158,
 			"options": {
@@ -8072,6 +8139,7 @@
 				}
 			],
 			"title": "Hardware Temperature Monitor",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -8155,10 +8223,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 267
+				"y": 301
 			},
 			"id": 300,
 			"options": {
@@ -8188,6 +8256,7 @@
 				}
 			],
 			"title": "Cooling Device Utilization",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -8255,10 +8324,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 277
+				"y": 313
 			},
 			"id": 302,
 			"options": {
@@ -8288,6 +8357,7 @@
 				}
 			],
 			"title": "Power Supply",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -8352,10 +8422,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 277
+				"y": 313
 			},
 			"id": 325,
 			"options": {
@@ -8396,6 +8466,7 @@
 				}
 			],
 			"title": "Hardware Fan Speed",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -8404,7 +8475,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 287
+				"y": 325
 			},
 			"id": 296,
 			"panels": [],
@@ -8414,7 +8485,7 @@
 		{
 			"datasource": {
 				"type": "prometheus",
-				"uid": "${ds_prometheus}"
+				"uid": "cfh4m99kk5lhcc"
 			},
 			"description": "Current number of systemd units in each operational state, such as active, failed, inactive, or transitioning",
 			"fieldConfig": {
@@ -8548,10 +8619,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 288
+				"y": 326
 			},
 			"id": 298,
 			"options": {
@@ -8570,8 +8641,12 @@
 			"pluginVersion": "12.3.0",
 			"targets": [
 				{
+					"datasource": {
+						"type": "prometheus",
+						"uid": "cfh4m99kk5lhcc"
+					},
 					"editorMode": "code",
-					"expr": "node_systemd_units{instance=\"$node\",job=\"$job\",state=\"activating\"}",
+					"expr": "sum(systemd_unit_state{state=\"activating\",instance=\"$systemd_instance\"})",
 					"format": "time_series",
 					"interval": "",
 					"legendFormat": "Activating",
@@ -8581,7 +8656,7 @@
 				},
 				{
 					"editorMode": "code",
-					"expr": "node_systemd_units{instance=\"$node\",job=\"$job\",state=\"active\"}",
+					"expr": "sum(systemd_unit_state{state=\"active\",instance=\"$systemd_instance\"})",
 					"format": "time_series",
 					"interval": "",
 					"legendFormat": "Active",
@@ -8591,7 +8666,7 @@
 				},
 				{
 					"editorMode": "code",
-					"expr": "node_systemd_units{instance=\"$node\",job=\"$job\",state=\"deactivating\"}",
+					"expr": "sum(systemd_unit_state{state=\"deactivating\",instance=\"$systemd_instance\"})",
 					"format": "time_series",
 					"interval": "",
 					"legendFormat": "Deactivating",
@@ -8601,7 +8676,7 @@
 				},
 				{
 					"editorMode": "code",
-					"expr": "node_systemd_units{instance=\"$node\",job=\"$job\",state=\"failed\"}",
+					"expr": "sum(systemd_unit_state{state=\"failed\",instance=\"$systemd_instance\"})",
 					"format": "time_series",
 					"interval": "",
 					"legendFormat": "Failed",
@@ -8611,7 +8686,7 @@
 				},
 				{
 					"editorMode": "code",
-					"expr": "node_systemd_units{instance=\"$node\",job=\"$job\",state=\"inactive\"}",
+					"expr": "sum(systemd_unit_state{state=\"inactive\",instance=\"$systemd_instance\"})",
 					"format": "time_series",
 					"interval": "",
 					"legendFormat": "Inactive",
@@ -8621,12 +8696,13 @@
 				}
 			],
 			"title": "Systemd Units State",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
 			"datasource": {
 				"type": "prometheus",
-				"uid": "${ds_prometheus}"
+				"uid": "cfh4m99kk5lhcc"
 			},
 			"description": "Current number of active connections per systemd socket, as reported by the Node Exporter systemd collector",
 			"fieldConfig": {
@@ -8685,10 +8761,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 288
+				"y": 326
 			},
 			"id": 331,
 			"options": {
@@ -8707,8 +8783,12 @@
 			"pluginVersion": "12.3.0",
 			"targets": [
 				{
+					"datasource": {
+						"type": "prometheus",
+						"uid": "cfh4m99kk5lhcc"
+					},
 					"editorMode": "code",
-					"expr": "node_systemd_socket_current_connections{instance=\"$node\",job=\"$job\"}",
+					"expr": "systemd_socket_current_connections{instance=\"$systemd_instance\"}",
 					"format": "time_series",
 					"interval": "",
 					"legendFormat": "{{ name }}",
@@ -8718,6 +8798,7 @@
 				}
 			],
 			"title": "Systemd Sockets Current",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -8782,10 +8863,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 298
+				"y": 338
 			},
 			"id": 297,
 			"options": {
@@ -8805,7 +8886,7 @@
 			"targets": [
 				{
 					"editorMode": "code",
-					"expr": "irate(node_systemd_socket_accepted_connections_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+					"expr": "irate(systemd_socket_accepted_connections_total{instance=\"$systemd_instance\"}[$__rate_interval])",
 					"format": "time_series",
 					"interval": "",
 					"legendFormat": "{{ name }}",
@@ -8815,6 +8896,7 @@
 				}
 			],
 			"title": "Systemd Sockets Accepted",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -8879,10 +8961,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 298
+				"y": 338
 			},
 			"id": 332,
 			"options": {
@@ -8902,7 +8984,7 @@
 			"targets": [
 				{
 					"editorMode": "code",
-					"expr": "irate(node_systemd_socket_refused_connections_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+					"expr": "irate(systemd_socket_refused_connections_total{instance=\"$systemd_instance\"}[$__interval])",
 					"format": "time_series",
 					"interval": "",
 					"legendFormat": "{{ name }}",
@@ -8912,6 +8994,7 @@
 				}
 			],
 			"title": "Systemd Sockets Refused",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -8920,7 +9003,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 308
+				"y": 350
 			},
 			"id": 270,
 			"panels": [],
@@ -9016,10 +9099,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 309
+				"y": 351
 			},
 			"id": 9,
 			"options": {
@@ -9055,6 +9138,7 @@
 				}
 			],
 			"title": "Disk Read/Write IOps",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -9146,10 +9230,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 309
+				"y": 351
 			},
 			"id": 33,
 			"options": {
@@ -9189,6 +9273,7 @@
 				}
 			],
 			"title": "Disk Read/Write Data",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -9280,10 +9365,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 319
+				"y": 363
 			},
 			"id": 37,
 			"options": {
@@ -9321,6 +9406,7 @@
 				}
 			],
 			"title": "Disk Average Wait Time",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -9401,10 +9487,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 319
+				"y": 363
 			},
 			"id": 35,
 			"options": {
@@ -9433,6 +9519,7 @@
 				}
 			],
 			"title": "Average Queue Size",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -9524,10 +9611,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 329
+				"y": 375
 			},
 			"id": 133,
 			"options": {
@@ -9563,6 +9650,7 @@
 				}
 			],
 			"title": "Disk R/W Merged",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -9643,10 +9731,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 329
+				"y": 375
 			},
 			"id": 36,
 			"options": {
@@ -9693,6 +9781,7 @@
 				}
 			],
 			"title": "Time Spent Doing I/Os",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -9772,10 +9861,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 339
+				"y": 387
 			},
 			"id": 301,
 			"options": {
@@ -9822,6 +9911,7 @@
 				}
 			],
 			"title": "Disk Ops Discards / Flush",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -9901,10 +9991,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 339
+				"y": 387
 			},
 			"id": 326,
 			"options": {
@@ -9933,6 +10023,7 @@
 				}
 			],
 			"title": "Disk Sectors Discarded Successfully",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -10013,10 +10104,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 349
+				"y": 399
 			},
 			"id": 34,
 			"options": {
@@ -10045,6 +10136,7 @@
 				}
 			],
 			"title": "Instantaneous Queue Size",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -10053,7 +10145,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 359
+				"y": 411
 			},
 			"id": 271,
 			"panels": [],
@@ -10149,10 +10241,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 360
+				"y": 412
 			},
 			"id": 28,
 			"options": {
@@ -10190,6 +10282,7 @@
 				}
 			],
 			"title": "File Descriptor",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -10254,10 +10347,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 360
+				"y": 412
 			},
 			"id": 41,
 			"options": {
@@ -10286,6 +10379,7 @@
 				}
 			],
 			"title": "File Nodes Free",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -10351,10 +10445,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 370
+				"y": 424
 			},
 			"id": 44,
 			"options": {
@@ -10393,6 +10487,7 @@
 				}
 			],
 			"title": "Filesystem in ReadOnly / Error",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -10457,10 +10552,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 370
+				"y": 424
 			},
 			"id": 219,
 			"options": {
@@ -10489,6 +10584,7 @@
 				}
 			],
 			"title": "File Nodes Size",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -10497,7 +10593,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 380
+				"y": 436
 			},
 			"id": 272,
 			"panels": [],
@@ -10578,10 +10674,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 381
+				"y": 437
 			},
 			"id": 60,
 			"options": {
@@ -10622,6 +10718,7 @@
 				}
 			],
 			"title": "Network Traffic by Packets",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -10698,10 +10795,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 381
+				"y": 437
 			},
 			"id": 142,
 			"options": {
@@ -10740,6 +10837,7 @@
 				}
 			],
 			"title": "Network Traffic Errors",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -10816,10 +10914,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 391
+				"y": 449
 			},
 			"id": 143,
 			"options": {
@@ -10858,6 +10956,7 @@
 				}
 			],
 			"title": "Network Traffic Drop",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -10934,10 +11033,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 391
+				"y": 449
 			},
 			"id": 141,
 			"options": {
@@ -10976,6 +11075,7 @@
 				}
 			],
 			"title": "Network Traffic Compressed",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -11052,10 +11152,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 401
+				"y": 461
 			},
 			"id": 146,
 			"options": {
@@ -11085,6 +11185,7 @@
 				}
 			],
 			"title": "Network Traffic Multicast",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -11161,10 +11262,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 401
+				"y": 461
 			},
 			"id": 327,
 			"options": {
@@ -11194,6 +11295,7 @@
 				}
 			],
 			"title": "Network Traffic NoHandler",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -11270,10 +11372,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 411
+				"y": 473
 			},
 			"id": 145,
 			"options": {
@@ -11303,6 +11405,7 @@
 				}
 			],
 			"title": "Network Traffic Frame",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -11379,10 +11482,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 411
+				"y": 473
 			},
 			"id": 144,
 			"options": {
@@ -11421,6 +11524,7 @@
 				}
 			],
 			"title": "Network Traffic Fifo",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -11497,10 +11601,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 421
+				"y": 485
 			},
 			"id": 232,
 			"options": {
@@ -11530,6 +11634,7 @@
 				}
 			],
 			"title": "Network Traffic Collision",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -11593,10 +11698,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 421
+				"y": 485
 			},
 			"id": 231,
 			"options": {
@@ -11626,6 +11731,7 @@
 				}
 			],
 			"title": "Network Traffic Carrier Errors",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -11690,10 +11796,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 431
+				"y": 497
 			},
 			"id": 230,
 			"options": {
@@ -11722,6 +11828,7 @@
 				}
 			],
 			"title": "ARP Entries",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -11813,10 +11920,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 431
+				"y": 497
 			},
 			"id": 61,
 			"options": {
@@ -11854,6 +11961,7 @@
 				}
 			],
 			"title": "NF Conntrack",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -11917,10 +12025,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 441
+				"y": 509
 			},
 			"id": 309,
 			"options": {
@@ -11959,6 +12067,7 @@
 				}
 			],
 			"title": "Network Operational Status",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -11991,10 +12100,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 6,
 				"x": 12,
-				"y": 441
+				"y": 509
 			},
 			"id": 280,
 			"options": {
@@ -12032,6 +12141,7 @@
 				}
 			],
 			"title": "Speed",
+			"transparent": true,
 			"type": "bargauge"
 		},
 		{
@@ -12063,10 +12173,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 6,
 				"x": 18,
-				"y": 441
+				"y": 509
 			},
 			"id": 288,
 			"options": {
@@ -12104,6 +12214,7 @@
 				}
 			],
 			"title": "MTU",
+			"transparent": true,
 			"type": "bargauge"
 		},
 		{
@@ -12112,7 +12223,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 451
+				"y": 521
 			},
 			"id": 273,
 			"panels": [],
@@ -12184,7 +12295,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 0,
-				"y": 452
+				"y": 522
 			},
 			"id": 63,
 			"options": {
@@ -12312,7 +12423,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 12,
-				"y": 452
+				"y": 522
 			},
 			"id": 124,
 			"options": {
@@ -12420,7 +12531,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 0,
-				"y": 462
+				"y": 532
 			},
 			"id": 126,
 			"options": {
@@ -12518,7 +12629,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 12,
-				"y": 462
+				"y": 532
 			},
 			"id": 125,
 			"options": {
@@ -12626,7 +12737,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 0,
-				"y": 472
+				"y": 542
 			},
 			"id": 220,
 			"options": {
@@ -12742,7 +12853,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 12,
-				"y": 472
+				"y": 542
 			},
 			"id": 339,
 			"options": {
@@ -12850,7 +12961,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 0,
-				"y": 482
+				"y": 552
 			},
 			"id": 336,
 			"options": {
@@ -12970,7 +13081,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 12,
-				"y": 482
+				"y": 552
 			},
 			"id": 290,
 			"options": {
@@ -13081,7 +13192,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 0,
-				"y": 492
+				"y": 562
 			},
 			"id": 310,
 			"options": {
@@ -13198,7 +13309,7 @@
 				"h": 10,
 				"w": 12,
 				"x": 12,
-				"y": 492
+				"y": 562
 			},
 			"id": 330,
 			"options": {
@@ -13247,7 +13358,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 502
+				"y": 572
 			},
 			"id": 274,
 			"panels": [],
@@ -13328,10 +13439,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 503
+				"y": 573
 			},
 			"id": 221,
 			"options": {
@@ -13371,6 +13482,7 @@
 				}
 			],
 			"title": "Netstat IP In / Out Octets",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -13458,10 +13570,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 503
+				"y": 573
 			},
 			"id": 299,
 			"options": {
@@ -13501,6 +13613,7 @@
 				}
 			],
 			"title": "TCP In / Out",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -13577,10 +13690,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 513
+				"y": 585
 			},
 			"id": 55,
 			"options": {
@@ -13620,6 +13733,7 @@
 				}
 			],
 			"title": "UDP In / Out",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -13700,10 +13814,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 513
+				"y": 585
 			},
 			"id": 115,
 			"options": {
@@ -13711,7 +13825,9 @@
 					"calcs": ["min", "mean", "max"],
 					"displayMode": "table",
 					"placement": "bottom",
-					"showLegend": true
+					"showLegend": true,
+					"sortBy": "Name",
+					"sortDesc": false
 				},
 				"tooltip": {
 					"hideZeros": false,
@@ -13743,6 +13859,7 @@
 				}
 			],
 			"title": "ICMP In / Out",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -13807,10 +13924,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 523
+				"y": 597
 			},
 			"id": 104,
 			"options": {
@@ -13908,6 +14025,7 @@
 				}
 			],
 			"title": "TCP Errors",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -13975,10 +14093,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 523
+				"y": 597
 			},
 			"id": 109,
 			"options": {
@@ -14046,6 +14164,7 @@
 				}
 			],
 			"title": "UDP Errors",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -14122,10 +14241,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 533
+				"y": 609
 			},
 			"id": 50,
 			"options": {
@@ -14155,6 +14274,7 @@
 				}
 			],
 			"title": "ICMP Errors",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -14234,10 +14354,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 533
+				"y": 609
 			},
 			"id": 91,
 			"options": {
@@ -14287,6 +14407,7 @@
 				}
 			],
 			"title": "TCP SynCookie",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -14378,10 +14499,10 @@
 				]
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 543
+				"y": 621
 			},
 			"id": 85,
 			"options": {
@@ -14421,6 +14542,7 @@
 				}
 			],
 			"title": "TCP Connections",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -14484,10 +14606,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 543
+				"y": 621
 			},
 			"id": 337,
 			"options": {
@@ -14527,6 +14649,7 @@
 				}
 			],
 			"title": "UDP Queue",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -14591,10 +14714,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 553
+				"y": 633
 			},
 			"id": 82,
 			"options": {
@@ -14634,6 +14757,7 @@
 				}
 			],
 			"title": "TCP Direct Transition",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -14699,10 +14823,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 553
+				"y": 633
 			},
 			"id": 320,
 			"options": {
@@ -14772,6 +14896,7 @@
 				}
 			],
 			"title": "TCP Stat",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -14780,7 +14905,7 @@
 				"h": 1,
 				"w": 24,
 				"x": 0,
-				"y": 563
+				"y": 645
 			},
 			"id": 279,
 			"panels": [],
@@ -14852,10 +14977,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 0,
-				"y": 564
+				"y": 646
 			},
 			"id": 40,
 			"options": {
@@ -14885,6 +15010,7 @@
 				}
 			],
 			"title": "Node Exporter Scrape Time",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -14948,10 +15074,10 @@
 				"overrides": []
 			},
 			"gridPos": {
-				"h": 10,
+				"h": 12,
 				"w": 12,
 				"x": 12,
-				"y": 564
+				"y": 646
 			},
 			"id": 308,
 			"options": {
@@ -14981,6 +15107,7 @@
 				}
 			],
 			"title": "Exporter Process CPU Usage",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -15018,6 +15145,7 @@
 							"type": "linear"
 						},
 						"showPoints": "never",
+						"showValues": false,
 						"spanNulls": false,
 						"stacking": {
 							"group": "A",
@@ -15034,7 +15162,8 @@
 						"mode": "absolute",
 						"steps": [
 							{
-								"color": "green"
+								"color": "green",
+								"value": 0
 							}
 						]
 					},
@@ -15095,7 +15224,7 @@
 				"h": 10,
 				"w": 10,
 				"x": 0,
-				"y": 574
+				"y": 658
 			},
 			"id": 149,
 			"options": {
@@ -15111,7 +15240,7 @@
 					"sort": "none"
 				}
 			},
-			"pluginVersion": "11.6.1",
+			"pluginVersion": "12.3.0",
 			"targets": [
 				{
 					"editorMode": "code",
@@ -15133,6 +15262,7 @@
 				}
 			],
 			"title": "Exporter Processes Memory",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -15170,6 +15300,7 @@
 							"type": "linear"
 						},
 						"showPoints": "never",
+						"showValues": false,
 						"spanNulls": false,
 						"stacking": {
 							"group": "A",
@@ -15186,7 +15317,8 @@
 						"mode": "absolute",
 						"steps": [
 							{
-								"color": "green"
+								"color": "green",
+								"value": 0
 							}
 						]
 					},
@@ -15247,7 +15379,7 @@
 				"h": 10,
 				"w": 10,
 				"x": 10,
-				"y": 574
+				"y": 658
 			},
 			"id": 64,
 			"options": {
@@ -15263,7 +15395,7 @@
 					"sort": "none"
 				}
 			},
-			"pluginVersion": "11.6.1",
+			"pluginVersion": "12.3.0",
 			"targets": [
 				{
 					"editorMode": "code",
@@ -15285,6 +15417,7 @@
 				}
 			],
 			"title": "Exporter File Descriptor Usage",
+			"transparent": true,
 			"type": "timeseries"
 		},
 		{
@@ -15304,7 +15437,8 @@
 						"mode": "absolute",
 						"steps": [
 							{
-								"color": "green"
+								"color": "green",
+								"value": 0
 							},
 							{
 								"color": "dark-red",
@@ -15324,7 +15458,7 @@
 				"h": 10,
 				"w": 4,
 				"x": 20,
-				"y": 574
+				"y": 658
 			},
 			"id": 157,
 			"options": {
@@ -15349,7 +15483,7 @@
 				"sizing": "auto",
 				"valueMode": "color"
 			},
-			"pluginVersion": "11.6.1",
+			"pluginVersion": "12.3.0",
 			"targets": [
 				{
 					"editorMode": "code",
@@ -15373,6 +15507,7 @@
 				}
 			],
 			"title": "Node Exporter Scrape",
+			"transparent": true,
 			"type": "bargauge"
 		}
 	],
@@ -15464,16 +15599,36 @@
 				"regex": "",
 				"sort": 1,
 				"type": "query"
+			},
+			{
+				"current": {
+					"text": "media.breeze-blocks.net:9558",
+					"value": "media.breeze-blocks.net:9558"
+				},
+				"definition": "label_values(systemd_unit_start_time_seconds,instance)",
+				"description": "",
+				"label": "systemd_instance",
+				"name": "systemd_instance",
+				"options": [],
+				"query": {
+					"qryType": 1,
+					"query": "label_values(systemd_unit_start_time_seconds,instance)",
+					"refId": "PrometheusVariableQueryEditor-VariableQuery"
+				},
+				"refresh": 1,
+				"regex": "",
+				"sort": 1,
+				"type": "query"
 			}
 		]
 	},
 	"time": {
-		"from": "now-24h",
+		"from": "now-30m",
 		"to": "now"
 	},
 	"timepicker": {},
 	"timezone": "browser",
 	"title": "Node Exporter Full",
 	"uid": "rYdddlPWk",
-	"version": 15
+	"version": 63
 }
