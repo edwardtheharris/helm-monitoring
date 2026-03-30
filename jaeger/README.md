@@ -1,5 +1,7 @@
 # Jaeger Helm Chart
 
+<!--markdownlint-disable-->
+
 > ⚠️ **Experimental**: This chart is under active development with no stability guarantees. Breaking changes may occur in minor versions.
 
 [Jaeger](https://www.jaegertracing.io/) is a distributed tracing system. This chart deploys Jaeger v2 using a unified "All-In-One" architecture built on the OpenTelemetry Collector framework.
