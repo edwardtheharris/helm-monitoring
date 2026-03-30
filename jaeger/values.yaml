@@ -4,100 +4,104 @@
 
 # User provided ui config: see https://www.jaegertracing.io/docs/latest/deployment/frontend-ui/#configuration for more examples and settings
 uiconfig:
-  # {
-  #   "dependencies": {
-  #     "dagMaxNumServices": 200,
-  #     "menuEnabled": true
-  #   },
-  #   "monitor": {
-  #     "menuEnabled": true
-  #   },
-  #   "themes": {
-  #     "enabled": true
-  #   },
-  #   "archiveEnabled": true,
-  #   "tracking": {
-  #     "gaID": "UA-000000-2",
-  #     "trackErrors": true
-  #   },
-  #   "menu": [
-  #     {
-  #       "label": "About Jaeger",
-  #       "items": [
-  #         {
-  #           "label": "GitHub",
-  #           "url": "https://github.com/jaegertracing/jaeger"
-  #         },
-  #         {
-  #           "label": "Docs",
-  #           "url": "https://www.jaegertracing.io/docs/latest/"
-  #         }
-  #       ]
-  #     }
-  #   ],
-  #   "search": {
-  #     "maxLookback": {
-  #       "label": "2 Days",
-  #       "value": "2d"
-  #     },
-  #     "maxLimit": 1500
-  #   },
-  #   "linkPatterns": [{
-  #     "type": "process",
-  #     "key": "jaeger.version",
-  #     "url": "https://github.com/jaegertracing/jaeger-client-java/releases/tag/#{jaeger.version}",
-  #     "text": "Information about Jaeger release #{jaeger.version}"
-  #   },
-  #   {
-  #     "type": "tags",
-  #     "key": "uniqueId",
-  #     "url": "https://mykibana.com/uniqueId=#{uniqueId}&traceId=#{trace.traceID}",
-  #     "text": "Redirect to kibana to view log"
-  #   },
-  #   {
-  #     "type": "traces",
-  #     "url": "https://my-logs.server?from=#{startTime | add -60000000 | epoch_micros_to_date_iso}&to=#{endTime | add 60000000 | epoch_micros_to_date_iso}'",
-  #     "text": "Redirect to kibana to view log with formatted dates"
-  #   }],
-  #   "traceIdDisplayLength": 20,
-  #   "criticalPathEnabled": true,
-  #   "topTagPrefixes": ["http.", "db."]
-  # }
+  {
+    "dependencies": { "dagMaxNumServices": 200, "menuEnabled": true },
+    "monitor": { "menuEnabled": true },
+    "themes": { "enabled": true },
+    "archiveEnabled": true,
+    "tracking": { "gaID": "UA-000000-2", "trackErrors": true },
+    "menu":
+      [
+        {
+          "label": "About Jaeger",
+          "items":
+            [
+              {
+                "label": "GitHub",
+                "url": "https://github.com/jaegertracing/jaeger",
+              },
+              {
+                "label": "Docs",
+                "url": "https://www.jaegertracing.io/docs/latest/",
+              },
+            ],
+        },
+      ],
+    "search":
+      { "maxLookback": { "label": "2 Days", "value": "2d" }, "maxLimit": 1500 },
+    "linkPatterns":
+      [
+        {
+          "type": "process",
+          "key": "jaeger.version",
+          "url": "https://github.com/jaegertracing/jaeger-client-java/releases/tag/#{jaeger.version}",
+          "text": "Information about Jaeger release #{jaeger.version}",
+        },
+        {
+          "type": "tags",
+          "key": "uniqueId",
+          "url": "https://mykibana.com/uniqueId=#{uniqueId}&traceId=#{trace.traceID}",
+          "text": "Redirect to kibana to view log",
+        },
+        {
+          "type": "traces",
+          "url": "https://my-logs.server?from=#{startTime | add -60000000 | epoch_micros_to_date_iso}&to=#{endTime | add 60000000 | epoch_micros_to_date_iso}'",
+          "text": "Redirect to kibana to view log with formatted dates",
+        },
+      ],
+    "traceIdDisplayLength": 20,
+    "criticalPathEnabled": true,
+    "topTagPrefixes": ["http.", "db."],
+  }
 
 # User provided config to override the config completely
 # There are several examples at https://github.com/jaegertracing/jaeger/tree/main/cmd/jaeger
 userconfig:
-  # service:
-  #   extensions: [jaeger_storage, jaeger_query, healthcheckv2]
-  #   pipelines:
-  #     traces:
-  #       receivers: [otlp]
-  #       #processors: [batch]
-  #       exporters: [jaeger_storage_exporter]
-  #   telemetry:
-  #     resource:
-  #       service.name: jaeger
-  #     metrics:
-  #       level: detailed
-  #       readers:
-  #         - pull:
-  #             exporter:
-  #               prometheus:
-  #                 host: 0.0.0.0
-  #                 port: 8888
-  # extensions:
-  #   healthcheckv2:
-  #     use_v2: true
-  #     http:
-  #       endpoint: 0.0.0.0:13133
+  service:
+    extensions: [jaeger_storage, jaeger_query, healthcheckv2]
+    pipelines:
+      traces:
+        receivers: [otlp]
+        #processors: [batch]
+        exporters: [jaeger_storage_exporter]
+    telemetry:
+      resource:
+        service.name: jaeger
+      metrics:
+        level: detailed
+        readers:
+          - pull:
+              exporter:
+                prometheus:
+                  host: 0.0.0.0
+                  port: 8888
+  metric_backends:
+    thw-pr:
+      prometheus:
+        endpoint: http://thw-pr.breeze-blocks.net
+        normalize_calls: true
+        normalize_duration: true
+  extensions:
+    healthcheckv2:
+      use_v2: true
+      http:
+        endpoint: 0.0.0.0:13133
 
-  #   jaeger_query:
-  #     base_path: /jaeger
-  #     storage:
-  #       traces: primary_store
-  #       traces_archive: archive_store
-  #     ui:
-  #       config_file: /etc/jaeger/ui-config.json
+    jaeger_query:
+      base_path: /
+      storage:
+        traces: primary_store
+        traces_archive: archive_store
+      ui:
+        config_file: /etc/jaeger/ui-config.json
+    jaeger_storage:
+      backends:
+        primary_store:
+          memory:
+            max_traces: 100000
+        archive_store:
+          memory:
+            max_traces: 100000
 
   #   jaeger_storage:
   #     backends:
@@ -118,17 +122,17 @@ userconfig:
   #               username: admin
   #               password: password
 
-  # receivers:
-  #   otlp:
-  #     protocols:
-  #       grpc:
-  #         endpoint: 0.0.0.0:4317
-  #       http:
-  #         endpoint: 0.0.0.0:4318
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
+        http:
+          endpoint: 0.0.0.0:4318
 
-  # exporters:
-  #   jaeger_storage_exporter:
-  #     trace_storage: primary_store
+  exporters:
+    jaeger_storage_exporter:
+      trace_storage: primary_store
 
 global:
   imageRegistry:
@@ -180,6 +184,7 @@ jaeger:
     #   port:
     #   targetPort:
     #   protocol: (optional)
+    type: LoadBalancer
   ingress:
     enabled: false
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
@@ -208,7 +213,8 @@ jaeger:
   #   requests:
   #     cpu: 256m
   #     memory: 128Mi
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/os: linux
   tolerations: []
   affinity: {}
   topologySpreadContraints: []
