@@ -1282,6 +1282,11 @@ extraScrapeConfigs: |
     static_configs:
       - targets:
           - backup.breeze-blocks.net:9100
+          - cms00.breeze-blocks.net:9100
+          - cms01.breeze-blocks.net:9100
+          - cms02.breeze-blocks.net:9100
+          - cms03.breeze-blocks.net:9100
+          - cms04.breeze-blocks.net:9100
           - marius.breeze-blocks.net:9100
           - media.breeze-blocks.net:9100
           - ns01.breeze-blocks.net:9100

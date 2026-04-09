@@ -1249,6 +1249,13 @@ serverFiles:
 # must be a string so you have to add a | after extraScrapeConfigs:
 # example adds prometheus-blackbox-exporter scrape config
 extraScrapeConfigs: |
+  - job_name: postgres-exporter
+    honor_labels: true
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+          - thw-pge.breeze-blocks.net:9187
   - job_name: node-exporter
     honor_labels: true
     relabel_configs:
