@@ -1259,7 +1259,7 @@ extraScrapeConfigs: |
     honor_labels: true
     static_configs:
     - targets:
-      - prometheus-prometheus-postgres-exporter-66475bbdcb-8pkbq.monitoring.svc.cluster.local:9187
+      - cms-pge.breeze-blocks.net:9187
   - job_name: node-exporter
     honor_labels: true
     relabel_configs:
