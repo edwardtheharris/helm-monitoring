@@ -416,12 +416,12 @@ extraContainerVolumes: []
 persistence:
   type: pvc
   enabled: true
-  storageClassName: csi-lvm-striped
+  storageClassName: nfs-retain
   ## (Optional) Use this to bind the claim to an existing PersistentVolume (PV) by name.
   volumeName: ""
   accessModes:
-    - ReadWriteOnce
-  size: 100Gi
+    - ReadWriteMany
+  size: 10Gi
   # annotations: {}
   finalizers:
     - kubernetes.io/pvc-protection
