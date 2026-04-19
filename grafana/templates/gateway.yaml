@@ -6,12 +6,24 @@ metadata:
   labels:
     app.kubernetes.io/name: grafana
     app.kubernetes.io/component: http-routing
+  annotations:
+    cert-manager.io/cluster-issuer: comms-svc-int
+    cert-manager.io/common-name: grafana.breeze-blocks.net
+    cert-manager.io/usages: key agreement,digital signature, server auth
 spec:
   gatewayClassName: eg
   listeners:
-    - name: grafana 
-      protocol: HTTP
-      port: 80
+    - name: grafana
+      hostname: grafana.breeze-blocks.net
+      port: 443
+      protocol: HTTPS
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: grafana-tls
 
 # This file contains the base resources that the docs/user/HTTP_ROUTING.md guide relies on.
 # This includes a GatewayClass, Gateway, Services and Deployments that are used as backends
