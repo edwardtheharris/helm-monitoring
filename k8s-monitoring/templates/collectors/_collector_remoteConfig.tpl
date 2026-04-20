@@ -1,0 +1,161 @@
+{{- /* Builds the alloy config for remoteConfig. Input: $ */ -}}
+{{- define "collectors.remoteConfig.collector.values" -}}
+{{- $values := dict }}
+{{- range $collectorName := keys .Values.collectors | sortAlpha }}
+  {{- $collectorValues := include "collector.alloy.values" (dict "Values" $.Values "Files" $.Files "collectorName" $collectorName) | fromYaml }}
+  {{- if (dig "remoteConfig" "enabled" false $collectorValues) }}
+    {{- $collectorType := $collectorValues.controller.type }}
+    {{- $extraEnv := deepCopy (dig "alloy" "extraEnv" list $collectorValues) }}
+    {{- if eq (include "collectors.hasExtraEnv" (deepCopy $ | merge (dict "collectorName" $collectorName "envVarName" "GCLOUD_FM_COLLECTOR_ID"))) "false" }}
+      {{- $extraEnv = (include "collectors.set_extra_env" (dict "envList" $extraEnv "name" "CLUSTER_NAME" "value" $.Values.cluster.name)) | fromYamlArray }}
+      {{- $extraEnv = (include "collectors.set_extra_env" (dict "envList" $extraEnv "name" "NAMESPACE" "valueFrom" (dict "fieldRef" (dict "fieldPath" "metadata.namespace")))) | fromYamlArray }}
+      {{- if eq $collectorType "daemonset" }}
+        {{- $extraEnv = (include "collectors.set_extra_env" (dict "envList" $extraEnv "name" "NODE_NAME" "valueFrom" (dict "fieldRef" (dict "fieldPath" "spec.nodeName")))) | fromYamlArray }}
+        {{- $extraEnv = (include "collectors.set_extra_env" (dict "envList" $extraEnv "name" "GCLOUD_FM_COLLECTOR_ID" "value" (printf "%s-$(CLUSTER_NAME)-$(NAMESPACE)-%s-$(NODE_NAME)" $.Release.Name $collectorName))) | fromYamlArray }}
+      {{- else }}
+        {{- $extraEnv = (include "collectors.set_extra_env" (dict "envList" $extraEnv "name" "POD_NAME" "valueFrom" (dict "fieldRef" (dict "fieldPath" "metadata.name")))) | fromYamlArray }}
+        {{- $extraEnv = (include "collectors.set_extra_env" (dict "envList" $extraEnv "name" "GCLOUD_FM_COLLECTOR_ID" "value" (printf "%s-$(CLUSTER_NAME)-$(NAMESPACE)-$(POD_NAME)" $.Release.Name))) | fromYamlArray }}
+      {{- end }}
+    {{- end }}
+
+    {{- if eq (include "collectors.hasExtraEnv" (deepCopy $ | merge (dict "collectorName" $collectorName "envVarName" "GCLOUD_RW_API_KEY"))) "false" }}
+      {{- $remoteConfigValues := merge (dict "type" "remoteConfig") (get $collectorValues "remoteConfig") }}
+      {{- if eq (include "secrets.usesKubernetesSecret" $remoteConfigValues ) "true" }}
+        {{- $secretName := include "secrets.kubernetesSecretName" (dict "Values" $.Values "Chart" $.Chart "Release" $.Release "object" $remoteConfigValues "name" (printf "%s-remote-cfg" $collectorName)) }}
+        {{- $secretKey := include "secrets.getSecretKey" (dict "object" $remoteConfigValues "key" "auth.password") }}
+        {{- $extraEnv = append $extraEnv (dict "name" "GCLOUD_RW_API_KEY" "valueFrom" (dict "secretKeyRef" (dict "name" $secretName "key" $secretKey))) }}
+      {{- end }}
+    {{- end }}
+    {{- $values = $values | merge (dict "collectors" (dict $collectorName (dict "alloy" (dict "extraEnv" $extraEnv)))) }}
+  {{- end }}
+{{- end }}
+{{- $values | toYaml }}
+{{- end }}
+
+{{- /* Builds the alloy config for remoteConfig. Input: $, .collectorName (string, collector name) */ -}}
+{{- define "collectors.remoteConfig.alloy" -}}
+{{- $collectorValues := include "collector.alloy.values" . | fromYaml }}
+{{- with merge $collectorValues.remoteConfig (dict "type" "remoteConfig" "name" (printf "%s-remote-cfg" .collectorName)) }}
+  {{- if .enabled }}
+    {{- if eq (include "secrets.usesKubernetesSecret" .) "true" }}
+      {{- include "secret.alloy" (deepCopy $ | merge (dict "object" .)) | nindent 0 }}
+    {{- end }}
+remotecfg {
+  id = sys.env("GCLOUD_FM_COLLECTOR_ID")
+{{- if .urlFrom }}
+  url = {{ .urlFrom }}
+{{- else }}
+  url = {{ .url | quote }}
+{{- end }}
+{{- if .proxyURL }}
+  proxy_url = {{ .proxyURL | quote }}
+{{- end }}
+{{- if .noProxy }}
+  no_proxy = {{ .noProxy | quote }}
+{{- end }}
+{{- if .proxyConnectHeader }}
+  proxy_connect_header = {
+{{- range $k, $v := .proxyConnectHeader }}
+    {{ $k | quote }} = {{ $v | toJson }},
+{{- end }}
+  }
+{{- end }}
+{{- if .proxyFromEnvironment }}
+  proxy_from_environment = {{ .proxyFromEnvironment }}
+{{- end }}
+{{- if eq (include "secrets.authType" .) "basic" }}
+  basic_auth {
+    username = {{ include "secrets.read" (dict "object" . "key" "auth.username" "nonsensitive" true) }}
+    password = {{ include "secrets.read" (dict "object" . "key" "auth.password") }}
+  }
+{{- end }}
+{{- if .tls }}
+  tls_config {
+    insecure_skip_verify = {{ .tls.insecureSkipVerify | default false }}
+    {{- if .tls.caFile }}
+    ca_file = {{ .tls.caFile | quote }}
+    {{- else if eq (include "secrets.usesSecret" (dict "object" . "key" "tls.ca")) "true" }}
+    ca_pem = {{ include "secrets.read" (dict "object" . "key" "tls.ca" "nonsensitive" true) }}
+    {{- end }}
+    {{- if .tls.certFile }}
+    cert_file = {{ .tls.certFile | quote }}
+    {{- else if eq (include "secrets.usesSecret" (dict "object" . "key" "tls.cert")) "true" }}
+    cert_pem = {{ include "secrets.read" (dict "object" . "key" "tls.cert" "nonsensitive" true) }}
+    {{- end }}
+    {{- if .tls.keyFile }}
+    key_file = {{ .tls.keyFile | quote }}
+    {{- else if eq (include "secrets.usesSecret" (dict "object" . "key" "tls.key")) "true" }}
+    key_pem = {{ include "secrets.read" (dict "object" . "key" "tls.key") }}
+    {{- end }}
+  }
+{{- end }}
+  poll_frequency = {{ .pollFrequency | quote }}
+{{- $attributes := dict "platform" "kubernetes" }}
+{{- $attributes = merge $attributes (dict "source" $.Chart.Name) }}
+{{- $attributes = merge $attributes (dict "sourceVersion" $.Chart.Version) }}
+{{- $attributes = merge $attributes (dict "release" $.Release.Name) }}
+{{- $attributes = merge $attributes (dict "cluster" $.Values.cluster.name) }}
+{{- $attributes = merge $attributes (dict "namespace" $.Release.Namespace) }}
+{{- $attributes = merge $attributes (dict "workloadName" $.collectorName) }}
+{{- $attributes = merge $attributes (dict "workloadType" $collectorValues.controller.type) }}
+{{- $attributes = mergeOverwrite $attributes .extraAttributes }}
+  attributes = {
+{{- range $key, $value := $attributes }}
+  {{- if $value }}
+    {{ $key | quote }} = {{ $value | quote }},
+  {{- end }}
+{{- end }}
+  }
+}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "collectors.values.remoteConfig" -}}
+
+{{- end -}}
+
+{{- define "collectors.validate.remoteConfig" }}
+{{- $collectorValues := include "collector.alloy.values" . | fromYaml }}
+{{- if $collectorValues.enabled }}
+  {{- if $collectorValues.remoteConfig.enabled }}
+    {{- $hasCollectorIdEnv := false }}
+    {{- $hasAPIKey := false }}
+    {{- range $env := $collectorValues.alloy.extraEnv }}
+      {{- if eq $env.name "GCLOUD_FM_COLLECTOR_ID" }}{{ $hasCollectorIdEnv = true }}{{- end }}
+      {{- if eq $env.name "GCLOUD_RW_API_KEY" }}{{ $hasAPIKey = true }}{{- end }}
+    {{- end }}
+    {{- if not $hasCollectorIdEnv }}
+      {{- $msg := list "" "The remote configuration feature requires the environment variable GCLOUD_FM_COLLECTOR_ID to be set. Please set:" }}
+      {{- $msg = append $msg (printf "%s:" .collectorName ) }}
+      {{- $msg = append $msg "  alloy:" }}
+      {{- $msg = append $msg "    extraEnv:" }}
+      {{- $msg = append $msg "      - name: GCLOUD_FM_COLLECTOR_ID" }}
+      {{- $msg = append $msg "        value: " }}
+      {{- fail (join "\n" $msg) }}
+    {{- end }}
+    {{- if not $hasAPIKey }}
+      {{- $msg := list "" "The remote configuration feature requires the environment variable GCLOUD_RW_API_KEY to be set. Please set:" }}
+      {{- $msg = append $msg (printf "%s:" .collectorName ) }}
+      {{- $msg = append $msg "  alloy:" }}
+      {{- $msg = append $msg "    extraEnv:" }}
+      {{- $msg = append $msg "      - name: GCLOUD_RW_API_KEY" }}
+      {{- $msg = append $msg "        value: <Grafana Cloud Access Policy Token" }}
+      {{- $msg = append $msg "OR" }}
+      {{- $msg = append $msg "        valueFrom:" }}
+      {{- $msg = append $msg "          secretKeyRef:" }}
+      {{- $msg = append $msg "            name: <secret name>" }}
+      {{- $msg = append $msg "            key: <secret key>" }}
+      {{- fail (join "\n" $msg) }}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- define "secrets.list.remoteConfig" -}}
+- auth.username
+- auth.password
+- tls.ca
+- tls.cert
+- tls.key
+{{- end -}}
