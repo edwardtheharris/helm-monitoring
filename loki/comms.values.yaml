@@ -21,7 +21,7 @@ loki:
   server:
     http_listen_port: 3100
   storage:
-    type: csi-lvm-linear
+    type: nfs-retain
     bucketNames:
       - name: chunks
   storageConfig:
@@ -41,7 +41,7 @@ singleBinary:
   persistence:
     selector:
       pv.kubernetes.io/name: loki
-    storageClass: csi-lvm-linear
+    storageClass: nfs-retain
     size: 100Gi
     whenDeleted: Retain
     whenScaled: Retain
