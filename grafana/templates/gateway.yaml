@@ -5,7 +5,6 @@ metadata:
   name: grafana
   labels:
     app.kubernetes.io/name: grafana
-    app.kubernetes.io/component: http-routing
   annotations:
     cert-manager.io/cluster-issuer: comms-svc-int
     cert-manager.io/common-name: grafana.breeze-blocks.net
