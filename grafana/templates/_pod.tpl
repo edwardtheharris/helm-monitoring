@@ -1000,9 +1000,6 @@ containers:
       - name: config
         mountPath: "/etc/grafana/grafana.ini"
         subPath: grafana.ini
-      - name: postgres
-        mountPath: /etc/postgres
-        readOnly: true
       {{- if .Values.ldap.enabled }}
       - name: ldap
         mountPath: "/etc/grafana/ldap.toml"
@@ -1281,9 +1278,6 @@ volumes:
   - name: config
     configMap:
       name: {{ include "grafana.fullname" . }}
-  - name: postgres
-    secret:
-      secretName: grafana-postgres
   {{- $createConfigSecret := eq (include "grafana.shouldCreateConfigSecret" .) "true" -}}
   {{- if and .Values.createConfigmap $createConfigSecret }}
   - name: config-secret

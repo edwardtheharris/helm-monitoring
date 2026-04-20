@@ -231,7 +231,14 @@ downloadDashboards:
   #      key: value_key
 
 ## Pod Annotations
-# podAnnotations: {}
+podAnnotations:
+  vault.hashicorp.com/agent-inject: "true"
+  vault.hashicorp.com/role: "grafana"
+  vault.hashicorp.com/agent-inject-secret-database-grafana: "internal/data/database/grafana"
+  vault.hashicorp.com/agent-inject-template-database-grafana: |
+    {{- with secret "internal/data/database/grafana" -}}
+      {{ .Data.data.password }}
+    {{- end -}}
 
 ## ConfigMap Annotations
 # configMapAnnotations: {}
@@ -254,7 +261,7 @@ postgres:
 ##
 service:
   enabled: true
-  type: LoadBalancer
+  type: ClusterIP
   # Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services)
   ipFamilyPolicy: ""
   # Sets the families that should be supported and the order in which they should be applied to ClusterIP as well. Can be IPv4 and/or IPv6.
@@ -269,7 +276,7 @@ service:
   ## Service annotations. Can be templated.
   annotations: {}
   labels: {}
-  portName: service
+  portName: grafana
   # Adds the appProtocol field to the service. This allows to work with istio protocol selection. Ex: "http" or "tcp"
   appProtocol: ""
   sessionAffinity: ""
@@ -350,13 +357,13 @@ route:
               type: PathPrefix
               value: /
 
-resources: {}
-#  limits:
-#    cpu: 100m
-#    memory: 128Mi
-#  requests:
-#    cpu: 100m
-#    memory: 128Mi
+resources:
+  limits:
+    cpu: 4
+    memory: 4096Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
 ## Node labels for pod assignment
 ## ref: https://kubernetes.io/docs/user-guide/node-selection/
@@ -501,6 +508,7 @@ admin:
 ## Needed if using `vault-env` to manage secrets (ref: https://banzaicloud.com/blog/inject-secrets-into-pods-vault/)
 ## Default is "run.sh" as defined in grafana's Dockerfile
 # command:
+#   - "/bin/bash"
 # - "sh"
 # - "/run.sh"
 
@@ -508,9 +516,8 @@ admin:
 ## Needed if using `hashicorp/envconsul` to manage secrets
 ## By default no arguments are set
 # args:
-# - "-secret"
-# - "secret/grafana"
-# - "./grafana"
+#   - "-c"
+#   - "while true; do sleep 3600; done"
 
 ## Extra environment variables that will be pass onto deployment pods
 ##
@@ -892,7 +899,7 @@ grafana.ini:
     host: postgres.database.svc.cluster.local
     name: grafana
     user: grafana
-    password: $__file{/etc/postgres/password}
+    password: $__file{/vault/secrets/database-grafana}
   ## grafana Authentication can be enabled with the following values on grafana.ini
   # server:
   # The full public facing url you use in browser, used for redirects and emails
