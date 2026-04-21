@@ -503,7 +503,7 @@
         "type": "prometheus",
         "uid": "efi7a9ajh454wf"
       },
-      "description": "Used Media FS",
+      "description": "Used Root FS",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -581,7 +581,7 @@
           "step": 240
         }
       ],
-      "title": "Media FS Used",
+      "title": "Root FS Used",
       "transparent": true,
       "type": "gauge"
     },
@@ -3676,12 +3676,561 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Tracks the system clock's estimated and maximum error, as well as its offset from the reference clock (e.g., via NTP). Useful for detecting synchronization drift",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 0,
+        "y": 29
+      },
+      "id": 260,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max"],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_timex_estimated_error_seconds{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Estimated error",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_timex_offset_seconds{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Offset local vs reference",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_timex_maxerror_seconds{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Maximum error",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        }
+      ],
+      "title": "Time Synchronized Drift",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "efi7a9ajh454wf"
+      },
+      "description": "Current number of processes in each state (e.g., running, sleeping, zombie). Requires --collector.processes to be enabled in node_exporter",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "D"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Uninterruptible Sleeping"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Idle Kernel Thread"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "R"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Running"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "S"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Interruptible Sleeping"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "T"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Stopped"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "X"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Dead"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Z"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Zombie"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 6,
+        "y": 29
+      },
+      "id": 315,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max", "last"],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "cfh4m99kk5lhcc"
+          },
+          "editorMode": "code",
+          "expr": "sum(systemd_unit_state{instance=\"$systemd_instance\"}) by (state)",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "Processes Detailed States",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Number of currently established TCP connections and the system's max supported limit. On Linux, MaxConn may return -1 to indicate a dynamic/unlimited configuration",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Max*./"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#890F02",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [10, 10],
+                  "fill": "dash"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 12,
+        "y": 29
+      },
+      "id": 85,
+      "options": {
+        "legend": {
+          "calcs": ["mean", "lastNotNull"],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_netstat_Tcp_CurrEstab{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Current Connections",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_netstat_Tcp_MaxConn{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Max Connections",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "TCP Connections",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Processes currently in runnable or blocked states. Helps identify CPU contention or I/O wait bottlenecks.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 29
+      },
+      "id": 62,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max", "lastNotNull"],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_procs_blocked{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Blocked (I/O Wait)",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_procs_running{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Runnable (Ready for CPU)",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "Processes Status",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 35
       },
       "id": 266,
       "panels": [],
@@ -3753,7 +4302,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 30
+        "y": 36
       },
       "id": 131,
       "options": {
@@ -3859,7 +4408,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 30
+        "y": 36
       },
       "id": 130,
       "options": {
@@ -4008,7 +4557,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 30
+        "y": 36
       },
       "id": 138,
       "options": {
@@ -4166,7 +4715,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 38
+        "y": 44
       },
       "id": 136,
       "options": {
@@ -4273,7 +4822,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 38
+        "y": 44
       },
       "id": 191,
       "options": {
@@ -4398,7 +4947,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 38
+        "y": 44
       },
       "id": 160,
       "options": {
@@ -4516,7 +5065,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 52
       },
       "id": 129,
       "options": {
@@ -4649,7 +5198,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 46
+        "y": 52
       },
       "id": 70,
       "options": {
@@ -5039,7 +5588,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 58
+        "y": 64
       },
       "id": 128,
       "options": {
@@ -5172,7 +5721,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 58
+        "y": 64
       },
       "id": 137,
       "options": {
@@ -5279,7 +5828,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 70
+        "y": 76
       },
       "id": 140,
       "options": {
@@ -5344,7 +5893,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 82
+        "y": 88
       },
       "id": 267,
       "panels": [],
@@ -5428,7 +5977,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 83
+        "y": 89
       },
       "id": 176,
       "options": {
@@ -5546,7 +6095,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 83
+        "y": 89
       },
       "id": 22,
       "options": {
@@ -5668,7 +6217,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 95
+        "y": 101
       },
       "id": 307,
       "options": {
@@ -5707,226 +6256,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 107
+        "y": 113
       },
       "id": 293,
       "panels": [],
       "title": "System Timesync",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Tracks the system clock's estimated and maximum error, as well as its offset from the reference clock (e.g., via NTP). Useful for detecting synchronization drift",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 0,
-        "y": 108
-      },
-      "id": 260,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "node_timex_estimated_error_seconds{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Estimated error",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_timex_offset_seconds{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Offset local vs reference",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_timex_maxerror_seconds{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Maximum error",
-          "range": true,
-          "refId": "C",
-          "step": 240
-        }
-      ],
-      "title": "Time Synchronized Drift",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "NTP phase-locked loop (PLL) time constant used by the kernel to control time adjustments. Lower values mean faster correction but less stability",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 12,
-        "y": 108
-      },
-      "id": 291,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "node_timex_loop_time_constant{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "PLL Time Constant",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Time PLL Adjust",
-      "transparent": true,
-      "type": "timeseries"
     },
     {
       "datasource": {
@@ -5992,7 +6327,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 120
+        "y": 114
       },
       "id": 168,
       "options": {
@@ -6062,7 +6397,7 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
-      "description": "Displays the PPS signal's frequency offset and stability (jitter) in hertz. Useful for monitoring high-precision time sources like GPS or atomic clocks",
+      "description": "NTP phase-locked loop (PLL) time constant used by the kernel to control time adjustments. Lower values mean faster correction but less stability",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6113,7 +6448,7 @@
               }
             ]
           },
-          "unit": "rothz"
+          "unit": "short"
         },
         "overrides": []
       },
@@ -6121,9 +6456,9 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 120
+        "y": 114
       },
-      "id": 333,
+      "id": 291,
       "options": {
         "legend": {
           "calcs": ["min", "mean", "max"],
@@ -6141,26 +6476,16 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_timex_pps_frequency_hertz{instance=\"$node\",job=\"$job\"}",
+          "expr": "node_timex_loop_time_constant{instance=\"$node\",job=\"$job\"}",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "PPS Frequency Offset",
+          "legendFormat": "PLL Time Constant",
           "range": true,
           "refId": "A",
           "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_timex_pps_stability_hertz{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "PPS Frequency Stability",
-          "range": true,
-          "refId": "B",
-          "step": 240
         }
       ],
-      "title": "PPS Frequency / Stability",
+      "title": "Time PLL Adjust",
       "transparent": true,
       "type": "timeseries"
     },
@@ -6228,7 +6553,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 132
+        "y": 126
       },
       "id": 334,
       "options": {
@@ -6268,6 +6593,113 @@
         }
       ],
       "title": "PPS Time Accuracy",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Displays the PPS signal's frequency offset and stability (jitter) in hertz. Useful for monitoring high-precision time sources like GPS or atomic clocks",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "rothz"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 126
+      },
+      "id": 333,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_timex_pps_frequency_hertz{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "PPS Frequency Offset",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_timex_pps_stability_hertz{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "PPS Frequency Stability",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "PPS Frequency / Stability",
       "transparent": true,
       "type": "timeseries"
     },
@@ -6339,7 +6771,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 132
+        "y": 138
       },
       "id": 335,
       "options": {
@@ -6408,309 +6840,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 144
+        "y": 150
       },
       "id": 312,
       "panels": [],
       "title": "System Processes",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Processes currently in runnable or blocked states. Helps identify CPU contention or I/O wait bottlenecks.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 0,
-        "y": 145
-      },
-      "id": 62,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "node_procs_blocked{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Blocked (I/O Wait)",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_procs_running{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Runnable (Ready for CPU)",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        }
-      ],
-      "title": "Processes Status",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "cfh4m99kk5lhcc"
-      },
-      "description": "Current number of processes in each state (e.g., running, sleeping, zombie). Requires --collector.processes to be enabled in node_exporter",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "D"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Uninterruptible Sleeping"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "I"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Idle Kernel Thread"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "R"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Running"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "S"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Interruptible Sleeping"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "T"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Stopped"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "X"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Dead"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Z"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Zombie"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 12,
-        "y": 145
-      },
-      "id": 315,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cfh4m99kk5lhcc"
-          },
-          "editorMode": "code",
-          "expr": "",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "{{ state }}",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Processes Detailed States",
-      "transparent": true,
-      "type": "timeseries"
     },
     {
       "datasource": {
@@ -6777,7 +6912,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 157
+        "y": 151
       },
       "id": 148,
       "options": {
@@ -6890,7 +7025,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 157
+        "y": 151
       },
       "id": 305,
       "options": {
@@ -7037,7 +7172,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 169
+        "y": 163
       },
       "id": 313,
       "options": {
@@ -7172,7 +7307,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 169
+        "y": 163
       },
       "id": 314,
       "options": {
@@ -7221,7 +7356,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 181
+        "y": 175
       },
       "id": 269,
       "panels": [],
@@ -7293,7 +7428,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 182
+        "y": 176
       },
       "id": 8,
       "options": {
@@ -7398,7 +7533,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 182
+        "y": 176
       },
       "id": 306,
       "options": {
@@ -7556,7 +7691,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 194
+        "y": 188
       },
       "id": 321,
       "options": {
@@ -7701,7 +7836,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 194
+        "y": 188
       },
       "id": 151,
       "options": {
@@ -7807,7 +7942,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 206
+        "y": 200
       },
       "id": 259,
       "options": {
@@ -7846,7 +7981,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 218
+        "y": 212
       },
       "id": 304,
       "panels": [],
@@ -7938,7 +8073,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 219
+        "y": 213
       },
       "id": 158,
       "options": {
@@ -8092,7 +8227,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 219
+        "y": 213
       },
       "id": 300,
       "options": {
@@ -8193,7 +8328,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 231
+        "y": 225
       },
       "id": 302,
       "options": {
@@ -8291,7 +8426,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 231
+        "y": 225
       },
       "id": 325,
       "options": {
@@ -8341,7 +8476,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 243
+        "y": 237
       },
       "id": 296,
       "panels": [],
@@ -8488,7 +8623,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 244
+        "y": 238
       },
       "id": 298,
       "options": {
@@ -8630,7 +8765,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 244
+        "y": 238
       },
       "id": 331,
       "options": {
@@ -8732,7 +8867,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 256
+        "y": 250
       },
       "id": 297,
       "options": {
@@ -8830,7 +8965,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 256
+        "y": 250
       },
       "id": 332,
       "options": {
@@ -8869,7 +9004,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 268
+        "y": 262
       },
       "id": 270,
       "panels": [],
@@ -8968,7 +9103,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 269
+        "y": 263
       },
       "id": 9,
       "options": {
@@ -9099,7 +9234,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 269
+        "y": 263
       },
       "id": 33,
       "options": {
@@ -9234,7 +9369,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 281
+        "y": 275
       },
       "id": 37,
       "options": {
@@ -9356,7 +9491,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 281
+        "y": 275
       },
       "id": 35,
       "options": {
@@ -9480,7 +9615,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 293
+        "y": 287
       },
       "id": 133,
       "options": {
@@ -9600,7 +9735,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 293
+        "y": 287
       },
       "id": 36,
       "options": {
@@ -9730,7 +9865,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 305
+        "y": 299
       },
       "id": 301,
       "options": {
@@ -9860,7 +9995,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 305
+        "y": 299
       },
       "id": 326,
       "options": {
@@ -9973,7 +10108,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 317
+        "y": 311
       },
       "id": 34,
       "options": {
@@ -10011,7 +10146,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 329
+        "y": 323
       },
       "id": 271,
       "panels": [],
@@ -10110,7 +10245,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 330
+        "y": 324
       },
       "id": 28,
       "options": {
@@ -10216,7 +10351,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 330
+        "y": 324
       },
       "id": 41,
       "options": {
@@ -10314,7 +10449,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 342
+        "y": 336
       },
       "id": 44,
       "options": {
@@ -10421,7 +10556,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 342
+        "y": 336
       },
       "id": 219,
       "options": {
@@ -10459,7 +10594,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 354
+        "y": 348
       },
       "id": 272,
       "panels": [],
@@ -10543,7 +10678,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 355
+        "y": 349
       },
       "id": 60,
       "options": {
@@ -10664,7 +10799,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 355
+        "y": 349
       },
       "id": 142,
       "options": {
@@ -10783,7 +10918,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 367
+        "y": 361
       },
       "id": 143,
       "options": {
@@ -10902,7 +11037,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 367
+        "y": 361
       },
       "id": 141,
       "options": {
@@ -11021,7 +11156,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 379
+        "y": 373
       },
       "id": 146,
       "options": {
@@ -11131,7 +11266,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 379
+        "y": 373
       },
       "id": 327,
       "options": {
@@ -11241,7 +11376,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 391
+        "y": 385
       },
       "id": 145,
       "options": {
@@ -11351,7 +11486,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 391
+        "y": 385
       },
       "id": 144,
       "options": {
@@ -11470,7 +11605,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 403
+        "y": 397
       },
       "id": 232,
       "options": {
@@ -11567,7 +11702,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 403
+        "y": 397
       },
       "id": 231,
       "options": {
@@ -11665,7 +11800,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 415
+        "y": 409
       },
       "id": 230,
       "options": {
@@ -11789,7 +11924,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 415
+        "y": 409
       },
       "id": 61,
       "options": {
@@ -11894,7 +12029,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 427
+        "y": 421
       },
       "id": 309,
       "options": {
@@ -11969,7 +12104,7 @@
         "h": 12,
         "w": 6,
         "x": 12,
-        "y": 427
+        "y": 421
       },
       "id": 280,
       "options": {
@@ -12042,7 +12177,7 @@
         "h": 12,
         "w": 6,
         "x": 18,
-        "y": 427
+        "y": 421
       },
       "id": 288,
       "options": {
@@ -12089,7 +12224,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 439
+        "y": 433
       },
       "id": 273,
       "panels": [],
@@ -12161,7 +12296,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 440
+        "y": 434
       },
       "id": 63,
       "options": {
@@ -12289,7 +12424,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 440
+        "y": 434
       },
       "id": 124,
       "options": {
@@ -12397,7 +12532,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 450
+        "y": 444
       },
       "id": 126,
       "options": {
@@ -12495,7 +12630,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 450
+        "y": 444
       },
       "id": 125,
       "options": {
@@ -12603,7 +12738,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 460
+        "y": 454
       },
       "id": 220,
       "options": {
@@ -12719,7 +12854,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 460
+        "y": 454
       },
       "id": 339,
       "options": {
@@ -12827,7 +12962,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 470
+        "y": 464
       },
       "id": 336,
       "options": {
@@ -12947,7 +13082,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 470
+        "y": 464
       },
       "id": 290,
       "options": {
@@ -13058,7 +13193,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 480
+        "y": 474
       },
       "id": 310,
       "options": {
@@ -13175,7 +13310,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 480
+        "y": 474
       },
       "id": 330,
       "options": {
@@ -13224,7 +13359,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 490
+        "y": 484
       },
       "id": 274,
       "panels": [],
@@ -13308,7 +13443,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 491
+        "y": 485
       },
       "id": 221,
       "options": {
@@ -13439,7 +13574,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 491
+        "y": 485
       },
       "id": 299,
       "options": {
@@ -13559,7 +13694,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 503
+        "y": 497
       },
       "id": 55,
       "options": {
@@ -13683,7 +13818,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 503
+        "y": 497
       },
       "id": 115,
       "options": {
@@ -13793,7 +13928,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 515
+        "y": 509
       },
       "id": 104,
       "options": {
@@ -13962,7 +14097,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 515
+        "y": 509
       },
       "id": 109,
       "options": {
@@ -14110,7 +14245,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 527
+        "y": 521
       },
       "id": 50,
       "options": {
@@ -14223,7 +14358,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 527
+        "y": 521
       },
       "id": 91,
       "options": {
@@ -14273,248 +14408,6 @@
         }
       ],
       "title": "TCP SynCookie",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Number of currently established TCP connections and the system's max supported limit. On Linux, MaxConn may return -1 to indicate a dynamic/unlimited configuration",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/.*Max*./"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#890F02",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              },
-              {
-                "id": "custom.lineStyle",
-                "value": {
-                  "dash": [10, 10],
-                  "fill": "dash"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 0,
-        "y": 539
-      },
-      "id": 85,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "node_netstat_Tcp_CurrEstab{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Current Connections",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_netstat_Tcp_MaxConn{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Max Connections",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        }
-      ],
-      "title": "TCP Connections",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Number of UDP packets currently queued in the receive (RX) and transmit (TX) buffers. A growing queue may indicate a bottleneck",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 12,
-        "y": 539
-      },
-      "id": 337,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "node_udp_queues{instance=\"$node\",job=\"$job\",ip=\"v4\",queue=\"rx\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "UDP Rx in Queue",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_udp_queues{instance=\"$node\",job=\"$job\",ip=\"v4\",queue=\"tx\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "UDP Tx out Queue",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        }
-      ],
-      "title": "UDP Queue",
       "transparent": true,
       "type": "timeseries"
     },
@@ -14583,7 +14476,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 551
+        "y": 533
       },
       "id": 82,
       "options": {
@@ -14623,6 +14516,113 @@
         }
       ],
       "title": "TCP Direct Transition",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Number of UDP packets currently queued in the receive (RX) and transmit (TX) buffers. A growing queue may indicate a bottleneck",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 533
+      },
+      "id": 337,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_udp_queues{instance=\"$node\",job=\"$job\",ip=\"v4\",queue=\"rx\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "UDP Rx in Queue",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_udp_queues{instance=\"$node\",job=\"$job\",ip=\"v4\",queue=\"tx\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "UDP Tx out Queue",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "UDP Queue",
       "transparent": true,
       "type": "timeseries"
     },
@@ -14692,7 +14692,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 551
+        "y": 545
       },
       "id": 320,
       "options": {
@@ -14771,7 +14771,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 563
+        "y": 557
       },
       "id": 279,
       "panels": [],
@@ -14846,7 +14846,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 564
+        "y": 558
       },
       "id": 40,
       "options": {
@@ -14943,7 +14943,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 564
+        "y": 558
       },
       "id": 308,
       "options": {
@@ -15090,7 +15090,7 @@
         "h": 10,
         "w": 10,
         "x": 0,
-        "y": 576
+        "y": 570
       },
       "id": 149,
       "options": {
@@ -15245,7 +15245,7 @@
         "h": 10,
         "w": 10,
         "x": 10,
-        "y": 576
+        "y": 570
       },
       "id": 64,
       "options": {
@@ -15324,7 +15324,7 @@
         "h": 10,
         "w": 4,
         "x": 20,
-        "y": 576
+        "y": 570
       },
       "id": 157,
       "options": {
@@ -15380,7 +15380,7 @@
   "preload": true,
   "refresh": "1m",
   "schemaVersion": 42,
-  "tags": ["media", "linux", "node exporter"],
+  "tags": ["linux", "node exporter", "marius"],
   "templating": {
     "list": [
       {
@@ -15465,8 +15465,8 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "media.breeze-blocks.net:9558",
-          "value": "media.breeze-blocks.net:9558"
+          "text": "marius.breeze-blocks.net:9558",
+          "value": "marius.breeze-blocks.net:9558"
         },
         "description": "",
         "label": "systemd_instance",
@@ -15474,11 +15474,11 @@
         "options": [
           {
             "selected": true,
-            "text": "media.breeze-blocks.net:9558",
-            "value": "media.breeze-blocks.net:9558"
+            "text": "marius.breeze-blocks.net:9558",
+            "value": "marius.breeze-blocks.net:9558"
           }
         ],
-        "query": "media.breeze-blocks.net:9558",
+        "query": "marius.breeze-blocks.net:9558",
         "type": "custom"
       }
     ]
@@ -15491,5 +15491,5 @@
   "timezone": "browser",
   "title": "marius Exporter Full",
   "uid": "du5q9dz",
-  "version": 3
+  "version": 8
 }

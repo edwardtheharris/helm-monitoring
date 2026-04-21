@@ -1325,6 +1325,15 @@ extraScrapeConfigs: |
           - thw04.breeze-blocks.net:9091
           - thw05.breeze-blocks.net:9091
           - whac.breeze-blocks.net:9091
+  - job_name: 'navidrome-exporter'
+    honor_labels: true
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - music.breeze-blocks.net:4533
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
   - job_name: 'jellyfin-exporter'
     honor_labels: true
     metrics_path: /metrics

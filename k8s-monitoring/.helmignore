@@ -1,0 +1,10 @@
+.ct.yaml
+values.schema.json
+.lintconf.yaml
+data-alloy
+docs
+schema-mods
+tests
+Makefile
+README.md
+README.md.gotmpl
