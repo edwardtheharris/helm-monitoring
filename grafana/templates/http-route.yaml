@@ -5,26 +5,14 @@ metadata:
   name: grafana
 spec:
   parentRefs:
-  - group: gateway.networking.k8s.io
-    kind: Gateway
-    name: grafana
+  - name: grafana
+  hostnames:
+  - "grafana.breeze-blocks.net"
   rules:
-  - backendRefs:
-    - group: ""
-      kind: Service
-      name: grafana
-      port: 3000
-      weight: 1
-    matches:
+  - matches:
     - path:
         type: PathPrefix
         value: /
-    # timeouts:
-    #   request: "2s"
-  hostnames:
-    - grafana.breeze-blocks.net
-    - grafana.monitoring.svc.cluster.local
-  rules:
-    - backendRefs:
-        - name: grafana
-          port: 80
+    backendRefs:
+    - name: grafana
+      port: 3000
