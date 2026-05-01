@@ -11,6 +11,8 @@ date: 2024-08-17
 title: Readme
 ---
 
+<!--markdownlint-disable-->
+
 [![CodeQL](https://github.com/edwardtheharris/helm-template/actions/workflows/codeql.yml/badge.svg)](https://github.com/edwardtheharris/helm-template/actions/workflows/codeql.yml)
 [![Dependabot Updates](https://github.com/edwardtheharris/helm-template/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/edwardtheharris/helm-template/actions/workflows/dependabot/dependabot-updates)
 [![Documentation](https://github.com/edwardtheharris/helm-template/actions/workflows/documentation.yml/badge.svg)](https://github.com/edwardtheharris/helm-template/actions/workflows/documentation.yml)
