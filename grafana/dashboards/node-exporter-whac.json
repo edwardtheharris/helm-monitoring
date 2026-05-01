@@ -501,7 +501,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Used Root FS",
       "fieldConfig": {
@@ -567,13 +567,9 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"}\n) * 100\n",
+          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"}\n) * 100\n",
           "format": "time_series",
           "instant": true,
           "range": false,
@@ -588,9 +584,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
-      "description": "Used Television FS",
+      "description": "Used Media FS",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -637,93 +633,6 @@
         "x": 18,
         "y": 1
       },
-      "id": 340,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media/television\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media/television\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media/television\"}\n) * 100\n",
-          "format": "time_series",
-          "instant": true,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Television FS Used",
-      "transparent": true,
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
-      },
-      "description": "Used Media FS",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 1,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 80
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 21,
-        "y": 1
-      },
       "id": 341,
       "options": {
         "minVizHeight": 75,
@@ -741,13 +650,9 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\", fstype!=\"rootfs\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\", fstype!=\"rootfs\"}\n) * 100\n",
+          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\", fstype!=\"rootfs\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\", fstype!=\"rootfs\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\", fstype!=\"rootfs\"}\n) * 100\n",
           "format": "time_series",
           "instant": true,
           "range": false,
@@ -875,7 +780,7 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 1,
+        "w": 3,
         "x": 3,
         "y": 5
       },
@@ -1204,7 +1109,7 @@
         "x": 16,
         "y": 5
       },
-      "id": 349,
+      "id": 343,
       "maxDataPoints": 100,
       "options": {
         "colorMode": "none",
@@ -1288,7 +1193,7 @@
         "x": 17,
         "y": 5
       },
-      "id": 345,
+      "id": 342,
       "maxDataPoints": 100,
       "options": {
         "colorMode": "none",
@@ -1310,7 +1215,7 @@
         {
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_filesystem_avail_bytes{node=\"media\",mountpoint=\"/\"}",
+          "expr": "node_filesystem_avail_bytes{node=\"whac\",mountpoint=\"/\"}",
           "format": "time_series",
           "instant": true,
           "range": false,
@@ -1372,7 +1277,7 @@
         "x": 18,
         "y": 5
       },
-      "id": 342,
+      "id": 340,
       "maxDataPoints": 100,
       "options": {
         "colorMode": "none",
@@ -1394,7 +1299,7 @@
         {
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/srv/media/television\",fstype!=\"rootfs\"}",
+          "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/srv/media\"}",
           "format": "time_series",
           "instant": true,
           "range": false,
@@ -1402,7 +1307,7 @@
           "step": 240
         }
       ],
-      "title": "TV Total",
+      "title": "Media Total",
       "transparent": true,
       "type": "stat"
     },
@@ -1456,90 +1361,6 @@
         "x": 19,
         "y": 5
       },
-      "id": 348,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "(node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media/television\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media/television\"})",
-          "format": "time_series",
-          "instant": true,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "TV Used",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 1,
-        "x": 20,
-        "y": 5
-      },
       "id": 344,
       "maxDataPoints": 100,
       "options": {
@@ -1560,13 +1381,9 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_filesystem_avail_bytes{node=\"media\",mountpoint=\"/srv/media/television\"}",
+          "expr": "(node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\"})",
           "format": "time_series",
           "instant": true,
           "range": false,
@@ -1574,7 +1391,7 @@
           "step": 240
         }
       ],
-      "title": "TV Free",
+      "title": "Media Used",
       "transparent": true,
       "type": "stat"
     },
@@ -1625,10 +1442,10 @@
       "gridPos": {
         "h": 2,
         "w": 1,
-        "x": 21,
+        "x": 20,
         "y": 5
       },
-      "id": 347,
+      "id": 345,
       "maxDataPoints": 100,
       "options": {
         "colorMode": "none",
@@ -1650,183 +1467,7 @@
         {
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/srv/media\",fstype!=\"rootfs\"}",
-          "format": "time_series",
-          "instant": true,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Media Free",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 1,
-        "x": 22,
-        "y": 5
-      },
-      "id": 343,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "(node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\"})",
-          "format": "time_series",
-          "instant": true,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Media Used",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 1,
-        "x": 23,
-        "y": 5
-      },
-      "id": 346,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/srv/media\",fstype!=\"rootfs\"}",
+          "expr": "node_filesystem_avail_bytes{node=\"whac\", mountpoint=\"/srv/media\"}",
           "format": "time_series",
           "instant": true,
           "range": false,
@@ -2265,7 +1906,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Disk I/O throughput per device",
       "fieldConfig": {
@@ -2358,10 +1999,6 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
           "expr": "irate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\",device=~\"[a-z]+|nvme[0-9]+n[0-9]+|mmcblk[0-9]+\"}[$__rate_interval])",
           "format": "time_series",
@@ -2371,10 +2008,6 @@
           "step": 240
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
           "expr": "irate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\",device=~\"[a-z]+|nvme[0-9]+n[0-9]+|mmcblk[0-9]+\"}[$__rate_interval])",
           "format": "time_series",
@@ -2489,7 +2122,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Disk I/O operations per second for each device",
       "fieldConfig": {
@@ -2499,7 +2132,7 @@
           },
           "custom": {
             "axisBorderShow": false,
-            "axisCenteredZero": true,
+            "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "read (-) / write (+)",
             "axisPlacement": "auto",
@@ -2582,81 +2215,20 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
-          "expr": "avg(irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=~\"nvme0n1|sdc1\"}[$__rate_interval])*-1) by (device)",
-          "legendFormat": "root - Read",
+          "expr": "irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=~\"[a-z]+|nvme[0-9]+n[0-9]+|mmcblk[0-9]+\"}[$__rate_interval])",
+          "legendFormat": "{{device}} - Read",
           "range": true,
-          "refId": "root array read rate",
+          "refId": "A",
           "step": 240
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
-          "expr": "avg(irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=\"sde\"}[$__rate_interval])*-1) by (device)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "media - read",
+          "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"[a-z]+|nvme[0-9]+n[0-9]+|mmcblk[0-9]+\"}[$__rate_interval])",
+          "legendFormat": "{{device}} - Write",
           "range": true,
-          "refId": "media array read rate"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "editorMode": "code",
-          "expr": "avg(irate(node_disk_reads_completed_total{instance=\"$node\",device=~\"sda|sdb|sdd1\"}[$__rate_interval])*-1) by (device)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "tv - read",
-          "range": true,
-          "refId": "television array read rate"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "editorMode": "code",
-          "expr": "avg(irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"nvme0n1|sdc1\"}[$__rate_interval])) by (device)",
-          "legendFormat": "root - Write",
-          "range": true,
-          "refId": "root array write rate",
+          "refId": "B",
           "step": 240
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "editorMode": "code",
-          "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"sde\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "media - write",
-          "range": true,
-          "refId": "media array write rate"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "avg(irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"sda|sdb|sdd1\"}[$__rate_interval])) by (device)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "tv - write",
-          "range": true,
-          "refId": "television array write rate"
         }
       ],
       "title": "Disk IOps",
@@ -2683,8 +2255,8 @@
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 80,
-            "gradientMode": "opacity",
+            "fillOpacity": 10,
+            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -3186,7 +2758,7 @@
       "id": 315,
       "options": {
         "legend": {
-          "calcs": ["mean", "lastNotNull"],
+          "calcs": ["min", "mean", "max"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3205,7 +2777,7 @@
             "uid": "cfh4m99kk5lhcc"
           },
           "editorMode": "code",
-          "expr": "sum(systemd_unit_state{instance=\"marius.breeze-blocks.net:9558\"}) by (state)",
+          "expr": "sum(systemd_unit_state{instance=\"$systemd_instance\"}) by (state)",
           "format": "time_series",
           "interval": "",
           "legendFormat": "__auto",
@@ -3287,7 +2859,7 @@
       "id": 260,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max", "lastNotNull"],
+          "calcs": ["min", "mean", "max"],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3648,7 +3220,228 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
-      "description": "Displays committed memory usage versus the system's commit limit. Exceeding the limit is allowed under Linux overcommit policies but may increase OOM risks under high load",
+      "description": "CPU time spent busy vs idle, split by activity type",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "percent"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Busy Iowait"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#890F02",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Idle"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#052B51",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Busy System"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#EAB839",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Busy User"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#0A437C",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Busy Other"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#6D1F62",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 6,
+        "x": 0,
+        "y": 43
+      },
+      "id": 77,
+      "options": {
+        "legend": {
+          "calcs": ["lastNotNull", "firstNotNull", "mean"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "width": 250
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"system\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Busy System",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"user\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
+          "format": "time_series",
+          "legendFormat": "Busy User",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"iowait\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
+          "format": "time_series",
+          "legendFormat": "Busy Iowait",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=~\".*irq\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
+          "format": "time_series",
+          "legendFormat": "Busy IRQs",
+          "range": true,
+          "refId": "D",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\",  mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq'}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
+          "format": "time_series",
+          "legendFormat": "Busy Other",
+          "range": true,
+          "refId": "E",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "sum(irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"idle\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
+          "format": "time_series",
+          "legendFormat": "Idle",
+          "range": true,
+          "refId": "F",
+          "step": 240
+        }
+      ],
+      "title": "CPU Basic",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Amount of available disk space per mounted filesystem, excluding rootfs. Based on block availability to non-root users",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3702,42 +3495,21 @@
           },
           "unit": "bytes"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/.*CommitLimit - *./"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#BF1B00",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 12,
         "w": 6,
-        "x": 0,
+        "x": 6,
         "y": 43
       },
-      "id": 135,
+      "id": 43,
       "options": {
         "legend": {
           "calcs": ["min", "mean", "max"],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true,
-          "width": 350
+          "showLegend": true
         },
         "tooltip": {
           "hideZeros": false,
@@ -3749,24 +3521,36 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_memory_Committed_AS_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
           "format": "time_series",
-          "legendFormat": "promised",
+          "legendFormat": "{{mountpoint}}",
+          "metric": "",
           "range": true,
           "refId": "A",
           "step": 240
         },
         {
           "editorMode": "code",
-          "expr": "node_memory_CommitLimit_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "node_filesystem_free_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
           "format": "time_series",
-          "legendFormat": "Max committed",
+          "hide": true,
+          "legendFormat": "{{mountpoint}} - Free",
           "range": true,
           "refId": "B",
           "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
+          "format": "time_series",
+          "hide": true,
+          "legendFormat": "{{mountpoint}} - Size",
+          "range": true,
+          "refId": "C",
+          "step": 240
         }
       ],
-      "title": "Memory Committed",
+      "title": "Filesystem Space Available",
       "transparent": true,
       "type": "timeseries"
     },
@@ -3775,7 +3559,7 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
-      "description": "Rate of memory page faults, split into total, major (disk-backed), and derived minor (non-disk) faults. High major fault rates may indicate memory pressure or insufficient RAM",
+      "description": "Breakdown of physical memory and swap usage. Hardware-detected memory errors are also displayed",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3790,7 +3574,7 @@
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 20,
+            "fillOpacity": 40,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -3827,181 +3611,305 @@
               }
             ]
           },
-          "unit": "ops"
+          "unit": "bytes"
         },
         "overrides": [
           {
             "matcher": {
               "id": "byName",
-              "options": "Pgfault - Page major and minor fault ops"
+              "options": "Apps"
             },
             "properties": [
               {
-                "id": "custom.fillOpacity",
-                "value": 0
-              },
+                "id": "color",
+                "value": {
+                  "fixedColor": "#629E51",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Buffers"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#614D93",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Cache"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#6D1F62",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Cached"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#511749",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Committed"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#508642",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Free"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#0A437C",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Hardware Corrupted - Amount of RAM that the kernel identified as corrupted / not working"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#CFFAFF",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Inactive"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#584477",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PageTables"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#0A50A1",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Page_Tables"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#0A50A1",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RAM_Free"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#E0F9D7",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Slab"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#806EB7",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Slab_Cache"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#E0752D",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Swap"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#BF1B00",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Swap - Swap memory usage"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#BF1B00",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Swap_Cache"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#C15C17",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Swap_Free"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#2F575E",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unused"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#EAB839",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unused - Free memory unassigned"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#052B51",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Hardware Corrupted - *./"
+            },
+            "properties": [
               {
                 "id": "custom.stacking",
                 "value": {
                   "group": false,
-                  "mode": "none"
-                }
-              },
-              {
-                "id": "custom.lineStyle",
-                "value": {
-                  "dash": [10, 10],
-                  "fill": "dash"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 6,
-        "x": 6,
-        "y": 43
-      },
-      "id": 175,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "width": 350
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "irate(node_vmstat_pgfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-          "format": "time_series",
-          "legendFormat": "Pgfault - Page major and minor fault ops",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "irate(node_vmstat_pgmajfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-          "format": "time_series",
-          "legendFormat": "Pgmajfault - Major page fault ops",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "irate(node_vmstat_pgfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])  - irate(node_vmstat_pgmajfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-          "format": "time_series",
-          "legendFormat": "Pgminfault - Minor page fault ops",
-          "range": true,
-          "refId": "C",
-          "step": 240
-        }
-      ],
-      "title": "Memory Page Faults",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
-      },
-      "description": "Number of currently established TCP connections and the system's max supported limit. On Linux, MaxConn may return -1 to indicate a dynamic/unlimited configuration",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/.*Max*./"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#890F02",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              },
-              {
-                "id": "custom.lineStyle",
-                "value": {
-                  "dash": [10, 10],
-                  "fill": "dash"
+                  "mode": "normal"
                 }
               }
             ]
@@ -4014,13 +3922,16 @@
         "x": 12,
         "y": 43
       },
-      "id": 85,
+      "id": 24,
       "options": {
         "legend": {
-          "calcs": ["mean", "lastNotNull"],
+          "calcs": ["min", "mean", "max"],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Name",
+          "sortDesc": true,
+          "width": 350
         },
         "tooltip": {
           "hideZeros": false,
@@ -4031,42 +3942,95 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
-          "expr": "node_netstat_Tcp_CurrEstab{instance=\"$node\",job=\"$job\"}",
+          "expr": "node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"} - node_memory_Buffers_bytes{instance=\"$node\",job=\"$job\"} - node_memory_Cached_bytes{instance=\"$node\",job=\"$job\"} - node_memory_Slab_bytes{instance=\"$node\",job=\"$job\"} - node_memory_PageTables_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapCached_bytes{instance=\"$node\",job=\"$job\"}",
           "format": "time_series",
-          "interval": "",
-          "legendFormat": "Current Connections",
+          "legendFormat": "Apps - Memory used by user-space applications",
           "range": true,
           "refId": "A",
           "step": 240
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
-          "expr": "node_netstat_Tcp_MaxConn{instance=\"$node\",job=\"$job\"}",
+          "expr": "node_memory_PageTables_bytes{instance=\"$node\",job=\"$job\"}",
           "format": "time_series",
-          "interval": "",
-          "legendFormat": "Max Connections",
+          "legendFormat": "PageTables - Memory used to map between virtual and physical memory addresses",
           "range": true,
           "refId": "B",
           "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_SwapCached_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "SwapCache - Memory that keeps track of pages that have been fetched from swap but not yet been modified",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Slab_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Slab - Memory used by the kernel to cache data structures for its own use (caches like inode, dentry, etc)",
+          "range": true,
+          "refId": "D",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Cached_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Cache - Parked file data (file content) cache",
+          "range": true,
+          "refId": "E",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Buffers_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Buffers - Block device (e.g. harddisk) cache",
+          "range": true,
+          "refId": "F",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Unused - Free memory unassigned",
+          "range": true,
+          "refId": "G",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "(node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"})",
+          "format": "time_series",
+          "legendFormat": "Swap - Swap space used",
+          "range": true,
+          "refId": "H",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_HardwareCorrupted_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Hardware Corrupted - Amount of RAM that the kernel identified as corrupted / not working",
+          "range": true,
+          "refId": "I",
+          "step": 240
         }
       ],
-      "title": "TCP Connections",
+      "title": "Memory",
       "transparent": true,
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Network interface utilization as a percentage of its maximum capacity",
       "fieldConfig": {
@@ -4159,10 +4123,6 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
           "expr": "rate(node_network_receive_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])\n / ignoring(speed) node_network_speed_bytes{instance=\"$node\",job=\"$job\", speed!=\"-1\"}",
           "format": "time_series",
@@ -4172,10 +4132,6 @@
           "step": 240
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
           "expr": "(rate(node_network_transmit_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])\n / ignoring(speed) node_network_speed_bytes{instance=\"$node\",job=\"$job\", speed!=\"-1\"})",
           "format": "time_series",
@@ -4193,220 +4149,6 @@
       "datasource": {
         "type": "prometheus",
         "uid": "${ds_prometheus}"
-      },
-      "description": "TCP/UDP socket memory usage in kernel (in pages)",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 6,
-        "x": 0,
-        "y": 55
-      },
-      "id": 336,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "width": 300
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "node_sockstat_TCP_mem{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "TCP",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_sockstat_UDP_mem{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "UDP",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        }
-      ],
-      "title": "TCP/UDP Kernel Buffer Memory Pages",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
-      },
-      "description": "Shows the online status of power supplies (e.g., AC, battery). A value of 1-Yes indicates the power supply is active/online",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bool_yes_no"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 6,
-        "x": 12,
-        "y": 55
-      },
-      "id": 302,
-      "options": {
-        "legend": {
-          "calcs": ["mean", "lastNotNull"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "editorMode": "code",
-          "expr": "node_power_supply_energy_watthour{}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "{{ power_supply }} online",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Power Supply",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
       },
       "description": "CPU time usage split by state, normalized across all CPU cores",
       "fieldConfig": {
@@ -4614,7 +4356,7 @@
       "gridPos": {
         "h": 12,
         "w": 6,
-        "x": 18,
+        "x": 0,
         "y": 55
       },
       "id": 3,
@@ -4635,10 +4377,6 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"system\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
           "format": "time_series",
@@ -4730,6 +4468,283 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
+      "description": "Rate of memory page faults, split into total, major (disk-backed), and derived minor (non-disk) faults. High major fault rates may indicate memory pressure or insufficient RAM",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Pgfault - Page major and minor fault ops"
+            },
+            "properties": [
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": false,
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [10, 10],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 6,
+        "x": 6,
+        "y": 55
+      },
+      "id": 175,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "width": 350
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_vmstat_pgfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "format": "time_series",
+          "legendFormat": "Pgfault - Page major and minor fault ops",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "irate(node_vmstat_pgmajfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "format": "time_series",
+          "legendFormat": "Pgmajfault - Major page fault ops",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "irate(node_vmstat_pgfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])  - irate(node_vmstat_pgmajfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "format": "time_series",
+          "legendFormat": "Pgminfault - Minor page fault ops",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        }
+      ],
+      "title": "Memory Page Faults",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Displays committed memory usage versus the system's commit limit. Exceeding the limit is allowed under Linux overcommit policies but may increase OOM risks under high load",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*CommitLimit - *./"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#BF1B00",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 6,
+        "x": 12,
+        "y": 55
+      },
+      "id": 135,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "width": 350
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Committed_AS_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Memory promised to processes",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_CommitLimit_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Max allowable committed memory",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "Memory Committed",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
       "description": "Disk usage (used = total - available) per mountpoint",
       "fieldConfig": {
         "defaults": {
@@ -4789,8 +4804,8 @@
       "gridPos": {
         "h": 12,
         "w": 6,
-        "x": 0,
-        "y": 67
+        "x": 18,
+        "y": 55
       },
       "id": 156,
       "options": {
@@ -4828,137 +4843,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 79
+        "y": 67
       },
       "id": 266,
       "panels": [],
       "title": "Memory Meminfo",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Breakdown of memory pages in the kernel's active and inactive LRU lists, separated by anonymous (heap, tmpfs) and file-backed (caches, mmap) pages.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 67
-      },
-      "id": 191,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "width": 350
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "node_memory_Inactive_file_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Inactive_file - File-backed memory on inactive LRU list",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_memory_Inactive_anon_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Inactive_anon – Anonymous memory on inactive LRU (incl. tmpfs & swap cache)",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_memory_Active_file_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Active_file - File-backed memory on active LRU list",
-          "range": true,
-          "refId": "C",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_memory_Active_anon_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Active_anon – Anonymous memory on active LRU (incl. tmpfs & swap cache)",
-          "range": true,
-          "refId": "D",
-          "step": 240
-        }
-      ],
-      "title": "Memory LRU Active / Inactive Detail",
-      "transparent": true,
-      "type": "timeseries"
     },
     {
       "datasource": {
@@ -5025,7 +4915,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 80
+        "y": 68
       },
       "id": 131,
       "options": {
@@ -5131,7 +5021,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 80
+        "y": 68
       },
       "id": 130,
       "options": {
@@ -5280,7 +5170,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 80
+        "y": 68
       },
       "id": 138,
       "options": {
@@ -5438,7 +5328,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 88
+        "y": 76
       },
       "id": 136,
       "options": {
@@ -5477,6 +5367,131 @@
         }
       ],
       "title": "Memory LRU Active / Inactive (%)",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Breakdown of memory pages in the kernel's active and inactive LRU lists, separated by anonymous (heap, tmpfs) and file-backed (caches, mmap) pages.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 76
+      },
+      "id": 191,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "width": 350
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Inactive_file_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Inactive_file - File-backed memory on inactive LRU list",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Inactive_anon_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Inactive_anon – Anonymous memory on inactive LRU (incl. tmpfs & swap cache)",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Active_file_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Active_file - File-backed memory on active LRU list",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Active_anon_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Active_anon – Anonymous memory on active LRU (incl. tmpfs & swap cache)",
+          "range": true,
+          "refId": "D",
+          "step": 240
+        }
+      ],
+      "title": "Memory LRU Active / Inactive Detail",
       "transparent": true,
       "type": "timeseries"
     },
@@ -5545,7 +5560,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 88
+        "y": 76
       },
       "id": 160,
       "options": {
@@ -5663,7 +5678,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 96
+        "y": 84
       },
       "id": 129,
       "options": {
@@ -5796,7 +5811,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 96
+        "y": 84
       },
       "id": 70,
       "options": {
@@ -6186,7 +6201,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 108
+        "y": 96
       },
       "id": 128,
       "options": {
@@ -6319,7 +6334,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 108
+        "y": 96
       },
       "id": 137,
       "options": {
@@ -6360,6 +6375,143 @@
       "title": "Memory Unevictable and MLocked",
       "transparent": true,
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Displays HugePages memory usage in bytes, including allocated, free, reserved, and surplus memory. All values are calculated based on the number of huge pages multiplied by their configured size",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 108
+      },
+      "id": 140,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_memory_HugePages_Free{instance=\"$node\",job=\"$job\"} * node_memory_Hugepagesize_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "HugePages Used – Currently allocated",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_HugePages_Rsvd{instance=\"$node\",job=\"$job\"} * node_memory_Hugepagesize_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "HugePages Reserved – Promised but unused",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_HugePages_Surp{instance=\"$node\",job=\"$job\"} * node_memory_Hugepagesize_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "HugePages Surplus – Dynamic pool extension",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_HugePages_Total{instance=\"$node\",job=\"$job\"} * node_memory_Hugepagesize_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "HugePages Total – Reserved memory",
+          "range": true,
+          "refId": "D",
+          "step": 240
+        }
+      ],
+      "title": "Memory HugePages",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 120
+      },
+      "id": 267,
+      "panels": [],
+      "title": "Memory Vmstat",
+      "type": "row"
     },
     {
       "datasource": {
@@ -6438,7 +6590,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 120
+        "y": 121
       },
       "id": 176,
       "options": {
@@ -6484,7 +6636,7 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
-      "description": "Displays HugePages memory usage in bytes, including allocated, free, reserved, and surplus memory. All values are calculated based on the number of huge pages multiplied by their configured size",
+      "description": "Rate at which memory pages are being swapped in from or out to disk. High swap-out activity may indicate memory pressure",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -6494,7 +6646,7 @@
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "",
+            "axisLabel": "out (-) / in (+)",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "barWidthFactor": 0.6,
@@ -6526,7 +6678,6 @@
           },
           "links": [],
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -6536,17 +6687,30 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "ops"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*out.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 120
+        "y": 121
       },
-      "id": 140,
+      "id": 22,
       "options": {
         "legend": {
           "calcs": ["min", "mean", "max"],
@@ -6564,57 +6728,26 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_memory_HugePages_Free{instance=\"$node\",job=\"$job\"} * node_memory_Hugepagesize_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "irate(node_vmstat_pswpin{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
           "format": "time_series",
-          "legendFormat": "HugePages Used – Currently allocated",
+          "legendFormat": "Pswpin - Pages swapped in",
           "range": true,
           "refId": "A",
           "step": 240
         },
         {
           "editorMode": "code",
-          "expr": "node_memory_HugePages_Rsvd{instance=\"$node\",job=\"$job\"} * node_memory_Hugepagesize_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "irate(node_vmstat_pswpout{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
           "format": "time_series",
-          "legendFormat": "HugePages Reserved – Promised but unused",
+          "legendFormat": "Pswpout - Pages swapped out",
           "range": true,
           "refId": "B",
           "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_memory_HugePages_Surp{instance=\"$node\",job=\"$job\"} * node_memory_Hugepagesize_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "HugePages Surplus – Dynamic pool extension",
-          "range": true,
-          "refId": "C",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_memory_HugePages_Total{instance=\"$node\",job=\"$job\"} * node_memory_Hugepagesize_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "HugePages Total – Reserved memory",
-          "range": true,
-          "refId": "D",
-          "step": 240
         }
       ],
-      "title": "Memory HugePages",
+      "title": "Memory Pages Swap In / Out",
       "transparent": true,
       "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 132
-      },
-      "id": 267,
-      "panels": [],
-      "title": "Memory Vmstat",
-      "type": "row"
     },
     {
       "datasource": {
@@ -6696,7 +6829,7 @@
       "gridPos": {
         "h": 12,
         "w": 12,
-        "x": 0,
+        "x": 12,
         "y": 133
       },
       "id": 307,
@@ -6727,124 +6860,6 @@
         }
       ],
       "title": "OOM Killer",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Rate at which memory pages are being swapped in from or out to disk. High swap-out activity may indicate memory pressure",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "out (-) / in (+)",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "ops"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/.*out.*/"
-            },
-            "properties": [
-              {
-                "id": "custom.transform",
-                "value": "negative-Y"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 12,
-        "y": 133
-      },
-      "id": 22,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "irate(node_vmstat_pswpin{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-          "format": "time_series",
-          "legendFormat": "Pswpin - Pages swapped in",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "irate(node_vmstat_pswpout{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-          "format": "time_series",
-          "legendFormat": "Pswpout - Pages swapped out",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        }
-      ],
-      "title": "Memory Pages Swap In / Out",
       "transparent": true,
       "type": "timeseries"
     },
@@ -7791,7 +7806,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${ds_prometheus}"
+        "uid": "efi7a9ajh454wf"
       },
       "description": "Number of active threads on the system and the configured thread limit. Useful for monitoring thread pressure. Requires --collector.processes in node_exporter",
       "fieldConfig": {
@@ -7887,7 +7902,7 @@
         "legend": {
           "calcs": ["min", "mean", "max"],
           "displayMode": "table",
-          "placement": "bottom",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
@@ -7899,8 +7914,12 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "efi7a9ajh454wf"
+          },
           "editorMode": "code",
-          "expr": "node_processes_threads{instance=\"$node\",job=\"$job\"}",
+          "expr": "process_num_threads{instance=\"media.breeze-blocks.net:8096\"}",
           "format": "time_series",
           "interval": "",
           "legendFormat": "Allocated threads",
@@ -7909,11 +7928,15 @@
           "step": 240
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "efi7a9ajh454wf"
+          },
           "editorMode": "code",
-          "expr": "node_processes_max_threads{instance=\"$node\",job=\"$job\"}",
+          "expr": "",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "Threads limit",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "B",
           "step": 240
@@ -8249,9 +8272,7 @@
           "calcs": ["min", "mean", "max"],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Name",
-          "sortDesc": true
+          "showLegend": true
         },
         "tooltip": {
           "hideZeros": false,
@@ -8525,6 +8546,107 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
+      "description": "Shows the online status of power supplies (e.g., AC, battery). A value of 1-Yes indicates the power supply is active/online",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bool_yes_no"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 243
+      },
+      "id": 302,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_power_supply_online{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "{{ power_supply }} online",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "Power Supply",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
       "description": "Shows how hard each cooling device (fan/throttle) is working relative to its maximum capacity",
       "fieldConfig": {
         "defaults": {
@@ -8762,7 +8884,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "cfh4m99kk5lhcc"
       },
       "description": "Current number of systemd units in each operational state, such as active, failed, inactive, or transitioning",
       "fieldConfig": {
@@ -13178,7 +13300,7 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
-      "description": "How often the kernel was unable to process all packets in the softnet queue before time ran out. Frequent squeezes may indicate CPU contention or driver inefficiency",
+      "description": "TCP/UDP socket memory usage in kernel (in pages)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -13220,20 +13342,17 @@
           },
           "links": [],
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
-          "unit": "eps"
+          "unit": "short"
         },
         "overrides": []
       },
@@ -13243,7 +13362,7 @@
         "x": 0,
         "y": 494
       },
-      "id": 310,
+      "id": 336,
       "options": {
         "legend": {
           "calcs": ["min", "mean", "max"],
@@ -13262,16 +13381,26 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "irate(node_softnet_times_squeezed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "expr": "node_sockstat_TCP_mem{instance=\"$node\",job=\"$job\"}",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "CPU {{cpu}} - Times Squeezed",
+          "legendFormat": "TCP",
           "range": true,
           "refId": "A",
           "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_sockstat_UDP_mem{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "UDP",
+          "range": true,
+          "refId": "B",
+          "step": 240
         }
       ],
-      "title": "Softnet Out of Quota",
+      "title": "TCP/UDP Kernel Buffer Memory Pages",
       "type": "timeseries"
     },
     {
@@ -13392,6 +13521,107 @@
         }
       ],
       "title": "Softnet Packets",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "How often the kernel was unable to process all packets in the softnet queue before time ran out. Frequent squeezes may indicate CPU contention or driver inefficiency",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "eps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 504
+      },
+      "id": 310,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "width": 300
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_softnet_times_squeezed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "CPU {{cpu}} - Times Squeezed",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "Softnet Out of Quota",
       "type": "timeseries"
     },
     {
@@ -14584,7 +14814,7 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
-      "description": "Rate of TCP connection initiations per second. 'Active' opens are initiated by this host. 'Passive' opens are accepted from incoming connections",
+      "description": "Number of currently established TCP connections and the system's max supported limit. On Linux, MaxConn may return -1 to indicate a dynamic/unlimited configuration",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -14636,9 +14866,36 @@
               }
             ]
           },
-          "unit": "eps"
+          "unit": "short"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Max*./"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#890F02",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [10, 10],
+                  "fill": "dash"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 12,
@@ -14646,7 +14903,7 @@
         "x": 0,
         "y": 563
       },
-      "id": 82,
+      "id": 85,
       "options": {
         "legend": {
           "calcs": ["min", "mean", "max"],
@@ -14664,26 +14921,26 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "irate(node_netstat_Tcp_ActiveOpens{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "expr": "node_netstat_Tcp_CurrEstab{instance=\"$node\",job=\"$job\"}",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "Active Opens",
+          "legendFormat": "Current Connections",
           "range": true,
           "refId": "A",
           "step": 240
         },
         {
           "editorMode": "code",
-          "expr": "irate(node_netstat_Tcp_PassiveOpens{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "expr": "node_netstat_Tcp_MaxConn{instance=\"$node\",job=\"$job\"}",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "Passive Opens",
+          "legendFormat": "Max Connections",
           "range": true,
           "refId": "B",
           "step": 240
         }
       ],
-      "title": "TCP Direct Transition",
+      "title": "TCP Connections",
       "transparent": true,
       "type": "timeseries"
     },
@@ -14791,6 +15048,114 @@
         }
       ],
       "title": "UDP Queue",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Rate of TCP connection initiations per second. 'Active' opens are initiated by this host. 'Passive' opens are accepted from incoming connections",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "eps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 575
+      },
+      "id": 82,
+      "options": {
+        "legend": {
+          "calcs": ["min", "mean", "max"],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_netstat_Tcp_ActiveOpens{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Active Opens",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "irate(node_netstat_Tcp_PassiveOpens{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Passive Opens",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "TCP Direct Transition",
       "transparent": true,
       "type": "timeseries"
     },
@@ -15546,9 +15911,9 @@
     }
   ],
   "preload": true,
-  "refresh": "10s",
+  "refresh": "30s",
   "schemaVersion": 42,
-  "tags": ["media", "linux", "node exporter"],
+  "tags": ["whac", "node exporter", "linux"],
   "templating": {
     "list": [
       {
@@ -15591,8 +15956,8 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "media",
-          "value": "media"
+          "text": "whac",
+          "value": "whac"
         },
         "description": "",
         "label": "Nodename",
@@ -15600,17 +15965,17 @@
         "options": [
           {
             "selected": true,
-            "text": "media",
-            "value": "media"
+            "text": "whac",
+            "value": "whac"
           }
         ],
-        "query": "media",
+        "query": "whac",
         "type": "custom"
       },
       {
         "current": {
-          "text": "media.breeze-blocks.net:9100",
-          "value": "media.breeze-blocks.net:9100"
+          "text": "whac.breeze-blocks.net:9100",
+          "value": "whac.breeze-blocks.net:9100"
         },
         "datasource": {
           "type": "prometheus",
@@ -15633,8 +15998,8 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "media.breeze-blocks.net:9558",
-          "value": "media.breeze-blocks.net:9558"
+          "text": "whac.breeze-blocks.net:9558",
+          "value": "whac.breeze-blocks.net:9558"
         },
         "description": "",
         "label": "systemd_instance",
@@ -15642,11 +16007,11 @@
         "options": [
           {
             "selected": true,
-            "text": "media.breeze-blocks.net:9558",
-            "value": "media.breeze-blocks.net:9558"
+            "text": "whac.breeze-blocks.net:9558",
+            "value": "whac.breeze-blocks.net:9558"
           }
         ],
-        "query": "media.breeze-blocks.net:9558",
+        "query": "whac.breeze-blocks.net:9558",
         "type": "custom"
       }
     ]
@@ -15657,7 +16022,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "media Exporter Full",
-  "uid": "duzd5k6",
-  "version": 97
+  "title": "whac Exporter Full",
+  "uid": "dumnxdc",
+  "version": 68
 }
