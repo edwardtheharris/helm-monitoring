@@ -117,7 +117,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -235,7 +237,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -318,7 +322,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -391,7 +397,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -474,7 +482,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -501,7 +511,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Used Root FS",
       "fieldConfig": {
@@ -556,7 +566,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -569,7 +581,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -588,7 +600,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Used Television FS",
       "fieldConfig": {
@@ -643,7 +655,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -656,7 +670,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -675,7 +689,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Used Media FS",
       "fieldConfig": {
@@ -730,7 +744,9 @@
         "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -743,7 +759,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -814,7 +830,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -888,7 +906,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -967,7 +987,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1046,7 +1068,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1129,7 +1153,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1213,7 +1239,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1297,7 +1325,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1381,7 +1411,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1465,7 +1497,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1493,7 +1527,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "",
       "fieldConfig": {
@@ -1549,7 +1583,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1562,7 +1598,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1637,7 +1673,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1665,7 +1703,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "",
       "fieldConfig": {
@@ -1721,7 +1759,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1734,7 +1774,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1753,7 +1793,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "",
       "fieldConfig": {
@@ -1809,7 +1849,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -1822,7 +1864,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1911,7 +1953,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               },
@@ -1935,7 +1980,11 @@
       "id": 7,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2071,7 +2120,11 @@
       "id": 74,
       "options": {
         "legend": {
-          "calcs": ["lastNotNull", "firstNotNull", "mean"],
+          "calcs": [
+            "lastNotNull",
+            "firstNotNull",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2197,7 +2250,10 @@
       "id": 158,
       "options": {
         "legend": {
-          "calcs": ["mean", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2265,7 +2321,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Disk I/O throughput per device",
       "fieldConfig": {
@@ -2344,7 +2400,11 @@
       "id": 42,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2360,7 +2420,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "irate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\",device=~\"[a-z]+|nvme[0-9]+n[0-9]+|mmcblk[0-9]+\"}[$__rate_interval])",
@@ -2373,7 +2433,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "irate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\",device=~\"[a-z]+|nvme[0-9]+n[0-9]+|mmcblk[0-9]+\"}[$__rate_interval])",
@@ -2458,7 +2518,11 @@
       "id": 127,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2489,7 +2553,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Disk I/O operations per second for each device",
       "fieldConfig": {
@@ -2568,7 +2632,11 @@
       "id": 229,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2584,7 +2652,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "avg(irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=~\"nvme0n1|sdc1\"}[$__rate_interval])*-1) by (device)",
@@ -2596,7 +2664,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "avg(irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=\"sde\"}[$__rate_interval])*-1) by (device)",
@@ -2609,7 +2677,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "avg(irate(node_disk_reads_completed_total{instance=\"$node\",device=~\"sda|sdb|sdd1\"}[$__rate_interval])*-1) by (device)",
@@ -2622,7 +2690,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "avg(irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"nvme0n1|sdc1\"}[$__rate_interval])) by (device)",
@@ -2634,7 +2702,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"sde\"}[$__rate_interval])",
@@ -2647,7 +2715,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -2666,7 +2734,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "How often tasks experience CPU, memory, or I/O delays. “Some” indicates partial slowdown; “Full” indicates all tasks are stalled. Based on Linux PSI metrics:\nhttps://docs.kernel.org/accounting/psi.html",
       "fieldConfig": {
@@ -2757,7 +2825,11 @@
       "id": 322,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2773,7 +2845,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "rate(node_pressure_cpu_waiting_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
@@ -2786,7 +2858,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "rate(node_pressure_memory_waiting_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
@@ -2799,7 +2871,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "rate(node_pressure_memory_stalled_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
@@ -2812,7 +2884,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "rate(node_pressure_io_waiting_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
@@ -2825,7 +2897,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "rate(node_pressure_io_stalled_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
@@ -2838,7 +2910,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "rate(node_pressure_irq_stalled_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
@@ -2921,7 +2993,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               },
@@ -2951,7 +3026,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               },
@@ -2983,7 +3061,10 @@
       "id": 321,
       "options": {
         "legend": {
-          "calcs": ["mean", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3034,7 +3115,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "ffl7khfh07pc0b"
       },
       "description": "Current number of processes in each state (e.g., running, sleeping, zombie). Requires --collector.processes to be enabled in node_exporter",
       "fieldConfig": {
@@ -3186,7 +3267,10 @@
       "id": 315,
       "options": {
         "legend": {
-          "calcs": ["mean", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3205,7 +3289,7 @@
             "uid": "cfh4m99kk5lhcc"
           },
           "editorMode": "code",
-          "expr": "sum(systemd_unit_state{instance=\"marius.breeze-blocks.net:9558\"}) by (state)",
+          "expr": "sum(systemd_unit_state{instance=\"media.breeze-blocks.net:9558\"}) by (state)",
           "format": "time_series",
           "interval": "",
           "legendFormat": "__auto",
@@ -3287,7 +3371,12 @@
       "id": 260,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max", "lastNotNull"],
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3477,7 +3566,11 @@
       "id": 78,
       "options": {
         "legend": {
-          "calcs": ["lastNotNull", "firstNotNull", "mean"],
+          "calcs": [
+            "lastNotNull",
+            "firstNotNull",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -3544,7 +3637,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Percentage of filesystem space used for each mounted device",
       "fieldConfig": {
@@ -3556,13 +3649,13 @@
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "",
+            "axisLabel": "usage",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 40,
-            "gradientMode": "none",
+            "fillOpacity": 75,
+            "gradientMode": "opacity",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -3612,7 +3705,11 @@
       "id": 152,
       "options": {
         "legend": {
-          "calcs": ["lastNotNull", "firstNotNull", "mean"],
+          "calcs": [
+            "lastNotNull",
+            "firstNotNull",
+            "mean"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3628,7 +3725,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "((node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", device!~\"rootfs\"} - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", device!~\"rootfs\"}) / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", device!~\"rootfs\"}) * 100",
@@ -3733,7 +3830,11 @@
       "id": 135,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -3850,7 +3951,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               },
@@ -3874,7 +3978,11 @@
       "id": 175,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -3923,7 +4031,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Number of currently established TCP connections and the system's max supported limit. On Linux, MaxConn may return -1 to indicate a dynamic/unlimited configuration",
       "fieldConfig": {
@@ -4000,7 +4108,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               }
@@ -4017,7 +4128,10 @@
       "id": 85,
       "options": {
         "legend": {
-          "calcs": ["mean", "lastNotNull"],
+          "calcs": [
+            "mean",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -4033,7 +4147,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "node_netstat_Tcp_CurrEstab{instance=\"$node\",job=\"$job\"}",
@@ -4047,7 +4161,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "node_netstat_Tcp_MaxConn{instance=\"$node\",job=\"$job\"}",
@@ -4066,7 +4180,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
       "description": "Network interface utilization as a percentage of its maximum capacity",
       "fieldConfig": {
@@ -4145,7 +4259,11 @@
       "id": 338,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -4161,7 +4279,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "rate(node_network_receive_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])\n / ignoring(speed) node_network_speed_bytes{instance=\"$node\",job=\"$job\", speed!=\"-1\"}",
@@ -4174,7 +4292,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "(rate(node_network_transmit_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])\n / ignoring(speed) node_network_speed_bytes{instance=\"$node\",job=\"$job\", speed!=\"-1\"})",
@@ -4193,220 +4311,6 @@
       "datasource": {
         "type": "prometheus",
         "uid": "${ds_prometheus}"
-      },
-      "description": "TCP/UDP socket memory usage in kernel (in pages)",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 6,
-        "x": 0,
-        "y": 55
-      },
-      "id": 336,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true,
-          "width": 300
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "node_sockstat_TCP_mem{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "TCP",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_sockstat_UDP_mem{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "UDP",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        }
-      ],
-      "title": "TCP/UDP Kernel Buffer Memory Pages",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
-      },
-      "description": "Shows the online status of power supplies (e.g., AC, battery). A value of 1-Yes indicates the power supply is active/online",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bool_yes_no"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 6,
-        "x": 12,
-        "y": 55
-      },
-      "id": 302,
-      "options": {
-        "legend": {
-          "calcs": ["mean", "lastNotNull"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "editorMode": "code",
-          "expr": "node_power_supply_energy_watthour{}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "{{ power_supply }} online",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Power Supply",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
       },
       "description": "CPU time usage split by state, normalized across all CPU cores",
       "fieldConfig": {
@@ -4596,7 +4500,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               },
@@ -4614,13 +4521,17 @@
       "gridPos": {
         "h": 12,
         "w": 6,
-        "x": 18,
+        "x": 0,
         "y": 55
       },
       "id": 3,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -4637,7 +4548,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
+            "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"system\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
@@ -4649,6 +4560,10 @@
           "step": 240
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"user\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
           "format": "time_series",
@@ -4658,6 +4573,10 @@
           "step": 240
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"nice\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
           "format": "time_series",
@@ -4667,6 +4586,10 @@
           "step": 240
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"iowait\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
           "format": "time_series",
@@ -4676,6 +4599,10 @@
           "step": 240
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"irq\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
           "format": "time_series",
@@ -4685,6 +4612,10 @@
           "step": 240
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"softirq\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
           "format": "time_series",
@@ -4694,6 +4625,10 @@
           "step": 240
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"steal\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
           "format": "time_series",
@@ -4703,6 +4638,10 @@
           "step": 240
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
           "editorMode": "code",
           "expr": "sum(irate(node_cpu_seconds_total{mode=\"idle\",instance=\"$node\",job=\"$job\"}[$__rate_interval])) / scalar(count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)))",
           "format": "time_series",
@@ -4712,6 +4651,10 @@
           "step": 240
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
           "editorMode": "code",
           "expr": "sum by(instance) (irate(node_cpu_guest_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval]))) > 0",
           "format": "time_series",
@@ -4789,13 +4732,17 @@
       "gridPos": {
         "h": 12,
         "w": 6,
-        "x": 0,
-        "y": 67
+        "x": 6,
+        "y": 55
       },
       "id": 156,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -4823,24 +4770,11 @@
       "type": "timeseries"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 79
-      },
-      "id": 266,
-      "panels": [],
-      "title": "Memory Meminfo",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
-      "description": "Breakdown of memory pages in the kernel's active and inactive LRU lists, separated by anonymous (heap, tmpfs) and file-backed (caches, mmap) pages.",
+      "description": "Shows the online status of power supplies (e.g., AC, battery). A value of 1-Yes indicates the power supply is active/online",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -4874,7 +4808,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "normal"
+              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -4882,34 +4816,39 @@
           },
           "links": [],
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bool_yes_no"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 67
+        "h": 12,
+        "w": 6,
+        "x": 12,
+        "y": 55
       },
-      "id": 191,
+      "id": 302,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true,
-          "width": 350
+          "showLegend": true
         },
         "tooltip": {
           "hideZeros": false,
@@ -4920,43 +4859,21 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
           "editorMode": "code",
-          "expr": "node_memory_Inactive_file_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "node_power_supply_energy_watthour{}",
           "format": "time_series",
-          "legendFormat": "Inactive_file - File-backed memory on inactive LRU list",
+          "interval": "",
+          "legendFormat": "{{ power_supply }} online",
           "range": true,
           "refId": "A",
           "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_memory_Inactive_anon_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Inactive_anon – Anonymous memory on inactive LRU (incl. tmpfs & swap cache)",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_memory_Active_file_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Active_file - File-backed memory on active LRU list",
-          "range": true,
-          "refId": "C",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_memory_Active_anon_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Active_anon – Anonymous memory on active LRU (incl. tmpfs & swap cache)",
-          "range": true,
-          "refId": "D",
-          "step": 240
         }
       ],
-      "title": "Memory LRU Active / Inactive Detail",
+      "title": "Power Supply",
       "transparent": true,
       "type": "timeseries"
     },
@@ -5022,15 +4939,19 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 80
+        "h": 12,
+        "w": 6,
+        "x": 18,
+        "y": 55
       },
       "id": 131,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -5071,7 +4992,7 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
-      "description": "Memory currently dirty (modified but not yet written to disk), being actively written back, or held by writeback buffers. High dirty or writeback memory may indicate disk I/O pressure or delayed flushing",
+      "description": "TCP/UDP socket memory usage in kernel (in pages)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -5123,23 +5044,28 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "short"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 80
+        "h": 12,
+        "w": 6,
+        "x": 0,
+        "y": 67
       },
-      "id": 130,
+      "id": 336,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": true,
+          "width": 300
         },
         "tooltip": {
           "hideZeros": false,
@@ -5151,42 +5077,26 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_memory_Writeback_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "node_sockstat_TCP_mem{instance=\"$node\",job=\"$job\"}",
           "format": "time_series",
-          "legendFormat": "Writeback – Memory currently being flushed to disk",
+          "interval": "",
+          "legendFormat": "TCP",
           "range": true,
           "refId": "A",
           "step": 240
         },
         {
           "editorMode": "code",
-          "expr": "node_memory_WritebackTmp_bytes{instance=\"$node\",job=\"$job\"}",
+          "expr": "node_sockstat_UDP_mem{instance=\"$node\",job=\"$job\"}",
           "format": "time_series",
-          "legendFormat": "WritebackTmp – FUSE temporary writeback buffers",
+          "interval": "",
+          "legendFormat": "UDP",
           "range": true,
           "refId": "B",
           "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_memory_Dirty_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Dirty – Memory marked dirty (pending write to disk)",
-          "range": true,
-          "refId": "C",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_memory_NFS_Unstable_bytes{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "NFS Unstable – Pages sent to NFS server, awaiting storage commit",
-          "range": true,
-          "refId": "D",
-          "step": 240
         }
       ],
-      "title": "Memory Writeback and Dirty",
+      "title": "TCP/UDP Kernel Buffer Memory Pages",
       "transparent": true,
       "type": "timeseries"
     },
@@ -5202,7 +5112,7 @@
             "mode": "palette-classic"
           },
           "custom": {
-            "axisBorderShow": false,
+            "axisBorderShow": true,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -5210,8 +5120,8 @@
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
+            "fillOpacity": 75,
+            "gradientMode": "opacity",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -5277,15 +5187,19 @@
         ]
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 80
+        "h": 12,
+        "w": 6,
+        "x": 6,
+        "y": 67
       },
       "id": 138,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -5341,6 +5255,385 @@
       "title": "Memory Shared and Mapped",
       "transparent": true,
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Breakdown of memory pages in the kernel's active and inactive LRU lists, separated by anonymous (heap, tmpfs) and file-backed (caches, mmap) pages.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 6,
+        "x": 12,
+        "y": 67
+      },
+      "id": 191,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "width": 350
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Inactive_file_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Inactive_file - File-backed memory on inactive LRU list",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Inactive_anon_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Inactive_anon – Anonymous memory on inactive LRU (incl. tmpfs & swap cache)",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Active_file_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Active_file - File-backed memory on active LRU list",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Active_anon_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Active_anon – Anonymous memory on active LRU (incl. tmpfs & swap cache)",
+          "range": true,
+          "refId": "D",
+          "step": 240
+        }
+      ],
+      "title": "Memory LRU Active / Inactive Detail",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Current number of systemd units in each operational state, such as active, failed, inactive, or transitioning",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 75,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Failed"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#F2495C",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Active"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#73BF69",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Activating"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#C8F2C2",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Deactivating"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Inactive"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 6,
+        "x": 18,
+        "y": 67
+      },
+      "id": 298,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum(systemd_unit_state{state=\"activating\",instance=\"$systemd_instance\"})",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Activating",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum(systemd_unit_state{state=\"active\",instance=\"$systemd_instance\"})",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Active",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum(systemd_unit_state{state=\"deactivating\",instance=\"$systemd_instance\"})",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Deactivating",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum(systemd_unit_state{state=\"failed\",instance=\"$systemd_instance\"})",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Failed",
+          "range": true,
+          "refId": "D",
+          "step": 240
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "sum(systemd_unit_state{state=\"inactive\",instance=\"$systemd_instance\"})",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Inactive",
+          "range": true,
+          "refId": "E",
+          "step": 240
+        }
+      ],
+      "title": "Systemd Units State",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 79
+      },
+      "id": 266,
+      "panels": [],
+      "title": "Memory Meminfo",
+      "type": "row"
     },
     {
       "datasource": {
@@ -5438,12 +5731,16 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 88
+        "y": 80
       },
       "id": 136,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -5477,6 +5774,134 @@
         }
       ],
       "title": "Memory LRU Active / Inactive (%)",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Memory currently dirty (modified but not yet written to disk), being actively written back, or held by writeback buffers. High dirty or writeback memory may indicate disk I/O pressure or delayed flushing",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 80
+      },
+      "id": 130,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Writeback_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Writeback – Memory currently being flushed to disk",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_WritebackTmp_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "WritebackTmp – FUSE temporary writeback buffers",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_Dirty_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Dirty – Memory marked dirty (pending write to disk)",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_memory_NFS_Unstable_bytes{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "NFS Unstable – Pages sent to NFS server, awaiting storage commit",
+          "range": true,
+          "refId": "D",
+          "step": 240
+        }
+      ],
+      "title": "Memory Writeback and Dirty",
       "transparent": true,
       "type": "timeseries"
     },
@@ -5545,12 +5970,16 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 88
+        "y": 80
       },
       "id": 160,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -5663,12 +6092,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 96
+        "y": 88
       },
       "id": 129,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -5777,7 +6210,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               },
@@ -5796,12 +6232,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 96
+        "y": 88
       },
       "id": 70,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -6186,12 +6626,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 108
+        "y": 100
       },
       "id": 128,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -6319,12 +6763,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 108
+        "y": 100
       },
       "id": 137,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -6438,12 +6886,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 120
+        "y": 112
       },
       "id": 176,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -6544,12 +6996,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 120
+        "y": 112
       },
       "id": 140,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -6609,7 +7065,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 132
+        "y": 124
       },
       "id": 267,
       "panels": [],
@@ -6697,12 +7153,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 133
+        "y": 125
       },
       "id": 307,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -6807,12 +7267,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 133
+        "y": 125
       },
       "id": 22,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -6854,7 +7318,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 145
+        "y": 137
       },
       "id": 293,
       "panels": [],
@@ -6925,12 +7389,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 146
+        "y": 138
       },
       "id": 168,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -7054,12 +7522,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 146
+        "y": 138
       },
       "id": 291,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -7151,12 +7623,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 158
+        "y": 150
       },
       "id": 334,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -7258,12 +7734,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 158
+        "y": 150
       },
       "id": 333,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -7369,12 +7849,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 170
+        "y": 162
       },
       "id": 335,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -7438,7 +7922,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 182
+        "y": 174
       },
       "id": 312,
       "panels": [],
@@ -7514,12 +7998,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 183
+        "y": 175
       },
       "id": 62,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -7636,12 +8124,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 183
+        "y": 175
       },
       "id": 305,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -7756,12 +8248,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 195
+        "y": 187
       },
       "id": 148,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -7868,7 +8364,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               }
@@ -7880,12 +8379,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 195
+        "y": 187
       },
       "id": 314,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -8003,7 +8506,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               }
@@ -8015,12 +8521,16 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 207
+        "y": 199
       },
       "id": 313,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -8064,7 +8574,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 217
+        "y": 209
       },
       "id": 269,
       "panels": [],
@@ -8136,12 +8646,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 218
+        "y": 210
       },
       "id": 8,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -8241,12 +8755,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 218
+        "y": 210
       },
       "id": 306,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -8341,12 +8859,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 230
+        "y": 222
       },
       "id": 259,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -8447,7 +8969,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               },
@@ -8466,12 +8991,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 230
+        "y": 222
       },
       "id": 151,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -8513,7 +9042,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 242
+        "y": 234
       },
       "id": 304,
       "panels": [],
@@ -8604,12 +9133,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 243
+        "y": 235
       },
       "id": 300,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -8702,12 +9235,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 255
+        "y": 247
       },
       "id": 325,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -8752,7 +9289,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 267
+        "y": 259
       },
       "id": 296,
       "panels": [],
@@ -8762,9 +9299,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
+        "uid": "${ds_prometheus}"
       },
-      "description": "Current number of systemd units in each operational state, such as active, failed, inactive, or transitioning",
+      "description": "Rate of accepted connections per second for each systemd socket",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -8798,7 +9335,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "normal"
+              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -8806,6 +9343,7 @@
           },
           "links": [],
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -8815,96 +9353,24 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "eps"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Failed"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#F2495C",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Active"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#73BF69",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Activating"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#C8F2C2",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Deactivating"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "orange",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Inactive"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 268
+        "y": 260
       },
-      "id": 298,
+      "id": 297,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -8918,61 +9384,17 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "cfh4m99kk5lhcc"
-          },
           "editorMode": "code",
-          "expr": "sum(systemd_unit_state{state=\"activating\",instance=\"$systemd_instance\"})",
+          "expr": "irate(systemd_socket_accepted_connections_total{instance=\"$systemd_instance\"}[$__rate_interval])",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "Activating",
+          "legendFormat": "{{ name }}",
           "range": true,
           "refId": "A",
           "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "sum(systemd_unit_state{state=\"active\",instance=\"$systemd_instance\"})",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Active",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "sum(systemd_unit_state{state=\"deactivating\",instance=\"$systemd_instance\"})",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Deactivating",
-          "range": true,
-          "refId": "C",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "sum(systemd_unit_state{state=\"failed\",instance=\"$systemd_instance\"})",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Failed",
-          "range": true,
-          "refId": "D",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "sum(systemd_unit_state{state=\"inactive\",instance=\"$systemd_instance\"})",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Inactive",
-          "range": true,
-          "refId": "E",
-          "step": 240
         }
       ],
-      "title": "Systemd Units State",
+      "title": "Systemd Sockets Accepted",
       "transparent": true,
       "type": "timeseries"
     },
@@ -9041,12 +9463,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 268
+        "y": 260
       },
       "id": 331,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -9075,104 +9501,6 @@
         }
       ],
       "title": "Systemd Sockets Current",
-      "transparent": true,
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Rate of accepted connections per second for each systemd socket",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "eps"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 0,
-        "y": 280
-      },
-      "id": 297,
-      "options": {
-        "legend": {
-          "calcs": ["min", "mean", "max"],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "irate(systemd_socket_accepted_connections_total{instance=\"$systemd_instance\"}[$__rate_interval])",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "{{ name }}",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Systemd Sockets Accepted",
       "transparent": true,
       "type": "timeseries"
     },
@@ -9241,12 +9569,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 280
+        "y": 272
       },
       "id": 332,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -9280,7 +9612,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 292
+        "y": 284
       },
       "id": 270,
       "panels": [],
@@ -9379,12 +9711,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 293
+        "y": 285
       },
       "id": 9,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -9510,12 +9846,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 293
+        "y": 285
       },
       "id": 33,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -9645,12 +9985,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 305
+        "y": 297
       },
       "id": 37,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -9767,12 +10111,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 305
+        "y": 297
       },
       "id": 35,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -9891,12 +10239,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 317
+        "y": 309
       },
       "id": 133,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -10011,12 +10363,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 317
+        "y": 309
       },
       "id": 36,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -10141,12 +10497,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 329
+        "y": 321
       },
       "id": 301,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -10271,12 +10631,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 329
+        "y": 321
       },
       "id": 326,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -10384,12 +10748,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 341
+        "y": 333
       },
       "id": 34,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -10422,7 +10790,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 353
+        "y": 345
       },
       "id": 271,
       "panels": [],
@@ -10502,7 +10870,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               },
@@ -10521,12 +10892,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 354
+        "y": 346
       },
       "id": 28,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -10627,12 +11002,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 354
+        "y": 346
       },
       "id": 41,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -10725,12 +11104,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 366
+        "y": 358
       },
       "id": 44,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -10832,12 +11215,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 366
+        "y": 358
       },
       "id": 219,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -10870,7 +11257,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 378
+        "y": 370
       },
       "id": 272,
       "panels": [],
@@ -10954,12 +11341,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 379
+        "y": 371
       },
       "id": 60,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -11075,12 +11466,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 379
+        "y": 371
       },
       "id": 142,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -11194,12 +11589,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 391
+        "y": 383
       },
       "id": 143,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -11313,12 +11712,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 391
+        "y": 383
       },
       "id": 141,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -11432,12 +11835,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 403
+        "y": 395
       },
       "id": 146,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -11542,12 +11949,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 403
+        "y": 395
       },
       "id": 327,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -11652,12 +12063,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 415
+        "y": 407
       },
       "id": 145,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -11762,12 +12177,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 415
+        "y": 407
       },
       "id": 144,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -11881,12 +12300,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 427
+        "y": 419
       },
       "id": 232,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -11978,12 +12401,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 427
+        "y": 419
       },
       "id": 231,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -12076,12 +12503,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 439
+        "y": 431
       },
       "id": 230,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -12188,7 +12619,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               }
@@ -12200,12 +12634,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 439
+        "y": 431
       },
       "id": 61,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -12305,12 +12743,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 451
+        "y": 443
       },
       "id": 309,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -12380,7 +12822,7 @@
         "h": 12,
         "w": 6,
         "x": 12,
-        "y": 451
+        "y": 443
       },
       "id": 280,
       "options": {
@@ -12397,7 +12839,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -12453,7 +12897,7 @@
         "h": 12,
         "w": 6,
         "x": 18,
-        "y": 451
+        "y": 443
       },
       "id": 288,
       "options": {
@@ -12470,7 +12914,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -12500,7 +12946,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 463
+        "y": 455
       },
       "id": 273,
       "panels": [],
@@ -12572,12 +13018,16 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 464
+        "y": 456
       },
       "id": 63,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -12700,12 +13150,16 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 464
+        "y": 456
       },
       "id": 124,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -12808,12 +13262,16 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 474
+        "y": 466
       },
       "id": 126,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -12906,12 +13364,16 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 474
+        "y": 466
       },
       "id": 125,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -13014,12 +13476,16 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 484
+        "y": 476
       },
       "id": 220,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -13130,12 +13596,16 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 484
+        "y": 476
       },
       "id": 339,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -13241,12 +13711,16 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 494
+        "y": 486
       },
       "id": 310,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -13351,12 +13825,16 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 494
+        "y": 486
       },
       "id": 290,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -13478,12 +13956,16 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 504
+        "y": 496
       },
       "id": 330,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -13527,7 +14009,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 514
+        "y": 506
       },
       "id": 274,
       "panels": [],
@@ -13611,12 +14093,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 515
+        "y": 507
       },
       "id": 221,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -13742,12 +14228,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 515
+        "y": 507
       },
       "id": 299,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -13862,12 +14352,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 527
+        "y": 519
       },
       "id": 55,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -13986,12 +14480,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 527
+        "y": 519
       },
       "id": 115,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
@@ -14096,12 +14594,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 539
+        "y": 531
       },
       "id": 104,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -14265,12 +14767,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 539
+        "y": 531
       },
       "id": 109,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -14413,12 +14919,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 551
+        "y": 543
       },
       "id": 50,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -14526,12 +15036,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 551
+        "y": 543
       },
       "id": 91,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -14644,12 +15158,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 563
+        "y": 555
       },
       "id": 82,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -14751,12 +15269,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 563
+        "y": 555
       },
       "id": 337,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -14860,12 +15382,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 575
+        "y": 567
       },
       "id": 320,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -14939,7 +15465,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 587
+        "y": 579
       },
       "id": 279,
       "panels": [],
@@ -15014,12 +15540,16 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 588
+        "y": 580
       },
       "id": 40,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -15111,12 +15641,16 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 588
+        "y": 580
       },
       "id": 308,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -15217,7 +15751,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               },
@@ -15236,7 +15773,9 @@
               "id": "byNames",
               "options": {
                 "mode": "exclude",
-                "names": ["Virtual Memory"],
+                "names": [
+                  "Virtual Memory"
+                ],
                 "prefix": "All except:",
                 "readOnly": true
               }
@@ -15258,12 +15797,16 @@
         "h": 10,
         "w": 10,
         "x": 0,
-        "y": 600
+        "y": 592
       },
       "id": 149,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -15379,7 +15922,10 @@
               {
                 "id": "custom.lineStyle",
                 "value": {
-                  "dash": [10, 10],
+                  "dash": [
+                    10,
+                    10
+                  ],
                   "fill": "dash"
                 }
               }
@@ -15391,7 +15937,9 @@
               "id": "byNames",
               "options": {
                 "mode": "exclude",
-                "names": ["Open file descriptors"],
+                "names": [
+                  "Open file descriptors"
+                ],
                 "prefix": "All except:",
                 "readOnly": true
               }
@@ -15413,12 +15961,16 @@
         "h": 10,
         "w": 10,
         "x": 10,
-        "y": 600
+        "y": 592
       },
       "id": 64,
       "options": {
         "legend": {
-          "calcs": ["min", "mean", "max"],
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -15492,7 +16044,7 @@
         "h": 10,
         "w": 4,
         "x": 20,
-        "y": 600
+        "y": 592
       },
       "id": 157,
       "options": {
@@ -15509,7 +16061,9 @@
         "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -15546,15 +16100,19 @@
     }
   ],
   "preload": true,
-  "refresh": "10s",
+  "refresh": "1m",
   "schemaVersion": 42,
-  "tags": ["media", "linux", "node exporter"],
+  "tags": [
+    "media",
+    "linux",
+    "node exporter"
+  ],
   "templating": {
     "list": [
       {
         "current": {
           "text": "cms-pr",
-          "value": "efi7a9ajh454wf"
+          "value": "ffl7khfh07pc0b"
         },
         "includeAll": false,
         "label": "Datasource",
@@ -15652,12 +16210,12 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "media Exporter Full",
   "uid": "duzd5k6",
-  "version": 97
+  "version": 21
 }
