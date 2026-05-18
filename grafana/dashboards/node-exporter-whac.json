@@ -98,7 +98,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
+        "w": 12,
         "x": 0,
         "y": 1
       },
@@ -184,6 +184,127 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
+      "description": "Used Root FS",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": 0
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 80
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 154,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "((node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"}) / (node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"})) * 100",
+          "format": "time_series",
+          "instant": true,
+          "legendFormat": "swap",
+          "range": false,
+          "refId": "swap used",
+          "step": 240
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"}\n) * 100",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{mountpoint}}",
+          "range": true,
+          "refId": "root fs used"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${ds_prometheus}"
+          },
+          "editorMode": "code",
+          "expr": "(\n  (node_filesystem_size_bytes{node=\"$nodename\", mountpoint=\"/srv/media\"}\n   - node_filesystem_avail_bytes{node=\"$nodename\",mountpoint=\"/srv/media\",})\n  / node_filesystem_size_bytes{node=\"$nodename\", mountpoint=\"/srv/media\", }\n) * 100\n",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{mountpoint}}",
+          "range": true,
+          "refId": "media fs usage"
+        }
+      ],
+      "title": "$nodename file system usagee",
+      "transparent": true,
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
       "description": "Overall CPU busy percentage (averaged across all cores)",
       "fieldConfig": {
         "defaults": {
@@ -228,8 +349,8 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 3,
-        "y": 1
+        "x": 0,
+        "y": 5
       },
       "id": 20,
       "options": {
@@ -313,8 +434,8 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 6,
-        "y": 1
+        "x": 3,
+        "y": 5
       },
       "id": 155,
       "options": {
@@ -388,8 +509,8 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 9,
-        "y": 1
+        "x": 6,
+        "y": 5
       },
       "id": 16,
       "options": {
@@ -473,8 +594,8 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 12,
-        "y": 1
+        "x": 9,
+        "y": 5
       },
       "id": 21,
       "options": {
@@ -505,176 +626,6 @@
         }
       ],
       "title": "SWAP Used",
-      "transparent": true,
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Used Root FS",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 1,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 80
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 15,
-        "y": 1
-      },
-      "id": 154,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"}\n) * 100\n",
-          "format": "time_series",
-          "instant": true,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Root FS Used",
-      "transparent": true,
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Used Media FS",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 1,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 80
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 18,
-        "y": 1
-      },
-      "id": 341,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\", fstype!=\"rootfs\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\", fstype!=\"rootfs\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\", fstype!=\"rootfs\"}\n) * 100\n",
-          "format": "time_series",
-          "instant": true,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Media FS Used",
       "transparent": true,
       "type": "gauge"
     },
@@ -721,7 +672,7 @@
       "gridPos": {
         "h": 2,
         "w": 3,
-        "x": 0,
+        "x": 12,
         "y": 5
       },
       "id": 15,
@@ -770,82 +721,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 3,
-        "x": 3,
-        "y": 5
-      },
-      "id": 14,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu))",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "CPU Cores",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "decimals": 0,
           "mappings": [
             {
@@ -878,7 +753,7 @@
       "gridPos": {
         "h": 2,
         "w": 3,
-        "x": 9,
+        "x": 15,
         "y": 5
       },
       "id": 75,
@@ -959,7 +834,7 @@
       "gridPos": {
         "h": 2,
         "w": 3,
-        "x": 12,
+        "x": 18,
         "y": 5
       },
       "id": 18,
@@ -1008,7 +883,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 2,
           "mappings": [
             {
               "options": {
@@ -1024,30 +898,22 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
+                "color": "green",
                 "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "short"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 2,
-        "w": 1,
-        "x": 15,
+        "w": 3,
+        "x": 21,
         "y": 5
       },
-      "id": 23,
+      "id": 14,
       "maxDataPoints": 100,
       "options": {
         "colorMode": "none",
@@ -1071,15 +937,14 @@
         {
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"}",
-          "format": "time_series",
+          "expr": "count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu))",
           "instant": true,
+          "legendFormat": "__auto",
           "range": false,
-          "refId": "A",
-          "step": 240
+          "refId": "A"
         }
       ],
-      "title": "Root Total",
+      "title": "CPU Cores",
       "transparent": true,
       "type": "stat"
     },
@@ -1129,95 +994,9 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 1,
-        "x": 16,
-        "y": 5
-      },
-      "id": 343,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "(node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\"})",
-          "format": "time_series",
-          "instant": true,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Root Used",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 1,
-        "x": 17,
-        "y": 5
+        "w": 3,
+        "x": 12,
+        "y": 7
       },
       "id": 342,
       "maxDataPoints": 100,
@@ -1301,181 +1080,95 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 1,
+        "w": 3,
+        "x": 15,
+        "y": 7
+      },
+      "id": 343,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\"})",
+          "format": "time_series",
+          "instant": true,
+          "range": false,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "Root Used",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": 0
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 70
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
         "x": 18,
-        "y": 5
-      },
-      "id": 340,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/srv/media\"}",
-          "format": "time_series",
-          "instant": true,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Media Total",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 1,
-        "x": 19,
-        "y": 5
-      },
-      "id": 344,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "(node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\"})",
-          "format": "time_series",
-          "instant": true,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Media Used",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 1,
-        "x": 20,
-        "y": 5
+        "y": 7
       },
       "id": 345,
       "maxDataPoints": 100,
@@ -1510,6 +1203,92 @@
         }
       ],
       "title": "Media Free",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": 0
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 70
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 21,
+        "y": 7
+      },
+      "id": 344,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\"})",
+          "format": "time_series",
+          "instant": true,
+          "range": false,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "Media Used",
       "transparent": true,
       "type": "stat"
     },
@@ -1608,7 +1387,7 @@
         "h": 12,
         "w": 6,
         "x": 0,
-        "y": 7
+        "y": 9
       },
       "id": 7,
       "options": {
@@ -1748,7 +1527,7 @@
         "h": 12,
         "w": 6,
         "x": 6,
-        "y": 7
+        "y": 9
       },
       "id": 74,
       "options": {
@@ -1878,7 +1657,7 @@
         "h": 12,
         "w": 6,
         "x": 12,
-        "y": 7
+        "y": 9
       },
       "id": 158,
       "options": {
@@ -2028,7 +1807,7 @@
         "h": 12,
         "w": 6,
         "x": 18,
-        "y": 7
+        "y": 9
       },
       "id": 42,
       "options": {
@@ -2138,7 +1917,7 @@
         "h": 12,
         "w": 6,
         "x": 0,
-        "y": 19
+        "y": 21
       },
       "id": 127,
       "options": {
@@ -2252,7 +2031,7 @@
         "h": 12,
         "w": 6,
         "x": 6,
-        "y": 19
+        "y": 21
       },
       "id": 229,
       "options": {
@@ -2384,7 +2163,7 @@
         "h": 12,
         "w": 6,
         "x": 12,
-        "y": 19
+        "y": 21
       },
       "id": 322,
       "options": {
@@ -2620,7 +2399,7 @@
         "h": 12,
         "w": 6,
         "x": 18,
-        "y": 19
+        "y": 21
       },
       "id": 321,
       "options": {
@@ -2826,7 +2605,7 @@
         "h": 12,
         "w": 6,
         "x": 0,
-        "y": 31
+        "y": 33
       },
       "id": 315,
       "options": {
@@ -2931,7 +2710,7 @@
         "h": 12,
         "w": 6,
         "x": 6,
-        "y": 31
+        "y": 33
       },
       "id": 260,
       "options": {
@@ -3125,7 +2904,7 @@
         "h": 12,
         "w": 6,
         "x": 12,
-        "y": 31
+        "y": 33
       },
       "id": 78,
       "options": {
@@ -3264,7 +3043,7 @@
         "h": 12,
         "w": 6,
         "x": 18,
-        "y": 31
+        "y": 33
       },
       "id": 152,
       "options": {
@@ -3389,7 +3168,7 @@
         "h": 12,
         "w": 6,
         "x": 0,
-        "y": 43
+        "y": 45
       },
       "id": 135,
       "options": {
@@ -3537,7 +3316,7 @@
         "h": 12,
         "w": 6,
         "x": 6,
-        "y": 43
+        "y": 45
       },
       "id": 175,
       "options": {
@@ -3687,7 +3466,7 @@
         "h": 12,
         "w": 6,
         "x": 12,
-        "y": 43
+        "y": 45
       },
       "id": 85,
       "options": {
@@ -3811,7 +3590,7 @@
         "h": 12,
         "w": 6,
         "x": 18,
-        "y": 43
+        "y": 45
       },
       "id": 338,
       "options": {
@@ -4071,7 +3850,7 @@
         "h": 12,
         "w": 6,
         "x": 0,
-        "y": 55
+        "y": 57
       },
       "id": 3,
       "options": {
@@ -4246,7 +4025,7 @@
         "h": 12,
         "w": 6,
         "x": 6,
-        "y": 55
+        "y": 57
       },
       "id": 156,
       "options": {
@@ -4350,7 +4129,7 @@
         "h": 12,
         "w": 6,
         "x": 12,
-        "y": 55
+        "y": 57
       },
       "id": 302,
       "options": {
@@ -4374,10 +4153,10 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "node_power_supply_online{instance=\"$node\",job=\"$job\"}",
+          "expr": "",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "{{ power_supply }} online",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A",
           "step": 240
@@ -4452,7 +4231,7 @@
         "h": 12,
         "w": 6,
         "x": 18,
-        "y": 55
+        "y": 57
       },
       "id": 131,
       "options": {
@@ -4562,7 +4341,7 @@
         "h": 12,
         "w": 6,
         "x": 0,
-        "y": 67
+        "y": 69
       },
       "id": 336,
       "options": {
@@ -4700,7 +4479,7 @@
         "h": 12,
         "w": 6,
         "x": 6,
-        "y": 67
+        "y": 69
       },
       "id": 138,
       "options": {
@@ -4831,7 +4610,7 @@
         "h": 12,
         "w": 6,
         "x": 12,
-        "y": 67
+        "y": 69
       },
       "id": 191,
       "options": {
@@ -5035,7 +4814,7 @@
         "h": 12,
         "w": 6,
         "x": 18,
-        "y": 67
+        "y": 69
       },
       "id": 298,
       "options": {
@@ -5122,7 +4901,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 79
+        "y": 81
       },
       "id": 266,
       "panels": [],
@@ -5225,7 +5004,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 80
+        "y": 82
       },
       "id": 136,
       "options": {
@@ -5336,7 +5115,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 80
+        "y": 82
       },
       "id": 130,
       "options": {
@@ -5464,7 +5243,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 80
+        "y": 82
       },
       "id": 160,
       "options": {
@@ -5586,7 +5365,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 88
+        "y": 90
       },
       "id": 129,
       "options": {
@@ -5726,7 +5505,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 88
+        "y": 90
       },
       "id": 70,
       "options": {
@@ -6120,7 +5899,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 100
+        "y": 102
       },
       "id": 128,
       "options": {
@@ -6257,7 +6036,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 100
+        "y": 102
       },
       "id": 137,
       "options": {
@@ -6368,7 +6147,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 112
+        "y": 114
       },
       "id": 140,
       "options": {
@@ -6437,7 +6216,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 124
+        "y": 126
       },
       "id": 267,
       "panels": [],
@@ -6521,7 +6300,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 125
+        "y": 127
       },
       "id": 176,
       "options": {
@@ -6643,7 +6422,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 125
+        "y": 127
       },
       "id": 22,
       "options": {
@@ -6685,6 +6464,139 @@
         }
       ],
       "title": "Memory Pages Swap In / Out",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Shows whether the system clock is synchronized to a reliable time source, and the current frequency correction ratio applied by the kernel to maintain synchronization",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 139
+      },
+      "id": 168,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_timex_sync_status{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Sync status (1 = ok)",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_timex_frequency_adjustment_ratio{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Frequency Adjustment",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_timex_tick_seconds{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "Tick Interval",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_timex_tai_offset_seconds{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "TAI Offset",
+          "range": true,
+          "refId": "D",
+          "step": 240
+        }
+      ],
+      "title": "Time Synchronized Status",
       "transparent": true,
       "type": "timeseries"
     },
@@ -6769,7 +6681,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 137
+        "y": 139
       },
       "id": 307,
       "options": {
@@ -6812,145 +6724,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 149
+        "y": 151
       },
       "id": 293,
       "panels": [],
       "title": "System Timesync",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Shows whether the system clock is synchronized to a reliable time source, and the current frequency correction ratio applied by the kernel to maintain synchronization",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 0,
-        "y": 137
-      },
-      "id": 168,
-      "options": {
-        "legend": {
-          "calcs": [
-            "min",
-            "mean",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "node_timex_sync_status{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Sync status (1 = ok)",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_timex_frequency_adjustment_ratio{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "Frequency Adjustment",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_timex_tick_seconds{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "hide": true,
-          "interval": "",
-          "legendFormat": "Tick Interval",
-          "range": true,
-          "refId": "C",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_timex_tai_offset_seconds{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "hide": true,
-          "interval": "",
-          "legendFormat": "TAI Offset",
-          "range": true,
-          "refId": "D",
-          "step": 240
-        }
-      ],
-      "title": "Time Synchronized Status",
-      "transparent": true,
-      "type": "timeseries"
     },
     {
       "datasource": {
@@ -7016,7 +6795,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 150
+        "y": 152
       },
       "id": 334,
       "options": {
@@ -7127,7 +6906,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 150
+        "y": 152
       },
       "id": 291,
       "options": {
@@ -7161,6 +6940,120 @@
         }
       ],
       "title": "Time PLL Adjust",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Processes currently in runnable or blocked states. Helps identify CPU contention or I/O wait bottlenecks.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 164
+      },
+      "id": 62,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_procs_blocked{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Blocked (I/O Wait)",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_procs_running{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Runnable (Ready for CPU)",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "Processes Status",
       "transparent": true,
       "type": "timeseries"
     },
@@ -7228,7 +7121,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 162
+        "y": 164
       },
       "id": 333,
       "options": {
@@ -7343,7 +7236,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 174
+        "y": 176
       },
       "id": 335,
       "options": {
@@ -7416,126 +7309,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 186
+        "y": 188
       },
       "id": 312,
       "panels": [],
       "title": "System Processes",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "Processes currently in runnable or blocked states. Helps identify CPU contention or I/O wait bottlenecks.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "showValues": false,
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "links": [],
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 12,
-        "x": 0,
-        "y": 162
-      },
-      "id": 62,
-      "options": {
-        "legend": {
-          "calcs": [
-            "min",
-            "mean",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "node_procs_blocked{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Blocked (I/O Wait)",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        },
-        {
-          "editorMode": "code",
-          "expr": "node_procs_running{instance=\"$node\",job=\"$job\"}",
-          "format": "time_series",
-          "legendFormat": "Runnable (Ready for CPU)",
-          "range": true,
-          "refId": "B",
-          "step": 240
-        }
-      ],
-      "title": "Processes Status",
-      "transparent": true,
-      "type": "timeseries"
     },
     {
       "datasource": {
@@ -7602,7 +7381,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 187
+        "y": 189
       },
       "id": 148,
       "options": {
@@ -7719,7 +7498,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 187
+        "y": 189
       },
       "id": 305,
       "options": {
@@ -7873,7 +7652,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 199
+        "y": 201
       },
       "id": 313,
       "options": {
@@ -8015,7 +7794,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 199
+        "y": 201
       },
       "id": 314,
       "options": {
@@ -8062,7 +7841,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 211
+        "y": 213
       },
       "id": 269,
       "panels": [],
@@ -8134,7 +7913,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 212
+        "y": 214
       },
       "id": 8,
       "options": {
@@ -8243,7 +8022,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 212
+        "y": 214
       },
       "id": 306,
       "options": {
@@ -8345,7 +8124,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 224
+        "y": 226
       },
       "id": 259,
       "options": {
@@ -8477,7 +8256,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 224
+        "y": 226
       },
       "id": 151,
       "options": {
@@ -8528,7 +8307,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 236
+        "y": 238
       },
       "id": 304,
       "panels": [],
@@ -8619,7 +8398,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 237
+        "y": 239
       },
       "id": 300,
       "options": {
@@ -8721,7 +8500,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 249
+        "y": 251
       },
       "id": 325,
       "options": {
@@ -8775,7 +8554,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 261
+        "y": 263
       },
       "id": 296,
       "panels": [],
@@ -8847,7 +8626,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 262
+        "y": 264
       },
       "id": 297,
       "options": {
@@ -8949,7 +8728,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 262
+        "y": 264
       },
       "id": 331,
       "options": {
@@ -9055,7 +8834,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 274
+        "y": 276
       },
       "id": 332,
       "options": {
@@ -9098,7 +8877,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 286
+        "y": 288
       },
       "id": 270,
       "panels": [],
@@ -9197,7 +8976,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 287
+        "y": 289
       },
       "id": 9,
       "options": {
@@ -9332,7 +9111,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 287
+        "y": 289
       },
       "id": 33,
       "options": {
@@ -9471,7 +9250,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 299
+        "y": 301
       },
       "id": 37,
       "options": {
@@ -9597,7 +9376,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 299
+        "y": 301
       },
       "id": 35,
       "options": {
@@ -9725,7 +9504,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 311
+        "y": 313
       },
       "id": 133,
       "options": {
@@ -9849,7 +9628,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 311
+        "y": 313
       },
       "id": 36,
       "options": {
@@ -9983,7 +9762,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 323
+        "y": 325
       },
       "id": 301,
       "options": {
@@ -10117,7 +9896,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 323
+        "y": 325
       },
       "id": 326,
       "options": {
@@ -10234,7 +10013,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 335
+        "y": 337
       },
       "id": 34,
       "options": {
@@ -10276,7 +10055,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 347
+        "y": 349
       },
       "id": 271,
       "panels": [],
@@ -10378,7 +10157,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 348
+        "y": 350
       },
       "id": 28,
       "options": {
@@ -10488,7 +10267,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 348
+        "y": 350
       },
       "id": 41,
       "options": {
@@ -10590,7 +10369,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 360
+        "y": 362
       },
       "id": 44,
       "options": {
@@ -10701,7 +10480,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 360
+        "y": 362
       },
       "id": 219,
       "options": {
@@ -10743,7 +10522,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 372
+        "y": 374
       },
       "id": 272,
       "panels": [],
@@ -10827,7 +10606,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 373
+        "y": 375
       },
       "id": 60,
       "options": {
@@ -10952,7 +10731,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 373
+        "y": 375
       },
       "id": 142,
       "options": {
@@ -11075,7 +10854,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 385
+        "y": 387
       },
       "id": 143,
       "options": {
@@ -11198,7 +10977,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 385
+        "y": 387
       },
       "id": 141,
       "options": {
@@ -11321,7 +11100,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 397
+        "y": 399
       },
       "id": 146,
       "options": {
@@ -11435,7 +11214,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 397
+        "y": 399
       },
       "id": 327,
       "options": {
@@ -11549,7 +11328,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 409
+        "y": 411
       },
       "id": 145,
       "options": {
@@ -11663,7 +11442,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 409
+        "y": 411
       },
       "id": 144,
       "options": {
@@ -11786,7 +11565,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 421
+        "y": 423
       },
       "id": 232,
       "options": {
@@ -11887,7 +11666,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 421
+        "y": 423
       },
       "id": 231,
       "options": {
@@ -11989,7 +11768,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 433
+        "y": 435
       },
       "id": 230,
       "options": {
@@ -12120,7 +11899,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 433
+        "y": 435
       },
       "id": 61,
       "options": {
@@ -12229,7 +12008,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 445
+        "y": 447
       },
       "id": 309,
       "options": {
@@ -12308,7 +12087,7 @@
         "h": 12,
         "w": 6,
         "x": 12,
-        "y": 445
+        "y": 447
       },
       "id": 280,
       "options": {
@@ -12383,7 +12162,7 @@
         "h": 12,
         "w": 6,
         "x": 18,
-        "y": 445
+        "y": 447
       },
       "id": 288,
       "options": {
@@ -12432,7 +12211,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 457
+        "y": 459
       },
       "id": 273,
       "panels": [],
@@ -12504,7 +12283,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 458
+        "y": 460
       },
       "id": 63,
       "options": {
@@ -12636,7 +12415,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 458
+        "y": 460
       },
       "id": 124,
       "options": {
@@ -12748,7 +12527,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 468
+        "y": 470
       },
       "id": 126,
       "options": {
@@ -12850,7 +12629,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 468
+        "y": 470
       },
       "id": 125,
       "options": {
@@ -12962,7 +12741,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 478
+        "y": 480
       },
       "id": 220,
       "options": {
@@ -13082,7 +12861,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 478
+        "y": 480
       },
       "id": 339,
       "options": {
@@ -13197,7 +12976,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 488
+        "y": 490
       },
       "id": 310,
       "options": {
@@ -13311,7 +13090,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 488
+        "y": 490
       },
       "id": 290,
       "options": {
@@ -13442,7 +13221,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 498
+        "y": 500
       },
       "id": 330,
       "options": {
@@ -13495,7 +13274,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 508
+        "y": 510
       },
       "id": 274,
       "panels": [],
@@ -13579,7 +13358,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 509
+        "y": 511
       },
       "id": 221,
       "options": {
@@ -13714,7 +13493,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 509
+        "y": 511
       },
       "id": 299,
       "options": {
@@ -13838,7 +13617,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 521
+        "y": 523
       },
       "id": 55,
       "options": {
@@ -13966,7 +13745,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 521
+        "y": 523
       },
       "id": 115,
       "options": {
@@ -14080,7 +13859,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 533
+        "y": 535
       },
       "id": 104,
       "options": {
@@ -14253,7 +14032,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 533
+        "y": 535
       },
       "id": 109,
       "options": {
@@ -14405,7 +14184,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 545
+        "y": 547
       },
       "id": 50,
       "options": {
@@ -14522,7 +14301,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 545
+        "y": 547
       },
       "id": 91,
       "options": {
@@ -14644,7 +14423,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 557
+        "y": 559
       },
       "id": 82,
       "options": {
@@ -14755,7 +14534,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 557
+        "y": 559
       },
       "id": 337,
       "options": {
@@ -14868,7 +14647,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 569
+        "y": 571
       },
       "id": 320,
       "options": {
@@ -14951,7 +14730,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 581
+        "y": 583
       },
       "id": 279,
       "panels": [],
@@ -15026,7 +14805,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 582
+        "y": 584
       },
       "id": 40,
       "options": {
@@ -15127,7 +14906,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 582
+        "y": 584
       },
       "id": 308,
       "options": {
@@ -15283,7 +15062,7 @@
         "h": 10,
         "w": 10,
         "x": 0,
-        "y": 594
+        "y": 596
       },
       "id": 149,
       "options": {
@@ -15447,7 +15226,7 @@
         "h": 10,
         "w": 10,
         "x": 10,
-        "y": 594
+        "y": 596
       },
       "id": 64,
       "options": {
@@ -15530,7 +15309,7 @@
         "h": 10,
         "w": 4,
         "x": 20,
-        "y": 594
+        "y": 596
       },
       "id": 157,
       "options": {
@@ -15661,6 +15440,7 @@
           "uid": "${ds_prometheus}"
         },
         "definition": "label_values(node_uname_info{job=\"$job\", nodename=\"$nodename\"}, instance)",
+        "hide": 2,
         "includeAll": false,
         "label": "Instance",
         "name": "node",
@@ -15681,6 +15461,7 @@
           "value": "whac.breeze-blocks.net:9558"
         },
         "description": "",
+        "hide": 2,
         "label": "systemd_instance",
         "name": "systemd_instance",
         "options": [
@@ -15703,5 +15484,5 @@
   "timezone": "browser",
   "title": "whac Exporter Full",
   "uid": "dumnxdc",
-  "version": 13
+  "version": 25
 }
