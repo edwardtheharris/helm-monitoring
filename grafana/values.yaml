@@ -422,8 +422,9 @@ extraContainerVolumes: []
 ##
 persistence:
   type: pvc
+  name: grafana-lvm
   enabled: true
-  storageClassName: nfs-retain-cms01
+  storageClassName: csi-lvm-linear
   ## (Optional) Use this to bind the claim to an existing PersistentVolume (PV) by name.
   volumeName: ""
   accessModes:

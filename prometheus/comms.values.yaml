@@ -1255,12 +1255,55 @@ serverFiles:
 # must be a string so you have to add a | after extraScrapeConfigs:
 # example adds prometheus-blackbox-exporter scrape config
 extraScrapeConfigs: |
-  - job_name: postgres-exporter
+  - job_name: bind-exporter
     honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: (.+)
+        target_label: alias
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
     static_configs:
     - targets:
-      - cms-pge.breeze-blocks.net:9187
-      - thw-pge.breeze-blocks.net:9187
+      - ns01.breeze-blocks.net:9119
+      - ns03.breeze-blocks.net:9119
+      - ns04.breeze-blocks.net:9119
+  - job_name: bind-query-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: (.+)
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    static_configs:
+    - targets:
+      - ns01.breeze-blocks.net:9197
+      - ns03.breeze-blocks.net:9197
+      - ns04.breeze-blocks.net:9197
+  # - job_name: filestat-exporter
+  #   honor_labels: true
+  #   static_configs:
+  #   - targets:
+  #     - sulla-felix.breeze-blocks.net:9943
   - job_name: node-exporter
     honor_labels: true
     relabel_configs:
@@ -1302,6 +1345,70 @@ extraScrapeConfigs: |
           - thw04.breeze-blocks.net:9100
           - thw05.breeze-blocks.net:9100
           - whac.breeze-blocks.net:9100
+  - job_name: postgres-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+    - targets:
+      - cms-pge.breeze-blocks.net:9187
+      - thw-pge.breeze-blocks.net:9187
+  - job_name: process-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+          - backup.breeze-blocks.net:9256
+          - cms00.breeze-blocks.net:9256
+          - cms01.breeze-blocks.net:9256
+          - cms02.breeze-blocks.net:9256
+          - cms03.breeze-blocks.net:9256
+          - cms04.breeze-blocks.net:9256
+          - marius.breeze-blocks.net:9256
+          - media.breeze-blocks.net:9256
+          - ns01.breeze-blocks.net:9256
+          - ns03.breeze-blocks.net:9256
+          - ns04.breeze-blocks.net:9256
+          - ostium.breeze-blocks.net:9256
+          - sulla-felix.breeze-blocks.net:9256
+          - thw00.breeze-blocks.net:9256
+          - thw01.breeze-blocks.net:9256
+          - thw02.breeze-blocks.net:9256
+          - thw03.breeze-blocks.net:9256
+          - thw04.breeze-blocks.net:9256
+          - thw05.breeze-blocks.net:9256
+          - whac.breeze-blocks.net:9256
   - job_name: glances-exporter
     static_configs:
       - targets:
