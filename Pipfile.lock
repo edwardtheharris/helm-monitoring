@@ -207,12 +207,12 @@
         },
         "commitizen": {
             "hashes": [
-                "sha256:8207ee3e0344b483c5e59103d59ce19b96eb7204ccf28c72b65596fa524b06e2",
-                "sha256:cca192e07b2f9d77734044c631da294b3007ef9aa10cc8f0600290aa662e9fa3"
+                "sha256:12338058fb57026d1a3f15c3a4835d999d447d6591297d9509b99ac93e327a9f",
+                "sha256:346f32cb81641ec12716f78d16ab7caab28a5e728efc0da36a15a0c6c6839513"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.10' and python_version < '4.0'",
-            "version": "==4.15.1"
+            "version": "==4.16.2"
         },
         "decli": {
             "hashes": [
