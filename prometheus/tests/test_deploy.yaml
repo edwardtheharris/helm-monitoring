@@ -1,0 +1,32 @@
+###
+# ```{rubric} Deployment Tests
+# ```
+# ---
+# Test suite for deployments.
+#
+# ```{literalinclude} prometheus/tests/test_deployment.yaml
+# :language: yaml
+# :caption: tessts/test_deployment.yaml
+# :start-at: "suite: 'deployment test suite'
+# ```
+suite: "Deployment Test Suite"
+release:
+  name: prometheus
+templates:
+  - templates/deploy.yaml
+values:
+  - ../values.yaml
+tests:
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}
+  - it: should match the snapshot for comms
+    asserts:
+      - matchSnapshot: {}
+    values:
+      - ../comms.values.yaml
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}
+    values:
+      - ../thw.values.yaml

@@ -7,9 +7,9 @@ metadata:
 spec:
   ports:
     - name: {{ .Release.Name }}
-      port: 80
+      port: {{ .Values.server.service.servicePort }}
       protocol: TCP
-      targetPort: 9090
+      targetPort: {{ .Values.server.service.servicePort }}
   selector:
     app.kubernetes.io/name: {{ .Release.Name }}
-  type: LoadBalancer
+  type: {{ .Values.server.service.type }}
