@@ -1,31 +1,37 @@
 ---
 apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
+kind: HTTPRoute
 metadata:
-  name: prometheus
-  labels:
-    app.kubernetes.io/name: prometheus
-    app.kubernetes.io/component: http-routing
+  name: "{{ .Release.Name }}-tls-redirect"
 spec:
-  gatewayClassName: eg
-  listeners:
-    - name: prometheus
-      protocol: HTTP
-      port: 80
+  parentRefs:
+    - name: "{{ .Release.Name }}"
+      sectionName: http
+  hostnames:
+    - {{ .Values.server.service.hostname }}
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: {{ .Release.Name }}
-  labels:
-    app.kubernetes.io/name: {{ .Release.Name }}
-    app.kubernetes.io/component: http-routing
+  name: "{{ .Release.Name }}"
 spec:
   parentRefs:
-    - name: {{ .Release.Name }}
+    - name: "{{ .Release.Name }}"
+      sectionName: https
   hostnames:
-    - prometheus.breeze-blocks.net
+    - {{ .Values.server.service.hostname }}
   rules:
-    - backendRefs:
+    - matches:
+      - path:
+          type: PathPrefix
+          value: "/"
+      backendRefs:
         - name: {{ .Release.Name }}
-          port: 80
+          port: {{ .Values.server.service.servicePort }}
+          weight: 1
