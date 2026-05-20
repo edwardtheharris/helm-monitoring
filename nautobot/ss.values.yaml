@@ -252,7 +252,10 @@ persistence:
 # :start-at: "podAnnotations: {}\n"
 # :end-before: "###\n"
 # ```
-podAnnotations: {}
+podAnnotations:
+  vault.hashicorp.com/agent-inject: "true"
+  vault.hashicorp.com/role: "nautobot"
+  vault.hashicorp.com/agent-inject-secret-database-nautobot: "internal/data/database/nautobot"
 
 ###
 # ```{rubric} Pod Labels
