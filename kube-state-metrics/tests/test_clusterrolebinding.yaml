@@ -1,0 +1,38 @@
+###
+# ```{rubric} clusterrolebinding Test Suite
+# ```
+# ---
+# Tests to validate the deployment of the described clusterrolebinding.
+#
+# ```{literalinclude} /tests/clusterrolebinding_test.yaml
+# :language: yaml
+# :start-at: "suite: test for clusterrolebinding\n"
+# :end-before: "###\n"
+# ```
+suite: test for clusterrolebinding
+release:
+  name: kube-state-metrics
+templates:
+  - clusterrolebinding.yaml
+values:
+  - ../values.yaml
+
+###
+# ```{rubric} clusterrolebinding Tests
+# ```
+# ---
+# Tests for clusterrolebinding Template
+#
+# ```{literalinclude} /tests/clusterrolebinding_test.yaml
+# :language: yaml
+# :start-at: "tests:\n"
+# ```
+tests:
+  - asserts:
+      - isKind:
+          of: ClusterRoleBinding
+      - matchSnapshot: {}
+    set:
+      rbac:
+        create: true
+        useClusterRole: true

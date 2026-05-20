@@ -7,8 +7,6 @@ __snapshot__/
 .debug/
 .gnupg/
 *.xml
-*.values.yaml
-.values.yaml
 *.tgz
 charts/
 .vscode/

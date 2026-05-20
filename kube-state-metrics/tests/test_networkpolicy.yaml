@@ -1,0 +1,37 @@
+###
+# ```{rubric} networkpolicy Test Suite
+# ```
+# ---
+# Tests to validate the networkpolicy of the described networkpolicy.
+#
+# ```{literalinclude} /tests/networkpolicy_test.yaml
+# :language: yaml
+# :start-at: "suite: test for networkpolicy\n"
+# :end-before: "###\n"
+# ```
+suite: test for networkpolicy
+release:
+  name: kube-state-metrics
+templates:
+  - templates/networkpolicy.yaml
+values:
+  - ../values.yaml
+
+###
+# ```{rubric} networkpolicy Tests
+# ```
+# ---
+# Tests for networkpolicy Template
+#
+# ```{literalinclude} /tests/networkpolicy_test.yaml
+# :language: yaml
+# :start-at: "tests:\n"
+# ```
+tests:
+  - asserts:
+      - isKind:
+          of: NetworkPolicy
+      - matchSnapshot: {}
+    set:
+      networkPolicy:
+        enabled: true

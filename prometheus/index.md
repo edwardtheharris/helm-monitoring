@@ -11,8 +11,3 @@ This chart installs Prometheus measurement and collection of stats.
 ```{toctree}
 readme
 ```
-
-### Prometheus {file}`values.yaml`
-
-```{autoyaml} prometheus/values.yaml
-```

@@ -1,4 +1,7 @@
-# Grafana Helm Chart
+---
+date: 2026-02-11
+title: Grafana Helm Chart
+---
 
 <!--markdownlint-disable-->
 
