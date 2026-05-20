@@ -267,7 +267,7 @@ podAnnotations: {}
 # :end-before: "###\n"
 # ```
 podLabels:
-  app: nautobot
+  app.kubernetes.io/name: nautobot
 
 ###
 # ```{rubric} Pod Security Context
@@ -348,6 +348,9 @@ resources:
   limits:
     cpu: 2
     memory: 4096Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
 ###
 # ```{rubric} Service
@@ -373,9 +376,9 @@ resources:
 # ```
 service:
   enabled: true
-  port: 80
+  port: 8000
   targetPort: 8000
-  type: LoadBalancer
+  type: ClusterIP
 ####
 
 ###
