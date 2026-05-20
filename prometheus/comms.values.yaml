@@ -127,7 +127,13 @@ configmapReload:
     ## configmap-reload resource requests and limits
     ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
     ##
-    resources: {}
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      memory:
+        cpu: 100m
+        memory: 128Mi
 
 server:
   ## Prometheus server container name
@@ -650,13 +656,13 @@ server:
   ## Prometheus server resource requests and limits
   ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
   ##
-  resources: {}
-    # limits:
-    #   cpu: 500m
-    #   memory: 512Mi
-    # requests:
-    #   cpu: 500m
-    #   memory: 512Mi
+  resources:
+    limits:
+      cpu: 3
+      memory: 8Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
 
   # Required for use in managed kubernetes clusters (such as AWS EKS) with custom CNI (such as calico),
   # because control-plane managed by AWS cannot communicate with pods' IP CIDR and admission webhooks are not working
@@ -713,6 +719,7 @@ server:
     annotations: {}
     labels: {}
     clusterIP: ""
+    hostname: prometheus.breeze-blocks.net
 
     ## List of IP addresses at which the Prometheus server service is available
     ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-ips
@@ -723,7 +730,7 @@ server:
     loadBalancerSourceRanges: []
     servicePort: 9090
     sessionAffinity: None
-    type: LoadBalancer
+    type: ClusterIP
     ## externalTrafficPolicy is applicable to service with externally-facing addresses (NodePorts, ExternalIPs, and LoadBalancer IPs)
     externalTrafficPolicy: ""
 
@@ -1255,12 +1262,55 @@ serverFiles:
 # must be a string so you have to add a | after extraScrapeConfigs:
 # example adds prometheus-blackbox-exporter scrape config
 extraScrapeConfigs: |
-  - job_name: postgres-exporter
+  - job_name: bind-exporter
     honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: (.+)
+        target_label: alias
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
     static_configs:
     - targets:
-      - cms-pge.breeze-blocks.net:9187
-      - thw-pge.breeze-blocks.net:9187
+      - ns01.breeze-blocks.net:9119
+      - ns03.breeze-blocks.net:9119
+      - ns04.breeze-blocks.net:9119
+  - job_name: bind-query-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: (.+)
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    static_configs:
+    - targets:
+      - ns01.breeze-blocks.net:9197
+      - ns03.breeze-blocks.net:9197
+      - ns04.breeze-blocks.net:9197
+  # - job_name: filestat-exporter
+  #   honor_labels: true
+  #   static_configs:
+  #   - targets:
+  #     - sulla-felix.breeze-blocks.net:9943
   - job_name: node-exporter
     honor_labels: true
     relabel_configs:
@@ -1288,6 +1338,7 @@ extraScrapeConfigs: |
           - cms02.breeze-blocks.net:9100
           - cms03.breeze-blocks.net:9100
           - cms04.breeze-blocks.net:9100
+          - cms05.breeze-blocks.net:9100
           - marius.breeze-blocks.net:9100
           - media.breeze-blocks.net:9100
           - ns01.breeze-blocks.net:9100
@@ -1302,6 +1353,71 @@ extraScrapeConfigs: |
           - thw04.breeze-blocks.net:9100
           - thw05.breeze-blocks.net:9100
           - whac.breeze-blocks.net:9100
+  - job_name: postgres-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+    - targets:
+      - cms-pge.breeze-blocks.net:9187
+      - thw-pge.breeze-blocks.net:9187
+  - job_name: process-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+          - backup.breeze-blocks.net:9256
+          - cms00.breeze-blocks.net:9256
+          - cms01.breeze-blocks.net:9256
+          - cms02.breeze-blocks.net:9256
+          - cms03.breeze-blocks.net:9256
+          - cms04.breeze-blocks.net:9256
+          - cms05.breeze-blocks.net:9256
+          - marius.breeze-blocks.net:9256
+          - media.breeze-blocks.net:9256
+          - ns01.breeze-blocks.net:9256
+          - ns03.breeze-blocks.net:9256
+          - ns04.breeze-blocks.net:9256
+          - ostium.breeze-blocks.net:9256
+          - sulla-felix.breeze-blocks.net:9256
+          - thw00.breeze-blocks.net:9256
+          - thw01.breeze-blocks.net:9256
+          - thw02.breeze-blocks.net:9256
+          - thw03.breeze-blocks.net:9256
+          - thw04.breeze-blocks.net:9256
+          - thw05.breeze-blocks.net:9256
+          - whac.breeze-blocks.net:9256
   - job_name: glances-exporter
     static_configs:
       - targets:
@@ -1311,6 +1427,7 @@ extraScrapeConfigs: |
           - cms02.breeze-blocks.net:9091
           - cms03.breeze-blocks.net:9091
           - cms04.breeze-blocks.net:9091
+          - cms05.breeze-blocks.net:9091
           - marius.breeze-blocks.net:9091
           - media.breeze-blocks.net:9091
           - ns01.breeze-blocks.net:9091
@@ -1341,7 +1458,7 @@ extraScrapeConfigs: |
       - targets:
         - media.breeze-blocks.net:8096
         - music.breeze-blocks.net:8096
-        - media.backup.breeze-blocks.net:8096
+        - media01.breeze-blocks.net:8096
         - whac.breeze-blocks.net:8096
     relabel_configs:
       - action: labelkeep
@@ -1368,6 +1485,7 @@ extraScrapeConfigs: |
           - cms02.breeze-blocks.net:9558
           - cms03.breeze-blocks.net:9558
           - cms04.breeze-blocks.net:9558
+          - cms05.breeze-blocks.net:9558
           - marius.breeze-blocks.net:9558
           - media.breeze-blocks.net:9558
           - ns01.breeze-blocks.net:9091

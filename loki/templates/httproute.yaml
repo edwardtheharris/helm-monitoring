@@ -8,7 +8,7 @@ spec:
     - name: "{{ .Release.Name }}"
       sectionName: http
   hostnames:
-    - {{ .Values.server.service.hostname }}
+    - "loki.breeze-blocks.net"
   rules:
     - filters:
         - type: RequestRedirect
@@ -23,15 +23,15 @@ metadata:
 spec:
   parentRefs:
     - name: "{{ .Release.Name }}"
-      sectionName: https
+      sectionName: loki
   hostnames:
-    - {{ .Values.server.service.hostname }}
+    - "loki.breeze-blocks.net"
   rules:
     - matches:
       - path:
           type: PathPrefix
           value: "/"
       backendRefs:
-        - name: {{ .Release.Name }}
-          port: {{ .Values.server.service.servicePort }}
+        - name: {{ .Release.Name }}-gateway
+          port: 80
           weight: 1

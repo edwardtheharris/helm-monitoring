@@ -1,0 +1,22 @@
+###
+# ```{rubric} PersistentVolumeClaim Tests
+# ```
+# ---
+# Test suite for persistent volume claims.
+#
+# ```{literalinclude} prometheus/tests/test_pvc.yaml
+# :language: yaml
+# :caption: tessts/test_pvc.yaml
+# :start-at: "suite: 'PersistentVolumeClaim test suite'
+# ```
+suite: "PersistentVolumeClaim Test Suite"
+release:
+  name: prometheus
+templates:
+  - templates/pvc.yaml
+values:
+  - ../values.yaml
+tests:
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}
