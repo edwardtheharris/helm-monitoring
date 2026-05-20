@@ -1,0 +1,34 @@
+###
+# ```{rubric} ConfigMap Tests
+# ```
+# ---
+# Test suite for ConfigMaps.
+#
+# ```{literalinclude} prometheus/tests/test_cm.yaml
+# :language: yaml
+# :caption: tessts/test_cm.yaml
+# :start-at: "suite: 'ConfigMap test suite'
+# ```
+suite: "ConfigMap Test Suite"
+release:
+  name: prometheus
+templates:
+  - templates/cm.yaml
+values:
+  - ../values.yaml
+  - ../comms.values.yaml
+  - ../thw.values.yaml
+tests:
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}
+  - it: should match the snapshot for comms
+    values:
+      - ../comms.values.yaml
+    asserts:
+      - matchSnapshot: {}
+  - it: should match the snapshot for thw
+    values:
+      - ../thw.values.yaml
+    asserts:
+      - matchSnapshot: {}

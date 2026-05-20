@@ -1,0 +1,22 @@
+###
+# ```{rubric} Cluster Role Binding Tests
+# ```
+# ---
+# Test suite for cluster role bindings.
+#
+# ```{literalinclude} prometheus/tests/test_clusterrolebinding.yaml
+# :language: yaml
+# :caption: tessts/test_clusterrolebinding.yaml
+# :start-at: "suite: 'ClusterRoleBinding test suite'
+# ```
+suite: "Cluster Role Binding Test Suite"
+release:
+  name: prometheus
+templates:
+  - templates/clusterrolebinding.yaml
+values:
+  - ../values.yaml
+tests:
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}
