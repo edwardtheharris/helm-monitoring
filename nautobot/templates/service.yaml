@@ -11,12 +11,12 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: 80
-      targetPort: 8000
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
       protocol: TCP
-      name: nautobot 
+      name: {{ .Release.Name }}
   selector:
-    app.kubernetes.io/name: nautobot
+    app.kubernetes.io/name: {{ .Release.Name }}
 ---
 apiVersion: v1
 kind: Service

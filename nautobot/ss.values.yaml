@@ -135,15 +135,6 @@ config:
 # :start-at: "database:\n"
 # :end-before: "###\n"
 # ```
-database:
-  database: nautobot
-  engine: "django.db.backends.postgresql"
-  host: postgres.database.svc.cluster.local
-  name: postgres
-  password: ""
-  port: "5432"
-  timeout: "300"
-  username: nautobot
 su:
   email: ""
   password: ""
@@ -252,7 +243,10 @@ persistence:
 # :start-at: "podAnnotations: {}\n"
 # :end-before: "###\n"
 # ```
-podAnnotations: {}
+podAnnotations:
+  vault.hashicorp.com/agent-inject: "true"
+  vault.hashicorp.com/role: "nautobot"
+  vault.hashicorp.com/agent-inject-secret-database-nautobot: "internal/data/database/nautobot"
 
 ###
 # ```{rubric} Pod Labels
@@ -267,7 +261,7 @@ podAnnotations: {}
 # :end-before: "###\n"
 # ```
 podLabels:
-  app: nautobot
+  app.kubernetes.io/name: nautobot
 
 ###
 # ```{rubric} Pod Security Context
@@ -348,6 +342,9 @@ resources:
   limits:
     cpu: 2
     memory: 4096Mi
+  requests:
+    cpu: 500m
+    memory: 128Mi
 
 ###
 # ```{rubric} Service
@@ -373,9 +370,9 @@ resources:
 # ```
 service:
   enabled: true
-  port: 80
+  port: 8000
   targetPort: 8000
-  type: LoadBalancer
+  type: ClusterIP
 ####
 
 ###

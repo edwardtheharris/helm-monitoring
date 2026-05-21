@@ -22,7 +22,17 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "nautobot.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
+      annotations:
+        {{- .Values.podAnnotations | toYaml | nindent 10 }}
     spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      resources:
+        limits:
+          cpu: {{ .Values.resources.limits.cpu }}
+          memory: {{ .Values.resources.limits.memory }}
+        requests:
+          cpu: {{ .Values.resources.requests.cpu }}
+          memory: {{ .Values.resources.requests.memory }}
       containers:
         - name: {{ .Release.Name }}
           command: [ "/opt/nautobot/bin/nautobot-server"]

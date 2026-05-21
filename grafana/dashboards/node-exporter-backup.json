@@ -284,39 +284,13 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/\", fstype!=\"rootfs\"}\n) * 100\n",
+          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint!~\"/ru.+|/tmp|.+jelly.+|.+spor.+|.+musi.+\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\"}\n) * 100\n",
           "format": "time_series",
           "hide": false,
           "instant": true,
           "legendFormat": "{{mountpoint}}",
           "range": false,
           "refId": "root fs used"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "editorMode": "code",
-          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\", fstype!=\"rootfs\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/srv/media\", fstype!=\"rootfs\"}\n) * 100\n",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "{{mountpoint}}",
-          "range": true,
-          "refId": "media fs usage"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "editorMode": "code",
-          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/mnt/backup\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/mnt/backup\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint=\"/mnt/backup\"}\n) * 100\n",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "{{mountpoint}}",
-          "range": true,
-          "refId": "backup fs usage"
         }
       ],
       "title": "$nodename filesystem  usage",
@@ -2637,7 +2611,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "bfm2uvvh9qvpcd"
+        "uid": "efi7a9ajh454wf"
       },
       "description": "Current number of processes in each state (e.g., running, sleeping, zombie). Requires --collector.processes to be enabled in node_exporter",
       "fieldConfig": {
@@ -15622,7 +15596,7 @@
       {
         "current": {
           "text": "cms-pr",
-          "value": "bfm2uvvh9qvpcd"
+          "value": "efi7a9ajh454wf"
         },
         "includeAll": false,
         "label": "Datasource",
@@ -15630,7 +15604,7 @@
         "options": [],
         "query": "prometheus",
         "refresh": 1,
-        "regex": "",
+        "regex": "/^cms.*/",
         "type": "datasource"
       },
       {
@@ -15701,8 +15675,8 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "media.breeze-blocks.net:9558",
-          "value": "media.breeze-blocks.net:9558"
+          "text": "backup.breeze-blocks.net:9558",
+          "value": "backup.breeze-blocks.net:9558"
         },
         "description": "",
         "hide": 2,
@@ -15711,11 +15685,11 @@
         "options": [
           {
             "selected": true,
-            "text": "media.breeze-blocks.net:9558",
-            "value": "media.breeze-blocks.net:9558"
+            "text": "backup.breeze-blocks.net:9558",
+            "value": "backup.breeze-blocks.net:9558"
           }
         ],
-        "query": "media.breeze-blocks.net:9558",
+        "query": "backup.breeze-blocks.net:9558",
         "type": "custom"
       }
     ]
@@ -15726,7 +15700,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "backup Exporter Full ",
+  "title": "backup Exporter Full",
   "uid": "dugvwlf",
-  "version": 15
+  "version": 10
 }
