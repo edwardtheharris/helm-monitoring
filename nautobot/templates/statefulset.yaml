@@ -25,6 +25,7 @@ spec:
       annotations:
         {{- .Values.podAnnotations | toYaml | nindent 10 }}
     spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
       resources:
         limits:
           cpu: {{ .Values.resources.limits.cpu }}
