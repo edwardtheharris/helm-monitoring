@@ -462,7 +462,10 @@ type: StatefulSet
 #   mountPath: "/etc/foo"
 #   readOnly: true
 # ```
-volumeMounts: []
+volumeMounts:
+  - name: nautobot-postgres
+    mountPath: "/mnt/postgres"
+    readOnly: true
 
 ###
 # ```{rubric} Volumes
@@ -483,4 +486,10 @@ volumeMounts: []
 #     secretName: mysecret
 #     optional: false
 # ```
-volumes: []
+volumes:
+  - name: nautobot-postgres
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: "nautobot"

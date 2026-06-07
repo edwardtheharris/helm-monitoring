@@ -363,6 +363,7 @@ spec:
               subPath: resolv.conf
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
+            {{ .Values.volumeMounts | toYaml | nindent 12 }}
       imagePullSecrets:
         - name: ghcr
       securityContext:
@@ -381,6 +382,7 @@ spec:
                 path: uwsgi.ini
               - key: nautobot_config.py
                 path: nautobot_config.py
+        {{ .Values.volumes | toYaml | nindent 8 }}
   volumeClaimTemplates:
     - metadata:
         name: nautobot
