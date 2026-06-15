@@ -247,6 +247,7 @@ podAnnotations:
   vault.hashicorp.com/agent-inject: "true"
   vault.hashicorp.com/role: "nautobot"
   vault.hashicorp.com/agent-inject-secret-database-nautobot: "internal/data/database/nautobot"
+  vault.hashicorp.com/tls-skip-verify: "true"
 
 ###
 # ```{rubric} Pod Labels
@@ -464,7 +465,10 @@ type: StatefulSet
 # ```
 volumeMounts:
   - name: nautobot-postgres
-    mountPath: "/mnt/postgres"
+    mountPath: "/mnt/nautobot-postgres"
+    readOnly: true
+  - name: nautobot-superuser
+    mountPath: "/mnt/nautobot-superuser"
     readOnly: true
 
 ###
@@ -493,3 +497,9 @@ volumes:
       readOnly: true
       volumeAttributes:
         secretProviderClass: "nautobot"
+  - name: nautobot-superuser
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: "nautobot-su"
