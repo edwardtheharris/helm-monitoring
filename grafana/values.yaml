@@ -422,9 +422,9 @@ extraContainerVolumes: []
 ##
 persistence:
   type: pvc
-  name: grafana-lvm
+  name: grafana
   enabled: true
-  storageClassName: csi-lvm-linear
+  storageClassName: nfs-retain
   ## (Optional) Use this to bind the claim to an existing PersistentVolume (PV) by name.
   volumeName: ""
   accessModes:
@@ -495,15 +495,15 @@ initChownData:
         - ALL
 
 # Administrator credentials when not using an existing secret (see below)
-#adminUser: admin
-#adminPassword: admin
+adminUser: admin
+adminPassword: admin
 
 # Use an existing secret for the admin user.
 admin:
-  ## Name of the secret. Can be templated.
-  existingSecret: grafana-admin
-  userKey: admin-user
-  passwordKey: admin-password
+  #   ## Name of the secret. Can be templated.
+  existingSecret: ""
+#   userKey: admin-user
+#   passwordKey: admin-password
 
 ## Define command to be executed at startup by grafana container
 ## Needed if using `vault-env` to manage secrets (ref: https://banzaicloud.com/blog/inject-secrets-into-pods-vault/)
