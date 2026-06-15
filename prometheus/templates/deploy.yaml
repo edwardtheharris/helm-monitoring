@@ -154,10 +154,6 @@ spec:
           startupProbe:
             {{- toYaml $startupProbe | nindent 12 }}
           {{- end }}
-          {{- with .Values.configmapReload.prometheus.resources }}
-          resources:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/prometheus
@@ -173,7 +169,7 @@ spec:
           {{- end }}
         {{- end }}
 
-        - name: {{ template "prometheus.name" . }}-{{ .Values.server.name }}
+        - name: {{ .Values.server.name }}
           {{- if .Values.server.image.digest }}
           image: "{{ tpl .Values.server.image.repository . }}@{{ tpl .Values.server.image.digest . }}"
           {{- else }}
