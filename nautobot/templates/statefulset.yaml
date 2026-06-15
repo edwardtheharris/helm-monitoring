@@ -80,12 +80,9 @@ spec:
                   name: nautobot-postgres
                   key: password
             - name: NAUTOBOT_DB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: port
+              value: "5432"
             - name: NAUTOBOT_DB_TIMEOUT
-              value: {{ .Values.db.timeout | quote }}
+              value: "300"
             - name: NAUTOBOT_DB_USER
               valueFrom:
                 secretKeyRef:
@@ -144,6 +141,7 @@ spec:
             - name: nautobot-resolv
               mountPath: /etc/resolv.conf
               subPath: resolv.conf
+            {{ .Values.volumeMounts | toYaml | nindent 12 }}
         - name: scheduler
           command: [ "/opt/nautobot/bin/nautobot-server"]
           args: ["--config","/opt/nautobot/.nautobot/nautobot_config.py", "celery", "beat"]
@@ -189,12 +187,9 @@ spec:
                   name: nautobot-postgres
                   key: password
             - name: NAUTOBOT_DB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: port
+              value: "5432"
             - name: NAUTOBOT_DB_TIMEOUT
-              value: {{ .Values.db.timeout | quote }}
+              value: "300"
             - name: NAUTOBOT_DB_USER
               valueFrom:
                 secretKeyRef:
@@ -253,6 +248,7 @@ spec:
               subPath: resolv.conf
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
+            {{ .Values.volumeMounts | toYaml | nindent 12 }}
         - name: worker
           command: [ "/opt/nautobot/bin/nautobot-server"]
           args: ["--config","/opt/nautobot/.nautobot/nautobot_config.py", "celery", "worker"]
@@ -363,6 +359,7 @@ spec:
               subPath: resolv.conf
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
+            {{ .Values.volumeMounts | toYaml | nindent 12 }}
       imagePullSecrets:
         - name: ghcr
       securityContext:
@@ -381,6 +378,7 @@ spec:
                 path: uwsgi.ini
               - key: nautobot_config.py
                 path: nautobot_config.py
+        {{ .Values.volumes | toYaml | nindent 8 }}
   volumeClaimTemplates:
     - metadata:
         name: nautobot

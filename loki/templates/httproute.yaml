@@ -23,7 +23,7 @@ metadata:
 spec:
   parentRefs:
     - name: "{{ .Release.Name }}"
-      sectionName: loki
+      sectionName: https
   hostnames:
     - "loki.breeze-blocks.net"
   rules:

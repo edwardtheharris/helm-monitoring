@@ -21,7 +21,7 @@
       }
     ]
   },
-  "description": "Node Exporter for backup",
+  "description": "Node Exporter for cms00",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
@@ -233,7 +233,7 @@
         ]
       },
       "gridPos": {
-        "h": 4,
+        "h": 8,
         "w": 12,
         "x": 12,
         "y": 0
@@ -268,29 +268,17 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "((node_memory_SwapTotal_bytes{node=\"$nodename\"} - node_memory_SwapFree_bytes{node=\"$nodename\"}) / (node_memory_SwapTotal_bytes{node=\"$nodename\"})) * 100",
-          "instant": true,
-          "legendFormat": "swap",
-          "range": false,
-          "refId": "swap used",
-          "step": 240
-        },
-        {
           "datasource": {
             "type": "prometheus",
             "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "(\n  (node_filesystem_size_bytes{instance=\"$node\", job=\"$job\", mountpoint!~\"/ru.+|/tmp|.+jelly.+|.+spor.+|.+musi.+\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\"})\n  / node_filesystem_size_bytes{instance=\"$node\", job=\"$job\"}\n) * 100\n",
-          "format": "time_series",
+          "expr": "avg by (mountpoint) (\n  (node_filesystem_size_bytes{node=\"$nodename\"}\n   - node_filesystem_avail_bytes{node=\"$nodename\"})\n  / node_filesystem_size_bytes{node=\"$nodename\"}\n) * 100\n",
           "hide": false,
-          "instant": true,
-          "legendFormat": "{{mountpoint}}",
-          "range": false,
-          "refId": "root fs used"
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "usage"
         }
       ],
       "title": "$nodename filesystem  usage",
@@ -547,92 +535,7 @@
         "type": "prometheus",
         "uid": "${ds_prometheus}"
       },
-      "description": "Percentage of swap space currently used by the system",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 1,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 85
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 95
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 3,
-        "x": 9,
-        "y": 4
-      },
-      "id": 20,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "((node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"}) / (node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"})) * 100",
-          "instant": true,
-          "legendFormat": "",
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "SWAP Used",
-      "transparent": true,
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "",
+      "description": "Filesystem stats for mountpoints.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -651,11 +554,15 @@
             }
           ],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
               },
               {
                 "color": "red",
@@ -671,9 +578,9 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 4
+        "y": 8
       },
-      "id": 354,
+      "id": 357,
       "maxDataPoints": 100,
       "options": {
         "colorMode": "none",
@@ -697,9 +604,10 @@
         {
           "editorMode": "code",
           "exemplar": false,
-          "expr": "(node_filesystem_size_bytes{instance=\"$node\", job=\"$job\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\"})",
+          "expr": "node_filesystem_avail_bytes{node=\"$nodename\"}",
           "hide": true,
           "instant": true,
+          "legendFormat": "{{mountpoint}} free",
           "range": false,
           "refId": "A",
           "step": 240
@@ -710,10 +618,10 @@
             "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_avail_bytes{node=\"$nodename\"}",
+          "expr": "(node_filesystem_size_bytes{instance=\"$node\", job=\"$job\"}\n   - node_filesystem_avail_bytes{instance=\"$node\", job=\"$job\"})",
           "hide": true,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "{{mountpoint}} used",
           "range": true,
           "refId": "B"
         },
@@ -723,7 +631,7 @@
             "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint!~\".+boot.+|.+tele.+|.+jelly.+|.+mu.+|.+sp.+|/run|/run.+\"}",
+          "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint!~\".+boot.+|.+tele.+|.+jelly.+|/run|/run.+\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "{{mountpoint}} total",
@@ -974,88 +882,6 @@
       "type": "stat"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 2,
-          "fieldMinMax": true,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 9,
-        "y": 12
-      },
-      "id": 352,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "node_memory_SwapTotal_bytes{node=\"$nodename\"}",
-          "instant": true,
-          "range": false,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "Swap Total",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
@@ -1169,9 +995,9 @@
       "options": {
         "legend": {
           "calcs": [
-            "min",
             "mean",
-            "max"
+            "max",
+            "lastNotNull"
           ],
           "displayMode": "table",
           "placement": "bottom",
@@ -1525,7 +1351,7 @@
           },
           "custom": {
             "axisBorderShow": true,
-            "axisCenteredZero": false,
+            "axisCenteredZero": true,
             "axisColorMode": "text",
             "axisLabel": "read (-) / write (+)",
             "axisPlacement": "auto",
@@ -1597,8 +1423,9 @@
       "options": {
         "legend": {
           "calcs": [
-            "min",
+            "lastNotNull",
             "mean",
+            "min",
             "max"
           ],
           "displayMode": "table",
@@ -1620,11 +1447,11 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by (node) (irate(node_disk_read_bytes_total{node=\"$nodename\",device=\"sdc\"}[$__rate_interval])*-1)",
+          "expr": "avg by (device) (irate(node_disk_read_bytes_total{node=\"$nodename\",device=~\"nvme.+|sd.+\"}[$__rate_interval])*-1)",
           "format": "time_series",
           "hide": false,
           "instant": false,
-          "legendFormat": "/ read",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "/ read",
           "step": 240
@@ -1635,65 +1462,13 @@
             "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
-          "expr": "avg by (device) (irate(node_disk_written_bytes_total{node=\"$nodename\",device=\"sdc\"}[$__rate_interval]))",
+          "expr": "avg by (device) (irate(node_disk_written_bytes_total{node=\"$nodename\",device=~\"nvme.+|sd.+\"}[$__rate_interval]))",
           "format": "time_series",
           "hide": false,
-          "legendFormat": "/ write",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "/ write",
           "step": 240
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "editorMode": "code",
-          "expr": "avg by (node) (irate(node_disk_read_bytes_total{node=\"$nodename\",device=~\"sda|sdb|sdd\"}[$__rate_interval])*-1)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "/srv/media read",
-          "range": true,
-          "refId": "/srv/media read"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "editorMode": "code",
-          "expr": "avg by (node) (irate(node_disk_written_bytes_total{node=\"$nodename\",device=~\"sda|sdb|sdd\"}[$__rate_interval]))",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "/srv/media write",
-          "range": true,
-          "refId": "/srv/media write"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "editorMode": "code",
-          "expr": "avg by (node) (irate(node_disk_read_bytes_total{node=\"$nodename\",device=\"sde\"}[$__rate_interval])*-1)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "/srv/nfs read",
-          "range": true,
-          "refId": "/srv/nfs read"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "editorMode": "code",
-          "expr": "avg by (node) (irate(node_disk_written_bytes_total{node=\"$nodename\",device=~\"sde\"}[$__rate_interval]))",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "/srv/nfs write",
-          "range": true,
-          "refId": "/srf/nfs write"
         }
       ],
       "title": "Disk Throughput",
@@ -1935,10 +1710,10 @@
             "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
-          "expr": "sum by (node) (irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=~\"sdc\"}[$__rate_interval])*-1)",
-          "legendFormat": "/ read",
+          "expr": "sum by (device) (irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])*-1)",
+          "legendFormat": "__auto",
           "range": true,
-          "refId": "/ read",
+          "refId": "read",
           "step": 240
         },
         {
@@ -1947,36 +1722,10 @@
             "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
-          "expr": "sum by (node) (irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=\"sde\"}[$__rate_interval])*-1)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "/srv/media read",
-          "range": true,
-          "refId": "media array read rate"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "editorMode": "code",
-          "expr": "sum by (node) (irate(node_disk_reads_completed_total{instance=\"$node\",device=~\"sde\"}[$__rate_interval])*-1)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "/mnt/backup - read",
-          "range": true,
-          "refId": "backup read"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "editorMode": "code",
-          "expr": "sum by (node) (irate(node_disk_writes_completed_total{node=\"$nodename\",device=~\"sdc\"}[$__rate_interval]))",
+          "expr": "sum by (device) (irate(node_disk_writes_completed_total{node=\"$nodename\"}[$__rate_interval]))",
           "legendFormat": "/ write",
           "range": true,
-          "refId": "/ write",
+          "refId": "write",
           "step": 240
         },
         {
@@ -1985,26 +1734,12 @@
             "uid": "${ds_prometheus}"
           },
           "editorMode": "code",
-          "expr": "sum by (node) (irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"sde\"}[$__rate_interval]))",
+          "expr": "sum by (device) (irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval]))",
           "hide": false,
           "instant": false,
           "legendFormat": "/srv/media write",
           "range": true,
           "refId": "media write"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (node) (irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"sde\"}[$__rate_interval]))",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "/mnt/backup write",
-          "range": true,
-          "refId": "backup write"
         }
       ],
       "title": "Disk IOps",
@@ -5366,7 +5101,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 138
+            "y": 1210
           },
           "id": 129,
           "options": {
@@ -5477,7 +5212,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 138
+            "y": 1210
           },
           "id": 70,
           "options": {
@@ -5871,7 +5606,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 138
+            "y": 1210
           },
           "id": 128,
           "options": {
@@ -6004,7 +5739,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 146
+            "y": 1218
           },
           "id": 176,
           "options": {
@@ -6130,7 +5865,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 146
+            "y": 1218
           },
           "id": 137,
           "options": {
@@ -6241,7 +5976,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 146
+            "y": 1218
           },
           "id": 140,
           "options": {
@@ -6982,7 +6717,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 140
+            "y": 1212
           },
           "id": 148,
           "options": {
@@ -7082,7 +6817,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 140
+            "y": 1212
           },
           "id": 333,
           "options": {
@@ -7197,7 +6932,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 140
+            "y": 1212
           },
           "id": 335,
           "options": {
@@ -7344,10 +7079,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
+            "h": 12,
+            "w": 6,
             "x": 0,
-            "y": 85
+            "y": 93
           },
           "id": 62,
           "options": {
@@ -7470,10 +7205,10 @@
             ]
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 85
+            "h": 12,
+            "w": 6,
+            "x": 6,
+            "y": 93
           },
           "id": 305,
           "options": {
@@ -7624,10 +7359,10 @@
             ]
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 85
+            "h": 12,
+            "w": 6,
+            "x": 12,
+            "y": 93
           },
           "id": 314,
           "options": {
@@ -7651,20 +7386,22 @@
           "targets": [
             {
               "editorMode": "code",
-              "expr": "node_processes_threads{instance=\"$node\",job=\"$job\"}",
+              "exemplar": false,
+              "expr": "process_num_threads{node=\"$nodename\"}",
               "format": "time_series",
+              "instant": false,
               "interval": "",
-              "legendFormat": "Allocated threads",
+              "legendFormat": "__auto",
               "range": true,
               "refId": "A",
               "step": 240
             },
             {
               "editorMode": "code",
-              "expr": "node_processes_max_threads{instance=\"$node\",job=\"$job\"}",
+              "expr": "sum by (groupname) (namedprocess_namegroup_num_threads{node=\"$nodename\"})",
               "format": "time_series",
               "interval": "",
-              "legendFormat": "Threads limit",
+              "legendFormat": "{{groupname}} threads",
               "range": true,
               "refId": "B",
               "step": 240
@@ -7766,10 +7503,10 @@
             ]
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 141
+            "h": 12,
+            "w": 6,
+            "x": 18,
+            "y": 93
           },
           "id": 313,
           "options": {
@@ -7793,22 +7530,12 @@
           "targets": [
             {
               "editorMode": "code",
-              "expr": "",
+              "expr": "glances_processcount_pid_max{node=\"$nodename\"}",
               "format": "time_series",
               "interval": "",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "expr": "node_processes_max_processes{instance=\"$node\",job=\"$job\"}",
-              "format": "time_series",
-              "interval": "",
-              "legendFormat": "PIDs limit",
-              "range": true,
-              "refId": "B",
               "step": 240
             }
           ],
@@ -7892,10 +7619,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
+            "h": 12,
+            "w": 6,
             "x": 0,
-            "y": 86
+            "y": 94
           },
           "id": 8,
           "options": {
@@ -8001,10 +7728,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 86
+            "h": 12,
+            "w": 6,
+            "x": 6,
+            "y": 94
           },
           "id": 306,
           "options": {
@@ -8105,10 +7832,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 86
+            "h": 12,
+            "w": 6,
+            "x": 12,
+            "y": 94
           },
           "id": 259,
           "options": {
@@ -8132,10 +7859,10 @@
           "targets": [
             {
               "editorMode": "code",
-              "expr": "irate(node_interrupts_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "glances_cpu_interrupts_rate_per_sec{node=\"$nodename\"}",
               "format": "time_series",
               "interval": "",
-              "legendFormat": "{{ type }} - {{ info }}",
+              "legendFormat": "__auto",
               "range": true,
               "refId": "A",
               "step": 240
@@ -8237,10 +7964,10 @@
             ]
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 142
+            "h": 12,
+            "w": 6,
+            "x": 18,
+            "y": 94
           },
           "id": 151,
           "options": {
@@ -8380,10 +8107,10 @@
             ]
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
+            "h": 12,
+            "w": 6,
             "x": 0,
-            "y": 87
+            "y": 95
           },
           "id": 300,
           "options": {
@@ -8482,10 +8209,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 87
+            "h": 12,
+            "w": 6,
+            "x": 6,
+            "y": 95
           },
           "id": 325,
           "options": {
@@ -8532,21 +8259,7 @@
           "title": "Hardware Fan Speed",
           "transparent": true,
           "type": "timeseries"
-        }
-      ],
-      "title": "Hardware Misc",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 95
-      },
-      "id": 296,
-      "panels": [
+        },
         {
           "datasource": {
             "type": "prometheus",
@@ -8609,10 +8322,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 0,
-            "y": 88
+            "h": 12,
+            "w": 6,
+            "x": 12,
+            "y": 95
           },
           "id": 297,
           "options": {
@@ -8652,7 +8365,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "bfm2uvvh9qvpcd"
+            "uid": "efi7a9ajh454wf"
           },
           "description": "Current number of active connections per systemd socket, as reported by the Node Exporter systemd collector",
           "fieldConfig": {
@@ -8711,10 +8424,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 88
+            "h": 12,
+            "w": 6,
+            "x": 18,
+            "y": 95
           },
           "id": 331,
           "options": {
@@ -8817,10 +8530,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 88
+            "h": 12,
+            "w": 6,
+            "x": 0,
+            "y": 107
           },
           "id": 332,
           "options": {
@@ -8844,7 +8557,7 @@
           "targets": [
             {
               "editorMode": "code",
-              "expr": "irate(systemd_socket_refused_connections_total{instance=\"$systemd_instance\"}[$__interval])",
+              "expr": "systemd_socket_refused_connections_total{instance=\"$systemd_instance\"}",
               "format": "time_series",
               "interval": "",
               "legendFormat": "{{ name }}",
@@ -8858,1655 +8571,1653 @@
           "type": "timeseries"
         }
       ],
-      "title": "Systemd",
+      "title": "Hardware Misc",
       "type": "row"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 96
+        "y": 95
       },
       "id": 270,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Number of I/O operations completed per second for the device (after merges), including both reads and writes",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "read (–) / write (+)",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "iops"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/.*Read.*/"
-                },
-                "properties": [
-                  {
-                    "id": "custom.transform",
-                    "value": "negative-Y"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/sda.*/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 0,
-            "y": 89
-          },
-          "id": 9,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "legendFormat": "{{device}} - Read",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "legendFormat": "{{device}} - Write",
-              "range": true,
-              "refId": "B",
-              "step": 240
-            }
-          ],
-          "title": "Disk Read/Write IOps",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Number of bytes read from or written to the device per second",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "read (–) / write (+)",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "Bps"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/.*Read.*/"
-                },
-                "properties": [
-                  {
-                    "id": "custom.transform",
-                    "value": "negative-Y"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/sda.*/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 89
-          },
-          "id": 33,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "format": "time_series",
-              "legendFormat": "{{device}} - Read",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "irate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "{{device}} - Write",
-              "range": true,
-              "refId": "B",
-              "step": 240
-            }
-          ],
-          "title": "Disk Read/Write Data",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Average time for requests issued to the device to be served. This includes the time spent by the requests in queue and the time spent servicing them.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "read (–) / write (+)",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "s"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/.*Read.*/"
-                },
-                "properties": [
-                  {
-                    "id": "custom.transform",
-                    "value": "negative-Y"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/sda.*/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 89
-          },
-          "id": 37,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_read_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval]) / irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{device}} - Read",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_write_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval]) / irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{device}} - Write",
-              "range": true,
-              "refId": "B",
-              "step": 240
-            }
-          ],
-          "title": "Disk Average Wait Time",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Number of read and write requests merged per second that were queued to the device",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "read (–) / write (+)",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "iops"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/.*Read.*/"
-                },
-                "properties": [
-                  {
-                    "id": "custom.transform",
-                    "value": "negative-Y"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/sda.*/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 0,
-            "y": 137
-          },
-          "id": 133,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_reads_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "legendFormat": "{{device}} - Read",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_writes_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "legendFormat": "{{device}} - Write",
-              "range": true,
-              "refId": "B",
-              "step": 240
-            }
-          ],
-          "title": "Disk R/W Merged",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Average queue length of the requests that were issued to the device",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/sda_*/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "#7EB26D",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 137
-          },
-          "id": 35,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_io_time_weighted_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{device}}",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            }
-          ],
-          "title": "Average Queue Size",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Per-second rate of discard (TRIM) and flush (write cache) operations. Useful for monitoring low-level disk activity on SSDs and advanced storage",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "ops"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/sda.*/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 137
-          },
-          "id": 301,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_discards_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{device}} - Discards completed",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_discards_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{device}} - Discards merged",
-              "range": true,
-              "refId": "B",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_flush_requests_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{device}} - Flush",
-              "range": true,
-              "refId": "C",
-              "step": 240
-            }
-          ],
-          "title": "Disk Ops Discards / Flush",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Number of in-progress I/O requests at the time of sampling (active requests in the disk queue)",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/sda.*/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 0,
-            "y": 145
-          },
-          "id": 34,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "node_disk_io_now{instance=\"$node\",job=\"$job\"}",
-              "interval": "",
-              "legendFormat": "{{device}}",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            }
-          ],
-          "title": "Instantaneous Queue Size",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Percentage of time the disk spent actively processing I/O operations, including general I/O, discards (TRIM), and write cache flushes",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "percentunit"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/sda.*/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 145
-          },
-          "id": 36,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_io_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{device}} - General IO",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_discard_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{device}} - Discard/TRIM",
-              "range": true,
-              "refId": "B",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_flush_requests_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{device}} - Flush (write cache)",
-              "range": true,
-              "refId": "C",
-              "step": 240
-            }
-          ],
-          "title": "Time Spent Doing I/Os",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Shows how many disk sectors are discarded (TRIMed) per second. Useful for monitoring SSD behavior and storage efficiency",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/sda.*/"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "orange",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 145
-          },
-          "id": 326,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "irate(node_disk_discarded_sectors_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{device}}",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            }
-          ],
-          "title": "Disk Sectors Discarded Successfully",
-          "transparent": true,
-          "type": "timeseries"
-        }
-      ],
+      "panels": [],
       "title": "Storage Disk",
       "type": "row"
     },
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Number of I/O operations completed per second for the device (after merges), including both reads and writes",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "read (–) / write (+)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "iops"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Read.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/sda.*/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 96
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "legendFormat": "{{device}} - Read",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "legendFormat": "{{device}} - Write",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "Disk Read/Write IOps",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Number of bytes read from or written to the device per second",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "read (–) / write (+)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "Bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Read.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/sda.*/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 96
+      },
+      "id": 33,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "format": "time_series",
+          "legendFormat": "{{device}} - Read",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "irate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "{{device}} - Write",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "Disk Read/Write Data",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Average time for requests issued to the device to be served. This includes the time spent by the requests in queue and the time spent servicing them.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "read (–) / write (+)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Read.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/sda.*/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 96
+      },
+      "id": 37,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_read_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval]) / irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}} - Read",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_write_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval]) / irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}} - Write",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "Disk Average Wait Time",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Number of read and write requests merged per second that were queued to the device",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "read (–) / write (+)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "iops"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Read.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/sda.*/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 104
+      },
+      "id": 133,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_reads_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "legendFormat": "{{device}} - Read",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_writes_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "legendFormat": "{{device}} - Write",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "Disk R/W Merged",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Average queue length of the requests that were issued to the device",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/sda_*/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#7EB26D",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 104
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_io_time_weighted_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}}",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "Average Queue Size",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Per-second rate of discard (TRIM) and flush (write cache) operations. Useful for monitoring low-level disk activity on SSDs and advanced storage",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/sda.*/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 104
+      },
+      "id": 301,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_discards_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}} - Discards completed",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_discards_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}} - Discards merged",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_flush_requests_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}} - Flush",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        }
+      ],
+      "title": "Disk Ops Discards / Flush",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Number of in-progress I/O requests at the time of sampling (active requests in the disk queue)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/sda.*/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 112
+      },
+      "id": 34,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_disk_io_now{instance=\"$node\",job=\"$job\"}",
+          "interval": "",
+          "legendFormat": "{{device}}",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "Instantaneous Queue Size",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Percentage of time the disk spent actively processing I/O operations, including general I/O, discards (TRIM), and write cache flushes",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/sda.*/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 112
+      },
+      "id": 36,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_io_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}} - General IO",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_discard_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}} - Discard/TRIM",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_flush_requests_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}} - Flush (write cache)",
+          "range": true,
+          "refId": "C",
+          "step": 240
+        }
+      ],
+      "title": "Time Spent Doing I/Os",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Shows how many disk sectors are discarded (TRIMed) per second. Useful for monitoring SSD behavior and storage efficiency",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/sda.*/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 112
+      },
+      "id": 326,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "irate(node_disk_discarded_sectors_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}}",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "Disk Sectors Discarded Successfully",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 97
+        "y": 120
       },
       "id": 271,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
+      "panels": [],
+      "title": "Storage Filesystem",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Number of file descriptors currently allocated system-wide versus the system limit. Important for detecting descriptor exhaustion risks",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
           },
-          "description": "Number of file descriptors currently allocated system-wide versus the system limit. Important for detecting descriptor exhaustion risks",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "short"
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "overrides": [
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
               {
-                "matcher": {
-                  "id": "byRegexp",
-                  "options": "/.*Max.*/"
-                },
-                "properties": [
-                  {
-                    "id": "custom.fillOpacity",
-                    "value": 0
-                  },
-                  {
-                    "id": "custom.lineStyle",
-                    "value": {
-                      "dash": [
-                        10,
-                        10
-                      ],
-                      "fill": "dash"
-                    }
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "dark-red",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
+                "color": "green",
+                "value": 0
               }
             ]
           },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 0,
-            "y": 90
-          },
-          "id": 28,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "node_filefd_maximum{instance=\"$node\",job=\"$job\"}",
-              "format": "time_series",
-              "legendFormat": "Max open files",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "expr": "node_filefd_allocated{instance=\"$node\",job=\"$job\"}",
-              "format": "time_series",
-              "legendFormat": "Open files",
-              "range": true,
-              "refId": "B",
-              "step": 240
-            }
-          ],
-          "title": "File Descriptor",
-          "transparent": true,
-          "type": "timeseries"
+          "unit": "short"
         },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Number of free file nodes (inodes) available per mounted filesystem. A low count may prevent file creation even if disk space is available",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Max.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
               },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
                 }
               },
-              "links": [],
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 90
-          },
-          "id": 41,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "node_filesystem_files_free{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
-              "format": "time_series",
-              "legendFormat": "{{mountpoint}}",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            }
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 121
+      },
+      "id": 28,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
           ],
-          "title": "File Nodes Free",
-          "transparent": true,
-          "type": "timeseries"
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_filefd_maximum{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Max open files",
+          "range": true,
+          "refId": "A",
+          "step": 240
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Indicates filesystems mounted in read-only mode or reporting device-level I/O errors.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "normal"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "max": 1,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "bool_yes_no"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 90
-          },
-          "id": 44,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "node_filesystem_readonly{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
-              "format": "time_series",
-              "legendFormat": "{{mountpoint}} - ReadOnly",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            },
-            {
-              "editorMode": "code",
-              "expr": "node_filesystem_device_error{instance=\"$node\",job=\"$job\",device!~'rootfs',fstype!~'tmpfs'}",
-              "format": "time_series",
-              "interval": "",
-              "legendFormat": "{{mountpoint}} - Device error",
-              "range": true,
-              "refId": "B",
-              "step": 240
-            }
-          ],
-          "title": "Filesystem in ReadOnly / Error",
-          "transparent": true,
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${ds_prometheus}"
-          },
-          "description": "Number of file nodes (inodes) available per mounted filesystem. Reflects maximum file capacity regardless of disk size",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 8,
-            "y": 138
-          },
-          "id": 219,
-          "options": {
-            "legend": {
-              "calcs": [
-                "min",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "node_filesystem_files{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
-              "format": "time_series",
-              "legendFormat": "{{mountpoint}}",
-              "range": true,
-              "refId": "A",
-              "step": 240
-            }
-          ],
-          "title": "File Nodes Size",
-          "transparent": true,
-          "type": "timeseries"
+          "editorMode": "code",
+          "expr": "node_filefd_allocated{instance=\"$node\",job=\"$job\"}",
+          "format": "time_series",
+          "legendFormat": "Open files",
+          "range": true,
+          "refId": "B",
+          "step": 240
         }
       ],
-      "title": "Storage Filesystem",
-      "type": "row"
+      "title": "File Descriptor",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Number of free file nodes (inodes) available per mounted filesystem. A low count may prevent file creation even if disk space is available",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 121
+      },
+      "id": 41,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_filesystem_files_free{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
+          "format": "time_series",
+          "legendFormat": "{{mountpoint}}",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "File Nodes Free",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Indicates filesystems mounted in read-only mode or reporting device-level I/O errors.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "bool_yes_no"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 121
+      },
+      "id": 44,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_filesystem_readonly{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
+          "format": "time_series",
+          "legendFormat": "{{mountpoint}} - ReadOnly",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        },
+        {
+          "editorMode": "code",
+          "expr": "node_filesystem_device_error{instance=\"$node\",job=\"$job\",device!~'rootfs',fstype!~'tmpfs'}",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "{{mountpoint}} - Device error",
+          "range": true,
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "Filesystem in ReadOnly / Error",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${ds_prometheus}"
+      },
+      "description": "Number of file nodes (inodes) available per mounted filesystem. Reflects maximum file capacity regardless of disk size",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 129
+      },
+      "id": 219,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "node_filesystem_files{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
+          "format": "time_series",
+          "legendFormat": "{{mountpoint}}",
+          "range": true,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "File Nodes Size",
+      "transparent": true,
+      "type": "timeseries"
     },
     {
       "collapsed": true,
@@ -10514,7 +10225,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 98
+        "y": 137
       },
       "id": 272,
       "panels": [
@@ -10966,7 +10677,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 99
+            "y": 1171
           },
           "id": 146,
           "options": {
@@ -11080,7 +10791,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 99
+            "y": 1171
           },
           "id": 141,
           "options": {
@@ -11203,7 +10914,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 99
+            "y": 1171
           },
           "id": 145,
           "options": {
@@ -11317,7 +11028,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 107
+            "y": 1179
           },
           "id": 232,
           "options": {
@@ -11431,7 +11142,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 107
+            "y": 1179
           },
           "id": 327,
           "options": {
@@ -11533,7 +11244,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 107
+            "y": 1179
           },
           "id": 230,
           "options": {
@@ -11633,7 +11344,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 115
+            "y": 1187
           },
           "id": 309,
           "options": {
@@ -11756,7 +11467,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 115
+            "y": 1187
           },
           "id": 144,
           "options": {
@@ -11866,7 +11577,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 115
+            "y": 1187
           },
           "id": 231,
           "options": {
@@ -11998,7 +11709,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 123
+            "y": 1195
           },
           "id": 61,
           "options": {
@@ -12076,7 +11787,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 123
+            "y": 1195
           },
           "id": 280,
           "options": {
@@ -12151,7 +11862,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 123
+            "y": 1195
           },
           "id": 288,
           "options": {
@@ -12204,7 +11915,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 99
+        "y": 138
       },
       "id": 273,
       "panels": [
@@ -12640,7 +12351,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 100
+            "y": 1172
           },
           "id": 126,
           "options": {
@@ -12743,7 +12454,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 100
+            "y": 1172
           },
           "id": 125,
           "options": {
@@ -12859,7 +12570,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 100
+            "y": 1172
           },
           "id": 310,
           "options": {
@@ -12962,7 +12673,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 108
+            "y": 1180
           },
           "id": 339,
           "options": {
@@ -13087,7 +12798,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 108
+            "y": 1180
           },
           "id": 290,
           "options": {
@@ -13219,7 +12930,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 108
+            "y": 1180
           },
           "id": 330,
           "options": {
@@ -13277,7 +12988,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 100
+        "y": 139
       },
       "id": 274,
       "panels": [
@@ -13358,7 +13069,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 93
+            "y": 661
           },
           "id": 221,
           "options": {
@@ -13486,7 +13197,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 93
+            "y": 661
           },
           "id": 115,
           "options": {
@@ -13623,7 +13334,7 @@
             "h": 16,
             "w": 8,
             "x": 16,
-            "y": 93
+            "y": 661
           },
           "id": 299,
           "options": {
@@ -13735,7 +13446,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 101
+            "y": 1173
           },
           "id": 104,
           "options": {
@@ -13908,7 +13619,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 101
+            "y": 1173
           },
           "id": 109,
           "options": {
@@ -14048,7 +13759,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 109
+            "y": 1181
           },
           "id": 82,
           "options": {
@@ -14161,7 +13872,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 109
+            "y": 1181
           },
           "id": 320,
           "options": {
@@ -14315,7 +14026,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 109
+            "y": 1181
           },
           "id": 55,
           "options": {
@@ -14426,7 +14137,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 117
+            "y": 1189
           },
           "id": 337,
           "options": {
@@ -14553,7 +14264,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 117
+            "y": 1189
           },
           "id": 91,
           "options": {
@@ -14687,7 +14398,7 @@
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 117
+            "y": 1189
           },
           "id": 50,
           "options": {
@@ -14734,7 +14445,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 101
+        "y": 140
       },
       "id": 279,
       "panels": [
@@ -14806,7 +14517,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 94
+            "y": 1166
           },
           "id": 40,
           "options": {
@@ -14907,7 +14618,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 94
+            "y": 1166
           },
           "id": 308,
           "options": {
@@ -14982,7 +14693,7 @@
             "h": 16,
             "w": 8,
             "x": 16,
-            "y": 94
+            "y": 1166
           },
           "id": 157,
           "options": {
@@ -15155,7 +14866,7 @@
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 102
+            "y": 1174
           },
           "id": 149,
           "options": {
@@ -15319,7 +15030,7 @@
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 102
+            "y": 1174
           },
           "id": 64,
           "options": {
@@ -15370,13 +15081,9 @@
     }
   ],
   "preload": true,
-  "refresh": "30s",
+  "refresh": "5s",
   "schemaVersion": 42,
-  "tags": [
-    "node exporter",
-    "backup",
-    "linux"
-  ],
+  "tags": [],
   "templating": {
     "list": [
       {
@@ -15419,8 +15126,8 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "backup",
-          "value": "backup"
+          "text": "cms00",
+          "value": "cms00"
         },
         "description": "",
         "label": "Nodename",
@@ -15428,30 +15135,30 @@
         "options": [
           {
             "selected": true,
-            "text": "backup",
-            "value": "backup"
+            "text": "cms00",
+            "value": "cms00"
           }
         ],
-        "query": "backup\n",
+        "query": "cms00",
         "type": "custom"
       },
       {
         "current": {
-          "text": "backup.breeze-blocks.net:9100",
-          "value": "backup.breeze-blocks.net:9100"
+          "text": "cms00.breeze-blocks.net:9100",
+          "value": "cms00.breeze-blocks.net:9100"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${ds_prometheus}"
         },
-        "definition": "label_values(node_arp_entries{node=\"$nodename\"},instance)",
+        "definition": "label_values(node_uname_info{node=~\"$nodename\"},instance)",
         "includeAll": false,
         "label": "Instance",
         "name": "node",
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(node_arp_entries{node=\"$nodename\"},instance)",
+          "query": "label_values(node_uname_info{node=~\"$nodename\"},instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -15462,8 +15169,8 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "backup.breeze-blocks.net:9558",
-          "value": "backup.breeze-blocks.net:9558"
+          "text": "cms00.breeze-blocks.net:9558",
+          "value": "cms00.breeze-blocks.net:9558"
         },
         "description": "",
         "hide": 2,
@@ -15472,11 +15179,11 @@
         "options": [
           {
             "selected": true,
-            "text": "backup.breeze-blocks.net:9558",
-            "value": "backup.breeze-blocks.net:9558"
+            "text": "cms00.breeze-blocks.net:9558",
+            "value": "cms00.breeze-blocks.net:9558"
           }
         ],
-        "query": "backup.breeze-blocks.net:9558",
+        "query": "cms00.breeze-blocks.net:9558",
         "type": "custom"
       }
     ]
@@ -15487,12 +15194,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "backup Exporter Full",
-  "uid": "dugvwlf",
-<<<<<<< Updated upstream
-  "version": 10
+  "title": "cms00 node exporter full",
+  "uid": "du4ds68",
+  "version": 8
 }
-=======
-  "version": 20
-}
->>>>>>> Stashed changes
