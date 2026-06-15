@@ -551,7 +551,7 @@ server:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: nfs-retain-cms01
+    storageClass: nfs-retain
 
     ## Subdirectory of Prometheus server data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
@@ -1419,6 +1419,24 @@ extraScrapeConfigs: |
           - thw05.breeze-blocks.net:9256
           - whac.breeze-blocks.net:9256
   - job_name: glances-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
     static_configs:
       - targets:
           - backup.breeze-blocks.net:9091
@@ -1453,13 +1471,6 @@ extraScrapeConfigs: |
         regex: (.+)
   - job_name: 'jellyfin-exporter'
     honor_labels: true
-    metrics_path: /metrics
-    static_configs:
-      - targets:
-        - media.breeze-blocks.net:8096
-        - music.breeze-blocks.net:8096
-        - media01.breeze-blocks.net:8096
-        - whac.breeze-blocks.net:8096
     relabel_configs:
       - action: labelkeep
         regex: (.+)
@@ -1475,8 +1486,34 @@ extraScrapeConfigs: |
         source_labels:
           - "__address__"
         target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - media.breeze-blocks.net:8096
+        - music.breeze-blocks.net:8096
+        - media01.breeze-blocks.net:8096
+        - whac.breeze-blocks.net:8096
   - job_name: systemd-exporter
     honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
     static_configs:
       - targets:
           - backup.breeze-blocks.net:9558
