@@ -4,11 +4,11 @@
 
 ## Provide a name in place of kube-prometheus-stack for `app:` labels
 ##
-nameOverride: ""
+nameOverride: prometheus
 
 ## Override the deployment namespace
 ##
-namespaceOverride: ""
+namespaceOverride: monitoring
 
 ## Provide a k8s version to auto dashboard import script example: kubeTargetVersionOverride: 1.26.6
 ##
@@ -20,7 +20,7 @@ kubeVersionOverride: ""
 
 ## Provide a name to substitute for the full names of resources
 ##
-fullnameOverride: ""
+fullnameOverride: prometheus
 
 ## Labels to apply to all resources
 ##
@@ -37,8 +37,8 @@ crds:
   ## It deploys a corresponding clusterrole, clusterrolebinding and serviceaccount to apply the CRDs.
   ## This feature is in preview, off by default and may change in the future.
   upgradeJob:
-    enabled: false
-    forceConflicts: false
+    enabled: true
+    forceConflicts: true
     image:
       busybox:
         registry: docker.io
@@ -57,7 +57,13 @@ crds:
     ## Define resources requests and limits for single Pods.
     ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     ##
-    resources: {}
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 128Mi
 
     ## Additional volumes
     ##
@@ -70,7 +76,8 @@ crds:
     ## Define which Nodes the Pods are scheduled on.
     ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
     ##
-    nodeSelector: {}
+    nodeSelector:
+      kubernetes.io/os: linux
 
     ## Assign custom affinity rules to the upgrade-crd job
     ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
@@ -127,7 +134,7 @@ crds:
     ##
     serviceAccount:
       create: true
-      name: ""
+      name: prometheus
       annotations: {}
       labels: {}
       automountServiceAccountToken: true
@@ -1294,315 +1301,7 @@ alertmanager:
 ## Using default values from https://github.com/grafana-community/helm-charts/blob/main/charts/grafana/values.yaml
 ##
 grafana:
-  enabled: true
-  namespaceOverride: ""
-
-  ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
-  ##
-  forceDeployDatasources: false
-
-  ## ForceDeployDashboard Create dashboard configmap even if grafana deployment has been disabled
-  ##
-  forceDeployDashboards: false
-
-  ## Deploy default dashboards
-  ##
-  defaultDashboardsEnabled: true
-
-  ## Deploy GrafanaDashboard CRDs that reference dashboards from ConfigMaps when grafana-operator is used
-  ## These settings control how dashboards are integrated with the Grafana Operator
-  ## Note: End user still need to create is own kind: GrafanaDataSource for Prometheus
-  ## eg:
-  ## apiVersion: grafana.integreatly.org/v1beta1
-  ## kind: GrafanaDatasource
-  ## metadata:
-  ##   name: prometheus
-  ##   annotations: {}
-  ## spec:
-  ##   allowCrossNamespaceImport: true
-  ##   instanceSelector:
-  ##     matchLabels:
-  ##       app: grafana
-  ##   datasource:
-  ##     name: prometheus
-  ##     type: prometheus
-  ##     access: proxy
-  ##     url: http://prometheus-operated.prometheus-stack.svc.cluster.local:9090
-  ##     isDefault: true
-  ##     jsonData:
-  ##       "tlsSkipVerify": true
-  ##       "timeInterval": "5s"
-  ##
-  operator:
-    ## Enable references to ConfigMaps containing dashboards in GrafanaDashboard CRs
-    ## Set to true to allow dashboards to be loaded from ConfigMap references
-    dashboardsConfigMapRefEnabled: false
-
-    ## Annotations for GrafanaDashboard Cr
-    ##
-    annotations: {}
-    ## Labels that should be matched kind: Grafana instance
-    ## Example: { app: grafana, category: dashboard }
-    ##
-    matchLabels: {}
-
-    ## How frequently the operator should resync resources (in duration format)
-    ## Controls how often dashboards are reconciled by the operator
-    ##
-    resyncPeriod: 10m
-
-    ## Which folder contains all dashboards in Grafana
-    ## This folder will be created on the Root level
-    ## Only one of 'folder', 'folderUID' or 'folderRef' can be set
-    ##
-    folder: General
-
-    ## Which UID of the target folder contains all dashboards in Grafana
-    ## This allows you to use subfolder hierarchy
-    ## Only one of 'folder', 'folderUID' or 'folderRef' can be set
-    ##
-    folderUID: null
-
-    ## Which GrafanaFolder reference contains all dashboards in Grafana
-    ## This allows you to use subfolder hierarchy.
-    ## Only one of 'folder', 'folderUID' or 'folderRef' can be set
-    ##
-    folderRef: null
-
-  ## Timezone for the default dashboards
-  ## Other options are: browser or a specific timezone, i.e. Europe/Luxembourg
-  ##
-  defaultDashboardsTimezone: utc
-
-  ## Editable flag for the default dashboards
-  ##
-  defaultDashboardsEditable: true
-
-  ## Default interval for Grafana dashboards
-  ##
-  defaultDashboardsInterval: 1m
-
-  # Administrator credentials when not using an existing secret (see below)
-  adminUser: admin
-  # adminPassword: strongpassword
-
-  # Use an existing secret for the admin user.
-  admin:
-    ## Name of the secret. Can be templated.
-    existingSecret: ""
-    userKey: admin-user
-    passwordKey: admin-password
-
-  rbac:
-    ## If true, Grafana PSPs will be created
-    ##
-    pspEnabled: false
-
-  ingress:
-    ## If true, Grafana Ingress will be created
-    ##
-    enabled: false
-
-    ## IngressClassName for Grafana Ingress.
-    ## Should be provided if Ingress is enable.
-    ##
-    # ingressClassName: nginx
-
-    ## Annotations for Grafana Ingress
-    ##
-    annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
-
-    ## Labels to be added to the Ingress
-    ##
-    labels: {}
-
-    ## Hostnames.
-    ## Must be provided if Ingress is enable.
-    ##
-    # hosts:
-    #   - grafana.domain.com
-    hosts: []
-
-    ## Path for grafana ingress
-    path: /
-
-    ## TLS configuration for grafana Ingress
-    ## Secret must be manually created in the namespace
-    ##
-    tls: []
-    # - secretName: grafana-general-tls
-    #   hosts:
-    #   - grafana.example.com
-
-  # # To make Grafana persistent (Using Statefulset)
-  # #
-  # persistence:
-  #   enabled: true
-  #   type: sts
-  #   storageClassName: "storageClassName"
-  #   accessModes:
-  #     - ReadWriteOnce
-  #   size: 20Gi
-  #   finalizers:
-  #     - kubernetes.io/pvc-protection
-
-  serviceAccount:
-    create: true
-    autoMount: true
-
-  sidecar:
-    dashboards:
-      enabled: true
-      label: grafana_dashboard
-      labelValue: "1"
-      # Allow discovery in all namespaces for dashboards
-      searchNamespace: ALL
-
-      # Support for new table panels, when enabled grafana auto migrates the old table panels to newer table panels
-      enableNewTablePanelSyntax: false
-
-      ## Annotations for Grafana dashboard configmaps
-      ##
-      annotations: {}
-      multicluster:
-        global:
-          enabled: false
-        etcd:
-          enabled: false
-      provider:
-        allowUiUpdates: false
-    datasources:
-      enabled: true
-      defaultDatasourceEnabled: true
-      isDefaultDatasource: true
-
-      name: Prometheus
-      uid: prometheus
-
-      ## Extra jsonData properties to add to the datasource
-      # extraJsonData:
-      #  prometheusType: Prometheus
-
-      ## URL of prometheus datasource
-      ##
-      # url: http://prometheus-stack-prometheus:9090/
-
-      ## Prometheus request timeout in seconds
-      # timeout: 30
-
-      ## Query parameters to add, as a URL-encoded string,
-      ## to query Prometheus
-      # customQueryParameters: ""
-
-      # If not defined, will use prometheus.prometheusSpec.scrapeInterval or its default
-      # defaultDatasourceScrapeInterval: 15s
-
-      ## Annotations for Grafana datasource configmaps
-      ##
-      annotations: {}
-
-      ## Set method for HTTP to send query to datasource
-      httpMethod: POST
-
-      ## Create datasource for each Pod of Prometheus StatefulSet;
-      ## this uses by default the headless service `prometheus-operated` which is
-      ## created by Prometheus Operator. In case you deployed your own Service for your
-      ## Prometheus instance, you can specify it with the field `prometheusServiceName`
-      ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/0fee93e12dc7c2ea1218f19ae25ec6b893460590/pkg/prometheus/statefulset.go#L255-L286
-      createPrometheusReplicasDatasources: false
-      prometheusServiceName: prometheus-operated
-      label: grafana_datasource
-      labelValue: "1"
-
-      ## Field with internal link pointing to existing data source in Grafana.
-      ## Can be provisioned via additionalDataSources
-      exemplarTraceIdDestinations: {}
-        # datasourceUid: Jaeger
-        # traceIdLabelName: trace_id
-        # urlDisplayLabel: View traces
-      alertmanager:
-        enabled: true
-        name: Alertmanager
-        uid: alertmanager
-        handleGrafanaManagedAlerts: false
-        implementation: prometheus
-
-  extraConfigmapMounts: []
-  # - name: certs-configmap
-  #   mountPath: /etc/grafana/ssl/
-  #   configMap: certs-configmap
-  #   readOnly: true
-
-  deleteDatasources: []
-  # - name: example-datasource
-  #   orgId: 1
-
-  ## Configure additional grafana datasources (passed through tpl)
-  ## ref: https://grafana.com/docs/grafana/latest/administration/provisioning/#datasources
-  additionalDataSources: []
-  # - name: prometheus-sample
-  #   access: proxy
-  #   basicAuth: true
-  #   secureJsonData:
-  #       basicAuthPassword: pass
-  #   basicAuthUser: daco
-  #   editable: false
-  #   jsonData:
-  #       tlsSkipVerify: true
-  #   orgId: 1
-  #   type: prometheus
-  #   url: https://{{ printf "%s-prometheus.svc" .Release.Name }}:9090
-  #   version: 1
-
-  ## Configure additional grafana datasources as a templated string (passed through tpl)
-  ## Useful when you need Helm flow control or templating inside the datasource definition
-  additionalDataSourcesString: ""
-
-  # Flag to mark provisioned data sources for deletion if they are no longer configured.
-  # It takes no effect if data sources are already listed in the deleteDatasources section.
-  # ref: https://grafana.com/docs/grafana/latest/administration/provisioning/#example-data-source-configuration-file
-  prune: false
-
-  ## Passed to grafana subchart and used by servicemonitor below
-  ##
-  service:
-    portName: http-web
-    ipFamilies: []
-    ipFamilyPolicy: ""
-
-  serviceMonitor:
-    # If true, a ServiceMonitor CRD is created for a prometheus operator
-    # https://github.com/prometheus-operator/prometheus-operator
-    #
-    enabled: true
-
-    # Path to use for scraping metrics. Might be different if server.root_url is set
-    # in grafana.ini
-    # path: /metrics
-
-    #  namespace: monitoring  (defaults to use the namespace this chart is deployed to)
-
-    # labels for the ServiceMonitor
-    # labels: {}
-
-    # Extra scrape settings.
-    # interval: ""
-    # scheme: http
-    # tlsConfig: {}
-    # scrapeTimeout: 30s
-
-    ## RelabelConfigs to apply to samples before scraping
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
-    ##
-    # relabelings: []
-    # - sourceLabels: [__meta_kubernetes_pod_node_name]
-    #   separator: ;
-    #   regex: ^(.*)$
-    #   targetLabel: nodename
-    #   replacement: $1
-    #   action: replace
+  enabled: false
 
 ## Flag to disable all the kubernetes component scrapers
 ##
@@ -2599,7 +2298,7 @@ kube-state-metrics:
 ## Deploy node exporter as a daemonset to all nodes
 ##
 nodeExporter:
-  enabled: true
+  enabled: false
   operatingSystems:
     linux:
       enabled: true
@@ -2640,7 +2339,7 @@ prometheus-node-exporter:
     monitor:
       enabled: true
 
-      jobLabel: jobLabel
+      jobLabel: prometheus-operator
 
       ## Scrape interval. If not set, the Prometheus default scrape interval is used.
       ##
@@ -3539,8 +3238,9 @@ prometheus:
   ##
   serviceAccount:
     create: true
-    name: ""
-    annotations: {}
+    name: prometheus-operator
+    annotations:
+      app.kubernetes.io/name: prometheus-operator
     automountServiceAccountToken: true
 
   # Service for thanos service discovery on sidecar
@@ -4247,7 +3947,8 @@ prometheus:
     ## Define which Nodes the Pods are scheduled on.
     ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
     ##
-    nodeSelector: {}
+    nodeSelector:
+      kuberentes.io/os: linux
 
     ## Secrets is a list of Secrets in the same namespace as the Prometheus object, which shall be mounted into the Prometheus Pods.
     ## The Secrets are mounted into /etc/prometheus/secrets/. Secrets changes after initial creation of a Prometheus object are not
@@ -4347,10 +4048,11 @@ prometheus:
     ## prometheus resource to be created with selectors based on values in the helm deployment,
     ## which will also match the probes created
     ##
+    # kuberentes.io/os: linux
     probeSelectorNilUsesHelmValues: true
 
     ## Probes to be selected for target discovery.
-    ## If {}, select all Probes
+    ## If {fug}, select all Probes
     ##
     probeSelector: {}
     ## Example which selects Probes with label "prometheus" set to "somelabel"
