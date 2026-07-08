@@ -381,6 +381,8 @@ server:
   ## Override the prometheus.server.fullname for all objects related to the Prometheus server
   fullnameOverride: prometheus
 
+  hostname: thw-pr.breeze-blocks.net
+
   ## route (map) allows configuration of HTTPRoute resources
   ## Requires Gateway API resources and suitable controller installed within the cluster
   ## Ref. https://gateway-api.sigs.k8s.io/guides/http-routing/
@@ -712,6 +714,7 @@ server:
     ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-ips
     ##
     externalIPs: []
+    hostname: thw-pr.breeze-blocks.net
 
     loadBalancerIP: ""
     loadBalancerSourceRanges: []

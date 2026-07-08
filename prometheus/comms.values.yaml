@@ -1284,6 +1284,31 @@ extraScrapeConfigs: |
       - ns01.breeze-blocks.net:9119
       - ns03.breeze-blocks.net:9119
       - ns04.breeze-blocks.net:9119
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module:
+        - http_2xx  # Look for a HTTP 200 response.
+        - http_ca
+        - http_int_ca
+    static_configs:
+      - targets:
+        - http://media.breeze-blocks.net   # Target to probe with http.
+        - https://media.breeze-blocks.net # Target to probe with https.
+        - http://radarr.breeze-blocks.net # Target to probe with http on port 8080.
+        - https://radarr.breeze-blocks.net # Target to probe with http on port 8080.
+        - http://sonarr.breeze-blocks.net # Target to probe with http on port 8080.
+        - https://sonarr.breeze-blocks.net # Target to probe with http on port 8080.
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: media.breeze-blocks.net:9115  # The blackbox exporter's real hostname:port.
+  - job_name: 'blackbox_exporter'  # collect blackbox exporter's operational metrics.
+    static_configs:
+      - targets: ['127.0.0.1:9115']
   - job_name: bind-query-exporter
     honor_labels: true
     relabel_configs:
@@ -1306,11 +1331,6 @@ extraScrapeConfigs: |
       - ns01.breeze-blocks.net:9197
       - ns03.breeze-blocks.net:9197
       - ns04.breeze-blocks.net:9197
-  # - job_name: filestat-exporter
-  #   honor_labels: true
-  #   static_configs:
-  #   - targets:
-  #     - sulla-felix.breeze-blocks.net:9943
   - job_name: node-exporter
     honor_labels: true
     relabel_configs:
@@ -1337,7 +1357,7 @@ extraScrapeConfigs: |
           - cms01.breeze-blocks.net:9100
           - cms02.breeze-blocks.net:9100
           - cms03.breeze-blocks.net:9100
-          - cms04.breeze-blocks.net:9100
+          - cms04.breeze-blocks.net:9100192.168.5.26
           - cms05.breeze-blocks.net:9100
           - marius.breeze-blocks.net:9100
           - media.breeze-blocks.net:9100
