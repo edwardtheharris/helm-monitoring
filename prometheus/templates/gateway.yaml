@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/name: {{ .Release.Name }}
     app.kubernetes.io/component: http-routing
   annotations:
-    cert-manager.io/cluster-issuer: comms-svc-int
+    cert-manager.io/cluster-issuer: {{ .Values.server.service.clusterIssuer }}
     cert-manager.io/common-name: {{ .Values.server.service.hostname }}
     cert-manager.io/usages: key agreement,digital signature, server auth
 spec:

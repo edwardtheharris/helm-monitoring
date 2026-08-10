@@ -3,6 +3,7 @@ loki:
   commonConfig:
     replication_factor: 1
   limits_config:
+    ingestion_rate_strategy: local
     allow_structured_metadata: true
     volume_enabled: true
   schemaConfig:
