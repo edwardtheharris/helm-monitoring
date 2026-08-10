@@ -222,9 +222,9 @@ server:
 
   ## EnableServiceLinks indicates whether information about services should be injected
   ## into pod's environment variables, matching the syntax of Docker links.
-  ## WARNING: the field is unsupported and will be skipped in K8s prior to v1.13.0.
+  ## : the field is unsupported and will be skipped in K8s prior to v1.13.0.
   ##
-  enableServiceLinks: true
+  # enableServiceLinks: true
 
   ## The URL prefix at which the container can be accessed. Useful in the case the '-web.external-url' includes a slug
   ## so that the various internal URLs are still able to access as they are in the default case.
@@ -719,6 +719,7 @@ server:
     annotations: {}
     labels: {}
     clusterIP: ""
+    clusterIssuer: comms-svc-int
     hostname: prometheus.breeze-blocks.net
 
     ## List of IP addresses at which the Prometheus server service is available
@@ -1515,6 +1516,14 @@ extraScrapeConfigs: |
         - music.breeze-blocks.net:8096
         - media01.breeze-blocks.net:8096
         - whac.breeze-blocks.net:8096
+  - job_name: qbittorrent-exporter
+    honor_labels: true
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+          - backup.breeze-blocks.net:9559
+          - whac.breeze-blocks.net:9559
   - job_name: systemd-exporter
     honor_labels: true
     relabel_configs:
@@ -1557,6 +1566,20 @@ extraScrapeConfigs: |
           - thw04.breeze-blocks.net:9558
           - thw05.breeze-blocks.net:9558
           - whac.breeze-blocks.net:9558
+  - job_name: wireguard-exporter
+    honor_labels: true
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+        - backup.breeze-blocks.net:9586
+  - job_name: x509-exporter
+    honor_labels: true
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+        - media.breeze-blocks.net:9793
 
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts
