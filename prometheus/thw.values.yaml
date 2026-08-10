@@ -714,6 +714,7 @@ server:
     ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-ips
     ##
     externalIPs: []
+    clusterIssuer: thw-svc-int-ca
     hostname: thw-pr.breeze-blocks.net
 
     loadBalancerIP: ""
