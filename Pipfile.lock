@@ -32,11 +32,11 @@
         },
         "argcomplete": {
             "hashes": [
-                "sha256:afde224f753f874807b1dc1414e883ab8fe0cda9c04807b6047dcb8e1ac23913",
-                "sha256:d8f0f22d2a8a7caa383be1e22b6caf1ecaf0ebd10d8f83cc125e36540c95830c"
+                "sha256:6029205678bdd9c1c728a155f5f9ecf5812393f969eef58807641a2bc2aa5b19",
+                "sha256:aad8b69a0b9969edb62db0d1752354c0d50717b10e0cbb00e2a958381b9fc6b9"
             ],
-            "markers": "python_version >= '3.8'",
-            "version": "==3.7.0"
+            "markers": "python_version >= '3.10'",
+            "version": "==3.7.2"
         },
         "babel": {
             "hashes": [
@@ -250,12 +250,12 @@
         },
         "commitizen": {
             "hashes": [
-                "sha256:2e1842d12b7c29591bbeb2094d115aa47d10c6a92f5d6430bf24590434520726",
-                "sha256:e5bcabed3474029cc8f5a5c62216130bc2999f7bc29a3b9884bcd426d7f35c5a"
+                "sha256:3e11153209a9d9e05fd6b21761099ad22e131a5410f5b89b847d83baa1909661",
+                "sha256:9fab436e99420c97ee020bfeea17fe29903fb320a9cdd6e30c2c63bfbac4cb3b"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.10' and python_version < '4.0'",
-            "version": "==4.17.0"
+            "version": "==4.18.0"
         },
         "decli": {
             "hashes": [
