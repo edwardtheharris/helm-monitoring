@@ -424,7 +424,7 @@ persistence:
   type: pvc
   name: grafana
   enabled: true
-  storageClassName: nfs-retain
+  storageClassName: nfs
   ## (Optional) Use this to bind the claim to an existing PersistentVolume (PV) by name.
   volumeName: ""
   accessModes:

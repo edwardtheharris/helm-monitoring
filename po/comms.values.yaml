@@ -38,7 +38,7 @@ crds:
   ## It deploys a corresponding clusterrole, clusterrolebinding and serviceaccount to apply the CRDs.
   ## This feature is in preview, off by default and may change in the future.
   upgradeJob:
-    enabled: true
+    enabled: false
     ## Force apply the CRDs, taking ownership from the manager that installed them (e.g. helm).
     ## Required for the job to actually upgrade CRDs whose schema/version changed.
     forceConflicts: true
@@ -73,7 +73,8 @@ crds:
     ## Define which Nodes the Pods are scheduled on.
     ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
     ##
-    nodeSelector: {}
+    nodeSelector:
+      kubernetes.io/os: linux
 
     ## Assign custom affinity rules to the upgrade-crd job
     ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
@@ -130,7 +131,7 @@ crds:
     ##
     serviceAccount:
       create: true
-      name: ""
+      name: po
       annotations: {}
       labels: {}
       automountServiceAccountToken: true
@@ -143,7 +144,6 @@ crds:
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     ##
     containerSecurityContext:
-      allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
       capabilities:
         drop:
@@ -1126,7 +1126,7 @@ alertmanager:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: nfs-retain
+          storageClassName: nfs
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -2895,7 +2895,7 @@ prometheusOperator:
       #   argocd.argoproj.io/hook: PreSync
 
     deployment:
-      enabled: false
+      enabled: true
 
       ## Number of replicas
       ##
@@ -3180,7 +3180,7 @@ prometheusOperator:
 
     # Use certmanager to generate webhook certs
     certManager:
-      enabled: false
+      enabled: true
       # self-signed root certificate
       rootCert:
         duration: "" # default to be 5y
@@ -3194,9 +3194,9 @@ prometheusOperator:
         # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
         # Defaults to nil.
         revisionHistoryLimit:
-      # issuerRef:
-      #   name: "issuer"
-      #   kind: "ClusterIssuer"
+      issuerRef:
+        name: "comms-svc-int"
+        kind: "ClusterIssuer"
 
   ## Namespaces to scope the interaction of the Prometheus Operator and the apiserver (allow list).
   ## This is mutually exclusive with denyNamespaces. Setting this to an empty object will disable the configuration
@@ -3245,7 +3245,7 @@ prometheusOperator:
   ##
   serviceAccount:
     create: true
-    name: ""
+    name: po
     automountServiceAccountToken: true
     annotations: {}
 
@@ -4565,11 +4565,11 @@ prometheus:
 
     ## How long to retain metrics
     ##
-    retention: 10d
+    retention: 0d
 
     ## Maximum size of metrics
     ## Unit format should be in the form of "50GiB"
-    retentionSize: ""
+    retentionSize: 20GiB
 
     ## Allow out-of-order/out-of-bounds samples ingested into Prometheus for a specified duration
     ## See https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tsdb
@@ -4677,13 +4677,14 @@ prometheus:
       ## Using PersistentVolumeClaim
       ##
       volumeClaimTemplate:
+        metadata:
+          name: po
         spec:
-          storageClassName: nfs-retain
-          accessModes: ["ReadWriteOnce"]
+          storageClassName: nfs
+          accessModes: ["ReadWriteMany"]
           resources:
             requests:
-              storage: 50Gi
-          selector: {}
+              storage: 20Gi
 
     ## Using tmpfs volume
     ##
@@ -4708,7 +4709,137 @@ prometheus:
     ## The scrape configuration example below will find master nodes, provided they have the name .*mst.*, relabel the
     ## port to 2379 and allow etcd scraping provided it is running on all Kubernetes master nodes
     ##
-    additionalScrapeConfigs: []
+    additionalScrapeConfigs:
+      - job_name: glances-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9100
+              - cms00a.breeze-blocks.net:9091
+              - cms00b.breeze-blocks.net:9091
+              - cms01.breeze-blocks.net:9091
+              - cms02.breeze-blocks.net:9091
+              - cms03.breeze-blocks.net:9091
+              - cms04.breeze-blocks.net:9091
+              - cms05.breeze-blocks.net:9091
+              - media00.breeze-blocks.net:9091
+              - media01.breeze-blocks.net:9091
+              - ns01.breeze-blocks.net:9091
+              - ns03.breeze-blocks.net:9091
+              - ns04.breeze-blocks.net:9091
+              - ostium.breeze-blocks.net:9091
+              - thw00a.breeze-blocks.net:9091
+              - thw00b.breeze-blocks.net:9091
+              - thw01.breeze-blocks.net:9091
+              - thw02.breeze-blocks.net:9091
+              - thw03.breeze-blocks.net:9091
+              - thw04.breeze-blocks.net:9091
+              - thw05.breeze-blocks.net:9091
+              - whac.breeze-blocks.net:9091
+      - job_name: node-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9100
+              - cms00a.breeze-blocks.net:9100
+              - cms00b.breeze-blocks.net:9100
+              - cms01.breeze-blocks.net:9100
+              - cms02.breeze-blocks.net:9100
+              - cms03.breeze-blocks.net:9100
+              - cms04.breeze-blocks.net:9100
+              - cms05.breeze-blocks.net:9100
+              - media00.breeze-blocks.net:9100
+              - media01.breeze-blocks.net:9100
+              - ns01.breeze-blocks.net:9100
+              - ns03.breeze-blocks.net:9100
+              - ns04.breeze-blocks.net:9100
+              - ostium.breeze-blocks.net:9100
+              - thw00a.breeze-blocks.net:9100
+              - thw00b.breeze-blocks.net:9100
+              - thw01.breeze-blocks.net:9100
+              - thw02.breeze-blocks.net:9100
+              - thw03.breeze-blocks.net:9100
+              - thw04.breeze-blocks.net:9100
+              - thw05.breeze-blocks.net:9100
+              - whac.breeze-blocks.net:9100
+      - job_name: systemd-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9558
+              - cms00a.breeze-blocks.net:9558
+              - cms00b.breeze-blocks.net:9558
+              - cms00.breeze-blocks.net:9558
+              - cms01.breeze-blocks.net:9558
+              - cms02.breeze-blocks.net:9558
+              - cms03.breeze-blocks.net:9558
+              - cms04.breeze-blocks.net:9558
+              - cms05.breeze-blocks.net:9558
+              - media00.breeze-blocks.net:9558
+              - media01.breeze-blocks.net:9558
+              - ns01.breeze-blocks.net:9558
+              - ns03.breeze-blocks.net:9558
+              - ns04.breeze-blocks.net:9558
+              - ostium.breeze-blocks.net:9558
+              - thw00a.breeze-blocks.net:9558
+              - thw00b.breeze-blocks.net:9558
+              - thw01.breeze-blocks.net:9558
+              - thw02.breeze-blocks.net:9558
+              - thw03.breeze-blocks.net:9558
+              - thw04.breeze-blocks.net:9558
+              - thw05.breeze-blocks.net:9558
+              - whac.breeze-blocks.net:9558
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
@@ -5597,7 +5728,7 @@ thanosRuler:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: nfs-retain
+          storageClassName: nfs
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
