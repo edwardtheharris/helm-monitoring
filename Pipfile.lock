@@ -306,12 +306,12 @@
         },
         "gitpython": {
             "hashes": [
-                "sha256:0a1475cfdc38a5bfba1a3e9a4a9da52a39749ecec322b772915c019f94e5b7e4",
-                "sha256:67a82f537384578643624c8b2c531938a9b82be431663e575dcf638526631d4c"
+                "sha256:8ab28c9da863cdd9e7d7694ec46cf3e6c9a12d8a30a1acd3447aec11975d530c",
+                "sha256:f51c24d8c0f733a195447385f5774a5dfe8767f5acfd7994a33755644c6ecc95"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.7'",
-            "version": "==3.1.59"
+            "version": "==3.1.61"
         },
         "h11": {
             "hashes": [
