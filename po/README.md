@@ -21,6 +21,8 @@ This chart does not install all components of `kube-prometheus`, notably
 excluding the Prometheus Adapter and Prometheus black-box exporter.
 ```
 
+<!--markdownliknt-disable-->
+
 ## Prerequisites
 
 - Kubernetes 1.19+
@@ -311,16 +313,32 @@ You can check out the tickets for this change at [prometheus-operator/prometheus
 
 The chart has added 3 [dependencies](#dependencies).
 
-- Node-Exporter, Kube-State-Metrics: These components are loaded as dependencies into the chart, and are relatively simple components
-- Grafana: The Grafana chart is more feature-rich than this chart - it contains a sidecar that is able to load data sources and dashboards from configmaps deployed into the same cluster. For more information check out the [documentation for the chart](https://github.com/grafana/helm-charts/blob/main/charts/grafana/README.md)
+```{list-table}
+- - Node-Exporter, Kube-State-Metrics:
+  - These components are loaded as dependencies into the chart,
+    and are relatively simple components
+- - Grafana:
+  - The Grafana chart is more feature-rich than this chart
+    - it contains a sidecar that is able to load data
+      sources and dashboards from configmaps deployed into the same
+      cluster. For more information check out the
+      [documentation for the chart](https://github.com/grafana/helm-charts/blob/main/charts/grafana/README.md)
+```
 
 #### Kubelet Service
 
-Because the kubelet service has a new name in the chart, make sure to clean up the old kubelet service in the `kube-system` namespace to prevent counting container metrics twice.
+Because the kubelet service has a new name in the chart,
+make sure to clean up the old kubelet service in the `kube-system`
+namespace to prevent counting container metrics twice.
 
 #### Persistent Volumes
 
-If you would like to keep the data of the current persistent volumes, it should be possible to attach existing volumes to new PVCs and PVs that are created using the conventions in the new chart. For example, in order to use an existing Azure disk for a helm release called `prometheus-migration` the following resources can be created:
+If you would like to keep the data of the current persistent
+volumes, it should be possible to attach existing volumes to
+new PVCs and PVs that are created using the conventions in
+the new chart. For example, in order to use an existing Azure
+disk for a helm release called `prometheus-migration` the
+following resources can be created:
 
 ```yaml
 apiVersion: v1
@@ -364,7 +382,10 @@ spec:
   volumeName: pvc-prometheus-migration-prometheus-0
 ```
 
-The PVC will take ownership of the PV and when you create a release using a persistent volume claim template it will use the existing PVCs as they match the naming convention used by the chart. For other cloud providers similar approaches can be used.
+The PVC will take ownership of the PV and when you create a release
+using a persistent volume claim template it will use the existing
+PVCs as they match the naming convention used by the chart. For
+other cloud providers similar approaches can be used.
 
 #### KubeProxy
 
