@@ -21,7 +21,7 @@ This chart does not install all components of `kube-prometheus`, notably
 excluding the Prometheus Adapter and Prometheus black-box exporter.
 ```
 
-<!--markdownliknt-disable-->
+<!--markdownlint-disable-->
 
 ## Prerequisites
 
