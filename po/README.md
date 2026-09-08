@@ -361,9 +361,14 @@ The PVC will take ownership of the PV and when you create a release using a pers
 
 #### KubeProxy
 
-The metrics bind address of kube-proxy is default to `127.0.0.1:10249` that prometheus instances **cannot** access to. You should expose metrics by changing `metricsBindAddress` field value to `0.0.0.0:10249` if you want to collect them.
+The metrics bind address of kube-proxy is
+default to `127.0.0.1:10249` that prometheus instances **cannot**
+access to. You should expose metrics by changing `metricsBindAddress`
+field value to `0.0.0.0:10249` if you want to collect them.
 
-Depending on the cluster, the relevant part `config.conf` will be in ConfigMap `kube-system/kube-proxy` or `kube-system/kube-proxy-config`. For example:
+Depending on the cluster, the relevant part
+`config.conf` will be in ConfigMap `kube-system/kube-proxy`
+or `kube-system/kube-proxy-config`. For example:
 
 ```console
 kubectl -n kube-system edit cm kube-proxy
