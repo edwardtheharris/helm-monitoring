@@ -10,9 +10,16 @@ operate end-to-end Kubernetes cluster monitoring with
 [Prometheus](https://prometheus.io/) using the
 [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator).
 
-See the [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) readme for details about components, dashboards, and alerts.
+See the [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
+readme for details about components, dashboards, and alerts.
 
-_Note: This chart was formerly named `prometheus-operator` chart, now renamed to more clearly reflect that it installs the `kube-prometheus` project stack, within which Prometheus Operator is only one component. This chart does not install all components of `kube-prometheus`, notably excluding the Prometheus Adapter and Prometheus black-box exporter._
+```{note}
+This chart was formerly named `prometheus-operator` chart, now
+renamed to more clearly reflect that it installs the `kube-prometheus`
+project stack, within which Prometheus Operator is only one component.
+This chart does not install all components of `kube-prometheus`, notably
+excluding the Prometheus Adapter and Prometheus black-box exporter.
+```
 
 ## Prerequisites
 
@@ -297,7 +304,7 @@ There is no simple and direct migration path between the charts as the changes a
 The capabilities of the old chart are all available in the new chart, including the ability to run multiple prometheus instances on a single cluster - you will need to disable the parts of the chart you do not wish to deploy.
 
 You can check out the tickets for this change at [prometheus-operator/prometheus-operator #592](https://github.com/prometheus-operator/prometheus-operator/issues/592) and [helm/charts #6765](https://github.com/helm/charts/pull/6765).
-
+<!--markdownlint-enable-->
 ### High-level overview of Changes
 
 #### Added dependencies
