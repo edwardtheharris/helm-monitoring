@@ -4731,7 +4731,7 @@ prometheus:
         scrape_timeout: 5s
         static_configs:
           - targets:
-              - cato.breeze-blocks.net:9100
+              - cato.breeze-blocks.net:9091
               - cms00a.breeze-blocks.net:9091
               - cms00b.breeze-blocks.net:9091
               - cms01.breeze-blocks.net:9091
