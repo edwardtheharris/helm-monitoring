@@ -67,7 +67,7 @@ config:
   allowed_hosts: "*"
   caches_backend: django_redis.cache.RedisCache
   scheduler:
-    location: "redis://cms-redis.database.svc.cluster.local:6379/0"
+    location: "redis://redis.database.svc.cluster.local:6379/0"
     livenessProbe:
       exec:
         command:
@@ -86,10 +86,10 @@ config:
       # When the probe times out
       timeoutSeconds: 5
     img:
-      repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/scheduler
-      tag: "0.0.8"
+      repository: edwardtheharris/helm-nautobot
+      tag: "0.0.4-scheduler"
     name: scheduler-config
-    results: "redis://cms-redis.database.svc.cluster.local:6379/0"
+    results: "redis://redis.database.svc.cluster.local:6379/0"
   worker:
     host: "192.168.5.25"
     livenessProbe:
@@ -111,9 +111,9 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
-      tag: "0.0.8"
+      tag: "0.0.4-worker"
     name: worker-config
-    results: "redis://cms-redis.database.svc.cluster.local:6379/0"
+    results: "redis://redis.database.svc.cluster.local:6379/0"
     root: "/opt/nautobot"
   name: nautobot-config
   root: /opt/nautobot
@@ -160,11 +160,11 @@ fullnameOverride: "nautobot"
 nameOverride: nautobot
 image:
   pullPolicy: Always
-  repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/nautobot
+  repository: edwardtheharris/helm-nautobot
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.8"
-imagePullSecrets:
-  - name: ghcr
+  tag: "0.0.4"
+# imagePullSecrets:
+#   - name: ghcr
 ####
 
 ####
@@ -229,7 +229,7 @@ nodeSelector:
 persistence:
   name: nautobot
   size: 10Gi
-  storageClass: nfs-retain
+  storageClass: nfs
 
 ###
 # ```{rubric} Pod Annotations
@@ -247,6 +247,7 @@ podAnnotations:
   vault.hashicorp.com/agent-inject: "true"
   vault.hashicorp.com/role: "nautobot"
   vault.hashicorp.com/agent-inject-secret-database-nautobot: "internal/data/database/nautobot"
+  vault.hashicorp.com/agent-inject-secret-nautobot-superuser: "internal/data/nautobot/superuser"
   vault.hashicorp.com/tls-skip-verify: "true"
 
 ###

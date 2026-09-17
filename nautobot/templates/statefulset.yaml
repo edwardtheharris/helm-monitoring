@@ -120,7 +120,7 @@ spec:
                 secretKeyRef:
                   name: nautobot-superuser
                   key: email
-            - name: NAUTOBOT_SUPERUSER_NAME
+            - name: NAUTOBOT_SUPERUSER_NAMEpassword
               valueFrom:
                 secretKeyRef:
                   name: nautobot-superuser
@@ -145,7 +145,7 @@ spec:
         - name: scheduler
           command: [ "/opt/nautobot/bin/nautobot-server"]
           args: ["--config","/opt/nautobot/.nautobot/nautobot_config.py", "celery", "beat"]
-          image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}-scheduler"
           ports:
             - containerPort: 5672
               name: scheduler
@@ -252,7 +252,7 @@ spec:
         - name: worker
           command: [ "/opt/nautobot/bin/nautobot-server"]
           args: ["--config","/opt/nautobot/.nautobot/nautobot_config.py", "celery", "worker"]
-          image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}-worker"
           imagePullPolicy: Always
           ports:
             - containerPort: 5673
@@ -298,7 +298,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
-                  key: host
+                  key: port
             - name: NAUTOBOT_DB_TIMEOUT
               value: {{ .Values.db.timeout | quote }}
             - name: NAUTOBOT_DB_USER
@@ -360,8 +360,8 @@ spec:
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
             {{ .Values.volumeMounts | toYaml | nindent 12 }}
-      imagePullSecrets:
-        - name: ghcr
+      # imagePullSecrets:
+      #   - name: ghcr
       securityContext:
         fsGroup: 1000
       volumes:

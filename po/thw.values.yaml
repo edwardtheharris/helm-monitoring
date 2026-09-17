@@ -383,10 +383,10 @@ prometheus-windows-exporter:
   ##
   prometheus:
     monitor:
-      enabled: true
+      enabled: false
       jobLabel: jobLabel
 
-  releaseLabel: true
+  releaseLabel: false
 
   ## Set job label to 'windows-exporter' as required by the default Prometheus rules and Grafana dashboards
   ##
@@ -508,7 +508,7 @@ alertmanager:
   ##
   serviceAccount:
     create: true
-    name: ""
+    name: am
     annotations: {}
     automountServiceAccountToken: true
 
@@ -1239,7 +1239,7 @@ alertmanager:
 
     ## DNS policy for Alertmanager.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#dnspolicystring-alias
-    dnsPolicy: ""
+    dnsPolicy: ClusterFirst
 
     ## Enable hostNetwork for Alertmanager.
     hostNetwork: false
@@ -1380,7 +1380,7 @@ alertmanager:
 ## Using default values from https://github.com/grafana-community/helm-charts/blob/main/charts/grafana/values.yaml
 ##
 grafana:
-  enabled: true
+  enabled: false
   namespaceOverride: ""
 
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
@@ -1393,7 +1393,7 @@ grafana:
 
   ## Deploy default dashboards
   ##
-  defaultDashboardsEnabled: true
+  defaultDashboardsEnabled: false
 
   ## Deploy GrafanaDashboard CRDs that reference dashboards from ConfigMaps when grafana-operator is used
   ## These settings control how dashboards are integrated with the Grafana Operator
@@ -3661,7 +3661,7 @@ prometheus:
   ##
   serviceAccount:
     create: true
-    name: ""
+    name: po
     annotations: {}
     automountServiceAccountToken: true
 
