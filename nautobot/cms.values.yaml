@@ -87,7 +87,7 @@ config:
       timeoutSeconds: 5
     img:
       repository: edwardtheharris/helm-nautobot
-      tag: "0.0.5-scheduler"
+      tag: "0.0.6-scheduler"
     name: scheduler-config
     results: "redis://redis.database.svc.cluster.local:6379/0"
   worker:
@@ -111,7 +111,7 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
-      tag: "0.0.5-worker"
+      tag: "0.0.6-worker"
     name: worker-config
     results: "redis://redis.database.svc.cluster.local:6379/0"
     root: "/opt/nautobot"
@@ -162,7 +162,7 @@ image:
   pullPolicy: Always
   repository: edwardtheharris/helm-nautobot
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.5"
+  tag: "0.0.6"
 # imagePullSecrets:
 #   - name: ghcr
 ####

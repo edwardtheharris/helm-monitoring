@@ -143,6 +143,7 @@ spec:
           command: [ "/opt/nautobot/bin/nautobot-server"]
           args: ["--config","/opt/nautobot/.nautobot/nautobot_config.py", "celery", "beat"]
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}-scheduler"
+          imagePullPolicy: Always
           ports:
             - containerPort: 5672
               name: scheduler

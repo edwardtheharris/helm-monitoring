@@ -61,6 +61,5 @@ LABEL org.opencontainers.image.description="Celery Scheduler for Nautobot"
 LABEL org.opencontainers.image.licenses=MIT
 LABEL org.opencontainers.image.base.name="nautobot/scheduler"
 EXPOSE 5673
-COPY --chmod=+x scheduler-entrypoint.sh /bin/entrypoint.sh
-CMD ["/bin/entrypoint.sh"]
+CMD ["/opt/nautobot/bin/nautobot-server", "--config-path", "/opt/nautobot/.nautobot/nautobot_config.pyd", "celery", "beat"]
 
