@@ -1,0 +1,51 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: node-exporter
+  namespace: monitoring
+  labels:
+    prometheus: prometheus-po-prometheus
+spec:
+  staticConfigs:
+    # - job_name: node-exporter
+    #   honor_labels: true
+    #   relabel_configs:
+    #     - action: labelkeep
+    #       regex: (.+)
+    #     - source_labels:
+    #         - "__address__"
+    #       action: replace
+    #       regex: ([a-z0-9]+).+
+    #       target_label: node
+    #       replacement: $1
+    #     - action: replace
+    #       regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+    #       replacement: $1.$2
+    #       source_labels:
+    #         - "__address__"
+    #       target_label: hostname
+    #       scrape_interval: 29s
+    #   scrape_timeout: 5s
+    #   static_configs:
+    - targets:
+        - backup.breeze-blocks.net:9100
+        - cms00.breeze-blocks.net:9100
+        - cms01.breeze-blocks.net:9100
+        - cms02.breeze-blocks.net:9100
+        - cms03.breeze-blocks.net:9100
+        - cms04.breeze-blocks.net:9100192.168.5.26
+        - cms05.breeze-blocks.net:9100
+        - marius.breeze-blocks.net:9100
+        - media.breeze-blocks.net:9100
+        - ns01.breeze-blocks.net:9100
+        - ns03.breeze-blocks.net:9100
+        - ns04.breeze-blocks.net:9100
+        - ostium.breeze-blocks.net:9100
+        - sulla-felix.breeze-blocks.net:9100
+        - thw00.breeze-blocks.net:9100
+        - thw01.breeze-blocks.net:9100
+        - thw02.breeze-blocks.net:9100
+        - thw03.breeze-blocks.net:9100
+        - thw04.breeze-blocks.net:9100
+        - thw05.breeze-blocks.net:9100
+        - whac.breeze-blocks.net:9100
