@@ -87,7 +87,7 @@ config:
       timeoutSeconds: 5
     img:
       repository: edwardtheharris/helm-nautobot
-      tag: "0.0.4-scheduler"
+      tag: "0.0.5-scheduler"
     name: scheduler-config
     results: "redis://redis.database.svc.cluster.local:6379/0"
   worker:
@@ -111,7 +111,7 @@ config:
       timeoutSeconds: 5
     img:
       repository: ghcr.io/edwardtheharris/helm-monitoring/nautobot/worker
-      tag: "0.0.4-worker"
+      tag: "0.0.5-worker"
     name: worker-config
     results: "redis://redis.database.svc.cluster.local:6379/0"
     root: "/opt/nautobot"
@@ -162,7 +162,7 @@ image:
   pullPolicy: Always
   repository: edwardtheharris/helm-nautobot
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.4"
+  tag: "0.0.5"
 # imagePullSecrets:
 #   - name: ghcr
 ####
@@ -243,12 +243,12 @@ persistence:
 # :start-at: "podAnnotations: {}\n"
 # :end-before: "###\n"
 # ```
-podAnnotations:
-  vault.hashicorp.com/agent-inject: "true"
-  vault.hashicorp.com/role: "nautobot"
-  vault.hashicorp.com/agent-inject-secret-database-nautobot: "internal/data/database/nautobot"
-  vault.hashicorp.com/agent-inject-secret-nautobot-superuser: "internal/data/nautobot/superuser"
-  vault.hashicorp.com/tls-skip-verify: "true"
+podAnnotations: {}
+  # vault.hashicorp.com/agent-inject-secret-nautobot-postgres: "internal/data/database/nautobot"
+  # vault.hashicorp.com/agent-inject-secret-nautobot-superuser: "internal/data/nautobot/superuser"
+  # vault.hashicorp.com/agent-inject: "true"
+  # vault.hashicorp.com/role: "nautobot"
+  # vault.hashicorp.com/tls-skip-verify: "true"
 
 ###
 # ```{rubric} Pod Labels
@@ -400,31 +400,6 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: "nautobot"
-####
-
-###
-# ```{rubric} Super User Config
-# ```
-# ---
-# When enabled, will create a super user account during deployment.
-# These values are sensitive and should be kept in a vault or similar
-# secret manager.
-#
-# ```{literalinclude} /values.yaml
-# :caption: superUser
-# :language: yaml
-# :start-at: "superUser:\n"
-# :end-before: "####\n"
-# ```
-superUser:
-  create: true
-  email: nautobot@breeze-blocks.net
-  password: ""
-  secret:
-    name: nautobot-superuser
-  secretKey: ""
-  token: ""
-  username: ""
 ####
 
 ###
