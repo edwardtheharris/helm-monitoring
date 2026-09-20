@@ -1,0 +1,22 @@
+###
+# ```{rubric} HTTP Route Tests
+# ```
+# ---
+# Test suite for cluster roles.
+#
+# ```{literalinclude} prometheus/tests/test_http-route.yaml
+# :language: yaml
+# :caption: tessts/test_http-route.yaml
+# :start-at: "suite: 'http-route test suite'
+# ```
+suite: "HTTP Route Test Suite"
+release:
+  name: prometheus
+templates:
+  - templates/http-route.yaml
+values:
+  - ../values.yaml
+tests:
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}

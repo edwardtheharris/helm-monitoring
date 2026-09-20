@@ -1,0 +1,240 @@
+
+bloomPlanner object Configuration for the bloom-planner
+
+{
+  "affinity": {
+    "podAntiAffinity": {
+      "requiredDuringSchedulingIgnoredDuringExecution": [
+        {
+          "labelSelector": {
+            "matchLabels": {
+              "app.kubernetes.io/component": "bloom-planner",
+              "app.kubernetes.io/instance": "{{ .Release.Name }}",
+              "app.kubernetes.io/name": "{{ include \"loki.name\" . }}"
+            }
+          },
+          "topologyKey": "kubernetes.io/hostname"
+        }
+      ]
+    }
+  },
+  "appProtocol": {
+    "grpc": ""
+  },
+  "command": null,
+  "dnsConfig": {},
+  "extraArgs": [],
+  "extraContainers": [],
+  "extraEnv": [],
+  "extraEnvFrom": [],
+  "extraVolumeMounts": [],
+  "extraVolumes": [],
+  "hostAliases": [],
+  "hostUsers": "nil",
+  "image": {
+    "registry": null,
+    "repository": null,
+    "tag": null
+  },
+  "initContainers": [],
+  "livenessProbe": {},
+  "nodeSelector": {},
+  "persistence": {
+    "claims": [
+      {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "annotations": {},
+        "labels": {},
+        "name": "data",
+        "size": "10Gi",
+        "storageClass": null
+      }
+    ],
+    "enableStatefulSetAutoDeletePVC": false,
+    "enabled": false,
+    "whenDeleted": "Retain",
+    "whenScaled": "Retain"
+  },
+  "podAnnotations": {},
+  "podLabels": {},
+  "priorityClassName": null,
+  "readinessProbe": {},
+  "replicas": 0,
+  "resources": {},
+  "serviceAccount": {
+    "annotations": {},
+    "automountServiceAccountToken": true,
+    "create": false,
+    "imagePullSecrets": [],
+    "name": null
+  },
+  "serviceAnnotations": {},
+  "serviceLabels": {},
+  "startupProbe": {},
+  "terminationGracePeriodSeconds": 30,
+  "tolerations": []
+}
+
+bloomPlanner.affinity object Affinity for bloom-planner pods. The value will be passed through tpl.
+
+Hard node anti-affinity
+
+bloomPlanner.appProtocol object Set the optional grpc service protocol. Ex: "grpc", "http2" or "https"
+
+{
+  "grpc": ""
+}
+
+bloomPlanner.command string Command to execute instead of defined in Docker image
+
+null
+
+bloomPlanner.dnsConfig object DNSConfig for bloom-planner pods
+
+{}
+
+bloomPlanner.extraArgs list Additional CLI args for the bloom-planner
+
+[]
+
+bloomPlanner.extraContainers list Containers to add to the bloom-planner pods
+
+[]
+
+bloomPlanner.extraEnv list Environment variables to add to the bloom-planner pods
+
+[]
+
+bloomPlanner.extraEnvFrom list Environment variables from secrets or configmaps to add to the bloom-planner pods
+
+[]
+
+bloomPlanner.extraVolumeMounts list Volume mounts to add to the bloom-planner pods
+
+[]
+
+bloomPlanner.extraVolumes list Volumes to add to the bloom-planner pods
+
+[]
+
+bloomPlanner.hostAliases list hostAliases to add
+
+[]
+
+bloomPlanner.hostUsers string Use the host's user namespace in the bloom-planner
+
+"nil"
+
+bloomPlanner.image.registry string The Docker registry for the bloom-planner image. Overrides `loki.image.registry`
+
+null
+
+bloomPlanner.image.repository string Docker image repository for the bloom-planner image. Overrides `loki.image.repository`
+
+null
+
+bloomPlanner.image.tag string Docker image tag for the bloom-planner image. Overrides `loki.image.tag`
+
+null
+
+bloomPlanner.initContainers list Init containers to add to the bloom-planner pods
+
+[]
+
+bloomPlanner.livenessProbe object liveness probe settings for ingester pods. If empty use `loki.livenessProbe`
+
+{}
+
+bloomPlanner.nodeSelector object Node selector for bloom-planner pods
+
+{}
+
+bloomPlanner.persistence.claims list List of the bloom-planner PVCs
+
+bloomPlanner.persistence.claims[0].accessModes list Set access modes on the PersistentVolumeClaim
+
+[
+  "ReadWriteOnce"
+]
+
+bloomPlanner.persistence.claims[0].annotations object Annotations for bloom-planner PVCs
+
+{}
+
+bloomPlanner.persistence.claims[0].labels object Labels for bloom planner PVCs
+
+{}
+
+bloomPlanner.persistence.claims[0].size string Size of persistent disk
+
+"10Gi"
+
+bloomPlanner.persistence.enableStatefulSetAutoDeletePVC bool Enable StatefulSetAutoDeletePVC feature
+
+false
+
+bloomPlanner.persistence.enabled bool Enable creating PVCs for the bloom-planner
+
+false
+
+bloomPlanner.podAnnotations object Annotations for bloom-planner pods
+
+{}
+
+bloomPlanner.podLabels object Labels for bloom-planner pods
+
+{}
+
+bloomPlanner.priorityClassName string The name of the PriorityClass for bloom-planner pods
+
+null
+
+bloomPlanner.readinessProbe object readiness probe settings for ingester pods. If empty, use `loki.readinessProbe`
+
+{}
+
+bloomPlanner.replicas int Number of replicas for the bloom-planner
+
+0
+
+bloomPlanner.resources object Resource requests and limits for the bloom-planner
+
+{}
+
+bloomPlanner.serviceAccount.annotations object Annotations for the bloom-planner service account
+
+{}
+
+bloomPlanner.serviceAccount.automountServiceAccountToken bool Set this toggle to false to opt out of automounting API credentials for the service account
+
+true
+
+bloomPlanner.serviceAccount.imagePullSecrets list Image pull secrets for the bloom-planner service account
+
+[]
+
+bloomPlanner.serviceAccount.name string The name of the ServiceAccount to use for the bloom-planner. If not set and create is true, a name is generated by appending "-bloom-planner" to the common ServiceAccount.
+
+null
+
+bloomPlanner.serviceAnnotations object Annotations for bloom-planner service
+
+{}
+
+bloomPlanner.serviceLabels object Labels for bloom-planner service
+
+{}
+
+bloomPlanner.startupProbe object startup probe settings for ingester pods. If empty use `loki.startupProbe`
+
+{}
+
+bloomPlanner.terminationGracePeriodSeconds int Grace period to allow the bloom-planner to shutdown before it is killed
+
+30
+
+bloomPlanner.tolerations list Tolerations for bloom-planner pods
+
+[]

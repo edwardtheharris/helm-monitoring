@@ -19,7 +19,7 @@ loki:
   ruler:
     enable_api: true
   storage:
-    type: csi-lvm-linear
+    type: nfs-retain-cms01
     bucketNames:
       - name: chunks
   storageConfig:
@@ -31,27 +31,13 @@ gateway:
   service:
     port: 80
     type: LoadBalancer
-  ingress:
-    enabled: true
-    annotations:
-      cert-manager.io/cluster-issuer: comms-svc-int
-    ingressClassName: nginx
-    hosts:
-      - host: loki.breeze-blocks.net
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - secretName: gateway-tls
-        hosts:
-          - loki.breeze-blocks.net
 minio:
   enabled: false
 deploymentMode: SingleBinary
 
 singleBinary:
   persistence:
-    storageClass: csi-lvm-linear
+    storageClass: nfs-retain-cms02
     size: 100G
   replicas: 1
 

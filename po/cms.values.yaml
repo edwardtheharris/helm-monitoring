@@ -399,7 +399,7 @@ prometheus-windows-exporter:
 alertmanager:
   ## Deploy alertmanager
   ##
-  enabled: false
+  enabled: true
 
   # Optional: Override the namespace where Alertmanager will be deployed.
   namespaceOverride: ""
@@ -2082,7 +2082,7 @@ kubeControllerManager:
 
     ## port: Name of the port the metrics will be scraped from
     ##
-    port: kube-metrics
+    port: http-metrics
 
     jobLabel: jobLabel
     selector: {}
@@ -2733,7 +2733,7 @@ prometheus-node-exporter:
     - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/containerd/.+|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
     - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs|erofs)$
   service:
-    portName: node-exporter
+    portName: http-metrics
     ipDualStack:
       enabled: false
       ipFamilies: ["IPv6", "IPv4"]
@@ -4739,11 +4739,9 @@ prometheus:
               - cms03.breeze-blocks.net:9091
               - cms04.breeze-blocks.net:9091
               - cms05.breeze-blocks.net:9091
-              - cms06.breeze-blocks.net:9091
               - media00.breeze-blocks.net:9091
               - media01.breeze-blocks.net:9091
               - ns01.breeze-blocks.net:9091
-              - ns02.breeze-blocks.net:9091
               - ns03.breeze-blocks.net:9091
               - ns04.breeze-blocks.net:9091
               - ostium.breeze-blocks.net:9091
@@ -4784,11 +4782,9 @@ prometheus:
               - cms03.breeze-blocks.net:9100
               - cms04.breeze-blocks.net:9100
               - cms05.breeze-blocks.net:9100
-              - cms06.breeze-blocks.net:9100
               - media00.breeze-blocks.net:9100
               - media01.breeze-blocks.net:9100
               - ns01.breeze-blocks.net:9100
-              - ns02.breeze-blocks.net:9100
               - ns03.breeze-blocks.net:9100
               - ns04.breeze-blocks.net:9100
               - ostium.breeze-blocks.net:9100
@@ -4830,11 +4826,9 @@ prometheus:
               - cms03.breeze-blocks.net:9558
               - cms04.breeze-blocks.net:9558
               - cms05.breeze-blocks.net:9558
-              - cms06.breeze-blocks.net:9558
               - media00.breeze-blocks.net:9558
               - media01.breeze-blocks.net:9558
               - ns01.breeze-blocks.net:9558
-              - ns02.breeze-blocks.net:9558
               - ns03.breeze-blocks.net:9558
               - ns04.breeze-blocks.net:9558
               - ostium.breeze-blocks.net:9558

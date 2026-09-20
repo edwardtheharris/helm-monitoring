@@ -1,0 +1,34 @@
+###
+# ```{rubric} service Test Suite
+# ```
+# ---
+# Tests to validate the service of the described networkpolicy.
+#
+# ```{literalinclude} /tests/service_test.yaml
+# :language: yaml
+# :start-at: "suite: test for service\n"
+# :end-before: "###\n"
+# ```
+suite: test for service
+release:
+  name: kube-state-metrics
+templates:
+  - templates/service.yaml
+values:
+  - ../values.yaml
+
+###
+# ```{rubric} service Tests
+# ```
+# ---
+# Tests for service Template
+#
+# ```{literalinclude} /tests/service_test.yaml
+# :language: yaml
+# :start-at: "tests:\n"
+# ```
+tests:
+  - asserts:
+      - isKind:
+          of: Service
+      - matchSnapshot: {}

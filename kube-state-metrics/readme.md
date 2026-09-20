@@ -1,61 +1,71 @@
 ---
-title: kube-state-metrics Helm Chart readme
+abstract: A kube state metrics helm chart.
+date: 2026-02-201
+title: kube-state-metrics Helm Chart
 ---
 
-Installs the [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)
+Installs the [kube-state-metrics agent](https://github.com/kubernetes/kube-state-metrics).
 
 ## Usage
 
-The chart is distributed as an [OCI Artifact](https://helm.sh/docs/topics/registries/)
-as well as via a traditional [Helm Repository](https://helm.sh/docs/topics/chart_repository/).
+The chart is distributed as an
+[OCI Artifact](https://helm.sh/docs/topics/registries/) as well as via a
+traditional [Helm Repository](https://helm.sh/docs/topics/chart_repository/).
 
-- [OCI Artifact](oci://ghcr.io/prometheus-community/charts/kube-state-metrics)
-- [Helm Repository](https://prometheus-community.github.io/helm-charts) with chart kube-state-metrics.
+- OCI Artifact: `oci://ghcr.io/prometheus-community/charts/kube-state-metrics`
+- Helm Repository: `https://prometheus-community.github.io/helm-charts`
+  with chart `kube-state-metrics`
 
-The installation instructions use the OCI registry. Refer to the [helm repo](
-
-) command documentation for information on installing charts via the traditional repository.
+The installation instructions use the OCI registry. Refer to
+the [`helm repo`]([`helm repo`](https://helm.sh/docs/helm/helm_repo/)) command
+documentation for information on installing charts via the traditional
+repository.
 
 ### Install Chart
 
 ```{code-block} shell
-helm install [RELEASE_NAME] oci://ghcr.io/prometheus-community/charts/kube-state-metrics [flags]
+helm install [RELEASE_NAME] \
+  oci://ghcr.io/prometheus-community/charts/kube-state-metrics [flags]
 ```
 
-See configuration below.
+_See [configuration](#configuration) below._
 
-See `helm install` for command documentation.
+_See [helm install](https://helm.sh/docs/helm/helm_install/) for command documentation._
 
 ### Uninstall Chart
 
-```{code-block} shell
+```console
 helm uninstall [RELEASE_NAME]
 ```
 
-This removes all the Kubernetes components associated with the chart and deletes the release.
+This removes all the Kubernetes components associated with the chart and
+deletes the release.
 
-See `helm uninstall` for command documentation.
+_See [helm uninstall](https://helm.sh/docs/helm/helm_uninstall/) for command documentation._
 
 ### Upgrading Chart
 
-```{code-block} shell
-helm upgrade [RELEASE_NAME] oci://ghcr.io/prometheus-community/charts/kube-state-metrics [flags]
+```console
+helm upgrade [RELEASE_NAME] \
+  oci://ghcr.io/prometheus-community/charts/kube-state-metrics [flags]
 ```
 
-See helm upgrade for command documentation.
+_See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documentation._
 
-### Migrating from stable/kube-state-metrics and kubernetes/kube-state-metrics
+#### Migrating from stable/kube-state-metrics and kubernetes/kube-state-metrics
 
 You can upgrade in-place:
-your existing release name using the new chart repository
 
-### Upgrading to v6.0.0
+1. [upgrade](#upgrading-chart) your existing release name using the new chart repository
+
+## Upgrading to v6.0.0
 
 This version drops support for deprecated Pod Security Policy resources.
-Upgrading to v3.0.0
+
+## Upgrading to v3.0.0
 
 v3.0.0 includes kube-state-metrics v2.0, see the
-
+[changelog](https://github.com/kubernetes/kube-state-metrics/blob/release-2.0/CHANGELOG.md)
 for major changes on the application-side.
 
 The upgraded chart now the following changes:
@@ -64,23 +74,25 @@ The upgraded chart now the following changes:
 - collectors key was renamed to resources
 - namespace key was renamed to namespaces
 
-#### Configuration
+## Configuration
 
-See. To see all configurable options with detailed comments:
+See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing).
+To see all
+configurable options with detailed comments:
 
-```{code-block} shell
+```console
 helm show values oci://ghcr.io/prometheus-community/charts/kube-state-metrics
 ```
 
-## kube-rbac-proxy
+### kube-rbac-proxy
 
-You can enable kube-state-metrics endpoint protection using kube-rbac-proxy.
-By setting `kubeRBACProxy.enabled: true`{l=yaml}, this chart will deploy
-one RBAC proxy container
-per endpoint (metrics & telemetry). To authorize access, authenticate your
-requests (via a ServiceAccount for example) with a ClusterRole attached such as:
+You can enable `kube-state-metrics` endpoint protection using
+`kube-rbac-proxy`. By setting `kubeRBACProxy.enabled: true`, this chart will
+deploy one RBAC proxy container per endpoint (metrics & telemetry).
+To authorize access, authenticate your requests (via a `ServiceAccount` for
+example) with a `ClusterRole` attached such as:
 
-```{code-block} yaml
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:

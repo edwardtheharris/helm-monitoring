@@ -1,0 +1,13 @@
+add_labels:
+  runs-on: ubuntu-latest
+  steps:
+    - name: checkout
+      uses: actions/checkout@main
+      with:
+        fetch-depth: 0
+    - name: add labels
+      uses: actions-ecosystem/action-add-labels@main
+      with:
+        github_token: ${{ secrets.PROJECT_PAT }}
+        labels: |
+          ${{ github.event.pull_request.base.ref }}

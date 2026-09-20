@@ -1,0 +1,22 @@
+###
+# ```{rubric} Pod Disruption Budget Tests
+# ```
+# ---
+# Test suite for pod disruption budgets.
+#
+# ```{literalinclude} prometheus/tests/test_pdb.yaml
+# :language: yaml
+# :caption: tessts/test_pdb.yaml
+# :start-at: "suite: 'pdb test suite'
+# ```
+suite: "Pod Disruption Budget Test Suite"
+release:
+  name: prometheus
+templates:
+  - templates/pdb.yaml
+values:
+  - ../values.yaml
+tests:
+  - it: should match the snapshot
+    asserts:
+      - matchSnapshot: {}

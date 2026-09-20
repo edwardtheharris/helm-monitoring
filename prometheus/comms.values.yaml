@@ -127,7 +127,13 @@ configmapReload:
     ## configmap-reload resource requests and limits
     ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
     ##
-    resources: {}
+    resources:
+      limits:
+        cpu: 1
+        memory: 1Gi
+      memory:
+        cpu: 100m
+        memory: 128Mi
 
 server:
   ## Prometheus server container name
@@ -216,9 +222,9 @@ server:
 
   ## EnableServiceLinks indicates whether information about services should be injected
   ## into pod's environment variables, matching the syntax of Docker links.
-  ## WARNING: the field is unsupported and will be skipped in K8s prior to v1.13.0.
+  ## : the field is unsupported and will be skipped in K8s prior to v1.13.0.
   ##
-  enableServiceLinks: true
+  # enableServiceLinks: true
 
   ## The URL prefix at which the container can be accessed. Useful in the case the '-web.external-url' includes a slug
   ## so that the various internal URLs are still able to access as they are in the default case.
@@ -227,7 +233,7 @@ server:
 
   ## External URL which can access prometheus
   ## Maybe same with Ingress host name
-  baseURL: pcomms.breeze-blocks.net
+  baseURL: prometheus.breeze-blocks.net
 
   ## Additional server container environment variables
   ##
@@ -375,65 +381,6 @@ server:
   ## Override the prometheus.server.fullname for all objects related to the Prometheus server
   fullnameOverride: prometheus
 
-  ingress:
-    ## If true, Prometheus server Ingress will be created
-    ##
-    enabled: true
-
-    ingressClassName: "nginx"
-
-    ## Prometheus server Ingress annotations
-    ##
-    annotations:
-      cert-manager.io/cluster-issuer: comms-svc-int
-      cert-manager.io/common-name: p.breeze-blocks.net
-      cert-manager.io/ip-sans: "192.168.5.49"
-      cert-manager.io/uri-sans: "https://pcomms.breeze-blocks.net,https://comms.breeze-blocks.net,https://p.breeze-blocks.net"
-      cert-manager.io/subject-organizations: breeze blocks international
-      cert-manager.io/subject-organizationalunits: engineering
-      cert-manager.io/subject-countries: US
-      cert-manager.io/email-sans: prometheus@breeze-blocks.net
-      cert-manager.io/subject-provinces: CA
-      cert-manager.io/subject-localities: Los Angeles
-
-    ## Prometheus server Ingress additional labels
-    ##
-    extraLabels: {}
-
-    ## Redirect ingress to an additional defined port on the service
-    # servicePort: 8081
-
-    ## Prometheus server Ingress hostnames with optional path (passed through tpl)
-    ## Must be provided if Ingress is enabled
-    ##
-    hosts:
-      - pcomms.breeze-blocks.net
-      - comms.breeze-blocks.net
-      - p.breeze-blocks.net
-    #   - domain.com/prometheus
-
-    path: /
-
-    # pathType is only for k8s >= 1.18
-    pathType: Prefix
-
-    ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services. (passed through tpl)
-    extraPaths: []
-    # - path: /*
-    #   backend:
-    #     serviceName: ssl-redirect
-    #     servicePort: use-annotation
-
-    ## Prometheus server Ingress TLS configuration (hosts passed through tpl)
-    ## Secrets must be manually created in the namespace
-    ##
-    tls:
-      - secretName: prometheus-tls
-        hosts:
-          - pcomms.breeze-blocks.net
-          - comms.breeze-blocks.net
-          - p.breeze-blocks.net
-
   ## route (map) allows configuration of HTTPRoute resources
   ## Requires Gateway API resources and suitable controller installed within the cluster
   ## Ref. https://gateway-api.sigs.k8s.io/guides/http-routing/
@@ -448,34 +395,34 @@ server:
       kind: "HTTPRoute"
 
       ## Annotations to attach to the HTTPRoute resource
-      annotations:
-        cert-manager.io/cluster-issuer: comms-svc-int
-        cert-manager.io/common-name: p.breeze-blocks.net
-        cert-manager.io/ip-sans: "192.168.5.49"
-        cert-manager.io/uri-sans: "https://pcomms.breeze-blocks.net,https://comms.breeze-blocks.net,https://p.breeze-blocks.net"
-        cert-manager.io/subject-organizations: breeze blocks international
-        cert-manager.io/subject-organizationalunits: engineering
-        cert-manager.io/subject-countries: US
-        cert-manager.io/email-sans: prometheus@breeze-blocks.net
-        cert-manager.io/subject-provinces: CA
-        cert-manager.io/subject-localities: Los Angeles
+      annotations: {}
+        #  cert-manager.io/cluster-issuer: comms-svc-int
+        #  cert-manager.io/common-name: p.breeze-blocks.net
+        #  cert-manager.io/ip-sans: "192.168.5.49"
+        #  cert-manager.io/uri-sans: "https://pcomms.breeze-blocks.net,https://comms.breeze-blocks.net,https://p.breeze-blocks.net"
+        #  cert-manager.io/subject-organizations: breeze blocks international
+        #  cert-manager.io/subject-organizationalunits: engineering
+        #  cert-manager.io/subject-countries: US
+        #  cert-manager.io/email-sans: prometheus@breeze-blocks.net
+        #  cert-manager.io/subject-provinces: CA
+        #  cert-manager.io/subject-localities: Los Angeles
       ## Labels to attach to the HTTPRoute resource
-      labels: {}
+      labels:
+        app.kubernetes.io/name: prometheus
+        app.kubernetes.io/component: http-routing
 
       ## ParentRefs refers to resources this HTTPRoute is to be attached to (Gateways)
       parentRefs:
         - group: gateway.networking.k8s.io
           kind: Gateway
-          name: envoy-gateway
+          name: prometheus
         # - name: contour
         #   sectionName: http
 
       ## Hostnames (templated) defines a set of hostnames that should match against the HTTP Host
       ## header to select a HTTPRoute used to process the request
       hostnames:
-        - p.breeze-blocks.net
-        - pcomms.breeze-blocks.net
-        - comms.breeze-blocks.net
+        - prometheus.breeze-blocks.net
 
       ## additionalRules (templated) allows adding custom rules to the route
       additionalRules: []
@@ -495,7 +442,7 @@ server:
       ## To redirect HTTP traffic to HTTPS, you need to have a Gateway with both HTTP and HTTPS listeners.
       ## Matches and filters do not take effect if enabled.
       ## Ref. https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/
-      httpsRedirect: true
+      httpsRedirect: false
 
   ## Server Deployment Strategy type
   strategy:
@@ -604,12 +551,12 @@ server:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: csi-lvm-linear
+    storageClass: nfs-retain
 
     ## Subdirectory of Prometheus server data Persistent Volume to mount
     ## Useful if the volume's root directory is not empty
     ##
-    subPath: ""
+    subPath: "prometheus"
 
     ## Persistent Volume Claim Selector
     ## Useful if Persistent Volumes have been provisioned in advance
@@ -709,13 +656,13 @@ server:
   ## Prometheus server resource requests and limits
   ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
   ##
-  resources: {}
-    # limits:
-    #   cpu: 500m
-    #   memory: 512Mi
-    # requests:
-    #   cpu: 500m
-    #   memory: 512Mi
+  resources:
+    limits:
+      cpu: 3
+      memory: 8Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
 
   # Required for use in managed kubernetes clusters (such as AWS EKS) with custom CNI (such as calico),
   # because control-plane managed by AWS cannot communicate with pods' IP CIDR and admission webhooks are not working
@@ -772,6 +719,8 @@ server:
     annotations: {}
     labels: {}
     clusterIP: ""
+    clusterIssuer: comms-svc-int
+    hostname: prometheus.breeze-blocks.net
 
     ## List of IP addresses at which the Prometheus server service is available
     ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-ips
@@ -782,7 +731,7 @@ server:
     loadBalancerSourceRanges: []
     servicePort: 9090
     sessionAffinity: None
-    type: LoadBalancer
+    type: ClusterIP
     ## externalTrafficPolicy is applicable to service with externally-facing addresses (NodePorts, ExternalIPs, and LoadBalancer IPs)
     externalTrafficPolicy: ""
 
@@ -1314,6 +1263,75 @@ serverFiles:
 # must be a string so you have to add a | after extraScrapeConfigs:
 # example adds prometheus-blackbox-exporter scrape config
 extraScrapeConfigs: |
+  - job_name: bind-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: (.+)
+        target_label: alias
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    static_configs:
+    - targets:
+      - ns01.breeze-blocks.net:9119
+      - ns03.breeze-blocks.net:9119
+      - ns04.breeze-blocks.net:9119
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module:
+        - http_2xx  # Look for a HTTP 200 response.
+        - http_ca
+        - http_int_ca
+    static_configs:
+      - targets:
+        - http://media.breeze-blocks.net   # Target to probe with http.
+        - https://media.breeze-blocks.net # Target to probe with https.
+        - http://radarr.breeze-blocks.net # Target to probe with http on port 8080.
+        - https://radarr.breeze-blocks.net # Target to probe with http on port 8080.
+        - http://sonarr.breeze-blocks.net # Target to probe with http on port 8080.
+        - https://sonarr.breeze-blocks.net # Target to probe with http on port 8080.
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: media.breeze-blocks.net:9115  # The blackbox exporter's real hostname:port.
+  - job_name: 'blackbox_exporter'  # collect blackbox exporter's operational metrics.
+    static_configs:
+      - targets: ['127.0.0.1:9115']
+  - job_name: bind-query-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: (.+)
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    static_configs:
+    - targets:
+      - ns01.breeze-blocks.net:9197
+      - ns03.breeze-blocks.net:9197
+      - ns04.breeze-blocks.net:9197
   - job_name: node-exporter
     honor_labels: true
     relabel_configs:
@@ -1336,7 +1354,12 @@ extraScrapeConfigs: |
     static_configs:
       - targets:
           - backup.breeze-blocks.net:9100
-          - cart.breeze-blocks.net:9100
+          - cms00.breeze-blocks.net:9100
+          - cms01.breeze-blocks.net:9100
+          - cms02.breeze-blocks.net:9100
+          - cms03.breeze-blocks.net:9100
+          - cms04.breeze-blocks.net:9100192.168.5.26
+          - cms05.breeze-blocks.net:9100
           - marius.breeze-blocks.net:9100
           - media.breeze-blocks.net:9100
           - ns01.breeze-blocks.net:9100
@@ -1349,17 +1372,101 @@ extraScrapeConfigs: |
           - thw02.breeze-blocks.net:9100
           - thw03.breeze-blocks.net:9100
           - thw04.breeze-blocks.net:9100
+          - thw05.breeze-blocks.net:9100
           - whac.breeze-blocks.net:9100
+  - job_name: postgres-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+    - targets:
+      - cms-pge.breeze-blocks.net:9187
+      - thw-pge.breeze-blocks.net:9187
+  - job_name: process-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+          - backup.breeze-blocks.net:9256
+          - cms00.breeze-blocks.net:9256
+          - cms01.breeze-blocks.net:9256
+          - cms02.breeze-blocks.net:9256
+          - cms03.breeze-blocks.net:9256
+          - cms04.breeze-blocks.net:9256
+          - cms05.breeze-blocks.net:9256
+          - marius.breeze-blocks.net:9256
+          - media.breeze-blocks.net:9256
+          - ns01.breeze-blocks.net:9256
+          - ns03.breeze-blocks.net:9256
+          - ns04.breeze-blocks.net:9256
+          - ostium.breeze-blocks.net:9256
+          - sulla-felix.breeze-blocks.net:9256
+          - thw00.breeze-blocks.net:9256
+          - thw01.breeze-blocks.net:9256
+          - thw02.breeze-blocks.net:9256
+          - thw03.breeze-blocks.net:9256
+          - thw04.breeze-blocks.net:9256
+          - thw05.breeze-blocks.net:9256
+          - whac.breeze-blocks.net:9256
   - job_name: glances-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
     static_configs:
       - targets:
           - backup.breeze-blocks.net:9091
-          - cart.breeze-blocks.net:9091
           - cms00.breeze-blocks.net:9091
           - cms01.breeze-blocks.net:9091
           - cms02.breeze-blocks.net:9091
           - cms03.breeze-blocks.net:9091
           - cms04.breeze-blocks.net:9091
+          - cms05.breeze-blocks.net:9091
           - marius.breeze-blocks.net:9091
           - media.breeze-blocks.net:9091
           - ns01.breeze-blocks.net:9091
@@ -1372,21 +1479,107 @@ extraScrapeConfigs: |
           - thw02.breeze-blocks.net:9091
           - thw03.breeze-blocks.net:9091
           - thw04.breeze-blocks.net:9091
+          - thw05.breeze-blocks.net:9091
           - whac.breeze-blocks.net:9091
-  # - job_name: 'prometheus-blackbox-exporter'
-  #   metrics_path: /probe
-  #   params:
-  #     module: [http_2xx]
-  #   static_configs:
-  #     - targets:
-  #       - https://example.com
-  #   relabel_configs:
-  #     - source_labels: [__address__]
-  #       target_label: __param_target
-  #     - source_labels: [__param_target]
-  #       target_label: instance
-  #     - target_label: __address__
-  #       replacement: prometheus-blackbox-exporter:9115
+  - job_name: 'navidrome-exporter'
+    honor_labels: true
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - music.breeze-blocks.net:4533
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+  - job_name: 'jellyfin-exporter'
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - media.breeze-blocks.net:8096
+        - music.breeze-blocks.net:8096
+        - media01.breeze-blocks.net:8096
+        - whac.breeze-blocks.net:8096
+  - job_name: qbittorrent-exporter
+    honor_labels: true
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+          - backup.breeze-blocks.net:9559
+          - whac.breeze-blocks.net:9559
+  - job_name: systemd-exporter
+    honor_labels: true
+    relabel_configs:
+      - action: labelkeep
+        regex: (.+)
+      - source_labels:
+          - "__address__"
+        action: replace
+        regex: ([a-z0-9]+).+
+        target_label: node
+        replacement: $1
+      - action: replace
+        regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+        replacement: $1.$2
+        source_labels:
+          - "__address__"
+        target_label: hostname
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+          - backup.breeze-blocks.net:9558
+          - cms00.breeze-blocks.net:9558
+          - cms01.breeze-blocks.net:9558
+          - cms02.breeze-blocks.net:9558
+          - cms03.breeze-blocks.net:9558
+          - cms04.breeze-blocks.net:9558
+          - cms05.breeze-blocks.net:9558
+          - marius.breeze-blocks.net:9558
+          - media.breeze-blocks.net:9558
+          - ns01.breeze-blocks.net:9091
+          - ns03.breeze-blocks.net:9091
+          - ns04.breeze-blocks.net:9091
+          - ostium.breeze-blocks.net:9091
+          - sulla-felix.breeze-blocks.net:9558
+          - thw00.breeze-blocks.net:9558
+          - thw01.breeze-blocks.net:9558
+          - thw02.breeze-blocks.net:9558
+          - thw03.breeze-blocks.net:9558
+          - thw04.breeze-blocks.net:9558
+          - thw05.breeze-blocks.net:9558
+          - whac.breeze-blocks.net:9558
+  - job_name: wireguard-exporter
+    honor_labels: true
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+        - backup.breeze-blocks.net:9586
+  - job_name: x509-exporter
+    honor_labels: true
+    scrape_interval: 29s
+    scrape_timeout: 5s
+    static_configs:
+      - targets:
+        - media.breeze-blocks.net:9793
 
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts

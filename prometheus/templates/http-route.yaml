@@ -2,19 +2,36 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: {{ .Release.Name }}
-  labels:
-    app.kubernetes.io/name: {{ .Release.Name }}
+  name: "{{ .Release.Name }}-tls-redirect"
 spec:
   parentRefs:
-    - name: {{ .Release.Name }}
+    - name: "{{ .Release.Name }}"
+      sectionName: http
   hostnames:
-  {{ range $.Values.server.route.main.hostnames }}
-    - {{ . }}
-  {{- end }}
+    - {{ .Values.server.service.hostname }}
   rules:
-    - backendRefs:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: "{{ .Release.Name }}"
+spec:
+  parentRefs:
+    - name: "{{ .Release.Name }}"
+      sectionName: https
+  hostnames:
+    - {{ .Values.server.service.hostname }}
+  rules:
+    - matches:
+      - path:
+          type: PathPrefix
+          value: "/"
+      backendRefs:
         - name: {{ .Release.Name }}
-          port: 80
-        - name: {{ .Release.Name }}
-          port: 443
+          port: {{ .Values.server.service.servicePort }}
+          weight: 1
