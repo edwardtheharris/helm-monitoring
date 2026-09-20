@@ -4,10 +4,10 @@ kind: StatefulSet
 metadata:
   annotations:
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/name: {{ .Release.Name }}
   labels:
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernets.io/name: {{ .Chart.Name }}
+    app.kubernets.io/name: {{ .Release.Name }}
   name: {{ .Release.Name }}
 spec:
   selector:
@@ -18,11 +18,21 @@ spec:
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
-      name: {{ include "nautobot.name" . }}
+      name: {{ .Release.Name }}
       labels:
-        app.kubernetes.io/name: {{ include "nautobot.name" . }}
+        app.kubernetes.io/name: {{ .Release.Name }}
         app.kubernetes.io/instance: {{ .Release.Name }}
+      annotations:
+        {{- .Values.podAnnotations | toYaml | nindent 10 }}
     spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      resources:
+        limits:
+          cpu: {{ .Values.resources.limits.cpu }}
+          memory: {{ .Values.resources.limits.memory }}
+        requests:
+          cpu: {{ .Values.resources.requests.cpu }}
+          memory: {{ .Values.resources.requests.memory }}
       containers:
         - name: {{ .Release.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -40,7 +50,7 @@ spec:
             - name: NAUTOBOT_CELERY_RESULT_BACKEND
               value: {{ .Values.config.worker.results }}
             - name: NAUTOBOT_CREATE_SUPERUSER
-              value: {{ .Values.superUser.create | quote }}
+              value: "true"
             - name: NAUTOBOT_CORS_ALLOW_ALL_ORIGINS
               value: 'True'
             - name: NAUTOBOT_CELERY_TASK_DEFAULT_QUEUE
@@ -61,19 +71,16 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
-                  key: username
+                  key: database
             - name: NAUTOBOT_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
                   key: password
             - name: NAUTOBOT_DB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: port
+              value: "5432"
             - name: NAUTOBOT_DB_TIMEOUT
-              value: {{ .Values.db.timeout | quote }}
+              value: "300"
             - name: NAUTOBOT_DB_USER
               valueFrom:
                 secretKeyRef:
@@ -111,7 +118,7 @@ spec:
                 secretKeyRef:
                   name: nautobot-superuser
                   key: email
-            - name: NAUTOBOT_SUPERUSER_NAME
+            - name: NAUTOBOT_SUPERUSER_NAMEpassword
               valueFrom:
                 secretKeyRef:
                   name: nautobot-superuser
@@ -133,7 +140,10 @@ spec:
               mountPath: /etc/resolv.conf
               subPath: resolv.conf
         - name: scheduler
-          image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
+          command: [ "/opt/nautobot/bin/nautobot-server"]
+          args: ["--config","/opt/nautobot/.nautobot/nautobot_config.py", "celery", "beat"]
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: Always
           ports:
             - containerPort: 5672
               name: scheduler
@@ -175,12 +185,9 @@ spec:
                   name: nautobot-postgres
                   key: password
             - name: NAUTOBOT_DB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: nautobot-postgres
-                  key: port
+              value: "5432"
             - name: NAUTOBOT_DB_TIMEOUT
-              value: {{ .Values.db.timeout | quote }}
+              value: "300"
             - name: NAUTOBOT_DB_USER
               valueFrom:
                 secretKeyRef:
@@ -240,7 +247,9 @@ spec:
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
         - name: worker
-          image: "{{ .Values.config.worker.img.repository }}:{{ .Values.image.tag }}"
+          command: [ "/opt/nautobot/bin/nautobot-server"]
+          args: ["--config","/opt/nautobot/.nautobot/nautobot_config.py", "celery", "worker"]
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}-worker"
           imagePullPolicy: Always
           ports:
             - containerPort: 5673
@@ -286,7 +295,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: nautobot-postgres
-                  key: host
+                  key: port
             - name: NAUTOBOT_DB_TIMEOUT
               value: {{ .Values.db.timeout | quote }}
             - name: NAUTOBOT_DB_USER
@@ -347,8 +356,6 @@ spec:
               subPath: resolv.conf
             - name: nautobot-config
               mountPath: /opt/nautobot/.nautobot
-      imagePullSecrets:
-        - name: ghcr
       securityContext:
         fsGroup: 1000
       volumes:
