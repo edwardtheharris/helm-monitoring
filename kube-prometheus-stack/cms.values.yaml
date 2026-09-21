@@ -4,7 +4,7 @@
 
 ## Provide a name in place of kube-prometheus-stack for `app:` labels
 ##
-nameOverride: ""
+nameOverride: po
 
 ## Override the deployment namespace
 ##
@@ -20,11 +20,12 @@ kubeVersionOverride: ""
 
 ## Provide a name to substitute for the full names of resources
 ##
-fullnameOverride: ""
+fullnameOverride: po
 
 ## Labels to apply to all resources
 ##
-commonLabels: {}
+commonLabels:
+  app.kubernetes.io/name: po
 # scmhash: abc123
 # myLabel: aakkmd
 
@@ -51,7 +52,7 @@ crds:
       kubectl:
         registry: registry.k8s.io
         repository: kubectl
-        tag: ""  # defaults to the Kubernetes version
+        tag: "" # defaults to the Kubernetes version
         sha: ""
         pullPolicy: IfNotPresent
 
@@ -72,7 +73,8 @@ crds:
     ## Define which Nodes the Pods are scheduled on.
     ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
     ##
-    nodeSelector: {}
+    nodeSelector:
+      kubernetes.io/os: linux
 
     ## Assign custom affinity rules to the upgrade-crd job
     ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
@@ -129,7 +131,7 @@ crds:
     ##
     serviceAccount:
       create: true
-      name: ""
+      name: po
       annotations: {}
       labels: {}
       automountServiceAccountToken: true
@@ -142,7 +144,6 @@ crds:
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     ##
     containerSecurityContext:
-      allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
       capabilities:
         drop:
@@ -308,11 +309,11 @@ defaultRules:
 
   ## Thresholds for kubelet certificate expiration alerts (in seconds)
   kubeletServerCertificateExpiration:
-    warning: 604800     # 7 days
-    critical: 86400     # 1 day
+    warning: 604800 # 7 days
+    critical: 86400 # 1 day
   kubeletClientCertificateExpiration:
-    warning: 604800     # 7 days
-    critical: 86400     # 1 day
+    warning: 604800 # 7 days
+    critical: 86400 # 1 day
 
   node:
     fsSelector: 'fstype!=""'
@@ -396,10 +397,9 @@ prometheus-windows-exporter:
 ## ref: https://prometheus.io/docs/alerting/alertmanager/
 ##
 alertmanager:
-
   ## Deploy alertmanager
   ##
-  enabled: true
+  enabled: false
 
   # Optional: Override the namespace where Alertmanager will be deployed.
   namespaceOverride: ""
@@ -502,7 +502,7 @@ alertmanager:
   ##
   serviceAccount:
     create: true
-    name: ""
+    name: am
     annotations: {}
     automountServiceAccountToken: true
 
@@ -555,41 +555,41 @@ alertmanager:
       resolve_timeout: 5m
     inhibit_rules:
       - source_matchers:
-          - 'severity = critical'
+          - "severity = critical"
         target_matchers:
-          - 'severity =~ warning|info'
+          - "severity =~ warning|info"
         equal:
-          - 'namespace'
-          - 'alertname'
+          - "namespace"
+          - "alertname"
       - source_matchers:
-          - 'severity = warning'
+          - "severity = warning"
         target_matchers:
-          - 'severity = info'
+          - "severity = info"
         equal:
-          - 'namespace'
-          - 'alertname'
+          - "namespace"
+          - "alertname"
       - source_matchers:
-          - 'alertname = InfoInhibitor'
+          - "alertname = InfoInhibitor"
         target_matchers:
-          - 'severity = info'
+          - "severity = info"
         equal:
-          - 'namespace'
+          - "namespace"
       - target_matchers:
-          - 'alertname = InfoInhibitor'
+          - "alertname = InfoInhibitor"
     route:
-      group_by: ['namespace']
+      group_by: ["namespace"]
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: 'null'
+      receiver: "null"
       routes:
-      - receiver: 'null'
-        matchers:
-          - alertname = "Watchdog"
+        - receiver: "null"
+          matchers:
+            - alertname = "Watchdog"
     receivers:
-    - name: 'null'
+      - name: "null"
     templates:
-    - '/etc/alertmanager/config/*.tmpl'
+      - "/etc/alertmanager/config/*.tmpl"
 
   ## Alertmanager configuration directives (as string type, preferred over the config hash map)
   ## stringConfig will be used only if tplConfig is true
@@ -693,9 +693,11 @@ alertmanager:
       annotations: {}
       labels: {}
 
-      hostnames: []
+      hostnames:
+        - am.breeze-blocks.net
       # - my-filter.example.com
       parentRefs: []
+
       # - name: acme-gw
 
       # -- create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects)
@@ -710,12 +712,6 @@ alertmanager:
 
       ## Filters define the filters that are applied to requests that match this rule.
       filters: []
-
-      ## Timeouts for the generated HTTPRoute backend rule.
-      ## Requires Gateway API CRDs and a controller that support HTTPRoute timeouts.
-      timeouts: {}
-      # request: 120s
-      # backendRequest: 60s
 
       ## Session persistence configuration for the route rule.
       sessionPersistence: {}
@@ -815,12 +811,6 @@ alertmanager:
         - path:
             type: PathPrefix
             value: /
-
-      ## Timeouts for the generated HTTPRoute backend rule.
-      ## Requires Gateway API CRDs and a controller that support HTTPRoute timeouts.
-      timeouts: {}
-      # request: 120s
-      # backendRequest: 60s
 
       ## Session persistence configuration for the route rule.
       sessionPersistence: {}
@@ -1030,7 +1020,7 @@ alertmanager:
     image:
       registry: quay.io
       repository: prometheus/alertmanager
-      tag: v0.34.0
+      tag: v0.33.1
       sha: ""
       pullPolicy: IfNotPresent
 
@@ -1135,20 +1125,19 @@ alertmanager:
     ## Storage is the definition of how storage will be used by the Alertmanager instances.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
     ##
-    storage: {}
-    # volumeClaimTemplate:
-    #   spec:
-    #     storageClassName: gluster
-    #     accessModes: ["ReadWriteOnce"]
-    #     resources:
-    #       requests:
-    #         storage: 50Gi
-    #     selector: {}
-
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: nfs
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
+          selector: {}
 
     ## The external URL the Alertmanager instances will be available under. This is necessary to generate correct URLs. This is necessary if Alertmanager is not served from root of a DNS name. string  false
     ##
-    externalUrl:
+    externalUrl: am.breeze-blocks.net
 
     ## The route prefix Alertmanager registers HTTP handlers for. This is useful, if using ExternalURL and a proxy is rewriting HTTP routes of a request, and the actual ExternalURL is still true,
     ## but the server serves requests under a different route prefix. For example for use with kubectl proxy.
@@ -1246,7 +1235,7 @@ alertmanager:
 
     ## DNS policy for Alertmanager.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#dnspolicystring-alias
-    dnsPolicy: ""
+    dnsPolicy: ClusterFirst
 
     ## Enable hostNetwork for Alertmanager.
     hostNetwork: false
@@ -1261,7 +1250,7 @@ alertmanager:
     containers: []
     # containers:
     # - name: oauth-proxy
-    #   image: quay.io/oauth2-proxy/oauth2-proxy:v7.15.4
+    #   image: quay.io/oauth2-proxy/oauth2-proxy:v7.15.3
     #   args:
     #   - --upstream=http://127.0.0.1:9093
     #   - --http-address=0.0.0.0:8081
@@ -1305,11 +1294,6 @@ alertmanager:
     ## clusterGossipInterval determines interval between gossip attempts.
     ## Needs to be specified as GoDuration, a time duration that can be parsed by Go's time.ParseDuration() (e.g. 45ms, 30s, 1m, 1h20m15s)
     clusterGossipInterval: ""
-
-    ## clusterPeerName defines the name this instance advertises to other cluster peers, defaulting to the pod name.
-    ## Literal values and references to environment variables available in the container (e.g. "$(POD_NAME).$(NAMESPACE)") are both accepted.
-    ## Requires Alertmanager >= v0.30.0.
-    clusterPeerName: ""
 
     ## clusterPeerTimeout determines timeout for cluster peering.
     ## Needs to be specified as GoDuration, a time duration that can be parsed by Go's time.ParseDuration() (e.g. 45ms, 30s, 1m, 1h20m15s)
@@ -1392,7 +1376,7 @@ alertmanager:
 ## Using default values from https://github.com/grafana-community/helm-charts/blob/main/charts/grafana/values.yaml
 ##
 grafana:
-  enabled: true
+  enabled: false
   namespaceOverride: ""
 
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
@@ -1409,8 +1393,7 @@ grafana:
 
   ## Deploy GrafanaDashboard CRDs that reference dashboards from ConfigMaps when grafana-operator is used
   ## These settings control how dashboards are integrated with the Grafana Operator
-  ## Note: With operator.datasourcesEnabled disabled, end users still need to create their own
-  ## kind: GrafanaDatasource for Prometheus
+  ## Note: End user still need to create is own kind: GrafanaDataSource for Prometheus
   ## eg:
   ## apiVersion: grafana.integreatly.org/v1beta1
   ## kind: GrafanaDatasource
@@ -1436,15 +1419,6 @@ grafana:
     ## Enable references to ConfigMaps containing dashboards in GrafanaDashboard CRs
     ## Set to true to allow dashboards to be loaded from ConfigMap references
     dashboardsConfigMapRefEnabled: false
-
-    ## Provision GrafanaDatasource CRs instead of a file-based datasource ConfigMap
-    ## Covers the default Prometheus datasource, the per-replica Prometheus datasources, the
-    ## Alertmanager datasource and every entry of grafana.additionalDataSources
-    ## An entry of grafana.additionalDataSources may carry `valuesFrom` and `plugins`, both are
-    ## moved from the datasource to the CR spec
-    ## grafana.additionalDataSourcesString, grafana.deleteDatasources and grafana.prune have no CR
-    ## equivalent and keep using the ConfigMap
-    datasourcesEnabled: false
 
     ## Annotations for GrafanaDashboard Cr
     ##
@@ -1574,13 +1548,6 @@ grafana:
       ## Annotations for Grafana dashboard configmaps
       ##
       annotations: {}
-
-      ## Annotation the sidecar reads to decide in which Grafana folder a dashboard
-      ## is stored. Requires `provider.foldersFromFilesStructure` to be enabled.
-      ## ref: https://github.com/grafana/helm-charts/tree/main/charts/grafana#sidecar-for-dashboards
-      ##
-      # folderAnnotation: grafana_folder
-
       multicluster:
         global:
           enabled: false
@@ -1588,12 +1555,6 @@ grafana:
           enabled: false
       provider:
         allowUiUpdates: false
-
-        ## Let Grafana replicate the dashboard folder structure created by the sidecar,
-        ## so dashboards are grouped into folders instead of the default one.
-        ## Required when using `folderAnnotation` above.
-        ##
-        # foldersFromFilesStructure: true
     datasources:
       enabled: true
       defaultDatasourceEnabled: true
@@ -1734,33 +1695,14 @@ kubernetesServiceMonitors:
 ##
 kubeApiServer:
   enabled: true
-  ## TLS configuration of the ServiceMonitor endpoint. Rendered as-is, so any field of the
-  ## Prometheus Operator SafeTLSConfig type can be set here.
-  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeTLSConfig
-  ##
   tlsConfig:
     serverName: kubernetes
     insecureSkipVerify: false
-    ca:
-      configMap:
-        name: kube-root-ca.crt
-        key: ca.crt
   serviceMonitor:
     enabled: true
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
     interval: ""
-
-    ## Bearer credentials used to scrape this component. Rendered as-is, so any field of the
-    ## Prometheus Operator SafeAuthorization type can be set here. Set to null to scrape without
-    ## authentication.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeAuthorization
-    ##
-    authorization:
-      type: Bearer
-      credentials:
-        name: '{{ include "kube-prometheus-stack.prometheus.tokenSecretName" . }}'
-        key: token
 
     ## SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
     ##
@@ -1899,30 +1841,11 @@ kubelet:
     ##
     https: true
 
-    ## Bearer credentials used to scrape this component. Rendered as-is, so any field of the
-    ## Prometheus Operator SafeAuthorization type can be set here. Set to null to scrape without
-    ## authentication.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeAuthorization
-    ##
-    authorization:
-      type: Bearer
-      credentials:
-        name: '{{ include "kube-prometheus-stack.prometheus.tokenSecretName" . }}'
-        key: token
-
-    ## TLS configuration of the ServiceMonitor endpoint. Only applies when scraping over https.
-    ## Rendered as-is, so any field of the Prometheus Operator SafeTLSConfig type can be set here.
-    ## insecureSkipVerify is enabled by default because the kubelet serving certificate deployed by
-    ## kubeadm is self-signed.
+    ## Skip TLS certificate validation when scraping.
+    ## This is enabled by default because kubelet serving certificate deployed by kubeadm is by default self-signed
     ## ref: https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeTLSConfig
     ##
-    tlsConfig:
-      insecureSkipVerify: true
-      ca:
-        configMap:
-          name: kube-root-ca.crt
-          key: ca.crt
+    insecureSkipVerify: true
 
     ## Enable scraping /metrics/probes from kubelet's service
     ##
@@ -1953,38 +1876,38 @@ kubelet:
       # Drop less useful container CPU metrics.
       - sourceLabels: [__name__]
         action: drop
-        regex: 'container_cpu_(cfs_throttled_seconds_total|load_average_10s|system_seconds_total|user_seconds_total)'
+        regex: "container_cpu_(cfs_throttled_seconds_total|load_average_10s|system_seconds_total|user_seconds_total)"
       # Drop less useful container / always zero filesystem metrics.
       - sourceLabels: [__name__]
         action: drop
-        regex: 'container_fs_(io_current|io_time_seconds_total|io_time_weighted_seconds_total|reads_merged_total|sector_reads_total|sector_writes_total|writes_merged_total)'
+        regex: "container_fs_(io_current|io_time_seconds_total|io_time_weighted_seconds_total|reads_merged_total|sector_reads_total|sector_writes_total|writes_merged_total)"
       # Drop less useful / always zero container memory metrics.
       - sourceLabels: [__name__]
         action: drop
-        regex: 'container_memory_(mapped_file|swap)'
+        regex: "container_memory_(mapped_file|swap)"
       # Drop less useful container process metrics.
       - sourceLabels: [__name__]
         action: drop
-        regex: 'container_(file_descriptors|tasks_state|threads_max)'
+        regex: "container_(file_descriptors|tasks_state|threads_max)"
       # Drop container_memory_failures_total{scope="hierarchy"} metrics,
       # we only need the container scope.
       - sourceLabels: [__name__, scope]
         action: drop
-        regex: 'container_memory_failures_total;hierarchy'
+        regex: "container_memory_failures_total;hierarchy"
       # Drop container_network_... metrics that match various interfaces that
       # correspond to CNI and similar interfaces. This avoids capturing network
       # metrics for host network containers.
       - sourceLabels: [__name__, interface]
         action: drop
-        regex: 'container_network_.*;(cali|cilium|cni|lxc|nodelocaldns|tunl).*'
+        regex: "container_network_.*;(cali|cilium|cni|lxc|nodelocaldns|tunl).*"
       # Drop container spec metrics that overlap with kube-state-metrics.
       - sourceLabels: [__name__]
         action: drop
-        regex: 'container_spec.*'
+        regex: "container_spec.*"
       # Drop cgroup metrics with no pod.
       - sourceLabels: [id, pod]
         action: drop
-        regex: '.+;'
+        regex: ".+;"
     # - sourceLabels: [__name__, image]
     #   separator: ;
     #   regex: container_([a-z_]+);
@@ -2174,27 +2097,11 @@ kubeControllerManager:
     ##
     https: null
 
-    ## Bearer credentials used to scrape this component. Rendered as-is, so any field of the
-    ## Prometheus Operator SafeAuthorization type can be set here. Set to null to scrape without
-    ## authentication.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeAuthorization
-    ##
-    authorization:
-      type: Bearer
-      credentials:
-        name: '{{ include "kube-prometheus-stack.prometheus.tokenSecretName" . }}'
-        key: token
+    # Skip TLS certificate validation when scraping
+    insecureSkipVerify: null
 
-    ## TLS configuration of the ServiceMonitor endpoint. Only applies when scraping over https.
-    ## Rendered as-is, so any field of the Prometheus Operator SafeTLSConfig type can be set here.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeTLSConfig
-    ##
-    tlsConfig:
-      insecureSkipVerify: true
-      ca:
-        configMap:
-          name: kube-root-ca.crt
-          key: ca.crt
+    # Name of the server to use when validating TLS certificate
+    serverName: null
 
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
@@ -2306,16 +2213,10 @@ coreDns:
     ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#servicemonitor
     targetLabels: []
 
-    ## Bearer credentials used to scrape this component. Rendered as-is, so any field of the
-    ## Prometheus Operator SafeAuthorization type can be set here. Set to null to scrape without
-    ## authentication.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeAuthorization
+    ## File containing bearer token to be used when scraping targets
+    ## Empty value do not send any bearer token.
     ##
-    authorization:
-      type: Bearer
-      credentials:
-        name: '{{ include "kube-prometheus-stack.prometheus.tokenSecretName" . }}'
-        key: token
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
 
 ## Component scraping kubeDns. Use either this or coreDns
 ##
@@ -2415,16 +2316,10 @@ kubeDns:
     ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#servicemonitor
     targetLabels: []
 
-    ## Bearer credentials used to scrape this component. Rendered as-is, so any field of the
-    ## Prometheus Operator SafeAuthorization type can be set here. Set to null to scrape without
-    ## authentication.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeAuthorization
+    ## File containing bearer token to be used when scraping targets
+    ## Empty value do not send any bearer token.
     ##
-    authorization:
-      type: Bearer
-      credentials:
-        name: '{{ include "kube-prometheus-stack.prometheus.tokenSecretName" . }}'
-        key: token
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
 
 ## Component scraping etcd
 ##
@@ -2451,25 +2346,16 @@ kubeEtcd:
     # selector:
     #   component: etcd
 
-  ## Configure secure access to the etcd cluster by referencing a secret holding the client
-  ## certificate. For example, with a secret named etcd-client-cert
+  ## Configure secure access to the etcd cluster by loading a secret into prometheus and
+  ## specifying security configuration below. For example, with a secret named etcd-client-cert
   ##
   ## serviceMonitor:
   ##   scheme: https
-  ##   tlsConfig:
-  ##     insecureSkipVerify: false
-  ##     serverName: localhost
-  ##     ca:
-  ##       secret:
-  ##         name: etcd-client-cert
-  ##         key: etcd-ca
-  ##     cert:
-  ##       secret:
-  ##         name: etcd-client-cert
-  ##         key: etcd-client
-  ##     keySecret:
-  ##       name: etcd-client-cert
-  ##       key: etcd-client-key
+  ##   insecureSkipVerify: false
+  ##   serverName: localhost
+  ##   caFile: /etc/prometheus/secrets/etcd-client-cert/etcd-ca
+  ##   certFile: /etc/prometheus/secrets/etcd-client-cert/etcd-client
+  ##   keyFile: /etc/prometheus/secrets/etcd-client-cert/etcd-client-key
   ##
   serviceMonitor:
     enabled: true
@@ -2501,14 +2387,11 @@ kubeEtcd:
     ##
     proxyUrl: ""
     scheme: http
-
-    ## TLS configuration of the ServiceMonitor endpoint. Only applies when scheme is https.
-    ## Rendered as-is, so any field of the Prometheus Operator SafeTLSConfig type can be set here.
-    ## etcd requires client certificates, see the commented example above.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeTLSConfig
-    ##
-    tlsConfig:
-      insecureSkipVerify: false
+    insecureSkipVerify: false
+    serverName: ""
+    caFile: ""
+    certFile: ""
+    keyFile: ""
 
     ## port: Name of the port the metrics will be scraped from
     ##
@@ -2547,16 +2430,10 @@ kubeEtcd:
     ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#servicemonitor
     targetLabels: []
 
-    ## Bearer credentials used to scrape this component. Rendered as-is, so any field of the
-    ## Prometheus Operator SafeAuthorization type can be set here. Set to null to scrape without
-    ## authentication.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeAuthorization
+    ## File containing bearer token to be used when scraping targets
+    ## Empty value do not send any bearer token.
     ##
-    authorization:
-      type: Bearer
-      credentials:
-        name: '{{ include "kube-prometheus-stack.prometheus.tokenSecretName" . }}'
-        key: token
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
 
 ## Component scraping kube scheduler
 ##
@@ -2634,27 +2511,11 @@ kubeScheduler:
     #  matchLabels:
     #    component: kube-scheduler
 
-    ## Bearer credentials used to scrape this component. Rendered as-is, so any field of the
-    ## Prometheus Operator SafeAuthorization type can be set here. Set to null to scrape without
-    ## authentication.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeAuthorization
-    ##
-    authorization:
-      type: Bearer
-      credentials:
-        name: '{{ include "kube-prometheus-stack.prometheus.tokenSecretName" . }}'
-        key: token
+    ## Skip TLS certificate validation when scraping
+    insecureSkipVerify: null
 
-    ## TLS configuration of the ServiceMonitor endpoint. Only applies when scraping over https.
-    ## Rendered as-is, so any field of the Prometheus Operator SafeTLSConfig type can be set here.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeTLSConfig
-    ##
-    tlsConfig:
-      insecureSkipVerify: true
-      ca:
-        configMap:
-          name: kube-root-ca.crt
-          key: ca.crt
+    ## Name of the server to use when validating TLS certificate
+    serverName: null
 
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
@@ -2685,8 +2546,8 @@ kubeScheduler:
     targetLabels: []
 
     resource:
-    ## Enable scraping /metrics/resource from kube-scheduler
-    ## https://kubernetes.io/docs/concepts/cluster-administration/system-metrics/#kube-scheduler-metrics
+      ## Enable scraping /metrics/resource from kube-scheduler
+      ## https://kubernetes.io/docs/concepts/cluster-administration/system-metrics/#kube-scheduler-metrics
       enabled: false
 
       ## Scrape interval. If not set, the Prometheus default scrape interval is used.
@@ -2711,7 +2572,6 @@ kubeScheduler:
       #   targetLabel: nodename
       #   replacement: $1
       #   action: replace
-
 
 ## Component scraping kube proxy
 ##
@@ -2784,16 +2644,6 @@ kubeProxy:
     ##
     https: false
 
-    ## TLS configuration of the ServiceMonitor endpoint. Only applies when scraping over https.
-    ## Rendered as-is, so any field of the Prometheus Operator SafeTLSConfig type can be set here.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeTLSConfig
-    ##
-    tlsConfig:
-      ca:
-        configMap:
-          name: kube-root-ca.crt
-          key: ca.crt
-
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
     ##
@@ -2819,16 +2669,10 @@ kubeProxy:
     ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#servicemonitor
     targetLabels: []
 
-    ## Bearer credentials used to scrape this component. Rendered as-is, so any field of the
-    ## Prometheus Operator SafeAuthorization type can be set here. Set to null to scrape without
-    ## authentication.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.SafeAuthorization
+    ## File containing bearer token to be used when scraping targets
+    ## Empty value do not send any bearer token.
     ##
-    authorization:
-      type: Bearer
-      credentials:
-        name: '{{ include "kube-prometheus-stack.prometheus.tokenSecretName" . }}'
-        key: token
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
 
 ## Component scraping kube state metrics
 ##
@@ -2891,7 +2735,6 @@ prometheus-node-exporter:
     - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/containerd/.+|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
     - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs|erofs)$
   service:
-    portName: http-metrics
     ipDualStack:
       enabled: false
       ipFamilies: ["IPv6", "IPv4"]
@@ -2904,8 +2747,7 @@ prometheus-node-exporter:
 
   prometheus:
     monitor:
-      enabled: true
-
+      enabled: false
       jobLabel: jobLabel
 
       ## Scrape interval. If not set, the Prometheus default scrape interval is used.
@@ -2982,7 +2824,7 @@ prometheusOperator:
   enabled: true
 
   ## Use '{{ template "kube-prometheus-stack.fullname" . }}-operator' by default
-  fullnameOverride: ""
+  fullnameOverride: po
 
   ## Number of old replicasets to retain ##
   ## The default value is 10, 0 will garbage-collect old replicasets ##
@@ -3042,11 +2884,7 @@ prometheusOperator:
 
     namespaceSelector: {}
     objectSelector: {}
-    # Match conditions for admission webhooks.
-    # Must be a list, for example:
-    # - name: exclude-leases
-    #   expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")'
-    matchConditions: []
+    matchConditions: {}
 
     mutatingWebhookConfiguration:
       annotations: {}
@@ -3057,7 +2895,7 @@ prometheusOperator:
       #   argocd.argoproj.io/hook: PreSync
 
     deployment:
-      enabled: false
+      enabled: true
 
       ## Number of replicas
       ##
@@ -3189,7 +3027,6 @@ prometheusOperator:
       ##
       promqlOptions: []
 
-
       ## Liveness probe
       ##
       livenessProbe:
@@ -3289,7 +3126,7 @@ prometheusOperator:
       image:
         registry: ghcr.io
         repository: jkroepke/kube-webhook-certgen
-        tag: 1.8.8
+        tag: 1.8.5
         sha: ""
         pullPolicy: IfNotPresent
       resources: {}
@@ -3330,7 +3167,7 @@ prometheusOperator:
         readOnlyRootFilesystem: true
         capabilities:
           drop:
-          - ALL
+            - ALL
 
       # Security context for patch job container
     patchWebhookJob:
@@ -3339,34 +3176,27 @@ prometheusOperator:
         readOnlyRootFilesystem: true
         capabilities:
           drop:
-          - ALL
+            - ALL
 
     # Use certmanager to generate webhook certs
     certManager:
-      enabled: false
+      enabled: true
       # self-signed root certificate
       rootCert:
-        duration: ""  # default to be 5y
+        duration: "" # default to be 5y
         # -- Set the revisionHistoryLimit on the Certificate. See
         # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
         # Defaults to nil.
         revisionHistoryLimit:
       admissionCert:
-        duration: ""  # default to be 1y
+        duration: "" # default to be 1y
         # -- Set the revisionHistoryLimit on the Certificate. See
         # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
         # Defaults to nil.
         revisionHistoryLimit:
-      # issuerRef:
-      #   name: "issuer"
-      #   kind: "ClusterIssuer"
-
-      # -- Set the private key algorithm and size for the Certificate. See
-      # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificatePrivateKey
-      # Defaults to RSA 2048
-      # privateKey:
-      #   algorithm: ECDSA
-      #   size: 384
+      issuerRef:
+        name: "comms-svc-int"
+        kind: "ClusterIssuer"
 
   ## Namespaces to scope the interaction of the Prometheus Operator and the apiserver (allow list).
   ## This is mutually exclusive with denyNamespaces. Setting this to an empty object will disable the configuration
@@ -3415,7 +3245,7 @@ prometheusOperator:
   ##
   serviceAccount:
     create: true
-    name: ""
+    name: po
     automountServiceAccountToken: true
     annotations: {}
 
@@ -3434,21 +3264,21 @@ prometheusOperator:
       ipFamilies: ["IPv6", "IPv4"]
       ipFamilyPolicy: "PreferDualStack"
 
-  ## Port to expose on each node
-  ## Only used if service.type is 'NodePort'
-  ##
+    ## Port to expose on each node
+    ## Only used if service.type is 'NodePort'
+    ##
     nodePort: 30080
 
     nodePortTls: 30443
 
-  ## Additional ports to open for Prometheus operator service
-  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#multi-port-services
-  ##
+    ## Additional ports to open for Prometheus operator service
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#multi-port-services
+    ##
     additionalPorts: []
 
-  ## Loadbalancer IP
-  ## Only use if service.type is "LoadBalancer"
-  ##
+    ## Loadbalancer IP
+    ## Only use if service.type is "LoadBalancer"
+    ##
     loadBalancerIP: ""
     loadBalancerSourceRanges: []
 
@@ -3456,9 +3286,9 @@ prometheusOperator:
     ##
     externalTrafficPolicy: Cluster
 
-  ## Service type
-  ## NodePort, ClusterIP, LoadBalancer
-  ##
+    ## Service type
+    ## NodePort, ClusterIP, LoadBalancer
+    ##
     type: ClusterIP
 
     ## List of IP addresses at which the Prometheus server service is available
@@ -3652,7 +3482,7 @@ prometheusOperator:
     readOnlyRootFilesystem: true
     capabilities:
       drop:
-      - ALL
+        - ALL
 
   # Enable vertical pod autoscaler support for prometheus-operator
   verticalPodAutoscaler:
@@ -3753,10 +3583,8 @@ prometheusOperator:
   thanosRulerInstanceSelector: ""
 
   ## Set a Field Selector to filter watched secrets
-  ## `kubernetes.io/service-account-token` secrets are no longer excluded, so that changes to the
-  ## secret the control-plane ServiceMonitors authenticate with trigger a reconciliation.
   ##
-  secretFieldSelector: "type!=kubernetes.io/dockercfg,type!=helm.sh/release.v1"
+  secretFieldSelector: "type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1"
 
   ## Feature gates to enable/disable operator features, rendered as --feature-gates=<key>=<value>.
   ## See https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/feature-gates.md
@@ -3827,21 +3655,9 @@ prometheus:
   ##
   serviceAccount:
     create: true
-    name: ""
+    name: po
     annotations: {}
     automountServiceAccountToken: true
-
-    ## Create a `kubernetes.io/service-account-token` Secret for the Prometheus service account.
-    ## The control-plane ServiceMonitors reference it by default, because ServiceMonitors can only
-    ## authenticate through a Secret and Kubernetes no longer creates one automatically.
-    ## The resulting token is long-lived and does not expire; disable this and set the
-    ## `authorization` values of the control-plane components if you manage the credential yourself.
-    ## Only rendered together with the service account, so it requires `prometheus.enabled` and
-    ## `create` above. Leaving a control-plane component on the default `authorization` while the
-    ## Secret is not rendered is a rendering error rather than a silently broken ServiceMonitor.
-    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount
-    ##
-    createTokenSecret: true
 
   # Service for thanos service discovery on sidecar
   # Enable this can make Thanos Query can use
@@ -3849,7 +3665,7 @@ prometheus:
   # Thanos sidecar on prometheus nodes
   # (Please remember to change ${kube-prometheus-stack.fullname} and ${namespace}. Not just copy and paste!)
   thanosService:
-    enabled: false
+    enabled: true
     annotations: {}
     labels: {}
 
@@ -3890,7 +3706,7 @@ prometheus:
   # ServiceMonitor to scrape Sidecar metrics
   # Needs thanosService to be enabled as well
   thanosServiceMonitor:
-    enabled: false
+    enabled: true
     interval: ""
 
     ## Additional labels
@@ -4192,7 +4008,7 @@ prometheus:
   route:
     main:
       # -- Enables or disables the route
-      enabled: false
+      enabled: true
 
       # -- Set the route apiVersion, e.g. gateway.networking.k8s.io/v1 or gateway.networking.k8s.io/v1alpha2
       apiVersion: gateway.networking.k8s.io/v1
@@ -4200,18 +4016,22 @@ prometheus:
       # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
       kind: HTTPRoute
 
-      annotations: {}
+      annotations:
+        cert-manager.io/cluster-issuer: comms-svc-int
+        cert-manager.io/common-name: grafana.breeze-blocks.net
+        cert-manager.io/usages: key agreement,digital signature, server auth
+
       labels: {}
 
-      hostnames: []
-      # - my-filter.example.com
-      parentRefs: []
-      # - name: acme-gw
+      hostnames:
+        - prometheus.breeze-blocks.net
+      parentRefs:
+        - name: po-gw
 
       # -- create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects)
       ## Take care that you only enable this on the http listener of the gateway to avoid an infinite redirect.
       ## matches, filters and additionalRules will be ignored if this is set to true. Be are
-      httpsRedirect: false
+      httpsRedirect: true
 
       matches:
         - path:
@@ -4220,12 +4040,6 @@ prometheus:
 
       ## Filters define the filters that are applied to requests that match this rule.
       filters: []
-
-      ## Timeouts for the generated HTTPRoute backend rule.
-      ## Requires Gateway API CRDs and a controller that support HTTPRoute timeouts.
-      timeouts: {}
-      # request: 120s
-      # backendRequest: 60s
 
       ## Session persistence configuration for the route rule.
       sessionPersistence: {}
@@ -4320,12 +4134,6 @@ prometheus:
         - path:
             type: PathPrefix
             value: /
-
-      ## Timeouts for the generated HTTPRoute backend rule.
-      ## Requires Gateway API CRDs and a controller that support HTTPRoute timeouts.
-      timeouts: {}
-      # request: 120s
-      # backendRequest: 60s
 
       ## Session persistence configuration for the route rule.
       sessionPersistence: {}
@@ -4537,7 +4345,7 @@ prometheus:
     image:
       registry: quay.io
       repository: prometheus/prometheus
-      tag: v3.14.0-distroless
+      tag: v3.13.2-distroless
       sha: ""
       pullPolicy: IfNotPresent
 
@@ -4757,27 +4565,16 @@ prometheus:
 
     ## How long to retain metrics
     ##
-    retention: 10d
+    retention: 0d
 
     ## Maximum size of metrics
     ## Unit format should be in the form of "50GiB"
-    retentionSize: ""
-
-    ## Maximum percentage of the data volume's capacity used by the metrics, between 0 and 100.
-    ## Requires Prometheus >= v3.11.0, ignored by older versions.
-    retentionPercentage: ""
+    retentionSize: 20GiB
 
     ## Allow out-of-order/out-of-bounds samples ingested into Prometheus for a specified duration
     ## See https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tsdb
     tsdb:
       outOfOrderTimeWindow: 0s
-
-      ## Per-chunk-type encoding overrides, requires Prometheus >= v3.13.0.
-      chunkEncoding: {}
-        # floats: Xor2
-
-      ## Ratio of stale series in memory, between 0 and 1, at which stale series are compacted into persistent blocks.
-      staleSeriesCompactionThreshold: ""
 
     ## Enable compression of the write-ahead log using Snappy.
     ##
@@ -4876,17 +4673,18 @@ prometheus:
     ## Prometheus StorageSpec for persistent data
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
     ##
-    storageSpec: {}
-    ## Using PersistentVolumeClaim
-    ##
-    #  volumeClaimTemplate:
-    #    spec:
-    #      storageClassName: gluster
-    #      accessModes: ["ReadWriteOnce"]
-    #      resources:
-    #        requests:
-    #          storage: 50Gi
-    #      selector: {}
+    storageSpec:
+      ## Using PersistentVolumeClaim
+      ##
+      volumeClaimTemplate:
+        metadata:
+          name: po
+        spec:
+          storageClassName: nfs
+          accessModes: ["ReadWriteMany"]
+          resources:
+            requests:
+              storage: 20Gi
 
     ## Using tmpfs volume
     ##
@@ -4911,7 +4709,335 @@ prometheus:
     ## The scrape configuration example below will find master nodes, provided they have the name .*mst.*, relabel the
     ## port to 2379 and allow etcd scraping provided it is running on all Kubernetes master nodes
     ##
-    additionalScrapeConfigs: []
+    additionalScrapeConfigs:
+      - job_name: bind-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: (.+)
+            target_label: alias
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        static_configs:
+          - targets:
+              - ns01.breeze-blocks.net:9119
+              - ns03.breeze-blocks.net:9119
+              - ns04.breeze-blocks.net:9119
+      - job_name: "blackbox"
+        metrics_path: /probe
+        params:
+          module:
+            - http_2xx # Look for a HTTP 200 response.
+            - http_ca
+            - http_int_ca
+        static_configs:
+          - targets:
+              - http://media.breeze-blocks.net # Target to probe with http.
+              - https://media.breeze-blocks.net # Target to probe with https.
+              - http://radarr.breeze-blocks.net # Target to probe with http on port 8080.
+              - https://radarr.breeze-blocks.net # Target to probe with http on port 8080.
+              - http://sonarr.breeze-blocks.net # Target to probe with http on port 8080.
+              - https://sonarr.breeze-blocks.net # Target to probe with http on port 8080.
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: media.breeze-blocks.net:9115 # The blackbox exporter's real hostname:port.
+      - job_name: "blackbox_exporter" # collect blackbox exporter's operational metrics.
+        static_configs:
+          - targets: ["127.0.0.1:9115"]
+      - job_name: bind-query-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: (.+)
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        static_configs:
+          - targets:
+              - ns01.breeze-blocks.net:9197
+              - ns03.breeze-blocks.net:9197
+              - ns04.breeze-blocks.net:9197
+      - job_name: glances-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9091
+              - cms00a.breeze-blocks.net:9091
+              - cms00b.breeze-blocks.net:9091
+              - cms01.breeze-blocks.net:9091
+              - cms02.breeze-blocks.net:9091
+              - cms03.breeze-blocks.net:9091
+              - cms04.breeze-blocks.net:9091
+              - cms05.breeze-blocks.net:9091
+              - cms06.breeze-blocks.net:9091
+              - media00.breeze-blocks.net:9091
+              - media01.breeze-blocks.net:9091
+              - ns01.breeze-blocks.net:9091
+              - ns02.breeze-blocks.net:9091
+              - ns03.breeze-blocks.net:9091
+              - ns04.breeze-blocks.net:9091
+              - ostium.breeze-blocks.net:9091
+              - thw00a.breeze-blocks.net:9091
+              - thw00b.breeze-blocks.net:9091
+              - thw01.breeze-blocks.net:9091
+              - thw02.breeze-blocks.net:9091
+              - thw03.breeze-blocks.net:9091
+              - thw04.breeze-blocks.net:9091
+              - thw05.breeze-blocks.net:9091
+              - whac.breeze-blocks.net:9091
+      - job_name: "jellyfin-exporter"
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        metrics_path: /metrics
+        static_configs:
+          - targets:
+              - media.breeze-blocks.net:8096
+              - music.breeze-blocks.net:8096
+              - media01.breeze-blocks.net:8096
+              - whac.breeze-blocks.net:8096
+          - job_name: qbittorrent-exporter
+            honor_labels: true
+            scrape_interval: 29s
+            scrape_timeout: 5s
+            static_configs:
+              - targets:
+                  - backup.breeze-blocks.net:9559
+                  - whac.breeze-blocks.net:9559
+      - job_name: node-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9100
+              - cms00a.breeze-blocks.net:9100
+              - cms00b.breeze-blocks.net:9100
+              - cms01.breeze-blocks.net:9100
+              - cms02.breeze-blocks.net:9100
+              - cms03.breeze-blocks.net:9100
+              - cms04.breeze-blocks.net:9100
+              - cms05.breeze-blocks.net:9100
+              - cms06.breeze-blocks.net:9100
+              - media00.breeze-blocks.net:9100
+              - media01.breeze-blocks.net:9100
+              - ns01.breeze-blocks.net:9100
+              - ns02.breeze-blocks.net:9100
+              - ns03.breeze-blocks.net:9100
+              - ns04.breeze-blocks.net:9100
+              - ostium.breeze-blocks.net:9100
+              - thw00a.breeze-blocks.net:9100
+              - thw00b.breeze-blocks.net:9100
+              - thw01.breeze-blocks.net:9100
+              - thw02.breeze-blocks.net:9100
+              - thw03.breeze-blocks.net:9100
+              - thw04.breeze-blocks.net:9100
+              - thw05.breeze-blocks.net:9100
+              - whac.breeze-blocks.net:9100
+      - job_name: "navidrome-exporter"
+        honor_labels: true
+        metrics_path: /metrics
+        static_configs:
+          - targets:
+              - music.breeze-blocks.net:4533
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+      - job_name: postgres-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cms-pge.breeze-blocks.net:9187
+              - thw-pge.breeze-blocks.net:9187
+      - job_name: process-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - backup.breeze-blocks.net:9256
+              - cms00.breeze-blocks.net:9256
+              - cms01.breeze-blocks.net:9256
+              - cms02.breeze-blocks.net:9256
+              - cms03.breeze-blocks.net:9256
+              - cms04.breeze-blocks.net:9256
+              - cms05.breeze-blocks.net:9256
+              - marius.breeze-blocks.net:9256
+              - media.breeze-blocks.net:9256
+              - ns01.breeze-blocks.net:9256
+              - ns03.breeze-blocks.net:9256
+              - ns04.breeze-blocks.net:9256
+              - ostium.breeze-blocks.net:9256
+              - sulla-felix.breeze-blocks.net:9256
+              - thw00.breeze-blocks.net:9256
+              - thw01.breeze-blocks.net:9256
+              - thw02.breeze-blocks.net:9256
+              - thw03.breeze-blocks.net:9256
+              - thw04.breeze-blocks.net:9256
+              - thw05.breeze-blocks.net:9256
+              - whac.breeze-blocks.net:9256
+      - job_name: systemd-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9558
+              - cms00a.breeze-blocks.net:9558
+              - cms00b.breeze-blocks.net:9558
+              - cms00.breeze-blocks.net:9558
+              - cms01.breeze-blocks.net:9558
+              - cms02.breeze-blocks.net:9558
+              - cms03.breeze-blocks.net:9558
+              - cms04.breeze-blocks.net:9558
+              - cms05.breeze-blocks.net:9558
+              - cms06.breeze-blocks.net:9558
+              - media00.breeze-blocks.net:9558
+              - media01.breeze-blocks.net:9558
+              - ns01.breeze-blocks.net:9558
+              - ns02.breeze-blocks.net:9558
+              - ns03.breeze-blocks.net:9558
+              - ns04.breeze-blocks.net:9558
+              - ostium.breeze-blocks.net:9558
+              - thw00a.breeze-blocks.net:9558
+              - thw00b.breeze-blocks.net:9558
+              - thw01.breeze-blocks.net:9558
+              - thw02.breeze-blocks.net:9558
+              - thw03.breeze-blocks.net:9558
+              - thw04.breeze-blocks.net:9558
+              - thw05.breeze-blocks.net:9558
+              - whac.breeze-blocks.net:9558
+      - job_name: wireguard-exporter
+        honor_labels: true
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - backup.breeze-blocks.net:9586
+      - job_name: x509-exporter
+        honor_labels: true
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - media.breeze-blocks.net:9793
+
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
@@ -4952,7 +5078,6 @@ prometheus:
     #    {{end}}
     #    relabel_configs:
     #    ...
-
 
     ## If additional scrape configurations are already deployed in a single secret file you can use this section.
     ## Expected values are the secret name and key
@@ -5030,7 +5155,7 @@ prometheus:
 
     ## DNS policy for Prometheus.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#dnspolicystring-alias
-    dnsPolicy: ""
+    dnsPolicy: ClusterFirst
 
     ## Priority class assigned to the Pods
     ##
@@ -5072,7 +5197,7 @@ prometheus:
     containers: []
     # containers:
     # - name: oauth-proxy
-    #   image: quay.io/oauth2-proxy/oauth2-proxy:v7.15.4
+    #   image: quay.io/oauth2-proxy/oauth2-proxy:v7.15.3
     #   args:
     #   - --upstream=http://127.0.0.1:9090
     #   - --http-address=0.0.0.0:8081
@@ -5176,7 +5301,6 @@ prometheus:
     ## if either value is zero, in which case the non-zero value will be used. If both values are zero, no limit is enforced.
     enforcedTargetLimit: false
 
-
     ## Per-scrape limit on number of labels that will be accepted for a sample. If more than this number of labels are present
     ## post metric-relabeling, the entire scrape will be treated as failed. 0 means no limit. Only valid in Prometheus versions
     ## 2.27.0 and newer.
@@ -5253,14 +5377,6 @@ prometheus:
     ## ref: https://github.com/prometheus-community/helm-charts/issues/5843
     ruleQueryOffset: ""
 
-    ## Configuration of the Prometheus rules' engine. Changing these triggers a restart of the pods.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.Rules
-    rules: {}
-      # alert:
-      #   forOutageTolerance: 1h
-      #   forGracePeriod: 10m
-      #   resendDelay: 1m
-
     ## RuntimeConfig configures the values for the Prometheus process behavior.
     runtime: {}
       # goGC: 75
@@ -5317,203 +5433,202 @@ prometheus:
   ##
   # - name: ""
 
-    ## Additional labels to set used for the ServiceMonitorSelector. Together with standard labels from
-    ## the chart
-    ##
-    # additionalLabels: {}
+  ## Additional labels to set used for the ServiceMonitorSelector. Together with standard labels from
+  ## the chart
+  ##
+  # additionalLabels: {}
 
-    ## Service label for use in assembling a job name of the form <label value>-<port>
-    ## If no label is specified, the service name is used.
-    ##
-    # jobLabel: ""
+  ## Service label for use in assembling a job name of the form <label value>-<port>
+  ## If no label is specified, the service name is used.
+  ##
+  # jobLabel: ""
 
-    ## labels to transfer from the kubernetes service to the target
-    ##
-    # targetLabels: []
+  ## labels to transfer from the kubernetes service to the target
+  ##
+  # targetLabels: []
 
-    ## labels to transfer from the kubernetes pods to the target
-    ##
-    # podTargetLabels: []
+  ## labels to transfer from the kubernetes pods to the target
+  ##
+  # podTargetLabels: []
 
-    ## Label selector for services to which this ServiceMonitor applies
-    ##
-    # selector: {}
-      ## Example which selects all services to be monitored
-      ## with label "monitoredby" with values any of "example-service-1" or "example-service-2"
-      # matchExpressions:
-      #   - key: "monitoredby"
-      #     operator: In
-      #     values:
-      #       - example-service-1
-      #       - example-service-2
+  ## Label selector for services to which this ServiceMonitor applies
+  ##
+  # selector: {}
+  ## Example which selects all services to be monitored
+  ## with label "monitoredby" with values any of "example-service-1" or "example-service-2"
+  # matchExpressions:
+  #   - key: "monitoredby"
+  #     operator: In
+  #     values:
+  #       - example-service-1
+  #       - example-service-2
 
-      ## label selector for services
-      ##
-      # matchLabels: {}
+  ## label selector for services
+  ##
+  # matchLabels: {}
 
-    ## Namespaces from which services are selected
-    ##
-    # namespaceSelector:
-      ## Match any namespace
-      ##
-      # any: false
+  ## Namespaces from which services are selected
+  ##
+  # namespaceSelector:
+  ## Match any namespace
+  ##
+  # any: false
 
-      ## Explicit list of namespace names to select
-      ##
-      # matchNames: []
+  ## Explicit list of namespace names to select
+  ##
+  # matchNames: []
 
-    ## Endpoints of the selected service to be monitored
-    ##
-    # endpoints: []
-      ## Name of the endpoint's service port
-      ## Mutually exclusive with targetPort
-      # - port: ""
+  ## Endpoints of the selected service to be monitored
+  ##
+  # endpoints: []
+  ## Name of the endpoint's service port
+  ## Mutually exclusive with targetPort
+  # - port: ""
 
-      ## Name or number of the endpoint's target port
-      ## Mutually exclusive with port
-      # - targetPort: ""
+  ## Name or number of the endpoint's target port
+  ## Mutually exclusive with port
+  # - targetPort: ""
 
-      ## File containing bearer token to be used when scraping targets
-      ##
-      #   bearerTokenFile: ""
+  ## File containing bearer token to be used when scraping targets
+  ##
+  #   bearerTokenFile: ""
 
-      ## Interval at which metrics should be scraped
-      ##
-      #   interval: 30s
+  ## Interval at which metrics should be scraped
+  ##
+  #   interval: 30s
 
-      ## HTTP path to scrape for metrics
-      ##
-      #   path: /metrics
+  ## HTTP path to scrape for metrics
+  ##
+  #   path: /metrics
 
-      ## HTTP scheme to use for scraping
-      ##
-      #   scheme: http
+  ## HTTP scheme to use for scraping
+  ##
+  #   scheme: http
 
-      ## TLS configuration to use when scraping the endpoint
-      ##
-      #   tlsConfig:
+  ## TLS configuration to use when scraping the endpoint
+  ##
+  #   tlsConfig:
 
-          ## Path to the CA file
-          ##
-          # caFile: ""
+  ## Path to the CA file
+  ##
+  # caFile: ""
 
-          ## Path to client certificate file
-          ##
-          # certFile: ""
+  ## Path to client certificate file
+  ##
+  # certFile: ""
 
-          ## Skip certificate verification
-          ##
-          # insecureSkipVerify: false
+  ## Skip certificate verification
+  ##
+  # insecureSkipVerify: false
 
-          ## Path to client key file
-          ##
-          # keyFile: ""
+  ## Path to client key file
+  ##
+  # keyFile: ""
 
-          ## Server name used to verify host name
-          ##
-          # serverName: ""
+  ## Server name used to verify host name
+  ##
+  # serverName: ""
 
-      ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
-      ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
-      ##
-      # metricRelabelings: []
-      # - action: keep
-      #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
-      #   sourceLabels: [__name__]
+  ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
+  ##
+  # metricRelabelings: []
+  # - action: keep
+  #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
+  #   sourceLabels: [__name__]
 
-      ## RelabelConfigs to apply to samples before scraping
-      ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
-      ##
-      # relabelings: []
-      # - sourceLabels: [__meta_kubernetes_pod_node_name]
-      #   separator: ;
-      #   regex: ^(.*)$
-      #   targetLabel: nodename
-      #   replacement: $1
-      #   action: replace
+  ## RelabelConfigs to apply to samples before scraping
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
+  ##
+  # relabelings: []
+  # - sourceLabels: [__meta_kubernetes_pod_node_name]
+  #   separator: ;
+  #   regex: ^(.*)$
+  #   targetLabel: nodename
+  #   replacement: $1
+  #   action: replace
 
-    ## Fallback scrape protocol used by Prometheus for scraping metrics
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.ScrapeProtocol
-    ##
-    # fallbackScrapeProtocol: ""
+  ## Fallback scrape protocol used by Prometheus for scraping metrics
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.ScrapeProtocol
+  ##
+  # fallbackScrapeProtocol: ""
 
-    ## Attaches node metadata to the discovered targets
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.AttachMetadata
-    ##
-    # attachMetadata:
-    #   node: true
+  ## Attaches node metadata to the discovered targets
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.AttachMetadata
+  ##
+  # attachMetadata:
+  #   node: true
 
   additionalPodMonitors: []
   ## Name of the PodMonitor to create
   ##
   # - name: ""
 
-    ## Additional labels to set used for the PodMonitorSelector. Together with standard labels from
-    ## the chart
-    ##
-    # additionalLabels: {}
+  ## Additional labels to set used for the PodMonitorSelector. Together with standard labels from
+  ## the chart
+  ##
+  # additionalLabels: {}
 
-    ## Pod label for use in assembling a job name of the form <label value>-<port>
-    ## If no label is specified, the pod endpoint name is used.
-    ##
-    # jobLabel: ""
+  ## Pod label for use in assembling a job name of the form <label value>-<port>
+  ## If no label is specified, the pod endpoint name is used.
+  ##
+  # jobLabel: ""
 
-    ## Label selector for pods to which this PodMonitor applies
-    ##
-    # selector: {}
-      ## Example which selects all Pods to be monitored
-      ## with label "monitoredby" with values any of "example-pod-1" or "example-pod-2"
-      # matchExpressions:
-      #   - key: "monitoredby"
-      #     operator: In
-      #     values:
-      #       - example-pod-1
-      #       - example-pod-2
+  ## Label selector for pods to which this PodMonitor applies
+  ##
+  # selector: {}
+  ## Example which selects all Pods to be monitored
+  ## with label "monitoredby" with values any of "example-pod-1" or "example-pod-2"
+  # matchExpressions:
+  #   - key: "monitoredby"
+  #     operator: In
+  #     values:
+  #       - example-pod-1
+  #       - example-pod-2
 
-      ## label selector for pods
-      ##
-      # matchLabels: {}
+  ## label selector for pods
+  ##
+  # matchLabels: {}
 
-    ## PodTargetLabels transfers labels on the Kubernetes Pod onto the target.
-    ##
-    # podTargetLabels: {}
+  ## PodTargetLabels transfers labels on the Kubernetes Pod onto the target.
+  ##
+  # podTargetLabels: {}
 
-    ## SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
-    ##
-    # sampleLimit: 0
+  ## SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
+  ##
+  # sampleLimit: 0
 
-    ## Namespaces from which pods are selected
-    ##
-    # namespaceSelector:
-      ## Match any namespace
-      ##
-      # any: false
+  ## Namespaces from which pods are selected
+  ##
+  # namespaceSelector:
+  ## Match any namespace
+  ##
+  # any: false
 
-      ## Explicit list of namespace names to select
-      ##
-      # matchNames: []
+  ## Explicit list of namespace names to select
+  ##
+  # matchNames: []
 
-    ## Endpoints of the selected pods to be monitored
-    ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#podmetricsendpoint
-    ##
-    # podMetricsEndpoints: []
+  ## Endpoints of the selected pods to be monitored
+  ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#podmetricsendpoint
+  ##
+  # podMetricsEndpoints: []
 
-    ## Fallback scrape protocol used by Prometheus for scraping metrics
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.ScrapeProtocol
-    ##
-    # fallbackScrapeProtocol: ""
+  ## Fallback scrape protocol used by Prometheus for scraping metrics
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.ScrapeProtocol
+  ##
+  # fallbackScrapeProtocol: ""
 
-    ## Attaches node metadata to the discovered targets
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.AttachMetadata
-    ##
-    # attachMetadata:
-    #   node: true
+  ## Attaches node metadata to the discovered targets
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.AttachMetadata
+  ##
+  # attachMetadata:
+  #   node: true
 
 ## Configuration for thanosRuler
 ## ref: https://thanos.io/tip/components/rule.md/
 ##
 thanosRuler:
-
   ## Deploy thanosRuler
   ##
   enabled: false
@@ -5607,12 +5722,6 @@ thanosRuler:
 
       ## Filters define the filters that are applied to requests that match this rule.
       filters: []
-
-      ## Timeouts for the generated HTTPRoute backend rule.
-      ## Requires Gateway API CRDs and a controller that support HTTPRoute timeouts.
-      timeouts: {}
-      # request: 120s
-      # backendRequest: 60s
 
       ## Session persistence configuration for the route rule.
       sessionPersistence: {}
@@ -5814,15 +5923,15 @@ thanosRuler:
     ## Storage is the definition of how storage will be used by the ThanosRuler instances.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
     ##
-    storage: {}
-    # volumeClaimTemplate:
-    #   spec:
-    #     storageClassName: gluster
-    #     accessModes: ["ReadWriteOnce"]
-    #     resources:
-    #       requests:
-    #         storage: 50Gi
-    #     selector: {}
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: nfs
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 50Gi
+          selector: {}
 
     ## AlertmanagerConfig define configuration for connecting to alertmanager.
     ## Only available with Thanos v0.10.0 and higher. Maps to the alertmanagers.config Thanos Ruler arg.
@@ -6034,10 +6143,6 @@ thanosRuler:
     ##
     portName: "web"
 
-    ## Scheduler to use for Pod scheduling, defaulting to the Kubernetes default scheduler.
-    ##
-    schedulerName: ""
-
     ## Duration in seconds the pod needs to terminate gracefully.
     ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination
     terminationGracePeriodSeconds: ~
@@ -6085,7 +6190,7 @@ thanosRuler:
       #     value: "2"
 
     ## Defines the DNS policy for the pods.
-    dnsPolicy: ""
+    dnsPolicy: ClusterFirst
 
     ## Pods' hostAliases configuration
     ## ref: https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
@@ -6178,7 +6283,8 @@ cleanPrometheusOperatorObjectNames: false
 ## Extra manifests to deploy.  Can be of type dict or list.
 ## If dict, keys are ignored and only values are used.
 ## Items contained within extraObjects can be defined as dict or string and are passed through tpl.
-extraManifests: null
+extraManifests:
+  null
   # - apiVersion: v1
   #   kind: ConfigMap
   #   metadata:
