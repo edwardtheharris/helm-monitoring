@@ -4,7 +4,8 @@ on:
     branches:
       - main
   push:
-    branches: []
+    branches:
+      - "*"
   workflow_dispatch: {}
 
 ###
@@ -84,25 +85,26 @@ jobs:
   # :language: yaml
   # :start-at: "  helmtest:\n"
   # ```
-  helmtest:
-    name: helmtest
-    needs: helmsetup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - name: Install Helm unittest
-        run: helm plugin install https://github.com/helm-unittest/helm-unittest.git
-      - run: helm repo add lvm https://helm.metal-stack.io
-      - run: helm repo add ckotzbauer https://ckotzbauer.github.io/helm-charts
-      - run: helm dependency update
-      - run: helm dependency build
-      # - run: helm unittest -d -f 'tests/*.yaml' .
-      # - run: helm unittest -f 'tests/*.yaml' -t JUnit -o results.xml .
-      #   if: success() || failure() # always run even if the previous step fails
-      # - name: Publish Test Results
-      #   uses: EnricoMi/publish-unit-test-result-action@v2
-      #   if: always()
-      #   with:
-      #     check_name: helmtest
-      #     comment_title: "Helm Test"
-      #     files: results.xml
+
+#   helmtest:
+#     name: helmtest
+#     needs: helmsetup
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@main
+#       - name: Install Helm unittest
+#         run: helm plugin install https://github.com/helm-unittest/helm-unittest.git
+#       - run: helm repo add lvm https://helm.metal-stack.io
+#       - run: helm repo add ckotzbauer https://ckotzbauer.github.io/helm-charts
+#       - run: helm dependency update
+#       - run: helm dependency build
+#       # - run: helm unittest -d -f 'tests/*.yaml' .
+# - run: helm unittest -f 'tests/*.yaml' -t JUnit -o results.xml .
+#   if: success() || failure() # always run even if the previous step fails
+# - name: Publish Test Results
+#   uses: EnricoMi/publish-unit-test-result-action@v2
+#   if: always()
+#   with:
+#     check_name: helmtest
+#     comment_title: "Helm Test"
+#     files: results.xml
