@@ -1,5 +1,5 @@
 {{- with .Values.monitoring.serviceMonitor }}
-{{- if and ($.Capabilities.APIVersions.Has "monitoring.coreos.com/v1/ServiceMonitor") .enabled }}
+{{- if .enabled }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -38,13 +38,20 @@ spec:
       scrapeTimeout: {{ . }}
       {{- end }}
       relabelings:
+        {{- with .jobPrefix }}
         - sourceLabels: [job]
-          action: replace
-          replacement: "{{ include "loki.namespace" $ }}/$1"
-          targetLabel: job
-        - action: replace
-          replacement: "{{ include "loki.clusterLabel" $ }}"
+          action: "replace"
+          replacement: {{ print (tpl . $) "$1" | quote }}
+          targetLabel: "job"
+        {{- end }}
+        - action: "replace"
+          replacement: {{ tpl $.Values.monitoring.appInstanceLabelValue $ | quote }}
+          targetLabel: {{ $.Values.monitoring.appInstanceLabelName | quote }}
+        {{- if and $.Values.monitoring.multiCluster.enabled $.Values.monitoring.multiCluster.clusterName }}
+        - action: "replace"
+          replacement: "{{ tpl $.Values.monitoring.multiCluster.clusterName $ }}"
           targetLabel: cluster
+        {{- end }}
         {{- with .relabelings }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
