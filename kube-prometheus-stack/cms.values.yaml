@@ -4850,14 +4850,14 @@ prometheus:
               - music.breeze-blocks.net:8096
               - media01.breeze-blocks.net:8096
               - whac.breeze-blocks.net:8096
-          - job_name: qbittorrent-exporter
-            honor_labels: true
-            scrape_interval: 29s
-            scrape_timeout: 5s
-            static_configs:
-              - targets:
-                  - backup.breeze-blocks.net:9559
-                  - whac.breeze-blocks.net:9559
+      - job_name: qbittorrent-exporter
+        honor_labels: true
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - backup.breeze-blocks.net:9559
+              - whac.breeze-blocks.net:9559
       - job_name: node-exporter
         honor_labels: true
         relabel_configs:
@@ -4956,20 +4956,21 @@ prometheus:
         scrape_timeout: 5s
         static_configs:
           - targets:
-              - backup.breeze-blocks.net:9256
+              - cato.breeze-blocks.net:9256
               - cms00.breeze-blocks.net:9256
               - cms01.breeze-blocks.net:9256
               - cms02.breeze-blocks.net:9256
               - cms03.breeze-blocks.net:9256
               - cms04.breeze-blocks.net:9256
               - cms05.breeze-blocks.net:9256
-              - marius.breeze-blocks.net:9256
-              - media.breeze-blocks.net:9256
+              - cms06.breeze-blocks.net:9256
+              - media00.breeze-blocks.net:9256
+              - media01.breeze-blocks.net:9256
               - ns01.breeze-blocks.net:9256
+              - ns02.breeze-blocks.net:9256
               - ns03.breeze-blocks.net:9256
               - ns04.breeze-blocks.net:9256
               - ostium.breeze-blocks.net:9256
-              - sulla-felix.breeze-blocks.net:9256
               - thw00.breeze-blocks.net:9256
               - thw01.breeze-blocks.net:9256
               - thw02.breeze-blocks.net:9256
