@@ -1128,7 +1128,7 @@ alertmanager:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: nfs
+          storageClassName: csi-lvm-linear
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -2788,7 +2788,7 @@ prometheus-node-exporter:
       metricRelabelings: []
       # - sourceLabels: [__name__]
       #   separator: ;
-      #   regex: ^node_mountstats_nfs_(event|operations|transport)_.+
+      #   regex: ^node_mountstats_csi-lvm-linear_(event|operations|transport)_.+
       #   replacement: $1
       #   action: drop
 
@@ -4680,7 +4680,7 @@ prometheus:
         metadata:
           name: po
         spec:
-          storageClassName: nfs
+          storageClassName: csi-lvm-linear
           accessModes: ["ReadWriteMany"]
           resources:
             requests:
@@ -5024,6 +5024,52 @@ prometheus:
               - thw04.breeze-blocks.net:9558
               - thw05.breeze-blocks.net:9558
               - whac.breeze-blocks.net:9558
+      - job_name: vnstat-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9469
+              - cms00a.breeze-blocks.net:9469
+              - cms00b.breeze-blocks.net:9469
+              - cms00.breeze-blocks.net:9469
+              - cms01.breeze-blocks.net:9469
+              - cms02.breeze-blocks.net:9469
+              - cms03.breeze-blocks.net:9469
+              - cms04.breeze-blocks.net:9469
+              - cms05.breeze-blocks.net:9469
+              - cms06.breeze-blocks.net:9469
+              - media00.breeze-blocks.net:9469
+              - media01.breeze-blocks.net:9469
+              - ns01.breeze-blocks.net:9469
+              - ns02.breeze-blocks.net:9469
+              - ns03.breeze-blocks.net:9469
+              - ns04.breeze-blocks.net:9469
+              - ostium.breeze-blocks.net:9469
+              - thw00a.breeze-blocks.net:9469
+              - thw00b.breeze-blocks.net:9469
+              - thw01.breeze-blocks.net:9469
+              - thw02.breeze-blocks.net:9469
+              - thw03.breeze-blocks.net:9469
+              - thw04.breeze-blocks.net:9469
+              - thw05.breeze-blocks.net:9469
+              - whac.breeze-blocks.net:9469
       - job_name: wireguard-exporter
         honor_labels: true
         scrape_interval: 29s
@@ -5632,8 +5678,7 @@ prometheus:
 thanosRuler:
   ## Deploy thanosRuler
   ##
-  enabled: false
-
+  enabled: true
   ## Annotations for ThanosRuler
   ##
   annotations: {}
@@ -5927,7 +5972,7 @@ thanosRuler:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: nfs
+          storageClassName: csi-lvm-linear
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
