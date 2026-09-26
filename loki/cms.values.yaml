@@ -41,7 +41,7 @@ deploymentMode: SingleBinary
 singleBinary:
   persistence:
     storageClass: nfs
-    size: 100Gi
+    size: 80Gi
     whenDeleted: Retain
     whenScaled: Retain
   replicas: 1
