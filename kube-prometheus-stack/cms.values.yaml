@@ -1163,7 +1163,13 @@ alertmanager:
     ## Define resources requests and limits for single Pods.
     ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     ##
-    resources: {}
+    resources:
+      requests:
+        cpu: 100m
+        memory: 1Gi
+      limits:
+        cpu: 4000m
+        memory: 32Gi
     # requests:
     #   memory: 400Mi
 
@@ -3049,7 +3055,12 @@ prometheusOperator:
 
       ## Resource limits & requests
       ##
-      resources: {}
+      resources:
+        limits:
+          cpu: 4000m
+          memory: 32Gi
+        requests:
+          cpu: 100m
       # limits:
       #   cpu: 200m
       #   memory: 200Mi
@@ -4846,8 +4857,7 @@ prometheus:
         metrics_path: /metrics
         static_configs:
           - targets:
-              - media.breeze-blocks.net:8096
-              - music.breeze-blocks.net:8096
+              - media00.breeze-blocks.net:8096
               - media01.breeze-blocks.net:8096
               - whac.breeze-blocks.net:8096
       - job_name: qbittorrent-exporter
@@ -4978,6 +4988,52 @@ prometheus:
               - thw04.breeze-blocks.net:9256
               - thw05.breeze-blocks.net:9256
               - whac.breeze-blocks.net:9256
+      - job_name: smartctl-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9633
+              - cms00a.breeze-blocks.net:9633
+              - cms00b.breeze-blocks.net:9633
+              - cms00.breeze-blocks.net:9633
+              - cms01.breeze-blocks.net:9633
+              - cms02.breeze-blocks.net:9633
+              - cms03.breeze-blocks.net:9633
+              - cms04.breeze-blocks.net:9633
+              - cms05.breeze-blocks.net:9633
+              - cms06.breeze-blocks.net:9633
+              - media00.breeze-blocks.net:9633
+              - media01.breeze-blocks.net:9633
+              - ns01.breeze-blocks.net:9633
+              - ns02.breeze-blocks.net:9633
+              - ns03.breeze-blocks.net:9633
+              - ns04.breeze-blocks.net:9633
+              - ostium.breeze-blocks.net:9633
+              - thw00a.breeze-blocks.net:9633
+              - thw00b.breeze-blocks.net:9633
+              - thw01.breeze-blocks.net:9633
+              - thw02.breeze-blocks.net:9633
+              - thw03.breeze-blocks.net:9633
+              - thw04.breeze-blocks.net:9633
+              - thw05.breeze-blocks.net:9633
+              - whac.breeze-blocks.net:9633
       - job_name: systemd-exporter
         honor_labels: true
         relabel_configs:
