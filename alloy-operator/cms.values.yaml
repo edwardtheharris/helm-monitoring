@@ -1,11 +1,11 @@
 ---
 # -- Overrides the chart's name. Used to change the infix in the resource names.
 # @section -- Deployment Settings
-nameOverride: alloy
+nameOverride: ao
 # -- Overrides the chart's computed fullname. Used to change the full prefix of
 # resource names.
 # @section -- Deployment Settings
-fullnameOverride: alloy
+fullnameOverride: ao
 # -- Overrides the namespace for all resources deployed by this chart. When empty,
 # resources are deployed to the Helm release namespace.
 # @section -- Deployment Settings
@@ -17,15 +17,23 @@ global:
   # @section -- Deployment Settings
   namespaceOverride: ""
 
-  # -- Global image registry override.
+  # -- Global image registry override. Takes lower precedence than `global.image.registry`.
   # @section -- Image Settings
   imageRegistry: ""
 
-  # -- Global image pull policy override.
+  # -- Global image pull policy override. Takes lower precedence than `global.image.pullPolicy`.
   # @section -- Image Settings
   imagePullPolicy: ""
 
   image:
+    # -- Global image registry override.
+    # @section -- Image Settings
+    registry: ""
+
+    # -- Global image pull policy override.
+    # @section -- Image Settings
+    pullPolicy: ""
+
     # -- Global image pull secrets.
     # @section -- Image Settings
     pullSecrets: []
@@ -96,7 +104,7 @@ serviceAccount:
   # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   # @section -- Service Account Settings
-  name: ""
+  name: ao
 
 # RBAC settings
 rbac:
@@ -153,15 +161,15 @@ service:
 resources:
   # -- Set the resource requests for the Alloy Operator pods.
   # @section -- Resources
-  requests: {}
-  # cpu: 10m
-  # memory: 64Mi
+  requests:
+    cpu: 10m
+    memory: 64Mi
 
   # -- Set the resource limits for the Alloy Operator pods.
   # @section -- Resources
-  limits: {}
-  # cpu: 500m
-  # memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 128Mi
 
 # -- Liveness probe settings
 # @section -- Probes
@@ -201,7 +209,7 @@ podDisruptionBudget: {}
 serviceMonitor:
   # -- Whether to create a ServiceMonitor
   # @section -- Service Monitor
-  enabled: false
+  enabled: true
   # -- Set of labels to transfer from the Kubernetes Service onto the target
   # @section -- Service Monitor
   additionalLabels: {}

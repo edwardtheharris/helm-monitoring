@@ -1,0 +1,46 @@
+---
+apiVersion: collectors.grafana.com/v1alpha1
+kind: Alloy
+metadata:
+  name: alloy
+spec:
+  controller:
+    type: daemonset
+    tolerations:
+      - effect: NoSchedule
+        operator: Exists
+
+  alloy:
+    mounts:
+      varlog: true
+    extraEnv:
+      - name: CLUSTER_NAME
+        value: cms
+    configMap:
+      content: |-
+        local.file_match "syslog" {
+          path_targets = [{"__path__" = "/var/log/syslog.log"}]
+          sync_period = "5s"
+        }
+        loki.source.file "log_scrape" {
+          targets    = local.file_match.syslog.targets
+          forward_to = [loki.write.cms.receiver]
+          tail_from_end = true
+        }
+        loki.source.journal "journal" {
+          forward_to    = [loki.write.cms.receiver]
+        }
+        loki.write "cms" {
+          external_labels = {
+            app = "alloy",
+            host = sys.env("HOSTNAME")
+            job = "node/syslog",
+            node = sys.env("HOSTNAME")
+          }
+          endpoint {
+            url = "https://loki.breeze-blocks.net/loki/api/v1/push"
+            tls_config {
+              insecure_skip_verify = true
+            }
+          }
+        }
