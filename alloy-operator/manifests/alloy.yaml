@@ -2,36 +2,45 @@
 apiVersion: collectors.grafana.com/v1alpha1
 kind: Alloy
 metadata:
-  name: alloy-metrics
+  name: alloy
+  namespace: monitoring
 spec:
   controller:
     type: statefulset
     replicas: 2
     enableStatefulSetAutoDeletePVC: true
+    volumes:
+      extra:
+        - name: etc-k8s
+          hostPath:
+            path: /etc/kubernetes
+            type: Directory
     volumeClaimTemplates:
       - metadata:
           name: alloy-wal
         spec:
           accessModes: ["ReadWriteOnce"]
-          storageClassName: nfs-retain
+          storageClassName: "csi-lvm-linear"
           resources:
             requests:
               storage: 100Mi
 
   alloy:
     clustering:
-      name: alloy-metrics
+      name: alloy
       enabled: true
 
     extraEnv:
       - name: CLUSTER_NAME
-        value: statefulset-with-wal
+        value: cms
 
     storagePath: /var/lib/alloy
     mounts:
       extra:
         - name: alloy-wal
           mountPath: /var/lib/alloy
+        - name: etc-k8s
+          mountPath: /etc/kubernetes
     configMap:
       content: |-
         discovery.kubernetes "alloy_pods" {
@@ -48,7 +57,7 @@ spec:
           clustering {
             enabled = true
           }
-          forward_to = [prometheus.remote_write.local_prom.receiver]
+          forward_to = [prometheus.remote_write.po.receiver]
         }
 
         discovery.kubernetes "nodes" {
@@ -63,22 +72,22 @@ spec:
           bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
 
           tls_config {
-            ca_file = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
             insecure_skip_verify = true
-            server_name = "kubernetes"
           }
 
           clustering {
             enabled = true
           }
 
-          forward_to = [prometheus.remote_write.local_prom.receiver]
+          forward_to = [prometheus.remote_write.po.receiver]
         }
 
-        prometheus.remote_write "local_prom" {
+        prometheus.remote_write "po" {
           endpoint {
-            url = "http://prometheus.monitoring.svc:9090/api/v1/write"
-
+            url = "https://po.breeze-blocks.net/api/v1/write"
+            tls_config {
+              insecure_skip_verify = true
+            }
             write_relabel_config {
               replacement = sys.env("CLUSTER_NAME")
               target_label = "cluster"

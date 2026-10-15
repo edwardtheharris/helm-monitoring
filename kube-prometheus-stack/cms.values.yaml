@@ -4405,8 +4405,7 @@ prometheus:
 
     ## enable --web.enable-remote-write-receiver flag on prometheus-server
     ##
-    enableRemoteWriteReceiver: false
-
+    enableRemoteWriteReceiver: true
     ## Name of the external label used to denote replica name
     ##
     replicaExternalLabelName: ""
@@ -4695,7 +4694,7 @@ prometheus:
           accessModes: ["ReadWriteMany"]
           resources:
             requests:
-              storage: 20Gi
+              storage: 70Gi
 
     ## Using tmpfs volume
     ##
@@ -4741,6 +4740,7 @@ prometheus:
         static_configs:
           - targets:
               - ns01.breeze-blocks.net:9119
+              - ns02.breeze-blocks.net:9119
               - ns03.breeze-blocks.net:9119
               - ns04.breeze-blocks.net:9119
       - job_name: "blackbox"
@@ -4752,10 +4752,10 @@ prometheus:
             - http_int_ca
         static_configs:
           - targets:
-              - http://media.breeze-blocks.net # Target to probe with http.
-              - https://media.breeze-blocks.net # Target to probe with https.
-              - http://radarr.breeze-blocks.net # Target to probe with http on port 8080.
-              - https://radarr.breeze-blocks.net # Target to probe with http on port 8080.
+              - http://media00.breeze-blocks.net # Target to probe with http.
+              - https://media00.breeze-blocks.net # Target to probe with https.
+              - http://media01.breeze-blocks.net # Target to probe with http on port 8080.
+              - https://media01.breeze-blocks.net # Target to probe with http on port 8080.
               - http://sonarr.breeze-blocks.net # Target to probe with http on port 8080.
               - https://sonarr.breeze-blocks.net # Target to probe with http on port 8080.
         relabel_configs:
@@ -4866,7 +4866,7 @@ prometheus:
         scrape_timeout: 5s
         static_configs:
           - targets:
-              - backup.breeze-blocks.net:9559
+              - cms06.breeze-blocks.net:9559
               - whac.breeze-blocks.net:9559
       - job_name: node-exporter
         honor_labels: true
@@ -4922,6 +4922,49 @@ prometheus:
         relabel_configs:
           - action: labelkeep
             regex: (.+)
+      - job_name: ping-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9427
+              - cms00.breeze-blocks.net:9427
+              - cms01.breeze-blocks.net:9427
+              - cms02.breeze-blocks.net:9427
+              - cms03.breeze-blocks.net:9427
+              - cms04.breeze-blocks.net:9427
+              - cms05.breeze-blocks.net:9427
+              - cms06.breeze-blocks.net:9427
+              - media00.breeze-blocks.net:9427
+              - media01.breeze-blocks.net:9427
+              - ns01.breeze-blocks.net:9427
+              - ns02.breeze-blocks.net:9427
+              - ns03.breeze-blocks.net:9427
+              - ns04.breeze-blocks.net:9427
+              - ostium.breeze-blocks.net:9427
+              - thw00.breeze-blocks.net:9427
+              - thw01.breeze-blocks.net:9427
+              - thw02.breeze-blocks.net:9427
+              - thw03.breeze-blocks.net:9427
+              - thw04.breeze-blocks.net:9427
+              - thw05.breeze-blocks.net:9427
+              - whac.breeze-blocks.net:9427
       - job_name: postgres-exporter
         honor_labels: true
         relabel_configs:
@@ -4943,7 +4986,7 @@ prometheus:
         scrape_timeout: 5s
         static_configs:
           - targets:
-              - cms-pge.breeze-blocks.net:9187
+              - postgres-exporter.monitoring.svc.cluster.local:9187
               - thw-pge.breeze-blocks.net:9187
       - job_name: process-exporter
         honor_labels: true
@@ -6028,7 +6071,7 @@ thanosRuler:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: csi-lvm-linear
+          storageClassName: nfs
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:

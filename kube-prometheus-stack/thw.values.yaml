@@ -2747,7 +2747,7 @@ prometheus-node-exporter:
 
   prometheus:
     monitor:
-      enabled: false
+      enabled: true
       jobLabel: jobLabel
 
       ## Scrape interval. If not set, the Prometheus default scrape interval is used.
@@ -3406,7 +3406,13 @@ prometheusOperator:
 
   ## Resource limits & requests
   ##
-  resources: {}
+  resources:
+    limits:
+      cpu: 4000m
+      memory: 32Gi
+    requests:
+      cpu: 100m
+      memory: 100Mi
   # limits:
   #   cpu: 200m
   #   memory: 200Mi
@@ -3428,7 +3434,8 @@ prometheusOperator:
   ## Define which Nodes the Pods are scheduled on.
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
   ##
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/os: linux
 
   ## Tolerations for use with node taints
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
