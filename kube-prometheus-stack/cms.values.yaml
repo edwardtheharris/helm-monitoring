@@ -4694,7 +4694,7 @@ prometheus:
           accessModes: ["ReadWriteMany"]
           resources:
             requests:
-              storage: 20Gi
+              storage: 70Gi
 
     ## Using tmpfs volume
     ##
@@ -6071,7 +6071,7 @@ thanosRuler:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: csi-lvm-linear
+          storageClassName: nfs
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:

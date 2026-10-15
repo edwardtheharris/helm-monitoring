@@ -194,7 +194,15 @@ tolerations: []
 
 # -- Set the affinity for the Alloy Operator pods.
 # @section -- Pod Settings
-affinity: {}
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/vpn
+              operator: NotIn
+              values:
+                - "true"
 
 # -- Set the topology spread constraints for the Alloy Operator pods.
 # @section -- Pod Settings

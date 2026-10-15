@@ -3,44 +3,94 @@ apiVersion: collectors.grafana.com/v1alpha1
 kind: Alloy
 metadata:
   name: alloy
+  namespace: monitoring
 spec:
   controller:
-    type: daemonset
-    tolerations:
-      - effect: NoSchedule
-        operator: Exists
+    type: statefulset
+    replicas: 2
+    enableStatefulSetAutoDeletePVC: true
+    volumes:
+      extra:
+        - name: etc-k8s
+          hostPath:
+            path: /etc/kubernetes
+            type: Directory
+    volumeClaimTemplates:
+      - metadata:
+          name: alloy-wal
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          storageClassName: "csi-lvm-linear"
+          resources:
+            requests:
+              storage: 100Mi
 
   alloy:
-    mounts:
-      varlog: true
+    clustering:
+      name: alloy
+      enabled: true
+
     extraEnv:
       - name: CLUSTER_NAME
         value: cms
+
+    storagePath: /var/lib/alloy
+    mounts:
+      extra:
+        - name: alloy-wal
+          mountPath: /var/lib/alloy
+        - name: etc-k8s
+          mountPath: /etc/kubernetes
     configMap:
       content: |-
-        local.file_match "syslog" {
-          path_targets = [{"__path__" = "/var/log/syslog.log"}]
-          sync_period = "5s"
-        }
-        loki.source.file "log_scrape" {
-          targets    = local.file_match.syslog.targets
-          forward_to = [loki.write.cms.receiver]
-          tail_from_end = true
-        }
-        loki.source.journal "journal" {
-          forward_to    = [loki.write.cms.receiver]
-        }
-        loki.write "cms" {
-          external_labels = {
-            app = "alloy",
-            host = sys.env("HOSTNAME")
-            job = "node/syslog",
-            node = sys.env("HOSTNAME")
+        discovery.kubernetes "alloy_pods" {
+          role = "pod"
+          selectors {
+            role = "pod"
+            label = "app.kubernetes.io/name=alloy"
           }
+        }
+
+        prometheus.scrape "alloy_pods" {
+          targets    = discovery.kubernetes.alloy_pods.targets
+          scrape_interval = "60s"
+          clustering {
+            enabled = true
+          }
+          forward_to = [prometheus.remote_write.po.receiver]
+        }
+
+        discovery.kubernetes "nodes" {
+          role = "node"
+        }
+
+        prometheus.scrape "kubelet" {
+          targets  = discovery.kubernetes.nodes.targets
+          job_name = "integrations/kubernetes/kubelet"
+          scheme   = "https"
+          scrape_interval = "60s"
+          bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+
+          tls_config {
+            insecure_skip_verify = true
+          }
+
+          clustering {
+            enabled = true
+          }
+
+          forward_to = [prometheus.remote_write.po.receiver]
+        }
+
+        prometheus.remote_write "po" {
           endpoint {
-            url = "https://loki.breeze-blocks.net/loki/api/v1/push"
+            url = "https://po.breeze-blocks.net/api/v1/write"
             tls_config {
               insecure_skip_verify = true
+            }
+            write_relabel_config {
+              replacement = sys.env("CLUSTER_NAME")
+              target_label = "cluster"
             }
           }
         }
