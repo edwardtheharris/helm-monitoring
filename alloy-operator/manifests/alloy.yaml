@@ -32,7 +32,7 @@ spec:
 
     extraEnv:
       - name: CLUSTER_NAME
-        value: cms
+        value: thw
 
     storagePath: /var/lib/alloy
     mounts:

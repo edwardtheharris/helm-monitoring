@@ -1163,7 +1163,13 @@ alertmanager:
     ## Define resources requests and limits for single Pods.
     ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     ##
-    resources: {}
+    resources:
+      requests:
+        cpu: 100m
+        memory: 1Gi
+      limits:
+        cpu: 4000m
+        memory: 32Gi
     # requests:
     #   memory: 400Mi
 
@@ -2747,7 +2753,7 @@ prometheus-node-exporter:
 
   prometheus:
     monitor:
-      enabled: true
+      enabled: false
       jobLabel: jobLabel
 
       ## Scrape interval. If not set, the Prometheus default scrape interval is used.
@@ -2914,7 +2920,7 @@ prometheusOperator:
 
       ## Number of old replicasets to retain ##
       ## The default value is 10, 0 will garbage-collect old replicasets ##
-      revisionHistoryLimit: 10
+      revisionHistoryLimit: 2
 
       ## Prometheus-Operator v0.39.0 and later support TLS natively.
       ##
@@ -3049,7 +3055,12 @@ prometheusOperator:
 
       ## Resource limits & requests
       ##
-      resources: {}
+      resources:
+        limits:
+          cpu: 4000m
+          memory: 32Gi
+        requests:
+          cpu: 100m
       # limits:
       #   cpu: 200m
       #   memory: 200Mi
@@ -3195,7 +3206,7 @@ prometheusOperator:
         # Defaults to nil.
         revisionHistoryLimit:
       issuerRef:
-        name: "comms-svc-int"
+        name: "thw-svc-int"
         kind: "ClusterIssuer"
 
   ## Namespaces to scope the interaction of the Prometheus Operator and the apiserver (allow list).
@@ -3406,13 +3417,7 @@ prometheusOperator:
 
   ## Resource limits & requests
   ##
-  resources:
-    limits:
-      cpu: 4000m
-      memory: 32Gi
-    requests:
-      cpu: 100m
-      memory: 100Mi
+  resources: {}
   # limits:
   #   cpu: 200m
   #   memory: 200Mi
@@ -3434,8 +3439,7 @@ prometheusOperator:
   ## Define which Nodes the Pods are scheduled on.
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
   ##
-  nodeSelector:
-    kubernetes.io/os: linux
+  nodeSelector: {}
 
   ## Tolerations for use with node taints
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
@@ -3771,6 +3775,8 @@ prometheus:
   ##
   service:
     enabled: true
+    clusterIssuer: thw-svc-int
+    domain: the-hard-way.gov
     annotations: {}
     labels: {}
     clusterIP: ""
@@ -4024,7 +4030,7 @@ prometheus:
       kind: HTTPRoute
 
       annotations:
-        cert-manager.io/cluster-issuer: comms-svc-int
+        cert-manager.io/cluster-issuer: thw-svc-int
         cert-manager.io/common-name: grafana.the-hard-way.gov
         cert-manager.io/usages: key agreement,digital signature, server auth
 
@@ -4401,8 +4407,7 @@ prometheus:
 
     ## enable --web.enable-remote-write-receiver flag on prometheus-server
     ##
-    enableRemoteWriteReceiver: false
-
+    enableRemoteWriteReceiver: true
     ## Name of the external label used to denote replica name
     ##
     replicaExternalLabelName: ""
@@ -4691,7 +4696,7 @@ prometheus:
           accessModes: ["ReadWriteMany"]
           resources:
             requests:
-              storage: 20Gi
+              storage: 70Gi
 
     ## Using tmpfs volume
     ##
@@ -4737,8 +4742,8 @@ prometheus:
         static_configs:
           - targets:
               - ns01.the-hard-way.gov:9119
+              - ns02.the-hard-way.gov:9119
               - ns03.the-hard-way.gov:9119
-              - ns04.the-hard-way.gov:9119
       - job_name: "blackbox"
         metrics_path: /probe
         params:
@@ -4750,8 +4755,8 @@ prometheus:
           - targets:
               - http://media00.the-hard-way.gov # Target to probe with http.
               - https://media00.the-hard-way.gov # Target to probe with https.
-              - http://radarr.the-hard-way.gov # Target to probe with http on port 8080.
-              - https://radarr.the-hard-way.gov # Target to probe with http on port 8080.
+              - http://media01.the-hard-way.gov # Target to probe with http on port 8080.
+              - https://media01.the-hard-way.gov # Target to probe with http on port 8080.
               - http://sonarr.the-hard-way.gov # Target to probe with http on port 8080.
               - https://sonarr.the-hard-way.gov # Target to probe with http on port 8080.
         relabel_configs:
@@ -4760,7 +4765,7 @@ prometheus:
           - source_labels: [__param_target]
             target_label: instance
           - target_label: __address__
-            replacement: media00.the-hard-way.gov:9115 # The blackbox exporter's real hostname:port.
+            replacement: media.the-hard-way.gov:9115 # The blackbox exporter's real hostname:port.
       - job_name: "blackbox_exporter" # collect blackbox exporter's operational metrics.
         static_configs:
           - targets: ["127.0.0.1:9115"]
@@ -4784,8 +4789,8 @@ prometheus:
         static_configs:
           - targets:
               - ns01.the-hard-way.gov:9197
+              - ns02.the-hard-way.gov:9197
               - ns03.the-hard-way.gov:9197
-              - ns04.the-hard-way.gov:9197
       - job_name: glances-exporter
         honor_labels: true
         relabel_configs:
@@ -4808,29 +4813,13 @@ prometheus:
         static_configs:
           - targets:
               - cato.the-hard-way.gov:9091
-              - cms00a.the-hard-way.gov:9091
-              - cms00b.the-hard-way.gov:9091
-              - cms01.the-hard-way.gov:9091
-              - cms02.the-hard-way.gov:9091
-              - cms03.the-hard-way.gov:9091
-              - cms04.the-hard-way.gov:9091
-              - cms05.the-hard-way.gov:9091
-              - cms06.the-hard-way.gov:9091
+              - database.the-hard-way.gov:9091
               - media00.the-hard-way.gov:9091
               - media01.the-hard-way.gov:9091
               - ns01.the-hard-way.gov:9091
               - ns02.the-hard-way.gov:9091
               - ns03.the-hard-way.gov:9091
-              - ns04.the-hard-way.gov:9091
-              - ostium.the-hard-way.gov:9091
-              - thw00a.the-hard-way.gov:9091
-              - thw00b.the-hard-way.gov:9091
-              - thw01.the-hard-way.gov:9091
-              - thw02.the-hard-way.gov:9091
-              - thw03.the-hard-way.gov:9091
-              - thw04.the-hard-way.gov:9091
-              - thw05.the-hard-way.gov:9091
-              - whac.the-hard-way.gov:9091
+              - vault.the-hard-way.gov:9091
       - job_name: "jellyfin-exporter"
         honor_labels: true
         relabel_configs:
@@ -4854,17 +4843,16 @@ prometheus:
         static_configs:
           - targets:
               - media00.the-hard-way.gov:8096
-              - music.the-hard-way.gov:8096
               - media01.the-hard-way.gov:8096
-              - whac.the-hard-way.gov:8096
+              - ns01.the-hard-way.gov:8096
       - job_name: qbittorrent-exporter
         honor_labels: true
         scrape_interval: 29s
         scrape_timeout: 5s
         static_configs:
           - targets:
-              - media01.the-hard-way.gov:9559
-              - whac.the-hard-way.gov:9559
+              - thw06.the-hard-way.gov:9559
+              - ns01.the-hard-way.gov:9559
       - job_name: node-exporter
         honor_labels: true
         relabel_configs:
@@ -4887,29 +4875,13 @@ prometheus:
         static_configs:
           - targets:
               - cato.the-hard-way.gov:9100
-              - cms00a.the-hard-way.gov:9100
-              - cms00b.the-hard-way.gov:9100
-              - cms01.the-hard-way.gov:9100
-              - cms02.the-hard-way.gov:9100
-              - cms03.the-hard-way.gov:9100
-              - cms04.the-hard-way.gov:9100
-              - cms05.the-hard-way.gov:9100
-              - cms06.the-hard-way.gov:9100
+              - database.the-hard-way.gov:9100
               - media00.the-hard-way.gov:9100
               - media01.the-hard-way.gov:9100
               - ns01.the-hard-way.gov:9100
               - ns02.the-hard-way.gov:9100
               - ns03.the-hard-way.gov:9100
-              - ns04.the-hard-way.gov:9100
-              - ostium.the-hard-way.gov:9100
-              - thw00a.the-hard-way.gov:9100
-              - thw00b.the-hard-way.gov:9100
-              - thw01.the-hard-way.gov:9100
-              - thw02.the-hard-way.gov:9100
-              - thw03.the-hard-way.gov:9100
-              - thw04.the-hard-way.gov:9100
-              - thw05.the-hard-way.gov:9100
-              - whac.the-hard-way.gov:9100
+              - vault.the-hard-way.gov:9100
       - job_name: "navidrome-exporter"
         honor_labels: true
         metrics_path: /metrics
@@ -4919,6 +4891,35 @@ prometheus:
         relabel_configs:
           - action: labelkeep
             regex: (.+)
+      - job_name: ping-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.the-hard-way.gov:9427
+              - database.the-hard-way.gov:9427
+              - media00.the-hard-way.gov:9427
+              - media01.the-hard-way.gov:9427
+              - ns01.the-hard-way.gov:9427
+              - ns02.the-hard-way.gov:9427
+              - ns03.the-hard-way.gov:9427
+              - vault.the-hard-way.gov:9427
       - job_name: postgres-exporter
         honor_labels: true
         relabel_configs:
@@ -4940,7 +4941,7 @@ prometheus:
         scrape_timeout: 5s
         static_configs:
           - targets:
-              - cms-pge.the-hard-way.gov:9187
+              - postgres-exporter.monitoring.svc.cluster.local:9187
               - thw-pge.the-hard-way.gov:9187
       - job_name: process-exporter
         honor_labels: true
@@ -4964,27 +4965,42 @@ prometheus:
         static_configs:
           - targets:
               - cato.the-hard-way.gov:9256
-              - cms00.the-hard-way.gov:9256
-              - cms01.the-hard-way.gov:9256
-              - cms02.the-hard-way.gov:9256
-              - cms03.the-hard-way.gov:9256
-              - cms04.the-hard-way.gov:9256
-              - cms05.the-hard-way.gov:9256
-              - cms06.the-hard-way.gov:9256
+              - database.the-hard-way.gov:9256
               - media00.the-hard-way.gov:9256
               - media01.the-hard-way.gov:9256
               - ns01.the-hard-way.gov:9256
               - ns02.the-hard-way.gov:9256
               - ns03.the-hard-way.gov:9256
-              - ns04.the-hard-way.gov:9256
-              - ostium.the-hard-way.gov:9256
-              - thw00.the-hard-way.gov:9256
-              - thw01.the-hard-way.gov:9256
-              - thw02.the-hard-way.gov:9256
-              - thw03.the-hard-way.gov:9256
-              - thw04.the-hard-way.gov:9256
-              - thw05.the-hard-way.gov:9256
-              - whac.the-hard-way.gov:9256
+              - vault.the-hard-way.gov:9256
+      - job_name: smartctl-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.the-hard-way.gov:9633
+              - database.the-hard-way.gov:9633
+              - media00.the-hard-way.gov:9633
+              - media01.the-hard-way.gov:9633
+              - ns01.the-hard-way.gov:9633
+              - ns02.the-hard-way.gov:9633
+              - ns03.the-hard-way.gov:9633
+              - vault.the-hard-way.gov:9633
       - job_name: systemd-exporter
         honor_labels: true
         relabel_configs:
@@ -5007,44 +5023,56 @@ prometheus:
         static_configs:
           - targets:
               - cato.the-hard-way.gov:9558
-              - cms00a.the-hard-way.gov:9558
-              - cms00b.the-hard-way.gov:9558
-              - cms00.the-hard-way.gov:9558
-              - cms01.the-hard-way.gov:9558
-              - cms02.the-hard-way.gov:9558
-              - cms03.the-hard-way.gov:9558
-              - cms04.the-hard-way.gov:9558
-              - cms05.the-hard-way.gov:9558
-              - cms06.the-hard-way.gov:9558
+              - database.the-hard-way.gov:9558
               - media00.the-hard-way.gov:9558
               - media01.the-hard-way.gov:9558
               - ns01.the-hard-way.gov:9558
               - ns02.the-hard-way.gov:9558
               - ns03.the-hard-way.gov:9558
-              - ns04.the-hard-way.gov:9558
-              - ostium.the-hard-way.gov:9558
-              - thw00a.the-hard-way.gov:9558
-              - thw00b.the-hard-way.gov:9558
-              - thw01.the-hard-way.gov:9558
-              - thw02.the-hard-way.gov:9558
-              - thw03.the-hard-way.gov:9558
-              - thw04.the-hard-way.gov:9558
-              - thw05.the-hard-way.gov:9558
-              - whac.the-hard-way.gov:9558
+              - vault.the-hard-way.gov:9558
+      - job_name: vnstat-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.the-hard-way.gov:9469
+              - database.the-hard-way.gov:9469
+              - media00.the-hard-way.gov:9469
+              - media01.the-hard-way.gov:9469
+              - ns01.the-hard-way.gov:9469
+              - ns02.the-hard-way.gov:9469
+              - ns03.the-hard-way.gov:9469
+              - vault.the-hard-way.gov:9469
       - job_name: wireguard-exporter
         honor_labels: true
         scrape_interval: 29s
         scrape_timeout: 5s
         static_configs:
           - targets:
-              - media01.the-hard-way.gov:9586
+              - backup.the-hard-way.gov:9586
       - job_name: x509-exporter
         honor_labels: true
         scrape_interval: 29s
         scrape_timeout: 5s
         static_configs:
           - targets:
-              - media00.the-hard-way.gov:9793
+              - media.the-hard-way.gov:9793
 
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
@@ -5639,8 +5667,7 @@ prometheus:
 thanosRuler:
   ## Deploy thanosRuler
   ##
-  enabled: false
-
+  enabled: true
   ## Annotations for ThanosRuler
   ##
   annotations: {}
@@ -5746,6 +5773,8 @@ thanosRuler:
   ##
   service:
     enabled: true
+    domain: the-hard-way.gov
+    clusterIssuer: thw-svc-int
     annotations: {}
     labels: {}
     clusterIP: ""
@@ -5934,7 +5963,7 @@ thanosRuler:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: csi-lvm-linear
+          storageClassName: nfs
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -6228,6 +6257,7 @@ thanosRuler:
       # use existing secret, if configured, alertRelabelConfigs.secret will not be used
       existingSecret: {}
         # name: ""
+
         # key: ""
       # render alertRelabelConfigs secret data and configure it to be used by Thanos Ruler custom resource, ignored when alertRelabelConfigs.existingSecret is set
       secret: {}

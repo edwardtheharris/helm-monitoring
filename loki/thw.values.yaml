@@ -37,12 +37,13 @@ gateway:
 minio:
   enabled: false
 deploymentMode: SingleBinary
+service:
+  clusterIssuer: thw-svc-int
+  domain: the-hard-way.gov
 
 singleBinary:
   persistence:
-    selector:
-      pv.kubernetes.io/name: loki
-    storageClass: nfs
+    storageClass: csi-lvm-striped
     size: 100Gi
     whenDeleted: Retain
     whenScaled: Retain
