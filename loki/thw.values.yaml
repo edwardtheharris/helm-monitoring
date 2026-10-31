@@ -40,10 +40,15 @@ deploymentMode: SingleBinary
 
 singleBinary:
   persistence:
+<<<<<<< Updated upstream:loki/comms.values.yaml
     selector:
       pv.kubernetes.io/name: loki
     storageClass: nfs
     size: 100Gi
+=======
+    storageClass: csi-lvm-striped
+    size: 10Gi
+>>>>>>> Stashed changes:loki/thw.values.yaml
     whenDeleted: Retain
     whenScaled: Retain
   replicas: 1

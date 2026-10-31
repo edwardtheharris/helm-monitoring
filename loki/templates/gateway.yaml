@@ -7,8 +7,8 @@ metadata:
     app.kubernetes.io/name: {{ .Release.Name }}
     app.kubernetes.io/component: http-routing
   annotations:
-    cert-manager.io/cluster-issuer: comms-svc-int
-    cert-manager.io/common-name: loki.breeze-blocks.net
+    cert-manager.io/cluster-issuer: {{ .Values.service.clusterIssuer }}
+    cert-manager.io/common-name: {{ .Release.Name }}.{{ .Values.service.domain }}
     cert-manager.io/usages: key agreement,digital signature, server auth
 spec:
   gatewayClassName: eg
@@ -16,14 +16,14 @@ spec:
     - allowedRoutes:
         namespaces:
           from: All
-      hostname: loki.breeze-blocks.net
+      hostname: {{ .Release.Name }}.{{ .Values.service.domain }}
       name: http
       port: 80
       protocol: HTTP
     - allowedRoutes:
         namespaces:
           from: All
-      hostname: loki.breeze-blocks.net
+      hostname: {{ .Release.Name }}.{{ .Values.service.domain }}
       name: https
       protocol: HTTPS
       port: 443
@@ -31,7 +31,7 @@ spec:
         certificateRefs:
         - group: ""
           kind: Secret
-          name: loki-tls
+          name: {{ .Release.Name }}-tls
         mode: Terminate
 
 
@@ -56,7 +56,7 @@ spec:
 #@         namespaces:
 #@           from: All
 #@     # - name: https
-    #   hostname: grafana.breeze-blocks.net
+    #   hostname: grafana.{{ .Values.service.domain }}
     #   port: 443
     #   protocol: HTTPS
     #   allowedRoutes:
