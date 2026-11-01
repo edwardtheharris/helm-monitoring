@@ -1,0 +1,38 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: thw-svc-int
+    cert-manager.io/common-name: prometheus.the-hard-way.gov
+    cert-manager.io/usages: key agreement,digital signature, server auth
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: monitoring
+  labels:
+    app.kubernetes.io/component: http-routing
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: prometheus
+  name: prometheus
+  namespace: monitoring
+spec:
+  gatewayClassName: eg
+  listeners:
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: prometheus.the-hard-way.gov
+      name: http
+      port: 80
+      protocol: HTTP
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: prometheus.the-hard-way.gov
+      name: https
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: prometheus-tls
+        mode: Terminate

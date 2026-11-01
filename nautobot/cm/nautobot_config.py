@@ -17,7 +17,7 @@ from nautobot.core.settings_funcs import is_truthy, parse_redis_connection
 # Example: ALLOWED_HOSTS = ['nautobot.example.com', 'nautobot.internal.local']
 #
 # ALLOWED_HOSTS = os.getenv("NAUTOBOT_ALLOWED_HOSTS", "").split(" ")
-METRICS_ENABLED = False
+METRICS_ENABLED = True
 
 # The django-redis cache is used to establish concurrent locks using Redis.
 #
@@ -34,7 +34,7 @@ CACHES = {
         "LOCATION": os.environ.get(
             "NAUTOBOT_REDIS_URL", "redis://redis.breeze-blocks.net:6379/0"
         ),
-        "TIMEOUT": 300,
+        "TIMEOUT": int(os.getenv("NAUTOBOT_DB_TIMEOUT", "300")),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "PASSWORD": "",

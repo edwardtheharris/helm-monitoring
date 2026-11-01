@@ -1,0 +1,56 @@
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuthGlobal
+metadata:
+  name: vault-auth-global
+spec:
+  defaultAuthMethod: kubernetes
+  kubernetes:
+    audiences:
+    - vault
+    mount: kubernetes
+    namespace: nautobot
+    role: nautobot
+    serviceAccount: nautobot
+    tokenExpirationSeconds: 600
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: vault-auth
+spec:
+  vaultAuthGlobalRef:
+    name: vault-auth-global
+  kubernetes:
+    role: nautobot
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: nautobot-postgres
+spec:
+  vaultAuthRef: vault-auth
+  mount: internal/
+  type: kv-v2
+  path: database/nautobot
+  version: 2
+  refreshAfter: 60s
+  destination:
+    create: true
+    name: nautobot-postgres
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: nautobot-superuser
+spec:
+  vaultAuthRef: vault-auth
+  mount: internal/
+  type: kv-v2
+  path: nautobot/superuser
+  version: 2
+  refreshAfter: 60s
+  destination:
+    create: true
+    name: nautobot-superuser
+

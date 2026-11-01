@@ -84,7 +84,7 @@ myst_enable_extensions = [
     "tasklist",
 ]
 myst_title_to_header = True
-project = "Template Helm Chart"
+project = "LLDAP Helm Chart"
 rst_epilog = """
 .. sectionauthor:: Xander Harris <xandertheharris@gmail.com>
 

@@ -278,7 +278,7 @@ nodeSelector:
 persistence:
   name: nautobot-pvc
   size: 10Gi
-  storageClass: csi-lvm-linear
+  storageClass: nfs-retain
 
 ###
 # ```{rubric} Pod Annotations

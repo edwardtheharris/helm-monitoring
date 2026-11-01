@@ -135,15 +135,6 @@ config:
 # :start-at: "database:\n"
 # :end-before: "###\n"
 # ```
-database:
-  database: nautobot
-  engine: "django.db.backends.postgresql"
-  host: postgres.database.svc.cluster.local
-  name: postgres
-  password: ""
-  port: "5432"
-  timeout: "300"
-  username: nautobot
 su:
   email: ""
   password: ""
@@ -238,7 +229,7 @@ nodeSelector:
 persistence:
   name: nautobot
   size: 10Gi
-  storageClass: csi-lvm-linear
+  storageClass: nfs-retain
 
 ###
 # ```{rubric} Pod Annotations
@@ -252,7 +243,11 @@ persistence:
 # :start-at: "podAnnotations: {}\n"
 # :end-before: "###\n"
 # ```
-podAnnotations: {}
+podAnnotations:
+  vault.hashicorp.com/agent-inject: "true"
+  vault.hashicorp.com/role: "nautobot"
+  vault.hashicorp.com/agent-inject-secret-database-nautobot: "internal/data/database/nautobot"
+  vault.hashicorp.com/tls-skip-verify: "true"
 
 ###
 # ```{rubric} Pod Labels
@@ -267,7 +262,7 @@ podAnnotations: {}
 # :end-before: "###\n"
 # ```
 podLabels:
-  app: nautobot
+  app.kubernetes.io/name: nautobot
 
 ###
 # ```{rubric} Pod Security Context
@@ -348,6 +343,9 @@ resources:
   limits:
     cpu: 2
     memory: 4096Mi
+  requests:
+    cpu: 500m
+    memory: 128Mi
 
 ###
 # ```{rubric} Service
@@ -373,9 +371,9 @@ resources:
 # ```
 service:
   enabled: true
-  port: 80
+  port: 8000
   targetPort: 8000
-  type: LoadBalancer
+  type: ClusterIP
 ####
 
 ###
@@ -465,7 +463,13 @@ type: StatefulSet
 #   mountPath: "/etc/foo"
 #   readOnly: true
 # ```
-volumeMounts: []
+volumeMounts:
+  - name: nautobot-postgres
+    mountPath: "/mnt/nautobot-postgres"
+    readOnly: true
+  - name: nautobot-superuser
+    mountPath: "/mnt/nautobot-superuser"
+    readOnly: true
 
 ###
 # ```{rubric} Volumes
@@ -486,4 +490,16 @@ volumeMounts: []
 #     secretName: mysecret
 #     optional: false
 # ```
-volumes: []
+volumes:
+  - name: nautobot-postgres
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: "nautobot"
+  - name: nautobot-superuser
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: "nautobot-su"
