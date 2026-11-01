@@ -20,6 +20,7 @@
   "graphTooltip": 0,
   "id": 0,
   "links": [],
+  "liveNow": true,
   "panels": [
     {
       "collapsed": false,
@@ -71,7 +72,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 4,
         "w": 4,
         "x": 0,
         "y": 1
@@ -85,7 +86,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -93,7 +96,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -101,7 +104,7 @@
             "uid": "efi7a9ajh454wf"
           },
           "editorMode": "code",
-          "expr": "max(pg_settings_server_version_num)",
+          "expr": "",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -165,7 +168,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["max"],
+          "calcs": [
+            "max"
+          ],
           "fields": "",
           "values": false
         },
@@ -173,7 +178,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -244,7 +249,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -252,7 +259,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -321,7 +328,9 @@
         "minVizWidth": 75,
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -329,14 +338,16 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "efi7a9ajh454wf"
           },
-          "expr": "sum(pg_stat_database_blks_hit{instance=~\"$Instance\"})/(sum(pg_stat_database_blks_hit{instance=~\"$Instance\"})+sum(pg_stat_database_blks_read{instance=~\"$Instance\"}))*100",
+          "editorMode": "code",
+          "expr": "sum(pg_stat_database_blks_hit{node=\"$node\"})/(sum(pg_stat_database_blks_hit{node=\"$node\"})+sum(pg_stat_database_blks_read{node=\"$node\"}))*100",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -398,7 +409,9 @@
         "minVizWidth": 75,
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["last"],
+          "calcs": [
+            "last"
+          ],
           "fields": "",
           "values": false
         },
@@ -406,14 +419,16 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "efi7a9ajh454wf"
           },
-          "expr": "sum(pg_stat_database_numbackends)/max(pg_settings_max_connections)",
+          "editorMode": "code",
+          "expr": "sum(pg_stat_database_numbackends{instance=\"$instance\"})/max(pg_settings_max_connections{instance=\"$instance\"})",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -475,7 +490,9 @@
         "minVizWidth": 75,
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -483,7 +500,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -498,83 +515,6 @@
       ],
       "title": "Commit Ratio",
       "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
-      },
-      "description": "Source: pg_postmaster_start_time()",
-      "fieldConfig": {
-        "defaults": {
-          "decimals": 1,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 0,
-        "y": 4
-      },
-      "id": 57,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "/^Time$/",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "editorMode": "code",
-          "expr": "pg_up",
-          "legendFormat": "",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "PostgreSQL Uptime",
-      "type": "stat"
     },
     {
       "datasource": {
@@ -631,7 +571,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -639,7 +581,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -710,7 +652,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -718,7 +662,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -741,14 +685,10 @@
         "type": "prometheus",
         "uid": "efi7a9ajh454wf"
       },
-      "description": "Size of all databases in $Instance.\n\nSource: pg_database_size()",
+      "description": "Source: pg_postmaster_start_time()",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "fixedColor": "rgb(31, 120, 193)",
-            "mode": "fixed"
-          },
-          "decimals": 2,
+          "decimals": 1,
           "mappings": [
             {
               "options": {
@@ -773,7 +713,7 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "s"
         },
         "overrides": []
       },
@@ -781,26 +721,28 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 7
+        "y": 5
       },
-      "id": 37,
+      "id": 57,
       "maxDataPoints": 100,
       "options": {
         "colorMode": "none",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Time$/",
           "values": false
         },
         "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -808,13 +750,13 @@
             "uid": "efi7a9ajh454wf"
           },
           "editorMode": "code",
-          "expr": "sum(pg_database_size_bytes{})",
-          "legendFormat": "__auto",
+          "expr": "pg_up",
+          "legendFormat": "",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Total database size",
+      "title": "PostgreSQL Uptime",
       "type": "stat"
     },
     {
@@ -872,7 +814,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -880,7 +824,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -934,7 +878,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 4,
         "w": 4,
         "x": 12,
         "y": 7
@@ -948,7 +892,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/^pg_settings_shared_buffers_bytes{instance=\"db01vp-nbg6a.obs.noris.net:9187\", job=\"postgres-exporter\", server=\"213.95.132.73:5432\"}$/",
           "values": false
         },
@@ -956,7 +902,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -1023,7 +969,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/^pg_settings_max_connections{instance=\"db01vp-nbg6a.obs.noris.net:9187\", job=\"postgres-exporter\", server=\"213.95.132.73:5432\"}$/",
           "values": false
         },
@@ -1031,14 +979,16 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "efi7a9ajh454wf"
           },
-          "expr": "pg_settings_max_connections{instance=\"$Instance\"}",
+          "editorMode": "code",
+          "expr": "pg_settings_max_connections{}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1048,7 +998,90 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "afi7aaanqrcw0d"
+        "uid": "efi7a9ajh454wf"
+      },
+      "description": "Size of all databases in $Instance.\n\nSource: pg_database_size()",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "rgb(31, 120, 193)",
+            "mode": "fixed"
+          },
+          "decimals": 2,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 8
+      },
+      "id": 37,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.11",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "efi7a9ajh454wf"
+          },
+          "editorMode": "code",
+          "expr": "sum(pg_database_size_bytes{})",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total database size",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "efi7a9ajh454wf"
       },
       "description": "View: pg_stat_activity",
       "fieldConfig": {
@@ -1154,7 +1187,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 10
+        "y": 11
       },
       "id": 24,
       "interval": "$Interval",
@@ -1168,7 +1201,11 @@
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1179,15 +1216,15 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "afi7aaanqrcw0d"
+            "uid": "efi7a9ajh454wf"
           },
           "editorMode": "code",
-          "expr": "sum by (state) (pg_stat_activity_count{})",
+          "expr": "pg_connection",
           "legendFormat": "{{state}}",
           "range": true,
           "refId": "A"
@@ -1305,7 +1342,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 10
+        "y": 11
       },
       "id": 28,
       "interval": "$Interval",
@@ -1319,7 +1356,11 @@
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1330,7 +1371,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -1412,13 +1453,17 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 19
+        "y": 20
       },
       "id": 12,
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1429,16 +1474,18 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "efi7a9ajh454wf"
           },
-          "expr": "sum ((rate(pg_stat_database_xact_commit[$Interval])))",
+          "editorMode": "code",
+          "expr": "pg_stat",
           "interval": "",
           "legendFormat": "committed",
+          "range": true,
           "refId": "A"
         },
         {
@@ -1524,13 +1571,17 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 20
       },
       "id": 27,
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1541,7 +1592,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -1645,13 +1696,17 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 29
       },
       "id": 26,
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1662,7 +1717,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -1756,13 +1811,17 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 29
       },
       "id": 111,
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1773,7 +1832,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -1866,7 +1925,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 37
+        "y": 38
       },
       "id": 29,
       "links": [
@@ -1878,7 +1937,11 @@
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -1889,7 +1952,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -2013,7 +2076,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 37
+        "y": 38
       },
       "id": 30,
       "links": [
@@ -2025,7 +2088,11 @@
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2036,7 +2103,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -2161,7 +2228,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 42
+        "y": 43
       },
       "id": 31,
       "links": [
@@ -2173,7 +2240,11 @@
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2184,7 +2255,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -2268,14 +2339,18 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 47
+        "y": 48
       },
       "id": 120,
       "interval": "1m",
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2286,7 +2361,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -2309,7 +2384,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 57
+        "y": 58
       },
       "id": 20,
       "panels": [],
@@ -2360,7 +2435,7 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 58
+        "y": 59
       },
       "id": 46,
       "maxDataPoints": 100,
@@ -2371,7 +2446,9 @@
         "orientation": "horizontal",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "/^pg_stat_activity_count{datname=\"grafana\", instance=\"db01vp-nbg6a.obs.noris.net:9187\", job=\"postgres-exporter\", server=\"213.95.132.73:5432\", state=\"active\"}$/",
           "values": false
         },
@@ -2379,7 +2456,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -2391,83 +2468,6 @@
         }
       ],
       "title": "Active clients",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "rgb(31, 120, 193)",
-            "mode": "fixed"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 4,
-        "y": 58
-      },
-      "id": 43,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "/^pg_database_size{datname=\"grafana\", instance=\"db01vp-nbg6a.obs.noris.net:9187\", job=\"postgres-exporter\", server=\"213.95.132.73:5432\"}$/",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "expr": "pg_database_size{instance=\"$Instance\",datname=\"$Database\"}",
-          "refId": "A"
-        }
-      ],
-      "title": "Database size",
       "type": "stat"
     },
     {
@@ -2515,17 +2515,20 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 4,
-        "x": 8,
-        "y": 58
+        "w": 24,
+        "x": 0,
+        "y": 62
       },
       "id": 44,
+      "maxPerRow": 3,
       "options": {
         "minVizHeight": 75,
         "minVizWidth": 75,
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -2533,7 +2536,9 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
+      "repeat": "Database",
+      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
@@ -2542,10 +2547,184 @@
           },
           "expr": "pg_stat_database_blks_hit{instance=~\"$Instance\",datname=~\"$Database\"}/(pg_stat_database_blks_hit{instance=~\"$Instance\",datname=~\"$Database\"}+pg_stat_database_blks_read{instance=~\"$Instance\",datname=~\"$Database\"})",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "efi7a9ajh454wf"
+          },
+          "editorMode": "code",
+          "expr": "pg_stat_database_blks_hit{}/(pg_stat_database_blks_hit{}+pg_stat_database_blks_read)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Shared Buffer Hits",
+      "transparent": true,
       "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "efi7a9ajh454wf"
+      },
+      "description": "Transactions committed + roolback per minute\n\nSource: pg_stat_database,xact_commit + xact_rollback",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "rgb(31, 120, 193)",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 92
+      },
+      "id": 122,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.11",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "efi7a9ajh454wf"
+          },
+          "expr": "sum((rate(pg_stat_database_xact_commit{instance=\"$Instance\",datname=\"$Database\"}[$Interval])))+sum((rate(pg_stat_database_xact_rollback{instance=\"$Instance\",datname=\"$Database\"}[$Interval])))",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Transaction rate",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "efi7a9ajh454wf"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "rgb(31, 120, 193)",
+            "mode": "fixed"
+          },
+          "decimals": 2,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 4,
+        "y": 92
+      },
+      "id": 43,
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^pg_database_size{datname=\"grafana\", instance=\"db01vp-nbg6a.obs.noris.net:9187\", job=\"postgres-exporter\", server=\"213.95.132.73:5432\"}$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.11",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "efi7a9ajh454wf"
+          },
+          "expr": "pg_database_size{instance=\"$Instance\",datname=\"$Database\"}",
+          "refId": "A"
+        }
+      ],
+      "title": "Database size",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -2594,7 +2773,7 @@
         "h": 6,
         "w": 4,
         "x": 12,
-        "y": 58
+        "y": 92
       },
       "id": 45,
       "options": {
@@ -2602,7 +2781,9 @@
         "minVizWidth": 75,
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -2610,7 +2791,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -2623,85 +2804,6 @@
       ],
       "title": "Commit Ratio",
       "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "efi7a9ajh454wf"
-      },
-      "description": "Transactions committed + roolback per minute\n\nSource: pg_stat_database,xact_commit + xact_rollback",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "rgb(31, 120, 193)",
-            "mode": "fixed"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 0,
-        "y": 61
-      },
-      "id": 122,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "efi7a9ajh454wf"
-          },
-          "expr": "sum((rate(pg_stat_database_xact_commit{instance=\"$Instance\",datname=\"$Database\"}[$Interval])))+sum((rate(pg_stat_database_xact_rollback{instance=\"$Instance\",datname=\"$Database\"}[$Interval])))",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Transaction rate",
-      "type": "stat"
     },
     {
       "datasource": {
@@ -2812,7 +2914,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 64
+        "y": 95
       },
       "id": 47,
       "interval": "$Interval",
@@ -2826,7 +2928,11 @@
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2837,7 +2943,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -2919,13 +3025,17 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 64
+        "y": 98
       },
       "id": 48,
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -2936,7 +3046,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -3031,13 +3141,17 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 73
+        "y": 104
       },
       "id": 124,
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3048,7 +3162,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -3152,13 +3266,17 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 73
+        "y": 107
       },
       "id": 126,
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3169,7 +3287,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -3263,7 +3381,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 82
+        "y": 113
       },
       "id": 128,
       "links": [
@@ -3275,7 +3393,11 @@
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3286,7 +3408,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -3410,7 +3532,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 82
+        "y": 116
       },
       "id": 130,
       "links": [
@@ -3422,7 +3544,11 @@
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3433,7 +3559,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -3558,7 +3684,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 87
+        "y": 121
       },
       "id": 132,
       "links": [
@@ -3570,7 +3696,11 @@
       "options": {
         "dataLinks": [],
         "legend": {
-          "calcs": ["mean", "lastNotNull", "max"],
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true
@@ -3581,7 +3711,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.3.0",
+      "pluginVersion": "12.3.11",
       "targets": [
         {
           "datasource": {
@@ -3598,23 +3728,30 @@
       "type": "timeseries"
     }
   ],
-  "preload": false,
+  "preload": true,
   "refresh": "",
   "schemaVersion": 42,
-  "tags": [],
+  "tags": [
+    "postgres"
+  ],
   "templating": {
     "list": [
       {
         "current": {
-          "text": "cms-pge.breeze-blocks.net:9187",
-          "value": "cms-pge.breeze-blocks.net:9187"
+          "text": "postgres-exporter.monitoring.svc.cluster.local:9187",
+          "value": "postgres-exporter.monitoring.svc.cluster.local:9187"
         },
         "datasource": "efi7a9ajh454wf",
-        "definition": "label_values({job=\"postgres-exporter\"}, instance)",
+        "definition": "label_values(pg_up,instance)",
         "includeAll": false,
-        "name": "Instance",
+        "label": "instance",
+        "name": "instance",
         "options": [],
-        "query": "label_values({job=\"postgres-exporter\"}, instance)",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(pg_up,instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 1,
         "regex": "",
         "type": "query"
@@ -3622,7 +3759,7 @@
       {
         "current": {
           "text": "All",
-          "value": ["$__all"]
+          "value": "$__all"
         },
         "datasource": "efi7a9ajh454wf",
         "definition": "label_values(datname)",
@@ -3690,6 +3827,25 @@
         "query": "30sec,1m,10m,30m,1h,6h,12h,1d",
         "refresh": 2,
         "type": "interval"
+      },
+      {
+        "current": {
+          "text": "postgres",
+          "value": "postgres"
+        },
+        "definition": "label_values(pg_up,node)",
+        "description": "",
+        "label": "node",
+        "name": "node",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(pg_up,node)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
       }
     ]
   },
@@ -3698,10 +3854,18 @@
     "to": "now"
   },
   "timepicker": {
-    "refresh_intervals": ["1m", "5m", "15m", "30m", "1h", "2h", "1d"]
+    "refresh_intervals": [
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
   },
   "timezone": "",
   "title": "PostgreSQL Exporter",
   "uid": "v5ciIbUZz",
-  "version": 9
+  "version": 26
 }
