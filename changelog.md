@@ -9,6 +9,3007 @@ title: Breeze Blocks Helm Repository Changelog
 
 
 <!--markdownlint-disable-->
+## [0.1.0] - 2026-10-31
+
+### 🚀 Features - 0.1.0
+
+
+- *(Add-kube-state-metrics-chart)* Enable ArgoCD
+- *(Update-Jenkinsfile,-lock)* Add commitizen to global libs
+- *(Add-kube-state-metrics-chart)* Enable ArgoCD
+- *(Update-prometheus-pipeline)* Changes to Jenkinsfile for Prometheus
+- Add prometheus operator
+- Working prometheus operator
+- Some kind words for our agentic friends
+- Some kind words for our agentic friends
+- Add gateway httproute
+- Add gateway httproute
+- Add smartctl exporter
+- Add smartctl exporter
+
+
+### 🐛 Bug Fixes - 0.1.0
+
+
+- *(Fix-missing-data-in-dashboard)* Update dashboard json for missing data
+- Update github workflows
+- Update github workflows
+- Some lint stuff
+- Whitespace
+- Line-length
+- Whitespace
+- Whitespace
+- Disable lint
+- Update settings
+- Update settings
+- Update cms values
+- Update nautobot configs
+- Update docker build
+- Working nautobot
+- Update values
+- Update values
+- Update values
+- Add working prometheus operator
+- Drop old po deployment
+- Add missing monitors
+- Markdown lint
+- Broken ci
+- Drop kube-prometheus-stack from lint
+- Comment test section
+- Update process exporter
+- Update values
+- Update settings
+- New settings
+- New settings
+- Update settings
+
+
+### 💼 Other - 0.1.0
+
+
+- Merge pull request #89 from edwardtheharris/88-release-003
+- Update changelog
+- Closes #89
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into 4-install-loki
+- Closes #4
+- Add loki values
+- Closes #4
+- Add glances db
+- Closes #4
+- Add statefulset for loki
+- Closes #4
+- Update ignore
+- Closes #4
+- Merge pull request #46 from edwardtheharris/4-install-loki
+- 4 install loki
+- Closes #4
+- Add default values
+- Closes #90
+- Update ignore
+- Closes #90
+- Update with docs
+- Closes #90
+- Update docs
+- Closes #90
+- Add push gateway
+- Closes #4
+- Merge branch '4-install-loki'
+- Into 90-install-promtail
+- Closes #90
+- Update values
+- Closes #90
+- Merge pull request #91 from edwardtheharris/90-install-promtail
+- 90 install promtail
+- Closes #90
+- Add values files
+- Closes #95
+- Update prometheus deployment
+- Closes #95
+- Update prometheus values
+- Closes #95
+- Update thw values
+- Closes #95
+- Merge branch '95-deploy-prometheus-everywhere' of
+- Edwardtheharris/helm-monitoring into 95-deploy-prometheus-everywhere
+- Closes #95
+- Update gitignore, add envoy templates
+- Closes #95
+- Update gateway
+- Closes #95
+- Bump urllib3 from 2.5.0 to 2.6.0 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [urllib3](https://github.com/urllib3/urllib3).
+- Updates `urllib3` from 2.5.0 to 2.6.0
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.5.0...2.6.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: urllib3
+-   dependency-version: 2.6.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch '102-bump-urllib3-from-250-to-260-in-the-pip-group-across-1-directory-92' into dependabot/pip/pip-a6aa50acab
+- Merge pull request #92 from edwardtheharris/dependabot/pip/pip-a6aa50acab
+- Bump urllib3 from 2.5.0 to 2.6.0 in the pip group across 1 directory
+- Closes #102
+- Merge pull request #103 from edwardtheharris/102-bump-urllib3-from-250-to-260-in-the-pip-group-across-1-directory-92
+- 102 bump urllib3 from 250 to 260 in the pip group across 1 directory 92
+- Closes #102
+- Bump sphinxemoji from 0.3.1 to 0.3.2
+- Bumps [sphinxemoji](https://github.com/sphinx-contrib/emojicodes) from 0.3.1 to 0.3.2.
+- - [Commits](https://github.com/sphinx-contrib/emojicodes/compare/v0.3.1...v0.3.2)
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinxemoji
+-   dependency-version: 0.3.2
+-   dependency-type: direct:development
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #97 from edwardtheharris/dependabot/pip/sphinxemoji-0.3.2
+- Bump sphinxemoji from 0.3.1 to 0.3.2
+- Closes #105
+- Merge pull request #106 from edwardtheharris/105-bump-sphinxemoji-from-031-to-032-97
+- 105 bump sphinxemoji from 031 to 032 97
+- Closes #105
+- Bump pipenv from 2025.0.4 to 2026.0.3
+- Bumps [pipenv](https://github.com/pypa/pipenv) from 2025.0.4 to 2026.0.3.
+- - [Release notes](https://github.com/pypa/pipenv/releases)
+- - [Changelog](https://github.com/pypa/pipenv/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/pypa/pipenv/compare/v2025.0.4...v2026.0.3)
+- ---
+- Updated-dependencies:
+- - dependency-name: pipenv
+-   dependency-version: 2026.0.3
+-   dependency-type: direct:production
+-   update-type: version-update:semver-major
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #101 from edwardtheharris/dependabot/pip/pipenv-2026.0.3
+- Bump pipenv from 2025.0.4 to 2026.0.3
+- Closes #107
+- Merge pull request #108 from edwardtheharris/107-bump-pipenv-from-202504-to-202603-101
+- 107 bump pipenv from 202504 to 202603 101
+- Closes #107
+- Bump starlette from 0.49.0 to 0.49.1 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [starlette](https://github.com/Kludex/starlette).
+- Updates `starlette` from 0.49.0 to 0.49.1
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/0.49.0...0.49.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: starlette
+-   dependency-version: 0.49.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #109 from edwardtheharris/dependabot/pip/pip-91ab757ed1
+- Bump starlette from 0.49.0 to 0.49.1 in the pip group across 1 directory
+- Closes #110
+- Merge pull request #111 from edwardtheharris/110-bump-starlette-from-0490-to-0491-in-the-pip-group-across-1-directory-109
+- 110 bump starlette from 0490 to 0491 in the pip group across 1 directory 109
+- Closes #110
+- Bump urllib3 from 2.6.0 to 2.6.3 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [urllib3](https://github.com/urllib3/urllib3).
+- Updates `urllib3` from 2.6.0 to 2.6.3
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.6.0...2.6.3)
+- ---
+- Updated-dependencies:
+- - dependency-name: urllib3
+-   dependency-version: 2.6.3
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #112 from edwardtheharris/dependabot/pip/pip-8177a8837a
+- Bump urllib3 from 2.6.0 to 2.6.3 in the pip group across 1 directory
+- Closes #114
+- Update ignore file
+- Closes #99
+- Update secret, values
+- Closes #99
+- Add annotated gateway resource
+- Closes #99
+- Fix service ports
+- Closes #99
+- Update ignore
+- Closes #99
+- Not a working annotated gateway yet
+- Closes #99
+- Well, no tls, but the gateway works
+- Closes #99
+- Fix lint problem
+- Closes #99
+- Merge pull request #113 from edwardtheharris/99-enable-more-automated-grafana-deployment
+- 99 enable more automated grafana deployment
+- Closes #99
+- Merge branch 'main' into 114-bump-urllib3-from-260-to-263-in-the-pip-group-across-1-directory-112
+- Merge pull request #115 from edwardtheharris/114-bump-urllib3-from-260-to-263-in-the-pip-group-across-1-directory-112
+- 114 bump urllib3 from 260 to 263 in the pip group across 1 directory 112
+- Closes #114
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 95-deploy-prometheus-everywhere
+- Closes #95
+- Update gateway
+- Closes #95
+- Fix http route
+- Closes #95
+- Drop empty dash
+- Closes #95
+- Merge pull request #100 from edwardtheharris/95-deploy-prometheus-everywhere
+- 95 deploy prometheus everywhere
+- Closes #95
+- Merge branch 'main' into 95-deploy-prometheus-everywhere
+- Merge pull request #116 from edwardtheharris/95-deploy-prometheus-everywhere
+- Drop empty dash
+- Closes #95
+- Bump gitpython from 3.1.45 to 3.1.46
+- Bumps [gitpython](https://github.com/gitpython-developers/GitPython) from 3.1.45 to 3.1.46.
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.45...3.1.46)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.46
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #117 from edwardtheharris/dependabot/pip/gitpython-3.1.46
+- Bump gitpython from 3.1.45 to 3.1.46
+- Closes #119
+- Merge pull request #120 from edwardtheharris/119-bump-gitpython-from-3145-to-3146-117
+- 119 bump gitpython from 3145 to 3146 117
+- Closes #119
+- Update gateway, values
+- Closes #95
+- Update route
+- Closes #95
+- Bump virtualenv in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [virtualenv](https://github.com/pypa/virtualenv).
+- Updates `virtualenv` from 20.35.4 to 20.36.1
+- - [Release notes](https://github.com/pypa/virtualenv/releases)
+- - [Changelog](https://github.com/pypa/virtualenv/blob/main/docs/changelog.rst)
+- - [Commits](https://github.com/pypa/virtualenv/compare/20.35.4...20.36.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: virtualenv
+-   dependency-version: 20.36.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Drop temp
+- Closes #93
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into 93-deploy-tempo
+- Closes #93
+- Merge pull request #122 from edwardtheharris/93-deploy-tempo
+- Drop temp
+- Closes #93
+- Merge branch '123-bump-virtualenv-from-20354-to-20361-in-the-pip-group-across-1-directory-118' into dependabot/pip/pip-99a64d02cb
+- Merge pull request #118 from edwardtheharris/dependabot/pip/pip-99a64d02cb
+- Bump virtualenv from 20.35.4 to 20.36.1 in the pip group across 1 directory
+- Closes #123
+- Merge pull request #124 from edwardtheharris/123-bump-virtualenv-from-20354-to-20361-in-the-pip-group-across-1-directory-118
+- 123 bump virtualenv from 20354 to 20361 in the pip group across 1 directory 118
+- Closes #123
+- Add Jenkinsfile
+- Closees #125
+- Merge pull request #126 from edwardtheharris/125-enable-jenkins
+- Add Jenkinsfile
+- Closes #125
+- Merge branch 'main' into 95-deploy-prometheus-everywhere
+- Merge pull request #121 from edwardtheharris/95-deploy-prometheus-everywhere
+- Update gateway, values
+- Closes #95
+- Bump sphinx-design from 0.6.1 to 0.7.0
+- Bumps [sphinx-design](https://github.com/executablebooks/sphinx-design) from 0.6.1 to 0.7.0.
+- - [Release notes](https://github.com/executablebooks/sphinx-design/releases)
+- - [Changelog](https://github.com/executablebooks/sphinx-design/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/executablebooks/sphinx-design/compare/v0.6.1...v0.7.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinx-design
+-   dependency-version: 0.7.0
+-   dependency-type: direct:development
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #127 from edwardtheharris/dependabot/pip/sphinx-design-0.7.0
+- Bump sphinx-design from 0.6.1 to 0.7.0
+- Closes #130
+- Merge pull request #131 from edwardtheharris/130-bump-sphinx-design-from-061-to-070-127
+- 130 bump sphinx design from 061 to 070 127
+- Closes #130
+- Bump myst-parser from 4.0.1 to 5.0.0
+- Bumps [myst-parser](https://github.com/executablebooks/MyST-Parser) from 4.0.1 to 5.0.0.
+- - [Release notes](https://github.com/executablebooks/MyST-Parser/releases)
+- - [Changelog](https://github.com/executablebooks/MyST-Parser/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/executablebooks/MyST-Parser/compare/v4.0.1...v5.0.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: myst-parser
+-   dependency-version: 5.0.0
+-   dependency-type: direct:development
+-   update-type: version-update:semver-major
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #128 from edwardtheharris/dependabot/pip/myst-parser-5.0.0
+- Bump myst-parser from 4.0.1 to 5.0.0
+- Closes #133
+- Merge pull request #134 from edwardtheharris/133-bump-myst-parser-from-401-to-500-128
+- 133 bump myst parser from 401 to 500 128
+- Closes #133
+- Update with correct secret names
+- Closes #135
+- Fix gateway for proper grafana deploy
+- Closes #135
+- Add note to docs
+- Closes #135
+- Merge pull request #136 from edwardtheharris/135-fix-broken-grafana-secrets
+- 135 fix broken grafana secrets
+- Clkoses #135
+- Enable jellyfin metrics
+- Closes #137
+- Enable music metrics
+- Closes #137
+- Drop deprecated ingress
+- Closes #137
+- Fix metrics
+- Closes #137
+- Merge pull request #138 from edwardtheharris/137-add-jellyfin-metrics
+- 137 add jellyfin metrics
+- Closes #137
+- Merge branch 'main' into 137-add-jellyfin-metrics
+- Merge pull request #139 from edwardtheharris/137-add-jellyfin-metrics
+- 137 add jellyfin metrics
+- Closes #137
+- Add values for deployments
+- Closes #142
+- Merge pull request #143 from edwardtheharris/142-add-promtail-deployment
+- Add values for deployments
+- Closes #143
+- Add net traffic dashboard
+- Closes #145
+- *(Fix-missing-data-in-dashboard)* Update dashboard json for missing data
+- Merge pull request #146 from edwardtheharris/145-add-new-dashboard-to-grafana
+- 145 add new dashboard to grafana
+- Closes #145
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into 4-install-loki
+- Closes #4
+- Update md
+- Closes #4
+- Update md config
+- Closes #4
+- Adjust pipfile and lock
+- Closes #4
+- Add copybutton
+- Closes #4
+- Update lock file
+- Closes #4
+- Update docs
+- Closes #4
+- Merge pull request #147 from edwardtheharris/4-install-loki
+- 4 install loki
+- Closes #4
+- Add deployment for thw
+- Closes #95
+- Merge pull request #148 from edwardtheharris/95-deploy-prometheus-everywhere
+- Add deployment for thw
+- Closes #95
+- Add single-binary loki deploy
+- Closes #96
+- Add new node
+- Closes #149
+- Merge pull request #150 from edwardtheharris/149-add-thw05
+- Add new node
+- Closes #149
+- Merge branch 'main' into 96-deploy-single-binary-loki
+- Merge pull request #151 from edwardtheharris/96-deploy-single-binary-loki
+- Add single-binary loki deploy
+- Closes #150
+- Drop GH dashboard, add k8s dashboards
+- Closes #152
+- Merge pull request #153 from edwardtheharris/152-add-k8s-dashboards-to-grafana
+- Drop GH dashboard, add k8s dashboards
+- Closes #152
+- Add chart for blackbox
+- Closes #154
+- Update exporter values
+- Closes #154
+- Update readme
+- Closes #154
+- Drop last relabel
+- Closes #154
+- Update indent
+- Closes #154
+- Update indent harder
+- Closes #154
+- Update comms values
+- Closes #154
+- Merge pull request #155 from edwardtheharris/154-enable-blackbox-exporter
+- Add chart for blackbox
+- Closes #154
+- Merge branch 'main' into 154-enable-blackbox-exporter
+- Merge pull request #156 from edwardtheharris/154-enable-blackbox-exporter
+- 154 enable blackbox exporter
+- Closes #154
+- Adjust k8s dashboards
+- Closes #157
+- Update net and load average
+- Closes #157
+- Merge pull request #158 from edwardtheharris/157-update-k8s-dashboards
+- 157 update k8s dashboards
+- Closes #157
+- *(Add-kube-state-metrics-chart)* Enable ArgoCD
+- Add Jenkinsfile
+- Closes #159
+- Add tests
+- Closes #159
+- Update cloud name
+- Closes #159
+- Fix project name
+- Closes #159
+- Update output
+- Closes #159
+- Update Jenkinsfile
+- Closes #159
+- *(Update-Jenkinsfile,-lock)* Add commitizen to global libs
+- Update jenkinsfile
+- Closes #159
+- Add tests
+- Closes #159
+- Drop duplicate stage
+- Closes #159
+- Update Jenkinsfile
+- Closes #159
+- Drop test yaml, update tests files
+- Closes #159
+- Fix additional tests
+- Closes #159
+- Update color settings
+- Closes #159
+- Update jenkisnfile
+- Closes #159
+- Fix syntax
+- Closes #159
+- Fix main jenkinsfile
+- Closes #159
+- Fix settings for cluster role
+- Closes #159
+- Fix color
+- Closes #159
+- Try crb
+- Closes #159
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Update tests
+- Fix markdown
+- Closes #159
+- Merge pull request #160 from edwardtheharris/159-pull-chart-for-kube-state-metrics
+- Closes #159
+- Update tests
+- Update prometheus values
+- Closes #70
+- Add kube state metrics
+- Closes #70
+- Drop file
+- Closes #70
+- Update values
+- Closes #70
+- Update lock
+- Closes #70
+- Fix bare url
+- Closes #70
+- Fix lint errors
+- Closes #70
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into
+- 70-add-kube-state-metrics
+- Closes #70
+- Drop affinity
+- Closes #70
+- Merge pull request #161 from edwardtheharris/70-add-kube-state-metrics
+- 70 add kube state metrics
+- Closes #70
+- Merge branch 'main' of github.com:edwardtheharris/helm-monitoring
+- Add nautobot deployment
+- Closes #140
+- Add Jenkinsfile
+- Closes #140
+- Add kubernetes agent
+- Closes #140
+- Update jenkinsfile
+- Closes #140
+- Update checkout stage
+- Closes #140
+- Update checkout stage
+- Closes #140
+- Update commms
+- Update jenkins pod yaml
+- Closes #140
+- Update commms
+- Update commms
+- Update commms
+- Update commms
+- Update commms
+- Update commms
+- Update commms
+- Update commms
+- Update commms
+- Update commms
+- Update nautobot
+- Closes #140
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 140-add-nautobot-deployment-to-comms
+- Closes #140
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into
+- 140-add-nautobot-deployment-to-comms
+- Closes #140
+- Update prometheus values
+- Closes #140
+- Merge branch 'main' into 140-add-nautobot-deployment-to-comms
+- Merge branch '140-add-nautobot-deployment-to-comms'
+- Of github.com:edwardtheharris/helm-monitoring
+- Into 140-add-nautobot-deployment-to-comms
+- Closes #140
+- Add values for stateful set
+- Closes #140
+- Update deployment
+- Closes #140
+- Fix secret
+- Closes #140
+- Fix timeout
+- Closes #140
+- Update redis url
+- Closes #140
+- Add missing version_query
+- Closes #140
+- Fix missing command, args
+- Closes #140
+- Bump commitizen from 4.13.8 to 4.13.9
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 4.13.8 to 4.13.9.
+- - [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- - [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/commitizen-tools/commitizen/compare/v4.13.8...v4.13.9)
+- ---
+- Updated-dependencies:
+- - dependency-name: commitizen
+-   dependency-version: 4.13.9
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 140-add-nautobot-deployment-to-comms
+- Closes #140
+- Merge pull request #141 from edwardtheharris/140-add-nautobot-deployment-to-comms
+- 140 add nautobot deployment to comms
+- Closes #140
+- Merge branch 'main' into dependabot/pip/commitizen-4.13.9
+- Merge pull request #164 from edwardtheharris/dependabot/pip/commitizen-4.13.9
+- Bump commitizen from 4.13.8 to 4.13.9
+- Closes #166
+- Merge pull request #167 from edwardtheharris/166-bump-commitizen-from-4138-to-4139164
+- 166 bump commitizen from 4138 to 4139164
+- Closes #166
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 140-add-nautobot-deployment-to-comms
+- Closes #140
+- Merge pull request #168 from edwardtheharris/140-add-nautobot-deployment-to-comms
+- 140 add nautobot deployment to comms
+- Closes #140
+- Update configuration
+- Closes #169
+- Merge pull request #170 from edwardtheharris/169-adjust-redis-url
+- Update configuration
+- Closes #169
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 125-enable-jenkins
+- Closes #125
+- Merge pull request #171 from edwardtheharris/125-enable-jenkins
+- 125 enable jenkins
+- Closes #125
+- Bump sphinx-book-theme from 1.1.4 to 1.2.0
+- Bumps [sphinx-book-theme](https://github.com/executablebooks/sphinx-book-theme) from 1.1.4 to 1.2.0.
+- - [Release notes](https://github.com/executablebooks/sphinx-book-theme/releases)
+- - [Changelog](https://github.com/executablebooks/sphinx-book-theme/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/executablebooks/sphinx-book-theme/compare/v1.1.4...v1.2.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinx-book-theme
+-   dependency-version: 1.2.0
+-   dependency-type: direct:development
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #173 from edwardtheharris/dependabot/pip/sphinx-book-theme-1.2.0
+- Bump sphinx-book-theme from 1.1.4 to 1.2.0
+- Closes #176
+- Merge pull request #177 from edwardtheharris/176-bump-sphinx-book-theme-from-114-to-120173
+- 176 bump sphinx book theme from 114 to 120173
+- Closes #176
+- Bump requests from 2.32.5 to 2.33.0 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [requests](https://github.com/psf/requests).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch 'main' of github.com:edwardtheharris/helm-monitoring
+- Merge branch 'main' of github.com:edwardtheharris/helm-monitoring
+- Closes #176
+- Add node exporter dashboard
+- Closes #178
+- Merge branch 'main' into 178-add-node-exporter-dashboard
+- Merge pull request #179 from edwardtheharris/178-add-node-exporter-dashboard
+- Add node exporter dashboard
+- Closes #178
+- Merge branch 'main' of github.com:edwardtheharris/helm-monitoring
+- Add jaegar helm chart
+- Closes #180
+- Well, it's there anyway
+- Closes #180
+- Update readme md
+- Closes #180
+- Merge pull request #181 from edwardtheharris/180-add-tracing-service
+- 180 add tracing service
+- Closes #180
+- Merge branch '183-bump-requests-from-2325-to-2330-in-the-pip-group-across-1-directory175' into dependabot/pip/pip-aa7cb66ac2
+- Merge pull request #175 from edwardtheharris/dependabot/pip/pip-aa7cb66ac2
+- Bump requests from 2.32.5 to 2.33.0 in the pip group across 1 directory
+- Closes #183
+- Merge pull request #184 from edwardtheharris/183-bump-requests-from-2325-to-2330-in-the-pip-group-across-1-directory175
+- 183 bump requests from 2325 to 2330 in the pip group across 1 directory175
+- Closes #183
+- Bump pipenv from 2026.0.3 to 2026.5.0
+- Bumps [pipenv](https://github.com/pypa/pipenv) from 2026.0.3 to 2026.5.0.
+- - [Release notes](https://github.com/pypa/pipenv/releases)
+- - [Changelog](https://github.com/pypa/pipenv/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/pypa/pipenv/compare/v2026.0.3...v2026.5.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: pipenv
+-   dependency-version: 2026.5.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #182 from edwardtheharris/dependabot/pip/pipenv-2026.5.0
+- Bump pipenv from 2026.0.3 to 2026.5.0
+- Closes #186
+- Merge pull request #187 from edwardtheharris/186-bump-pipenv-from-202603-to-202650182
+- 186 bump pipenv from 202603 to 202650182
+- Closes #186
+- Bump requests from 2.32.5 to 2.33.0 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [requests](https://github.com/psf/requests).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #185 from edwardtheharris/dependabot/pip/pip-aa7cb66ac2
+- Bump requests from 2.32.5 to 2.33.0 in the pip group across 1 directory
+- Closes #188
+- Merge pull request #189 from edwardtheharris/188-bump-requests-from-2325-to-2330-in-the-pip-group-across-1-directory185
+- 188 bump requests from 2325 to 2330 in the pip group across 1 directory185
+- Closes #188
+- Update LA dashboard
+- Closes #190
+- Update postgres dashboard
+- Closes #190
+- Update thw k8s db
+- Closes #190
+- Bump pipenv from 2026.5.1 to 2026.5.2
+- Bumps [pipenv](https://github.com/pypa/pipenv) from 2026.5.1 to 2026.5.2.
+- - [Release notes](https://github.com/pypa/pipenv/releases)
+- - [Changelog](https://github.com/pypa/pipenv/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/pypa/pipenv/compare/v2026.5.1...v2026.5.2)
+- ---
+- Updated-dependencies:
+- - dependency-name: pipenv
+-   dependency-version: 2026.5.2
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #192 from edwardtheharris/dependabot/pip/pipenv-2026.5.2
+- Bump pipenv from 2026.5.1 to 2026.5.2
+- Closes #192
+- Merge pull request #194 from edwardtheharris/193-bump-pipenv-from-202651-to-202652192
+- 193 bump pipenv from 202651 to 202652192
+- Closes #193
+- Merge branch 'main' into 190-update-k8sla-dashboards
+- Update values files
+- Closes #195
+- Update comms values
+- Closes #195
+- Update comms values
+- Merge pull request #196 from edwardtheharris/195-add-postgres-exporters-to-prometheus
+- 195 add postgres exporters to prometheus
+- Closes #195
+- Merge branch 'main' into 190-update-k8sla-dashboards
+- Merge branch '190-update-k8sla-dashboards' of github.com:edwardtheharris/helm-monitoring into 190-update-k8sla-dashboards
+- Closes #190
+- Merge pull request #191 from edwardtheharris/190-update-k8sla-dashboards
+- 190 update k8sla dashboards
+- Closes #190
+- Bump commitizen from 4.13.9 to 4.13.10
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 4.13.9 to 4.13.10.
+- - [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- - [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/commitizen-tools/commitizen/compare/v4.13.9...v4.13.10)
+- ---
+- Updated-dependencies:
+- - dependency-name: commitizen
+-   dependency-version: 4.13.10
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #197 from edwardtheharris/dependabot/pip/commitizen-4.13.10
+- Bump commitizen from 4.13.9 to 4.13.10
+- Closes #198
+- Merge pull request #199 from edwardtheharris/198-bump-commitizen-from-4139-to-41310197
+- 198 bump commitizen from 4139 to 41310197
+- Closes #198
+- Update gateway and route resources
+- Closes #200
+- Add vault support t grafana
+- Closes #200
+- Update ne dashboards
+- Closes #200
+- Merge pull request #201 from edwardtheharris/200-source-postgres-password-from-vault
+- 200 source postgres password from vault
+- Closes #200
+- Add k8s-monitoring
+- Closes #202
+- Add loki settings, enable k8s-monitoring
+- Closes #202
+- Update prometheus values
+- Closes #202
+- Merge pull request #203 from edwardtheharris/202-enable-k8s-monitoring
+- Add k8s-monitoring
+- Closess #202
+- Update dashboards, nautobot
+- Closes #204
+- Update ss values
+- Closes #204
+- Update comms values
+- Closes #162
+- Add badge to readme
+- Closes #162
+- Update latest values
+- Closes #162
+- Merge branch '162-sync-up-loki-resources-with-argo' of
+- Edwardtheharris/helm-monitoring into 162-sync-up-loki-resources-with-argo
+- Closes #162
+- Update values
+- Closes #162
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 162-sync-up-loki-resources-with-argo
+- Closes #162
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 162-sync-up-loki-resources-with-argo
+- Closes #162
+- Update route
+- Closes #162
+- Bump the pip group across 1 directory with 9 updates
+- Bumps the pip group with 9 updates in the /nautobot directory:
+- | Package | From | To |
+- | --- | --- | --- |
+- | [cryptography](https://github.com/pyca/cryptography) | `46.0.3` | `46.0.7` |
+- | [filelock](https://github.com/tox-dev/py-filelock) | `3.20.0` | `3.20.3` |
+- | [lxml](https://github.com/lxml/lxml) | `6.0.2` | `6.1.0` |
+- | [pillow](https://github.com/python-pillow/Pillow) | `12.0.0` | `12.2.0` |
+- | [pyasn1](https://github.com/pyasn1/pyasn1) | `0.6.1` | `0.6.3` |
+- | [requests](https://github.com/psf/requests) | `2.32.5` | `2.33.0` |
+- | [sqlparse](https://github.com/andialbrecht/sqlparse) | `0.5.3` | `0.5.4` |
+- | [urllib3](https://github.com/urllib3/urllib3) | `2.5.0` | `2.6.3` |
+- | [virtualenv](https://github.com/pypa/virtualenv) | `20.35.4` | `20.36.1` |
+- Updates `cryptography` from 46.0.3 to 46.0.7
+- - [Changelog](https://github.com/pyca/cryptography/blob/main/CHANGELOG.rst)
+- - [Commits](https://github.com/pyca/cryptography/compare/46.0.3...46.0.7)
+- Updates `filelock` from 3.20.0 to 3.20.3
+- - [Release notes](https://github.com/tox-dev/py-filelock/releases)
+- - [Changelog](https://github.com/tox-dev/filelock/blob/main/docs/changelog.rst)
+- - [Commits](https://github.com/tox-dev/py-filelock/compare/3.20.0...3.20.3)
+- Updates `lxml` from 6.0.2 to 6.1.0
+- - [Release notes](https://github.com/lxml/lxml/releases)
+- - [Changelog](https://github.com/lxml/lxml/blob/master/CHANGES.txt)
+- - [Commits](https://github.com/lxml/lxml/compare/lxml-6.0.2...lxml-6.1.0)
+- Updates `pillow` from 12.0.0 to 12.2.0
+- - [Release notes](https://github.com/python-pillow/Pillow/releases)
+- - [Changelog](https://github.com/python-pillow/Pillow/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/python-pillow/Pillow/compare/12.0.0...12.2.0)
+- Updates `pyasn1` from 0.6.1 to 0.6.3
+- - [Release notes](https://github.com/pyasn1/pyasn1/releases)
+- - [Changelog](https://github.com/pyasn1/pyasn1/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/pyasn1/pyasn1/compare/v0.6.1...v0.6.3)
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- Updates `sqlparse` from 0.5.3 to 0.5.4
+- - [Changelog](https://github.com/andialbrecht/sqlparse/blob/master/CHANGELOG)
+- - [Commits](https://github.com/andialbrecht/sqlparse/compare/0.5.3...0.5.4)
+- Updates `urllib3` from 2.5.0 to 2.6.3
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.5.0...2.6.3)
+- Updates `virtualenv` from 20.35.4 to 20.36.1
+- - [Release notes](https://github.com/pypa/virtualenv/releases)
+- - [Changelog](https://github.com/pypa/virtualenv/blob/main/docs/changelog.rst)
+- - [Commits](https://github.com/pypa/virtualenv/compare/20.35.4...20.36.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: cryptography
+-   dependency-version: 46.0.7
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: filelock
+-   dependency-version: 3.20.3
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: lxml
+-   dependency-version: 6.1.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: pillow
+-   dependency-version: 12.2.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: pyasn1
+-   dependency-version: 0.6.3
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: sqlparse
+-   dependency-version: 0.5.4
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: urllib3
+-   dependency-version: 2.6.3
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: virtualenv
+-   dependency-version: 20.36.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #206 from edwardtheharris/dependabot/pip/nautobot/pip-1012902d86
+- Bump the pip group across 1 directory with 9 updates
+- Closes #207
+- Bump requests from 2.32.5 to 2.33.0 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [requests](https://github.com/psf/requests).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #205 from edwardtheharris/dependabot/pip/pip-aa7cb66ac2
+- Bump requests from 2.32.5 to 2.33.0 in the pip group across 1 directory
+- Closes #208
+- Merge pull request #209 from edwardtheharris/208-bump-requests-from-2325-to-2330-in-the-pip-group-across-1-directory205
+- 208 bump requests from 2325 to 2330 in the pip group across 1 directory205
+- Closes #208
+- Merge branch 'main' into 207-bump-the-pip-group-across-1-directory-with-9-updates206
+- Merge pull request #210 from edwardtheharris/207-bump-the-pip-group-across-1-directory-with-9-updates206
+- 207 bump the pip group across 1 directory with 9 updates206
+- Closes #207
+- Bump requests from 2.32.5 to 2.33.0 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [requests](https://github.com/psf/requests).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #211 from edwardtheharris/dependabot/pip/pip-aa7cb66ac2
+- Bump requests from 2.32.5 to 2.33.0 in the pip group across 1 directory
+- Closes #214
+- Merge pull request #215 from edwardtheharris/214-bump-requests-from-2325-to-2330-in-the-pip-group-across-1-directory211
+- 214 bump requests from 2325 to 2330 in the pip group across 1 directory211
+- Closes #214
+- Bump gitpython from 3.1.46 to 3.1.48
+- Bumps [gitpython](https://github.com/gitpython-developers/GitPython) from 3.1.46 to 3.1.48.
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.46...3.1.48)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.47
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #213 from edwardtheharris/dependabot/pip/gitpython-3.1.47
+- Bump gitpython from 3.1.46 to 3.1.48
+- Closes #218
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the /nautobot directory: [requests](https://github.com/psf/requests) and [urllib3](https://github.com/urllib3/urllib3).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- Updates `urllib3` from 2.5.0 to 2.6.3
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.5.0...2.6.3)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: urllib3
+-   dependency-version: 2.6.3
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch '216-bump-the-pip-group-across-1-directory-with-2-updates212' into dependabot/pip/nautobot/pip-5a6093282f
+- Merge pull request #212 from edwardtheharris/dependabot/pip/nautobot/pip-5a6093282f
+- Bump the pip group across 1 directory with 2 updates
+- Closes #216
+- Merge pull request #217 from edwardtheharris/216-bump-the-pip-group-across-1-directory-with-2-updates212
+- 216 bump the pip group across 1 directory with 2 updates212
+- Closes #216
+- Merge branch 'main' into 218-bump-gitpython-from-3146-to-3148213
+- Merge pull request #219 from edwardtheharris/218-bump-gitpython-from-3146-to-3148213
+- 218 bump gitpython from 3146 to 3148213
+- Closes #218
+- Update dashboards
+- Closes #220
+- Merge pull request #221 from edwardtheharris/220-new-dashboards
+- Update dashboards
+- Closes #220
+- Merge branch 'main' of github.com:edwardtheharris/helm-monitoring into 162-sync-up-loki-resources-with-argo
+- Closes #162
+- Disable lint for readme
+- Closes #162
+- Merge pull request #163 from edwardtheharris/162-sync-up-loki-resources-with-argo
+- 162 sync up loki resources with argo
+- Closes #162
+- Bump commitizen from 4.13.10 to 4.15.0
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 4.13.10 to 4.15.0.
+- - [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- - [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/commitizen-tools/commitizen/compare/v4.13.10...v4.15.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: commitizen
+-   dependency-version: 4.15.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Bump pipenv from 2026.5.2 to 2026.6.1
+- Bumps [pipenv](https://github.com/pypa/pipenv) from 2026.5.2 to 2026.6.1.
+- - [Release notes](https://github.com/pypa/pipenv/releases)
+- - [Changelog](https://github.com/pypa/pipenv/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/pypa/pipenv/compare/v2026.5.2...v2026.6.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: pipenv
+-   dependency-version: 2026.6.1
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #222 from edwardtheharris/dependabot/pip/pipenv-2026.6.1
+- Bump pipenv from 2026.5.2 to 2026.6.1
+- Closes #225
+- Merge pull request #226 from edwardtheharris/225-bump-pipenv-from-202652-to-202661222
+- 225 bump pipenv from 202652 to 202661222
+- Closes #225
+- Merge branch '229-bump-commitizen-from-41310-to-4150224' into dependabot/pip/commitizen-4.15.0
+- Merge pull request #224 from edwardtheharris/dependabot/pip/commitizen-4.15.0
+- Bump commitizen from 4.13.10 to 4.15.0
+- Closes #229
+- Bump gitpython from 3.1.48 to 3.1.49
+- Bumps [gitpython](https://github.com/gitpython-developers/GitPython) from 3.1.48 to 3.1.49.
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.48...3.1.49)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.49
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #223 from edwardtheharris/dependabot/pip/gitpython-3.1.49
+- Bump gitpython from 3.1.48 to 3.1.49
+- Closes #227
+- Merge branch 'main' into 227-bump-gitpython-from-3148-to-3149223
+- Merge pull request #228 from edwardtheharris/227-bump-gitpython-from-3148-to-3149223
+- 227 bump gitpython from 3148 to 3149223
+- Closes #227
+- Merge branch 'main' into 229-bump-commitizen-from-41310-to-4150224
+- Merge pull request #230 from edwardtheharris/229-bump-commitizen-from-41310-to-4150224
+- 229 bump commitizen from 41310 to 4150224
+- Closes #229
+- Bump requests from 2.32.5 to 2.33.0 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [requests](https://github.com/psf/requests).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #231 from edwardtheharris/dependabot/pip/pip-aa7cb66ac2
+- Bump requests from 2.32.5 to 2.33.0 in the pip group across 1 directory
+- Closes #233
+- Merge pull request #234 from edwardtheharris/233-bump-requests-from-2325-to-2330-in-the-pip-group-across-1-directory231
+- 233 bump requests from 2325 to 2330 in the pip group across 1 directory231
+- Closes #233
+- Add dashboards
+- Closes #237
+- Add new dashboards
+- Closes #237
+- Merge pull request #238 from edwardtheharris/237-update-dashboards-json
+- Add dashboards
+- Closes #237
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the / directory: [requests](https://github.com/psf/requests) and [urllib3](https://github.com/urllib3/urllib3).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- Updates `urllib3` from 2.6.3 to 2.7.0
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.6.3...2.7.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: urllib3
+-   dependency-version: 2.7.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the /nautobot directory: [requests](https://github.com/psf/requests) and [urllib3](https://github.com/urllib3/urllib3).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- Updates `urllib3` from 2.5.0 to 2.6.3
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.5.0...2.6.3)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: urllib3
+-   dependency-version: 2.6.3
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch '235-bump-the-pip-group-across-1-directory-with-2-updates232' into dependabot/pip/nautobot/pip-5a6093282f
+- Merge pull request #232 from edwardtheharris/dependabot/pip/nautobot/pip-5a6093282f
+- Bump the pip group across 1 directory with 2 updates
+- Closes #235
+- Merge branch '235-bump-the-pip-group-across-1-directory-with-2-updates232' into dependabot/pip/pip-d0ce6315ac
+- Merge pull request #239 from edwardtheharris/dependabot/pip/pip-d0ce6315ac
+- Bump the pip group across 1 directory with 2 updates
+- Closes #235
+- Bump commitizen from 4.15.0 to 4.15.1
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 4.15.0 to 4.15.1.
+- - [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- - [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/commitizen-tools/commitizen/compare/v4.15.0...v4.15.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: commitizen
+-   dependency-version: 4.15.1
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #241 from edwardtheharris/dependabot/pip/commitizen-4.15.1
+- Bump commitizen from 4.15.0 to 4.15.1
+- Closes #244
+- Merge pull request #245 from edwardtheharris/244-bump-commitizen-from-4150-to-4151241
+- 244 bump commitizen from 4150 to 4151241
+- Closes #244
+- Merge branch 'main' into 235-bump-the-pip-group-across-1-directory-with-2-updates232
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the /nautobot directory: [requests](https://github.com/psf/requests) and [urllib3](https://github.com/urllib3/urllib3).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- Updates `urllib3` from 2.5.0 to 2.7.0
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.5.0...2.7.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: urllib3
+-   dependency-version: 2.7.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #240 from edwardtheharris/dependabot/pip/nautobot/pip-d0ce6315ac
+- Bump the pip group across 1 directory with 2 updates
+- Closes #236
+- Merge branch 'main' into 236-bump-the-pip-group-across-1-directory-with-2-updates232-235
+- Merge pull request #246 from edwardtheharris/236-bump-the-pip-group-across-1-directory-with-2-updates232-235
+- 236 bump the pip group across 1 directory with 2 updates232 235
+- Closes #236
+- Merge branch 'main' into 235-bump-the-pip-group-across-1-directory-with-2-updates232
+- Merge pull request #247 from edwardtheharris/235-bump-the-pip-group-across-1-directory-with-2-updates232
+- 235 bump the pip group across 1 directory with 2 updates232
+- Closes #235
+- Bump version-query from 1.7.0 to 1.7.1
+- Bumps [version-query](https://github.com/mbdevpl/version-query) from 1.7.0 to 1.7.1.
+- - [Release notes](https://github.com/mbdevpl/version-query/releases)
+- - [Commits](https://github.com/mbdevpl/version-query/compare/v1.7.0...v1.7.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: version-query
+-   dependency-version: 1.7.1
+-   dependency-type: direct:development
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #243 from edwardtheharris/dependabot/pip/version-query-1.7.1
+- Bump version-query from 1.7.0 to 1.7.1
+- Closes #252
+- Bump gitpython from 3.1.49 to 3.1.50
+- Bumps [gitpython](https://github.com/gitpython-developers/GitPython) from 3.1.49 to 3.1.50.
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.49...3.1.50)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.50
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #242 from edwardtheharris/dependabot/pip/gitpython-3.1.50
+- Bump gitpython from 3.1.49 to 3.1.50g
+- Closes #250
+- Merge pull request #251 from edwardtheharris/250-bump-gitpython-from-3149-to-3150242
+- 250 bump gitpython from 3149 to 3150242
+- Closes #250
+- Merge branch 'main' into 252-bump-version-query-from-170-to-171243
+- Merge pull request #253 from edwardtheharris/252-bump-version-query-from-170-to-171243
+- 252 bump version query from 170 to 171243
+- Closes #252
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the / directory: [requests](https://github.com/psf/requests) and [urllib3](https://github.com/urllib3/urllib3).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- Updates `urllib3` from 2.6.3 to 2.7.0
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.6.3...2.7.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+- - dependency-name: urllib3
+-   dependency-version: 2.7.0
+-   dependency-type: indirect
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #248 from edwardtheharris/dependabot/pip/pip-d0ce6315ac
+- Bump the pip group across 1 directory with 2 updates
+- Closes #254
+- Merge pull request #255 from edwardtheharris/254-bump-the-pip-group-across-1-directory-with-2-updates248
+- 254 bump the pip group across 1 directory with 2 updates248
+- Closes #254
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the / directory: [requests](https://github.com/psf/requests) and [urllib3](https://github.com/urllib3/urllib3).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- Updates `urllib3` from 2.6.3 to 2.7.0
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.6.3...2.7.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: urllib3
+-   dependency-version: 2.7.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #256 from edwardtheharris/dependabot/pip/pip-d0ce6315ac
+- Bump the pip group across 1 directory with 2 updates
+- Closes #257
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the /nautobot directory: [requests](https://github.com/psf/requests) and [urllib3](https://github.com/urllib3/urllib3).
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- Updates `urllib3` from 2.5.0 to 2.7.0
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.5.0...2.7.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: urllib3
+-   dependency-version: 2.7.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch '258-bump-the-pip-group-across-1-directory-with-2-updates249' into dependabot/pip/nautobot/pip-d0ce6315ac
+- Merge pull request #249 from edwardtheharris/dependabot/pip/nautobot/pip-d0ce6315ac
+- Bump the pip group across 1 directory with 2 updates
+- Closes #258
+- Merge pull request #259 from edwardtheharris/258-bump-the-pip-group-across-1-directory-with-2-updates249
+- 258 bump the pip group across 1 directory with 2 updates249
+- Closes #258
+- Merge branch 'main' into 257-bump-the-pip-group-across-1-directory-with-2-updates256
+- Merge pull request #260 from edwardtheharris/257-bump-the-pip-group-across-1-directory-with-2-updates256
+- 257 bump the pip group across 1 directory with 2 updates256
+- Closes #257
+- Merge branch 'main' into 237-update-dashboards-json
+- Merge pull request #261 from edwardtheharris/237-update-dashboards-json
+- Add new dashboards
+- Closes #237
+- Bump commitizen from 4.15.1 to 4.16.2
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 4.15.1 to 4.16.2.
+- - [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- - [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/commitizen-tools/commitizen/compare/v4.15.1...v4.16.2)
+- ---
+- Updated-dependencies:
+- - dependency-name: commitizen
+-   dependency-version: 4.16.2
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #262 from edwardtheharris/dependabot/pip/commitizen-4.16.2
+- Bump commitizen from 4.15.1 to 4.16.2
+- Closes #264
+- Merge pull request #265 from edwardtheharris/264-bump-commitizen-from-4151-to-4162262
+- 264 bump commitizen from 4151 to 4162262
+- Closes #264
+- Bump the pip group across 1 directory with 5 updates
+- Bumps the pip group with 4 updates in the /nautobot directory: [nautobot](https://github.com/nautobot/nautobot), [idna](https://github.com/kjd/idna), [requests](https://github.com/psf/requests) and [urllib3](https://github.com/urllib3/urllib3).
+- Updates `nautobot` from 3.0.0 to 3.1.2
+- - [Release notes](https://github.com/nautobot/nautobot/releases)
+- - [Changelog](https://github.com/nautobot/nautobot/blob/develop/CHANGELOG.md)
+- - [Commits](https://github.com/nautobot/nautobot/compare/v3.0.0...v3.1.2)
+- Updates `idna` from 3.11 to 3.15
+- - [Release notes](https://github.com/kjd/idna/releases)
+- - [Changelog](https://github.com/kjd/idna/blob/master/HISTORY.md)
+- - [Commits](https://github.com/kjd/idna/compare/v3.11...v3.15)
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- Updates `social-auth-app-django` from 5.4.3 to 5.7.0
+- - [Release notes](https://github.com/python-social-auth/social-app-django/releases)
+- - [Changelog](https://github.com/python-social-auth/social-app-django/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/python-social-auth/social-app-django/compare/5.4.3...5.7.0)
+- Updates `urllib3` from 2.5.0 to 2.7.0
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.5.0...2.7.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: nautobot
+-   dependency-version: 3.1.2
+-   dependency-type: direct:production
+-   dependency-group: pip
+- - dependency-name: idna
+-   dependency-version: '3.15'
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: social-auth-app-django
+-   dependency-version: 5.7.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: urllib3
+-   dependency-version: 2.7.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Bump the pip group across 1 directory with 3 updates
+- Bumps the pip group with 3 updates in the / directory: [idna](https://github.com/kjd/idna), [requests](https://github.com/psf/requests) and [urllib3](https://github.com/urllib3/urllib3).
+- Updates `idna` from 3.11 to 3.15
+- - [Release notes](https://github.com/kjd/idna/releases)
+- - [Changelog](https://github.com/kjd/idna/blob/master/HISTORY.md)
+- - [Commits](https://github.com/kjd/idna/compare/v3.11...v3.15)
+- Updates `requests` from 2.32.5 to 2.33.0
+- - [Release notes](https://github.com/psf/requests/releases)
+- - [Changelog](https://github.com/psf/requests/blob/main/HISTORY.md)
+- - [Commits](https://github.com/psf/requests/compare/v2.32.5...v2.33.0)
+- Updates `urllib3` from 2.6.3 to 2.7.0
+- - [Release notes](https://github.com/urllib3/urllib3/releases)
+- - [Changelog](https://github.com/urllib3/urllib3/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/urllib3/urllib3/compare/2.6.3...2.7.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: idna
+-   dependency-version: '3.15'
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: requests
+-   dependency-version: 2.33.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: urllib3
+-   dependency-version: 2.7.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #266 from edwardtheharris/dependabot/pip/pip-a8cb594a36
+- Bump the pip group across 1 directory with 3 updates
+- Closes #278
+- Bump myst-parser from 5.0.0 to 5.1.0
+- Bumps [myst-parser](https://github.com/executablebooks/MyST-Parser) from 5.0.0 to 5.1.0.
+- - [Release notes](https://github.com/executablebooks/MyST-Parser/releases)
+- - [Changelog](https://github.com/executablebooks/MyST-Parser/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/executablebooks/MyST-Parser/compare/v5.0.0...v5.1.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: myst-parser
+-   dependency-version: 5.1.0
+-   dependency-type: direct:development
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #263 from edwardtheharris/dependabot/pip/myst-parser-5.1.0
+- Bump myst-parser from 5.0.0 to 5.1.0
+- Closes #268
+- Merge pull request #269 from edwardtheharris/268-bump-myst-parser-from-500-to-510263
+- 268 bump myst parser from 500 to 510263
+- Closes #268
+- Merge branch 'main' into 270-bump-the-pip-group-across-1-directory-with-3-updates266
+- Merge pull request #271 from edwardtheharris/270-bump-the-pip-group-across-1-directory-with-3-updates266
+- 270 bump the pip group across 1 directory with 3 updates266
+- Closes #270
+- Merge branch '272-bump-the-pip-group-across-1-directory-with-5-updates267' into dependabot/pip/nautobot/pip-bccf89c079
+- Merge pull request #267 from edwardtheharris/dependabot/pip/nautobot/pip-bccf89c079
+- Bump the pip group across 1 directory with 5 updates
+- Closes #272
+- Add Jenkinsfiles
+- Closes #144
+- Add new tests
+- Closes #144
+- Update Jenkinsfile
+- Closes #144
+- Update Jenkinsfile
+- Closes #144
+- Update lint steps
+- Closes #144
+- Fix missing values
+- Closes #144
+- Update dir
+- Closes #144
+- Update dir
+- Closes #144
+- Update dir
+- Closes #144
+- Try a checkout
+- Closes #144
+- Update jenkisnfile
+- Closes #144
+- Update jenkinsfile
+- Clsoes #144
+- Fixed kubeconfig
+- Closes #144
+- Fix kubeconfig harder See #29
+- Fix test step
+- Closes #144
+- Init pod label
+- Closes #144
+- Order of operations
+- Closes #144
+- Fix kubeconfig harder See #29
+- Fix kubeconfig harder See #29
+- Fix kubeconfig harder See #29
+- Try the other one
+- Closes #144
+- Update jenksinfile
+- Update jenkinsfile
+- Closes #144
+- Update jenksinfile
+- Update jenksinfile
+- Update jenksinfile
+- Update jenksinfile
+- Update jenksinfile
+- Update jenksinfile
+- Update jenksinfile
+- Update jenksinfile
+- Update jenksinfile
+- Update jenksinfile
+- *(Update-prometheus-pipeline)* Changes to Jenkinsfile for Prometheus
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 144-deploy-prometheus-with-jenkins
+- Closes #144
+- Drop extra file
+- Closes #144
+- Merge branch '144-deploy-prometheus-with-jenkins' of
+- Edwardtheharris/helm-monitoring
+- Into 144-deploy-prometheus-with-jenkins
+- Closes #144
+- Enable GatewayAPI in Prometheus deployment
+- Closes #144
+- Merge pull request #165 from edwardtheharris/144-deploy-prometheus-with-jenkins
+- 144 deploy prometheus with jenkins
+- Closes #144
+- Merge branch 'main' into 272-bump-the-pip-group-across-1-directory-with-5-updates267
+- Merge pull request #273 from edwardtheharris/272-bump-the-pip-group-across-1-directory-with-5-updates267
+- 272 bump the pip group across 1 directory with 5 updates267
+- Closes #272
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 204-update-vault-secrets-in-nautobot
+- Closes #204
+- Enable secrets via Vault
+- Closes #204
+- Merge pull request #274 from edwardtheharris/204-update-vault-secrets-in-nautobot
+- Update dashboards, nautobot
+- Closes #204
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Bumps sphinxcontrib-autoyaml from 1.1.3 to 1.2.0.
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinxcontrib-autoyaml
+-   dependency-version: 1.2.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #275 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #276
+- Merge pull request #277 from edwardtheharris/276-bump-sphinxcontrib-autoyaml-from-113-to-120275
+- 276 bump sphinxcontrib autoyaml from 113 to 120275
+- Closes #276
+- Bump starlette in /nautobot in the pip group across 1 directory
+- Bumps the pip group with 1 update in the /nautobot directory: [starlette](https://github.com/Kludex/starlette).
+- Updates `starlette` from 1.0.0 to 1.0.1
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/1.0.0...1.0.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: starlette
+-   dependency-version: 1.0.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Bumps sphinxcontrib-autoyaml from 1.1.3 to 1.2.0.
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinxcontrib-autoyaml
+-   dependency-version: 1.2.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #278 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #282
+- Merge pull request #283 from edwardtheharris/282-bump-sphinxcontrib-autoyaml-from-113-to-120278
+- 282 bump sphinxcontrib autoyaml from 113 to 120278
+- Closes #282
+- Bump commitizen from 4.16.2 to 4.16.3
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 4.16.2 to 4.16.3.
+- - [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- - [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/commitizen-tools/commitizen/compare/v4.16.2...v4.16.3)
+- ---
+- Updated-dependencies:
+- - dependency-name: commitizen
+-   dependency-version: 4.16.3
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #279 from edwardtheharris/dependabot/pip/commitizen-4.16.3
+- Bump commitizen from 4.16.2 to 4.16.3
+- Closes #284
+- Merge pull request #285 from edwardtheharris/284-bump-commitizen-from-4162-to-4163279
+- 284 bump commitizen from 4162 to 4163279
+- Closes #284
+- Merge branch 'main' into dependabot/pip/nautobot/pip-f07ca4ca9c
+- Merge pull request #281 from edwardtheharris/dependabot/pip/nautobot/pip-f07ca4ca9c
+- Bump starlette from 1.0.0 to 1.0.1 in /nautobot in the pip group across 1 directory
+- Closes #288
+- Bump starlette from 0.52.1 to 1.0.1 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [starlette](https://github.com/Kludex/starlette).
+- Updates `starlette` from 0.52.1 to 1.0.1
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/0.52.1...1.0.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: starlette
+-   dependency-version: 1.0.1
+-   dependency-type: indirect
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch '286-bump-starlette-from-0521-to-101-in-the-pip-group-across-1-directory280' into dependabot/pip/pip-f07ca4ca9c
+- Merge pull request #280 from edwardtheharris/dependabot/pip/pip-f07ca4ca9c
+- Bump starlette from 0.52.1 to 1.0.1 in the pip group across 1 directory
+- Closes #286
+- Merge pull request #287 from edwardtheharris/286-bump-starlette-from-0521-to-101-in-the-pip-group-across-1-directory280
+- 286 bump starlette from 0521 to 101 in the pip group across 1 directory280
+- Closes #286
+- Merge branch 'main' into 288-bump-starlette-from-100-to-101-in-nautobot-in-the-pip-group-across-1-directory281
+- Merge pull request #289 from edwardtheharris/288-bump-starlette-from-100-to-101-in-nautobot-in-the-pip-group-across-1-directory281
+- 288 bump starlette from 100 to 101 in nautobot in the pip group across 1 directory281
+- Closes #288
+- Bump pipenv from 2026.6.1 to 2026.6.2
+- Bumps [pipenv](https://github.com/pypa/pipenv) from 2026.6.1 to 2026.6.2.
+- - [Release notes](https://github.com/pypa/pipenv/releases)
+- - [Changelog](https://github.com/pypa/pipenv/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/pypa/pipenv/compare/v2026.6.1...v2026.6.2)
+- ---
+- Updated-dependencies:
+- - dependency-name: pipenv
+-   dependency-version: 2026.6.2
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #291 from edwardtheharris/dependabot/pip/pipenv-2026.6.2
+- Bump pipenv from 2026.6.1 to 2026.6.2
+- Closes #292
+- Merge pull request #293 from edwardtheharris/292-bump-pipenv-from-202661-to-202662291
+- 292 bump pipenv from 202661 to 202662291
+- Closes #292
+- Add prometheus operator
+- Closes #294
+- Update operator
+- Closes #294
+- Add secret provider class
+- Closes #290
+- Add nautobot updates
+- Closes #290
+- Merge branch 'main' into 290-add-a-secretproviderclass-template-for-nautobot
+- Merge pull request #296 from edwardtheharris/290-add-a-secretproviderclass-template-for-nautobot
+- 290 add a secretproviderclass template for nautobot
+- Closes #290
+- Add updates for grafana
+- Closes #297
+- Add loki updates
+- Closes #295
+- Merge branch 'main' into 295-update-loki-templates-and-values
+- Merge pull request #299 from edwardtheharris/295-update-loki-templates-and-values
+- Add loki updates
+- Closes #295
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring '
+- Into 297-grafana-updates
+- Closes #297
+- Add grafana dashboards
+- Closes #297
+- Merge pull request #298 from edwardtheharris/297-grafana-updates
+- Add updates for grafana
+- Closes #297
+- Update node exporter values
+- Closes #301
+- Merge pull request #302 from edwardtheharris/301-add-prometheus-node-exporter
+- Update node exporter values
+- Closes #301
+- Merge branch 'main' into 294-add-prometheus-operator
+- Update templates and values
+- Closes #300
+- Merge branch 'main' into 300-add-prometheus-updates
+- Merge branch 'main' into 300-add-prometheus-updates
+- Merge pull request #303 from edwardtheharris/300-add-prometheus-updates
+- Update templates and values
+- Closes #300
+- Merge branch 'main' into 294-add-prometheus-operator
+- Merge pull request #304 from edwardtheharris/294-add-prometheus-operator
+- Add prometheus operator
+- Closes #294
+- Merge branch 'main' into 294-add-prometheus-operator
+- Merge pull request #305 from edwardtheharris/294-add-prometheus-operator
+- Update operator
+- Closes #294
+- Bump pyjwt in /nautobot in the pip group across 1 directory
+- Bumps the pip group with 1 update in the /nautobot directory: [pyjwt](https://github.com/jpadilla/pyjwt).
+- Updates `pyjwt` from 2.12.1 to 2.13.0
+- - [Release notes](https://github.com/jpadilla/pyjwt/releases)
+- - [Changelog](https://github.com/jpadilla/pyjwt/blob/master/CHANGELOG.rst)
+- - [Commits](https://github.com/jpadilla/pyjwt/compare/2.12.1...2.13.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: pyjwt
+-   dependency-version: 2.13.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #307 from edwardtheharris/dependabot/pip/nautobot/pip-22e9261afe
+- Bump pyjwt from 2.12.1 to 2.13.0 in /nautobot in the pip group across 1 directory
+- Closes #310
+- Bump starlette from 0.52.1 to 1.3.1 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [starlette](https://github.com/Kludex/starlette).
+- Updates `starlette` from 0.52.1 to 1.3.1
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/0.52.1...1.3.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: starlette
+-   dependency-version: 1.3.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #306 from edwardtheharris/dependabot/pip/pip-ea269f03c1
+- Bump starlette from 0.52.1 to 1.3.1 in the pip group across 1 directory
+- Closes #308
+- Merge pull request #309 from edwardtheharris/308-bump-starlette-from-0521-to-131-in-the-pip-group-across-1-directory306
+- 308 bump starlette from 0521 to 131 in the pip group across 1 directory306
+- Closes #308
+- Merge branch 'main' into 310-bump-pyjwt-from-2121-to-2130-in-nautobot-in-the-pip-group-across-1-directory307
+- Merge pull request #311 from edwardtheharris/310-bump-pyjwt-from-2121-to-2130-in-nautobot-in-the-pip-group-across-1-directory307
+- 310 bump pyjwt from 2121 to 2130 in nautobot in the pip group across 1 directory307
+- Closes #310
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the /nautobot directory: [cryptography](https://github.com/pyca/cryptography) and [starlette](https://github.com/Kludex/starlette).
+- Updates `cryptography` from 46.0.7 to 48.0.1
+- - [Changelog](https://github.com/pyca/cryptography/blob/main/CHANGELOG.rst)
+- - [Commits](https://github.com/pyca/cryptography/compare/46.0.7...48.0.1)
+- Updates `starlette` from 1.2.1 to 1.3.1
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/1.2.1...1.3.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: cryptography
+-   dependency-version: 48.0.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: starlette
+-   dependency-version: 1.3.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #312 from edwardtheharris/dependabot/pip/nautobot/pip-740b34f595
+- Bump the pip group across 1 directory with 2 updates
+- Closes #313
+- Merge pull request #314 from edwardtheharris/313-bump-the-pip-group-across-1-directory-with-2-updates312
+- 313 bump the pip group across 1 directory with 2 updates312
+- Closes #313
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Bumps sphinxcontrib-autoyaml from 1.1.3 to 1.2.0.
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinxcontrib-autoyaml
+-   dependency-version: 1.2.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #317 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #320
+- Bump commitizen from 4.16.3 to 4.16.4
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 4.16.3 to 4.16.4.
+- - [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- - [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/commitizen-tools/commitizen/compare/v4.16.3...v4.16.4)
+- ---
+- Updated-dependencies:
+- - dependency-name: commitizen
+-   dependency-version: 4.16.4
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #316 from edwardtheharris/dependabot/pip/commitizen-4.16.4
+- Bump commitizen from 4.16.3 to 4.16.4
+- Closes #318
+- Merge pull request #319 from edwardtheharris/318-bump-commitizen-from-4163-to-4164316
+- 318 bump commitizen from 4163 to 4164316
+- Closes #318
+- Merge branch 'main' into 320-bump-sphinxcontrib-autoyaml-from-113-to-120317
+- Merge pull request #321 from edwardtheharris/320-bump-sphinxcontrib-autoyaml-from-113-to-120317
+- 320 bump sphinxcontrib autoyaml from 113 to 120317
+- Closes #320
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Bumps sphinxcontrib-autoyaml from 1.1.3 to 1.2.0.
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinxcontrib-autoyaml
+-   dependency-version: 1.2.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #322 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #324
+- Merge pull request #325 from edwardtheharris/324-bump-sphinxcontrib-autoyaml-from-113-to-120322
+- 324 bump sphinxcontrib autoyaml from 113 to 120322
+- Closes #324
+- Update charts
+- Merge pull request #326 from edwardtheharris/315-add-new-endpoints
+- Update charts
+- Closes #315
+- Bump gitpython from 3.1.50 to 3.1.51
+- Bumps [gitpython](https://github.com/gitpython-developers/GitPython) from 3.1.50 to 3.1.51.
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.50...3.1.51)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.51
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Bumps sphinxcontrib-autoyaml from 1.1.3 to 1.2.0.
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinxcontrib-autoyaml
+-   dependency-version: 1.2.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #329 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #323
+- Merge pull request #330 from edwardtheharris/323-bump-sphinxcontrib-autoyaml-from-113-to-120322
+- 323 bump sphinxcontrib autoyaml from 113 to 120322
+- Closes #323
+- Merge branch 'main' into dependabot/pip/gitpython-3.1.51
+- Merge pull request #328 from edwardtheharris/dependabot/pip/gitpython-3.1.51
+- Bump gitpython from 3.1.50 to 3.1.51
+- Closes #331
+- Merge pull request #332 from edwardtheharris/331-bump-gitpython-from-3150-to-3151328
+- 331 bump gitpython from 3150 to 3151328
+- Closes #331
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the / directory: [starlette](https://github.com/Kludex/starlette) and [soupsieve](https://github.com/facelessuser/soupsieve).
+- Updates `starlette` from 0.52.1 to 1.3.1
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/0.52.1...1.3.1)
+- Updates `soupsieve` from 2.8.3 to 2.8.4
+- - [Release notes](https://github.com/facelessuser/soupsieve/releases)
+- - [Commits](https://github.com/facelessuser/soupsieve/compare/2.8.3...2.8.4)
+- ---
+- Updated-dependencies:
+- - dependency-name: soupsieve
+-   dependency-version: 2.8.4
+-   dependency-type: indirect
+- - dependency-name: starlette
+-   dependency-version: 1.3.1
+-   dependency-type: indirect
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #327 from edwardtheharris/dependabot/pip/pip-9a2dbd6213
+- Bump the pip group across 1 directory with 2 updates
+- Closes #333
+- Merge pull request #334 from edwardtheharris/333-bump-the-pip-group-across-1-directory-with-2-updates327
+- 333 bump the pip group across 1 directory with 2 updates327
+- Closes #333
+- Bump pillow in /nautobot in the pip group across 1 directory
+- Bumps the pip group with 1 update in the /nautobot directory: [pillow](https://github.com/python-pillow/Pillow).
+- Updates `pillow` from 12.2.0 to 12.3.0
+- - [Release notes](https://github.com/python-pillow/Pillow/releases)
+- - [Changelog](https://github.com/python-pillow/Pillow/blob/main/CHANGES.rst)
+- - [Commits](https://github.com/python-pillow/Pillow/compare/12.2.0...12.3.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: pillow
+-   dependency-version: 12.3.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Bump commitizen from 4.16.4 to 4.16.5
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 4.16.4 to 4.16.5.
+- - [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- - [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/commitizen-tools/commitizen/compare/v4.16.4...v4.16.5)
+- ---
+- Updated-dependencies:
+- - dependency-name: commitizen
+-   dependency-version: 4.16.5
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #335 from edwardtheharris/dependabot/pip/commitizen-4.16.5
+- Bump commitizen from 4.16.4 to 4.16.5
+- Closes #339
+- Merge pull request #340 from edwardtheharris/339-bump-commitizen-from-4164-to-4165335
+- 339 bump commitizen from 4164 to 4165335
+- Closes #339
+- Bump sphinx-book-theme from 1.2.0 to 1.4.0
+- Bumps [sphinx-book-theme](https://github.com/executablebooks/sphinx-book-theme) from 1.2.0 to 1.4.0.
+- - [Release notes](https://github.com/executablebooks/sphinx-book-theme/releases)
+- - [Changelog](https://github.com/executablebooks/sphinx-book-theme/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/executablebooks/sphinx-book-theme/compare/v1.2.0...v1.4.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinx-book-theme
+-   dependency-version: 1.4.0
+-   dependency-type: direct:development
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #336 from edwardtheharris/dependabot/pip/sphinx-book-theme-1.4.0
+- Bump sphinx-book-theme from 1.2.0 to 1.4.0
+- Closes #341
+- Merge pull request #342 from edwardtheharris/341-bump-sphinx-book-theme-from-120-to-140336
+- 341 bump sphinx book theme from 120 to 140336
+- Closes #341
+- Merge branch '345-bump-pillow-from-1220-to-1230-in-nautobot-in-the-pip-group-across-1-directory338' into dependabot/pip/nautobot/pip-5bfe3a18f0
+- Merge pull request #338 from edwardtheharris/dependabot/pip/nautobot/pip-5bfe3a18f0
+- Bump pillow from 12.2.0 to 12.3.0 in /nautobot in the pip group across 1 directory
+- Closes #345
+- Bump gitpython from 3.1.51 to 3.1.53
+- Bumps [gitpython](https://github.com/gitpython-developers/GitPython) from 3.1.51 to 3.1.53.
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.51...3.1.53)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.53
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch '343-bump-gitpython-from-3151-to-3153337' into dependabot/pip/gitpython-3.1.53
+- Merge pull request #337 from edwardtheharris/dependabot/pip/gitpython-3.1.53
+- Bump gitpython from 3.1.51 to 3.1.53
+- Closes #343
+- Merge pull request #344 from edwardtheharris/343-bump-gitpython-from-3151-to-3153337
+- 343 bump gitpython from 3151 to 3153337
+- Closes #343
+- Merge branch 'main' into 345-bump-pillow-from-1220-to-1230-in-nautobot-in-the-pip-group-across-1-directory338
+- Merge pull request #346 from edwardtheharris/345-bump-pillow-from-1220-to-1230-in-nautobot-in-the-pip-group-across-1-directory338
+- 345 bump pillow from 1220 to 1230 in nautobot in the pip group across 1 directory338
+- Closes #345
+- Bump setuptools in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [setuptools](https://github.com/pypa/setuptools).
+- Updates `setuptools` from 82.0.1 to 83.0.0
+- - [Release notes](https://github.com/pypa/setuptools/releases)
+- - [Changelog](https://github.com/pypa/setuptools/blob/main/NEWS.rst)
+- - [Commits](https://github.com/pypa/setuptools/compare/v82.0.1...v83.0.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: setuptools
+-   dependency-version: 83.0.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Bump gitpython in /nautobot in the pip group across 1 directory
+- Bumps the pip group with 1 update in the /nautobot directory: [gitpython](https://github.com/gitpython-developers/GitPython).
+- Updates `gitpython` from 3.1.50 to 3.1.52
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.50...3.1.52)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.52
+-   dependency-type: direct:production
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #347 from edwardtheharris/dependabot/pip/nautobot/pip-27a118223d
+- Bump gitpython from 3.1.50 to 3.1.52 in /nautobot in the pip group across 1 directory
+- Closes #347
+- Merge pull request #350 from edwardtheharris/349-bump-gitpython-from-3150-to-3152-in-nautobot-in-the-pip-group-across-1-directory347
+- 349 bump gitpython from 3150 to 3152 in nautobot in the pip group across 1 directory347
+- Closes #349
+- Merge branch 'main' into dependabot/pip/pip-fec1d00dd4
+- Merge pull request #348 from edwardtheharris/dependabot/pip/pip-fec1d00dd4
+- Bump setuptools from 82.0.1 to 83.0.0 in the pip group across 1 directory
+- Closes #351
+- Merge pull request #352 from edwardtheharris/351-bump-setuptools-from-8201-to-8300-in-the-pip-group-across-1-directory348
+- 351 bump setuptools from 8201 to 8300 in the pip group across 1 directory348
+- Closes #351
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Bumps sphinxcontrib-autoyaml from 1.1.3 to 1.2.0.
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinxcontrib-autoyaml
+-   dependency-version: 1.2.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Bump gitpython in /nautobot in the pip group across 1 directory
+- Bumps the pip group with 1 update in the /nautobot directory: [gitpython](https://github.com/gitpython-developers/GitPython).
+- Updates `gitpython` from 3.1.52 to 3.1.54
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.52...3.1.54)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.54
+-   dependency-type: direct:production
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #355 from edwardtheharris/dependabot/pip/nautobot/pip-27357673a3
+- Bump gitpython from 3.1.52 to 3.1.54 in /nautobot in the pip group across 1 directory
+- Closes #356
+- Merge pull request #357 from edwardtheharris/356-bump-gitpython-from-3152-to-3154-in-nautobot-in-the-pip-group-across-1-directory---355355
+- 356 bump gitpython from 3152 to 3154 in nautobot in the pip group across 1 directory   355355
+- Closes #356
+- Merge branch '360-bump-sphinxcontrib-autoyaml-from-113-to-120---354354' into dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Merge pull request #354 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #360
+- Bump gitpython from 3.1.54 to 3.1.57
+- Bumps [gitpython](https://github.com/gitpython-developers/GitPython) from 3.1.54 to 3.1.57.
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.54...3.1.57)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.57
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch '358-bump-gitpython-from-3154-to-3157---353353' into dependabot/pip/gitpython-3.1.57
+- Merge pull request #353 from edwardtheharris/dependabot/pip/gitpython-3.1.57
+- Bump gitpython from 3.1.54 to 3.1.57
+- Closes #353
+- Merge pull request #359 from edwardtheharris/358-bump-gitpython-from-3154-to-3157---353353
+- 358 bump gitpython from 3154 to 3157   353353
+- Closes #358
+- Merge branch 'main' into 360-bump-sphinxcontrib-autoyaml-from-113-to-120---354354
+- Merge pull request #361 from edwardtheharris/360-bump-sphinxcontrib-autoyaml-from-113-to-120---354354
+- 360 bump sphinxcontrib autoyaml from 113 to 120   354354
+- Closes #360
+- Bump commitizen from 4.16.5 to 4.17.0
+- Bumps [commitizen](https://github.com/commitizen-tools/commitizen) from 4.16.5 to 4.17.0.
+- - [Release notes](https://github.com/commitizen-tools/commitizen/releases)
+- - [Changelog](https://github.com/commitizen-tools/commitizen/blob/master/CHANGELOG.md)
+- - [Commits](https://github.com/commitizen-tools/commitizen/compare/v4.16.5...v4.17.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: commitizen
+-   dependency-version: 4.17.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #362 from edwardtheharris/dependabot/pip/commitizen-4.17.0
+- Bump commitizen from 4.16.5 to 4.17.0
+- Closes #363
+- Merge pull request #364 from edwardtheharris/363-bump-commitizen-from-4165-to-4170---362362
+- 363 bump commitizen from 4165 to 4170   362362
+- Closes #363
+- Bump gitpython from 3.1.57 to 3.1.58
+- Bumps [gitpython](https://github.com/gitpython-developers/GitPython) from 3.1.57 to 3.1.58.
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.57...3.1.58)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.58
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Fix errors
+- Closes #369
+- Merge branch '369-bump-gitpython-from-3157-to-3158---368368' into dependabot/pip/gitpython-3.1.58
+- Merge pull request #368 from edwardtheharris/dependabot/pip/gitpython-3.1.58
+- Bump gitpython from 3.1.57 to 3.1.58
+- Closes #369
+- Merge pull request #370 from edwardtheharris/369-bump-gitpython-from-3157-to-3158---368368
+- 369 bump gitpython from 3157 to 3158   368368
+- Closes #369
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Bumps sphinxcontrib-autoyaml from 1.1.3 to 1.2.0.
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinxcontrib-autoyaml
+-   dependency-version: 1.2.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #367 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #371
+- Merge pull request #374 from edwardtheharris/371-bump-sphinxcontrib-autoyaml-from-113-to-120---367367
+- 371 bump sphinxcontrib autoyaml from 113 to 120   367367
+- Closes #371
+- Bump pipenv from 2026.6.2 to 2026.7.1
+- Bumps [pipenv](https://github.com/pypa/pipenv) from 2026.6.2 to 2026.7.1.
+- - [Release notes](https://github.com/pypa/pipenv/releases)
+- - [Changelog](https://github.com/pypa/pipenv/blob/main/CHANGELOG.md)
+- - [Commits](https://github.com/pypa/pipenv/compare/v2026.6.2...v2026.7.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: pipenv
+-   dependency-version: 2026.7.1
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Update github workflows
+- Merge branch 'main' into 371-bump-sphinxcontrib-autoyaml-from-113-to-120---367367
+- Merge pull request #375 from edwardtheharris/371-bump-sphinxcontrib-autoyaml-from-113-to-120---367367
+- Closes #375
+- Merge branch '372-bump-pipenv-from-202662-to-202671---366366' into dependabot/pip/pipenv-2026.7.1
+- Merge pull request #366 from edwardtheharris/dependabot/pip/pipenv-2026.7.1
+- Bump pipenv from 2026.6.2 to 2026.7.1
+- Closes #372
+- Bump django in /nautobot in the pip group across 1 directory
+- Bumps the pip group with 1 update in the /nautobot directory: [django](https://github.com/django/django).
+- Updates `django` from 5.2.15 to 5.2.16
+- - [Commits](https://github.com/django/django/compare/5.2.15...5.2.16)
+- ---
+- Updated-dependencies:
+- - dependency-name: django
+-   dependency-version: 5.2.16
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge branch 'main' into dependabot/pip/nautobot/pip-d6743723f4
+- Merge branch '373-bump-django-from-5215-to-5216-in-nautobot-in-the-pip-group-across-1-directory---365365' into dependabot/pip/nautobot/pip-d6743723f4
+- Merge pull request #365 from edwardtheharris/dependabot/pip/nautobot/pip-d6743723f4
+- Bump django from 5.2.15 to 5.2.16 in /nautobot in the pip group across 1 directory
+- Closes #373
+- Merge pull request #376 from edwardtheharris/373-bump-django-from-5215-to-5216-in-nautobot-in-the-pip-group-across-1-directory---365365
+- 373 bump django from 5215 to 5216 in nautobot in the pip group across 1 directory   365365
+- Closes #373
+- Merge branch 'main' into 372-bump-pipenv-from-202662-to-202671---366366
+- Merge pull request #377 from edwardtheharris/372-bump-pipenv-from-202662-to-202671---366366
+- 372 bump pipenv from 202662 to 202671   366366
+- Closes #372
+- Add prometheus operator
+- Some lint stuff
+- Bump gitpython from 3.1.58 to 3.1.59
+- Bumps [gitpython](https://github.com/gitpython-developers/GitPython) from 3.1.58 to 3.1.59.
+- - [Release notes](https://github.com/gitpython-developers/GitPython/releases)
+- - [Changelog](https://github.com/gitpython-developers/GitPython/blob/main/CHANGES)
+- - [Commits](https://github.com/gitpython-developers/GitPython/compare/3.1.58...3.1.59)
+- ---
+- Updated-dependencies:
+- - dependency-name: gitpython
+-   dependency-version: 3.1.59
+-   dependency-type: direct:production
+-   update-type: version-update:semver-patch
+- ...
+- Dependabot[bot] <support@github.com>
+- Bump the pip group across 1 directory with 2 updates
+- Bumps the pip group with 2 updates in the /nautobot directory: [cryptography](https://github.com/pyca/cryptography) and [sqlparse](https://github.com/andialbrecht/sqlparse).
+- Updates `cryptography` from 48.0.1 to 50.0.0
+- - [Changelog](https://github.com/pyca/cryptography/blob/main/CHANGELOG.rst)
+- - [Commits](https://github.com/pyca/cryptography/compare/48.0.1...50.0.0)
+- Updates `sqlparse` from 0.5.5 to 0.6.0
+- - [Changelog](https://github.com/andialbrecht/sqlparse/blob/master/CHANGELOG)
+- - [Commits](https://github.com/andialbrecht/sqlparse/compare/0.5.5...0.6.0)
+- ---
+- Updated-dependencies:
+- - dependency-name: cryptography
+-   dependency-version: 50.0.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- - dependency-name: sqlparse
+-   dependency-version: 0.6.0
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #381 from edwardtheharris/dependabot/pip/nautobot/pip-cce3ea35a8
+- Bump the pip group across 1 directory with 2 
+- Closes #382
+- Merge pull request #383 from edwardtheharris/382-bump-the-pip-group-across-1-directory-with-2-updates---381381
+- 382 bump the pip group across 1 directory with 2 updates   381381\
+- Closes #382
+- Merge branch 'main' into dependabot/pip/gitpython-3.1.59
+- Merge pull request #380 from edwardtheharris/dependabot/pip/gitpython-3.1.59
+- Bump gitpython from 3.1.58 to 3.1.59
+- Closes #385
+- Merge pull request #386 from edwardtheharris/385-bump-gitpython-from-3158-to-3159---380380
+- 385 bump gitpython from 3158 to 3159   380380
+- Closes #385
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Bumps sphinxcontrib-autoyaml from 1.1.3 to 1.2.0.
+- ---
+- Updated-dependencies:
+- - dependency-name: sphinxcontrib-autoyaml
+-   dependency-version: 1.2.0
+-   dependency-type: direct:production
+-   update-type: version-update:semver-minor
+- ...
+- Dependabot[bot] <support@github.com>
+- Merge pull request #379 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #384
+- Merge pull request #387 from edwardtheharris/384-bump-gitpython-from-3158-to-3159---380380
+- 384 bump gitpython from 3158 to 3159   380380
+- Closes #384
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Dependabot[bot] <support@github.com>
+- Merge pull request #388 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0g
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #391
+- Merge pull request #392 from edwardtheharris/391-builddeps-bump-sphinxcontrib-autoyaml-from-113-to-120---388388
+- 391 builddeps bump sphinxcontrib autoyaml from 113 to 120   388388
+- Closes #391
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- Dependabot[bot] <support@github.com>
+- Merge pull request #389 from edwardtheharris/dependabot/pip/pipenv-2026.8.0
+- *(deps)* Bump pipenv from 2026.7.1 to 2026.8.0
+- Closes #393
+- Merge pull request #394 from edwardtheharris/393-builddeps-bump-commitizen-from-4170-to-4180---390390
+- 393 builddeps bump commitizen from 4170 to 4180   390390
+- Closes #393
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- Dependabot[bot] <support@github.com>
+- Merge branch '393-builddeps-bump-commitizen-from-4170-to-4180---390390' into dependabot/pip/commitizen-4.18.0
+- Merge pull request #390 from edwardtheharris/dependabot/pip/commitizen-4.18.0
+- *(deps)* Bump commitizen from 4.17.0 to 4.18.0
+- Closes #395
+- Merge pull request #396 from edwardtheharris/395-builddeps-bump-commitizen-from-4170-to-4180---390390
+- 395 builddeps bump commitizen from 4170 to 4180   390390
+- Closes #395
+- Merge branch 'main' into 378-prometheus-operator
+- Working prometheus operator
+- Whitespace
+- Line-length
+- Whitespace
+- Whitespace
+- Disable lint
+- Some kind words for our agentic friends
+- Merge pull request #399 from edwardtheharris/397-add-agentsmd
+- Closes #397
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- Dependabot[bot] <support@github.com>
+- Merge pull request #400 from edwardtheharris/dependabot/pip/gitpython-3.1.61
+- *(deps)* Bump gitpython from 3.1.59 to 3.1.61
+- Closes #401
+- Merge pull request #402 from edwardtheharris/401-builddeps-bump-gitpython-from-3159-to-3161---400400
+- 401 builddeps bump gitpython from 3159 to 3161   400400
+- Closes #401
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- *(deps)* Bump djangorestframework
+- Dependabot[bot] <support@github.com>
+- Merge pull request #403 from edwardtheharris/dependabot/pip/nautobot/pip-351e40e48c
+- *(deps)* Bump djangorestframework from 3.17.1 to 3.17.2 in /nautobot in the pip group across 1 directory
+- Closes #404
+- Merge pull request #405 from edwardtheharris/404-builddeps-bump-djangorestframework-from-3171-to-3172-in-nautobot-in-the-pip-group-across-1-directory---403403
+- 404 builddeps bump djangorestframework from 3171 to 3172 in nautobot in the pip group across 1 directory   403403
+- Closes #404
+- Merge branch 'main' into 378-prometheus-operator
+- Merge pull request #398 from edwardtheharris/378-prometheus-operator
+- 378 prometheus operator
+- Closes #378
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- Dependabot[bot] <support@github.com>
+- Merge pull request #406 from edwardtheharris/dependabot/pip/pip-ea269f03c1
+- *(deps)* Bump starlette from 0.52.1 to 1.3.1 in the pip group across 1 directory
+- Closes #409
+- Update settings
+- Merge pull request #408 from edwardtheharris/407-rename-config-files
+- Closes #407
+- Merge branch 'main' into 409-builddeps-bump-starlette-from-0521-to-131-in-the-pip-group-across-1-directory---406406
+- Merge pull request #410 from edwardtheharris/409-builddeps-bump-starlette-from-0521-to-131-in-the-pip-group-across-1-directory---406406
+- 409 builddeps bump starlette from 0521 to 131 in the pip group across 1 directory   406406
+- Closes #409
+- Update cms values
+- Update nautobot configs
+- Update docker build
+- Working nautobot
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- Dependabot[bot] <support@github.com>
+- Merge pull request #411 from edwardtheharris/dependabot/pip/gitpython-3.1.62
+- *(deps)* Bump gitpython from 3.1.61 to 3.1.62
+- Merge pull request #414 from edwardtheharris/issue-382-Bump_the_pip_group_across_1_directory_with_2_updates_-_#381#381
+- Issue 382 bump the pip group across 1 directory with 2 updates   #381#381
+- Merge pull request #415 from edwardtheharris/issue-384-Bump_gitpython_from_3_1_58_to_3_1_59_-_#380#380
+- Issue 384 bump gitpython from 3 1 58 to 3 1 59   #380#380
+- Merge pull request #416 from edwardtheharris/issue-413-build_deps_Bump_gitpython_from_3_1_61_to_3_1_62_-_#411#411
+- Issue 413 build deps bump gitpython from 3 1 61 to 3 1 62   #411#411
+- Merge pull request #417 from edwardtheharris/issue-393-build_deps_Bump_commitizen_from_4_17_0_to_4_18_0_-_#390#390
+- Issue 393 build deps bump commitizen from 4 17 0 to 4 18 0   #390#390
+- Merge pull request #418 from edwardtheharris/issue-395-build_deps_Bump_commitizen_from_4_17_0_to_4_18_0_-_#390#390
+- Issue 395 build deps bump commitizen from 4 17 0 to 4 18 0   #390#390
+- Merge pull request #419 from edwardtheharris/issue-391-build_deps_Bump_sphinxcontrib-autoyaml_from_1_1_3_to_1_2_0_-_#388#388
+- Issue 391 build deps bump sphinxcontrib autoyaml from 1 1 3 to 1 2 0   #388#388
+- Merge pull request #421 from edwardtheharris/issue-385-Bump_gitpython_from_3_1_58_to_3_1_59_-_#380#380
+- Issue 385 bump gitpython from 3 1 58 to 3 1 59   #380#380
+- Closes #413
+- Merge branch 'main' into 412-adjust-nautobot-config
+- Merge pull request #422 from edwardtheharris/412-adjust-nautobot-config
+- 412 adjust nautobot config
+- Closes #412
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- *(deps)* Bump starlette in the pip group across 1 directory
+- Dependabot[bot] <support@github.com>
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Dependabot[bot] <support@github.com>
+- Update values
+- Merge branch 'main' of github.com:edwardtheharris/helm-monitoring into 132-deploy-with-jenkins
+- Update values
+- Merge pull request #425 from edwardtheharris/132-deploy-with-jenkins
+- Closes #132
+- Merge branch 'main' into dependabot/pip/nautobot/pip-dff61358fd
+- Merge pull request #424 from edwardtheharris/dependabot/pip/nautobot/pip-dff61358fd
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Closes #426
+- Merge branch '426-fix-prometheus-operator' into dependabot/pip/pip-ea269f03c1
+- Merge pull request #423 from edwardtheharris/dependabot/pip/pip-ea269f03c1
+- *(deps)* Bump starlette from 0.52.1 to 1.3.1 in the pip group across 1 directory
+- Closes #426
+- Add working prometheus operator
+- Drop old po deployment
+- Add missing monitors
+- Markdown lint
+- Broken ci
+- Drop kube-prometheus-stack from lint
+- Comment test section
+- Merge pull request #427 from edwardtheharris/426-fix-prometheus-operator
+- 426 fix prometheus operator
+- Closes #426
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Dependabot[bot] <support@github.com>
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Dependabot[bot] <support@github.com>
+- Merge pull request #434 from edwardtheharris/dependabot/pip/pip-f2a7dcfbc9
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Closes #436
+- Merge branch '436-fix-process-exporter' into dependabot/pip/nautobot/pip-aae9f4f1ef
+- Merge pull request #435 from edwardtheharris/dependabot/pip/nautobot/pip-aae9f4f1ef
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Closes #436
+- Update process exporter
+- Merge pull request #437 from edwardtheharris/436-fix-process-exporter
+- 436 fix process exporter
+- Closes #436
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- Dependabot[bot] <support@github.com>
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Dependabot[bot] <support@github.com>
+- Add gateway httproute
+- Merge pull request #441 from edwardtheharris/issue-430-Fix_loki_values
+- Closes #430
+- Merge branch 'issue-440-Add_deployment' into issue-436-Fix_process_exporter
+- Merge pull request #442 from edwardtheharris/issue-436-Fix_process_exporter
+- Issue 436 fix process exporter
+- Closes #436
+- Merge pull request #443 from edwardtheharris/issue-440-Add_deployment
+- Issue 440 add deployment
+- Closes #440
+- Merge branch '440-add-deployment' into dependabot/pip/pip-f2a7dcfbc9
+- Merge pull request #438 from edwardtheharris/dependabot/pip/pip-f2a7dcfbc9
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Closes #440
+- Merge branch '440-add-deployment' into dependabot/pip/nautobot/pip-18c674f953
+- Merge pull request #439 from edwardtheharris/dependabot/pip/nautobot/pip-18c674f953
+- *(deps)* Bump cryptography from 48.0.1 to 50.0.0 in /nautobot in the pip group across 1 directory
+- Closes #440
+- Update values
+- Add smartctl exporter
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- *(deps)* Bump cryptography
+- Dependabot[bot] <support@github.com>
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Dependabot[bot] <support@github.com>
+- Merge branch '440-add-deployment' into dependabot/pip/pip-f2a7dcfbc9
+- Merge pull request #445 from edwardtheharris/dependabot/pip/pip-f2a7dcfbc9
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Closes #440
+- Merge branch '440-add-deployment' into dependabot/pip/nautobot/pip-18c674f953
+- Merge pull request #446 from edwardtheharris/dependabot/pip/nautobot/pip-18c674f953
+- *(deps)* Bump cryptography from 48.0.1 to 50.0.0 in /nautobot in the pip group across 1 directory
+- Closes #440
+- Merge pull request #444 from edwardtheharris/440-add-deployment
+- 440 add deployment
+- Closes #440
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Dependabot[bot] <support@github.com>
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- Dependabot[bot] <support@github.com>
+- Merge pull request #447 from edwardtheharris/dependabot/pip/commitizen-4.19.0
+- *(deps)* Bump commitizen from 4.18.0 to 4.19.0
+- Closes #449
+- Merge branch '449-builddeps-bump-sphinxcontrib-autoyaml-from-113-to-120---448448' into dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Merge pull request #450 from edwardtheharris/449-builddeps-bump-sphinxcontrib-autoyaml-from-113-to-120---448448
+- 449 builddeps bump sphinxcontrib autoyaml from 113 to 120   448448
+- Closes #449
+- Merge branch 'main' into dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- Merge pull request #448 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #449
+- Merge pull request #451 from edwardtheharris/issue-449-build_deps_Bump_sphinxcontrib-autoyaml_from_1_1_3_to_1_2_0_-_#448#448
+- FIssue 449 build deps bump sphinxcontrib autoyaml from 1 1 3 to 1 2 0   #448#448
+- Closes #449
+- Merge branch 'main' into 440-add-deployment
+- Merge pull request #452 from edwardtheharris/440-add-deployment
+- Closes #440
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- Dependabot[bot] <support@github.com>
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- Dependabot[bot] <support@github.com>
+- Merge pull request #453 from edwardtheharris/dependabot/pip/pip-905b69ce1e
+- *(deps)* Bump the pip group across 1 directory with 4 updates
+- Closes #455
+- Merge branch '455-builddeps-bump-the-pip-group-across-1-directory-with-3-updates---454454' into dependabot/pip/nautobot/pip-5cc95df640
+- Merge pull request #454 from edwardtheharris/dependabot/pip/nautobot/pip-5cc95df640
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- Closes #455
+- Merge pull request #456 from edwardtheharris/455-builddeps-bump-the-pip-group-across-1-directory-with-3-updates---454454
+- 455 builddeps bump the pip group across 1 directory with 3 updates   454454
+- Closes #455
+- Update settings
+- New settings
+- New settings
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- Dependabot[bot] <support@github.com>
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Dependabot[bot] <support@github.com>
+- Merge pull request #457 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #459
+- Merge branch '459-add-new-settings' into dependabot/pip/gitpython-3.2.0
+- Merge pull request #458 from edwardtheharris/dependabot/pip/gitpython-3.2.0
+- *(deps)* Bump gitpython from 3.1.62 to 3.2.0
+- Closes #459
+- Merge pull request #460 from edwardtheharris/459-add-new-settings
+- 459 add new settings
+- Closes #459
+- Merge branch 'main' into 459-add-new-settings
+- Update settings
+- Merge branch '459-add-new-settings'
+- Merge branch '459-add-new-settings'
+- Fix readmes
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- Dependabot[bot] <support@github.com>
+- Merge pull request #462 from edwardtheharris/dependabot/pip/pip-de941d0617
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- Closes #463
+- Merge pull request #464 from edwardtheharris/463-builddeps-bump-the-pip-group-across-1-directory-with-3-updates---462462
+- 463 builddeps bump the pip group across 1 directory with 3 updates   462462
+- Closes #463
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- Dependabot[bot] <support@github.com>
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Dependabot[bot] <support@github.com>
+- Merge pull request #466 from edwardtheharris/dependabot/pip/sphinxcontrib-autoyaml-1.2.0
+- *(deps)* Bump sphinxcontrib-autoyaml from 1.1.3 to 1.2.0
+- Closes #466
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- Dependabot[bot] <support@github.com>
+- Merge pull request #465 from edwardtheharris/dependabot/pip/pip-5d0fe1031e
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- Closes #455
+- Merge pull request #469 from edwardtheharris/issue-455-build_deps_Bump_the_pip_group_across_1_directory_with_3_updates_-_#454#454
+- Issue 455 build deps bump the pip group across 1 directory with 3 updates   #454#454
+- Closes #455
+- Merge branch 'main' into 468-builddeps-bump-commitizen-from-4190-to-4192---467467
+- Merge branch '468-builddeps-bump-commitizen-from-4190-to-4192---467467' into dependabot/pip/commitizen-4.19.2
+- Merge pull request #467 from edwardtheharris/dependabot/pip/commitizen-4.19.2
+- *(deps)* Bump commitizen from 4.19.0 to 4.19.2
+- Closes #468
+- Merge pull request #470 from edwardtheharris/468-builddeps-bump-commitizen-from-4190-to-4192---467467
+- 468 builddeps bump commitizen from 4190 to 4192   467467
+- Closes #468
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- Dependabot[bot] <support@github.com>
+- Merge pull request #477 from edwardtheharris/dependabot/pip/pipenv-2026.10.2
+- *(deps)* Bump pipenv from 2026.8.0 to 2026.10.2
+- Closes #478
+- Merge pull request #479 from edwardtheharris/478-builddeps-bump-pipenv-from-202680-to-2026102---477477
+- 478 builddeps bump pipenv from 202680 to 2026102   477477
+- Closes #478
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- Dependabot[bot] <support@github.com>
+- Merge pull request #476 from edwardtheharris/dependabot/pip/sphinx-9.2.0
+- *(deps-dev)* Bump sphinx from 9.1.0 to 9.2.0
+- Closes #480
+- Merge pull request #481 from edwardtheharris/480-builddeps-bump-the-pip-group-across-1-directory-with-3-updates---471471
+- 480 builddeps bump the pip group across 1 directory with 3 updates   471471
+- Closes #480
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Dependabot[bot] <support@github.com>
+- Merge pull request #482 from edwardtheharris/dependabot/pip/pip-f2a7dcfbc9
+- *(deps)* Bump the pip group across 1 directory with 2 updates
+- Closes #483
+- Merge pull request #484 from edwardtheharris/483-builddeps-bump-the-pip-group-across-1-directory-with-2-updates---482482
+- 483 builddeps bump the pip group across 1 directory with 2 updates   482482
+- Closes #483
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- Dependabot[bot] <support@github.com>
+- Merge pull request #485 from edwardtheharris/dependabot/pip/pip-6a0d194303
+- *(deps)* Bump the pip group across 1 directory with 3 updates
+- Closes #486
+- Merge pull request #487 from edwardtheharris/486-builddeps-bump-the-pip-group-across-1-directory-with-3-updates---485485
+- 486 builddeps bump the pip group across 1 directory with 3 updates   485485
+- Closes #486
+- Merge branch 'main' into issue-459-add_new_settings
+- Merge pull request #489 from edwardtheharris/issue-459-add_new_settings
+- Issue 459 add new settings
+- Closes #459
+
+
+### 📚 Documentation - 0.1.0
+
+
+- Fix readmes
+
+
+### ⚙️ Miscellaneous Tasks - 0.1.0
+
+
+- Merge branch 'main' of github.com:edwardtheharris/helm-monitoring into 132-deploy-with-jenkins
+- Merge branch '459-add-new-settings' of github.com:edwardtheharris/helm-monitoring into 459-add-new-settings
+- Merge branch '459-add-new-settings'
 ## [0.0.3] - 2025-12-01
 
 ### 💼 Other - 0.0.3
@@ -95,6 +3096,8 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #87 from edwardtheharris/73-the-database-connection-isnt-consistent-across-all-containers-in-the-pod
 - Update changelog
 - Closes # 73
+- Update changelog
+- Closes #88
 ## [0.0.2] - 2025-11-30
 
 ### 💼 Other - 0.0.2
@@ -161,6 +3164,59 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #53 from edwardtheharris/release-0.0.2
 - Release 0.0.2
 - Closes #2
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into 4-install-loki
+- Closes #4
+- Drop templates
+- Closes #4
+- Fix readme
+- Closes #4
+- Fix username/password
+- Closes #4
+- Update node exporter location
+- Closes #47
+- Update deps
+- Closes #47
+- Update charts
+- Closes #47
+- Update docs with index and readme
+- Closes #47
+- Update values and certs
+- Closes #47
+- Add values
+- Closes #47
+- Merge branch
+- '47-update-prometheus-node-exporter-location' into 4-install-loki
+- Closes #4
+- Add statefulset values
+- Closes #4
+- Update md docs
+- Closes #4
+- Adjust values
+- Closes #4
+- Update docs
+- Closes #4
+- Merge branch '1-bump-version-query-from-1-6-3-to-1-7-0-40' into 'main'
+- Bump version-query from 1.6.3 to 1.7.0
+- Closes #1
+- See merge request xandertheharris/helm-monitoring!1
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into 1-bump-version-query-from-1-6-3-to-1-7-0-40
+- Closes #1
+- Bump starlette from 0.48.0 to 0.49.1 in the pip group across 1 directory
+- Bumps the pip group with 1 update in the / directory: [starlette](https://github.com/Kludex/starlette).
+- Updates `starlette` from 0.48.0 to 0.49.1
+- - [Release notes](https://github.com/Kludex/starlette/releases)
+- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
+- - [Commits](https://github.com/Kludex/starlette/compare/0.48.0...0.49.1)
+- ---
+- Updated-dependencies:
+- - dependency-name: starlette
+-   dependency-version: 0.49.1
+-   dependency-type: indirect
+-   dependency-group: pip
+- ...
+- Dependabot[bot] <support@github.com>
 - Update readme
 - Closes #49
 - Update grafana login
@@ -208,18 +3264,6 @@ title: Breeze Blocks Helm Repository Changelog
 - Closes #58
 - Add nautobot install files
 - Closes #60
-- Update node exporter location
-- Closes #47
-- Update deps
-- Closes #47
-- Update charts
-- Closes #47
-- Update docs with index and readme
-- Closes #47
-- Update values and certs
-- Closes #47
-- Add values
-- Closes #47
 - Update charts files
 - Closes #47
 - Merge branch 'main' of
@@ -440,6 +3484,8 @@ title: Breeze Blocks Helm Repository Changelog
 
 
 - Initial commit
+- Add loki values
+- Closes #4
 - Bump pipenv from 2024.0.1 to 2024.4.0
 - Bumps [pipenv](https://github.com/pypa/pipenv) from 2024.0.1 to 2024.4.0.
 - - [Release notes](https://github.com/pypa/pipenv/releases)
@@ -669,6 +3715,11 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #39 from edwardtheharris/38-bump-gitpython-from-3143-to-3145-22
 - 38 bump gitpython from 3143 to 3145 22
 - Closes #38
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring into 4-install-loki
+- Closes #4
+- Update values for cadvisor
+- Closes #4
 - Bump version-query from 1.6.3 to 1.7.0
 - Bumps [version-query](https://github.com/mbdevpl/version-query) from 1.6.3 to 1.7.0.
 - - [Release notes](https://github.com/mbdevpl/version-query/releases)
@@ -681,10 +3732,6 @@ title: Breeze Blocks Helm Repository Changelog
 -   update-type: version-update:semver-minor
 - ...
 - Dependabot[bot] <support@github.com>
-- Merge branch '1-bump-version-query-from-1-6-3-to-1-7-0-40' into 'main'
-- Bump version-query from 1.6.3 to 1.7.0
-- Closes #1
-- See merge request xandertheharris/helm-monitoring!1
 - Merge pull request #40 from edwardtheharris/dependabot/pip/version-query-1.7.0
 - Bump version-query from 1.6.3 to 1.7.0
 - Closes #41
@@ -694,9 +3741,6 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #42 from edwardtheharris/1-bump-version-query-from-1-6-3-to-1-7-0-40
 - Bump version-query from 1.6.3 to 1.7.0
 - Closes #40
-- Merge branch 'main' of
-- Edwardtheharris/helm-monitoring into 1-bump-version-query-from-1-6-3-to-1-7-0-40
-- Closes #1
 - Add code for node exporter
 - Closes #44
 - Add node exporter that works
@@ -704,6 +3748,24 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #45 from edwardtheharris/44-install-prometheus-node-exporter
 - 44 install prometheus node exporter
 - Closes #44
+- Merge branch 'main' of
+- Edwardtheharris/helm-monitoring
+- Into 4-install-loki
+- Closes #4
+- Add loki chart
+- Closes #4
+- Drop values, add others
+- Closes #4
+- Update charts and values
+- Closes #4
+- Drop tgz files
+- Closes #4
+- Update loki values
+- Closes #4
+- Add loki charts
+- Closes #4
+- Drop old charts dirs
+- Closes #4
 - Update node exporter location
 - Closes #47
 - Update deps
@@ -742,20 +3804,6 @@ title: Breeze Blocks Helm Repository Changelog
 - Merge pull request #50 from edwardtheharris/3-install-grafana
 - 3 install grafana
 - Closes #3
-- Bump starlette from 0.48.0 to 0.49.1 in the pip group across 1 directory
-- Bumps the pip group with 1 update in the / directory: [starlette](https://github.com/Kludex/starlette).
-- Updates `starlette` from 0.48.0 to 0.49.1
-- - [Release notes](https://github.com/Kludex/starlette/releases)
-- - [Changelog](https://github.com/Kludex/starlette/blob/main/docs/release-notes.md)
-- - [Commits](https://github.com/Kludex/starlette/compare/0.48.0...0.49.1)
-- ---
-- Updated-dependencies:
-- - dependency-name: starlette
--   dependency-version: 0.49.1
--   dependency-type: indirect
--   dependency-group: pip
-- ...
-- Dependabot[bot] <support@github.com>
 - Update changelog
 - Fix changelog
 - 0.0.1
