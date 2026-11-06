@@ -1,6 +1,8 @@
 # git-cliff ~ configuration file
 # https://git-cliff.org/docs/configuration
-
+[github.remote]
+owner = "edwardtheharris"
+repository = "helm-monitoring"
 
 [changelog]
 # A Tera template to be rendered as the changelog's footer.

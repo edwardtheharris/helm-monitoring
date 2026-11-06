@@ -1132,7 +1132,7 @@ alertmanager:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 20Gi
+              storage: 10Gi
           selector: {}
 
     ## The external URL the Alertmanager instances will be available under. This is necessary to generate correct URLs. This is necessary if Alertmanager is not served from root of a DNS name. string  false
@@ -4684,7 +4684,11 @@ prometheus:
           accessModes: ["ReadWriteMany"]
           resources:
             requests:
+<<<<<<< Updated upstream
               storage: 20Gi
+=======
+              storage: 5Gi
+>>>>>>> Stashed changes
 
     ## Using tmpfs volume
     ##
@@ -5931,7 +5935,7 @@ thanosRuler:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 50Gi
+              storage: 5Gi
           selector: {}
 
     ## AlertmanagerConfig define configuration for connecting to alertmanager.
