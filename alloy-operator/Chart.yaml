@@ -1,22 +1,24 @@
 apiVersion: v2
-appVersion: 1.10.0
+appVersion: 1.13.0
 dependencies:
 - condition: crds.deployAlloyCRD
   name: alloy-crd
   repository: https://grafana.github.io/helm-charts
-  version: 1.0.0
+  version: 1.0.1
 - condition: crds.deployPodLogsCRD
   name: podlogs-crd
   repository: ""
   version: 0.0.0
-description: A Helm chart the Alloy Operator, a project to innovate on creating instances
+description: Grafana Alloy Operator, providing innovative ways for creating instances
   of Grafana Alloy.
 icon: https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
 maintainers:
 - email: pete.wall@grafana.com
   name: petewall
+- email: tyler.helmuth@grafana.com
+  name: TylerHelmuth
 name: alloy-operator
 sources:
 - https://github.com/grafana/alloy-operator
 type: application
-version: 0.5.10
+version: 0.8.0
