@@ -25,11 +25,7 @@ alloy:
     # -- Create a new ConfigMap for the config file.
     create: true
     # -- Content to assign to the new ConfigMap.  This is passed into `tpl` allowing for templating from values.
-    content: |-
-      logging {
-        level = "info"
-        format = "logfmt"
-      }
+    content: ''
     # -- Name of existing ConfigMap to use. Used when create is false.
     name: null
     # -- Key in ConfigMap to get config from.
@@ -69,6 +65,12 @@ alloy:
   extraEnv: []
   # -- Maps all the keys on a ConfigMap or Secret as environment variables. https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#envfromsource-v1-core
   envFrom: []
+  # -- Override the entrypoint command for the Alloy container. When set, this
+  # replaces the image's default entrypoint (the chart-provided `args` are still
+  # passed). Useful on Windows where the binary lives at a different path, for
+  # example `["C:\\Program Files\\GrafanaLabs\\Alloy\\alloy.exe"]`. Leave empty
+  # to use the image's default entrypoint.
+  command: []
   # -- Extra args to pass to `alloy run`: https://grafana.com/docs/alloy/latest/reference/cli/run/
   extraArgs: []
   # -- Extra ports to expose on the Alloy container.
@@ -135,8 +137,7 @@ rbac:
   rules:
     # -- Rules required for the `discovery.kubernetes` component.
     - apiGroups: ["", "discovery.k8s.io", "networking.k8s.io"]
-      resources:
-        ["endpoints", "endpointslices", "ingresses", "pods", "services"]
+      resources: ["endpoints", "endpointslices", "ingresses", "pods", "services"]
       verbs: ["get", "list", "watch"]
     # -- Rules required for the `loki.source.kubernetes` component.
     - apiGroups: [""]
@@ -209,7 +210,7 @@ configReloader:
     # -- Repository to get config reloader image from.
     repository: prometheus-operator/prometheus-config-reloader
     # -- Tag of image to use for config reloading.
-    tag: v0.91.0@sha256:7d9e4eea5f1139e602508871f422b0116c60e87c662f3dcd234d5ab60cd0d8c1
+    tag: v0.94.0@sha256:142a1f11df8dd165f00375b0b1826aecb9c9adeb05c39855893138d7c7575ff7
     # -- SHA256 digest of image to use for config reloading (either in format "sha256:XYZ" or "XYZ"). When set, will override `configReloader.image.tag`
     digest: ""
     # -- Config reloader image pull policy.
@@ -222,11 +223,21 @@ configReloader:
       cpu: "10m"
       memory: "50Mi"
   # -- Security context to apply to the Grafana configReloader container.
-  securityContext: {}
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop:
+        - ALL
+    runAsNonRoot: true
+    runAsUser: 65534
+    runAsGroup: 65534
+    seccompProfile:
+      type: RuntimeDefault
 controller:
   # -- Type of controller to use for deploying Grafana Alloy in the cluster.
   # Must be one of 'daemonset', 'deployment', or 'statefulset'.
-  type: "daemonset"
+  type: 'daemonset'
   # -- Number of pods to deploy. Ignored when controller.type is 'daemonset'.
   replicas: 1
   # -- Extra labels to add to the controller.
@@ -244,6 +255,8 @@ controller:
   hostPID: false
   # -- Configures the DNS policy for the pod. https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
   dnsPolicy: ClusterFirst
+  # -- Configures the DNS config for the pod. https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config
+  dnsConfig: {}
   # -- Termination grace period in seconds for the Grafana Alloy pods.
   # The default value used by Kubernetes if unspecifed is 30 seconds.
   terminationGracePeriodSeconds: null
@@ -258,7 +271,7 @@ controller:
   # -- Topology Spread Constraints to apply to Grafana Alloy pods.
   topologySpreadConstraints: []
   # -- priorityClassName to apply to Grafana Alloy pods.
-  priorityClassName: ""
+  priorityClassName: ''
   # -- Extra pod annotations to add.
   podAnnotations: {}
   # -- Extra pod labels to add.
@@ -424,11 +437,13 @@ service:
   # -- NodePort port. Only takes effect when `service.type: NodePort`
   nodePort: 31128
   # -- Cluster IP, can be set to None, empty "" or an IP address
-  clusterIP: ""
+  clusterIP: ''
   # -- Value for internal traffic policy. 'Cluster' or 'Local'
   internalTrafficPolicy: Cluster
   # -- Value for external traffic policy. 'Cluster' or 'Local'
   externalTrafficPolicy: Cluster
+  # -- Value for traffic distribution. 'PreferSameNode' or 'PreferSameZone' (k8s >= 1.34)
+  trafficDistribution: ""
   annotations: {}
   # cloud.google.com/load-balancer-type: Internal
 serviceMonitor:
