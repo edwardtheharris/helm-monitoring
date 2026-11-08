@@ -179,7 +179,7 @@ env: []
 
 prometheus:
   monitor:
-    enabled: false
+    enabled: true
     annotations: {}
     additionalLabels: {}
     namespace: ""

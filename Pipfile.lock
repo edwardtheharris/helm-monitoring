@@ -24,11 +24,11 @@
         },
         "anyio": {
             "hashes": [
-                "sha256:6152fdbbf9a77fdec97731721bebf7c4c44f7c29b424b0065826173efc7ed101",
-                "sha256:9f28306018cbd6d329e64a36d58256edff76dd996fe423bc957326e578b82a94"
+                "sha256:59bb03251907983d1603d27c3087ddb1e93299ea2163adcdba37899a4fb12ffb",
+                "sha256:c66ae634e0b8228396b801741beb3294326d4b6102f7bba4041c0dfb58c29026"
             ],
             "markers": "python_version >= '3.10'",
-            "version": "==4.15.1"
+            "version": "==4.16.0"
         },
         "argcomplete": {
             "hashes": [
@@ -1171,11 +1171,11 @@
         },
         "anyio": {
             "hashes": [
-                "sha256:41cfcc3a4c85d3f05c932da7c26d0201ac36f72abd4435ba90d0464a3ffed703",
-                "sha256:d405828884fc140aa80a3c667b8beed277f1dfedec42ba031bd6ac3db606ab6c"
+                "sha256:59bb03251907983d1603d27c3087ddb1e93299ea2163adcdba37899a4fb12ffb",
+                "sha256:c66ae634e0b8228396b801741beb3294326d4b6102f7bba4041c0dfb58c29026"
             ],
-            "markers": "python_version >= '3.9'",
-            "version": "==4.12.1"
+            "markers": "python_version >= '3.10'",
+            "version": "==4.16.0"
         },
         "argcomplete": {
             "hashes": [
@@ -1942,11 +1942,11 @@
         },
         "starlette": {
             "hashes": [
-                "sha256:0029d43eb3d273bc4f83a08720b4912ea4b071087a3b48db01b7c839f7954d74",
-                "sha256:834edd1b0a23167694292e94f597773bc3f89f362be6effee198165a35d62933"
+                "sha256:05d0213193f2fbaae60e2ecb593b4add4262ad4e46536b54abe36f11a71724e0",
+                "sha256:c7372aae11c3c3f26a42df7bd626cec2f47d03483d261d369516a615a53714c6"
             ],
             "markers": "python_version >= '3.10'",
-            "version": "==0.52.1"
+            "version": "==1.3.1"
         },
         "typing-extensions": {
             "hashes": [
@@ -1955,14 +1955,6 @@
             ],
             "markers": "python_version >= '3.9'",
             "version": "==4.16.0"
-        },
-        "uc-micro-py": {
-            "hashes": [
-                "sha256:3603a3859af53e5a39bc7677713c78ea6589ff188d70f4fee165db88e22b242c",
-                "sha256:c53691e495c8db60e16ffc4861a35469b0ba0821fe409a8a7a0a71864d33a811"
-            ],
-            "markers": "python_version >= '3.10'",
-            "version": "==2.0.0"
         },
         "urllib3": {
             "hashes": [
