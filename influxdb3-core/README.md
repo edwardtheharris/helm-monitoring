@@ -296,6 +296,7 @@ header-rows: 1
   - `RollingUpdate`
 
 ```
+
 See `values.yaml` for the complete parameter list.
 
 See the official documentation:
