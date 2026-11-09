@@ -33,7 +33,7 @@ spec:
   mount: internal/
   type: kv-v2
   path: database/nautobot
-  version: 2
+  version: 4
   refreshAfter: 60s
   destination:
     create: true
@@ -48,7 +48,7 @@ spec:
   mount: internal/
   type: kv-v2
   path: nautobot/superuser
-  version: 2
+  version: 1
   refreshAfter: 60s
   destination:
     create: true
