@@ -1,5 +1,7 @@
 # InfluxDB 3 Core Helm Chart
 
+<!--markdownlint-disable-->
+
 This chart deploys one InfluxDB 3 Core node as a Kubernetes StatefulSet.
 InfluxDB 3 Core is single-node; use InfluxDB 3 Enterprise when you need high
 availability or read replicas.
@@ -249,53 +251,21 @@ Remote object-store data is not deleted by uninstalling the chart.
 
 ## Key parameters
 
-```{list-table}
-header-rows: 1
-
-- - Parameter
-  - Description
-  - Default
-- - `image.tag`
-  - Image tag override
-  - `""` (`<appVersion>-core`)
-- - `objectStorage.type`
-  - `file`, `memory`, `memory-throttled`, `s3`, `google`, or `azure`
-  - `s3`
-- - `objectStorage.file.persistence.size`
-  - Local file-store PVC size
-  - `100Gi`
-- - `security.auth.disabled`
-  - Start without authentication
-  - `false`
-- - `security.auth.disableAuthz`
-  - Endpoints that bypass authorization
-  - `[health]`
-- - `security.tls.enabled`
-  - Enable backend TLS
-  - `false`
-- - `processingEngine.persistence.enabled`
-  - Create a plugin PVC
-  - `false`
-- - `processingEngine.persistence.size`
-  - Plugin PVC size
-  - `5Gi`
-- - `ingress.enabled`
-  - Create HTTP and Flight ingresses
-  - `false`
-- - `serviceMonitor.enabled`
-  - Create a Prometheus Operator ServiceMonitor
-  - `false`
-- - `serviceMonitor.tlsConfig`
-  - Prometheus Operator TLS settings for metrics scraping
-  - `{}`
-- - `serviceAccount.automountServiceAccountToken`
-  - Configure automatic mounting of the Kubernetes service account token in the pod and the created ServiceAccount
-  - `not set`
-- - `updateStrategy.type`
-  - StatefulSet update strategy
-  - `RollingUpdate`
-
-```
+| Parameter | Description | Default |
+| --- | --- | --- |
+| `image.tag` | Image tag override | `""` (`<appVersion>-core`) |
+| `objectStorage.type` | `file`, `memory`, `memory-throttled`, `s3`, `google`, or `azure` | `s3` |
+| `objectStorage.file.persistence.size` | Local file-store PVC size | `100Gi` |
+| `security.auth.disabled` | Start without authentication | `false` |
+| `security.auth.disableAuthz` | Endpoints that bypass authorization | `[health]` |
+| `security.tls.enabled` | Enable backend TLS | `false` |
+| `processingEngine.persistence.enabled` | Create a plugin PVC | `false` |
+| `processingEngine.persistence.size` | Plugin PVC size | `5Gi` |
+| `ingress.enabled` | Create HTTP and Flight ingresses | `false` |
+| `serviceMonitor.enabled` | Create a Prometheus Operator ServiceMonitor | `false` |
+| `serviceMonitor.tlsConfig` | Prometheus Operator TLS settings for metrics scraping | `{}` |
+| `serviceAccount.automountServiceAccountToken` | Configure automatic mounting of the Kubernetes service account token in the pod and the created ServiceAccount | `not set` |
+| `updateStrategy.type` | StatefulSet update strategy | `RollingUpdate` |
 
 See `values.yaml` for the complete parameter list.
 
