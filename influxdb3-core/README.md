@@ -1,5 +1,7 @@
 # InfluxDB 3 Core Helm Chart
 
+<!--markdownlint-disable-->
+
 This chart deploys one InfluxDB 3 Core node as a Kubernetes StatefulSet.
 InfluxDB 3 Core is single-node; use InfluxDB 3 Enterprise when you need high
 availability or read replicas.
