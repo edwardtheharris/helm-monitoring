@@ -1,0 +1,20 @@
+apiVersion: v2
+appVersion: 3.10.5
+description: A Helm chart for deploying InfluxDB 3 Core on Kubernetes
+home: https://www.influxdata.com/products/influxdb-3-core/
+icon: https://www.influxdata.com/wp-content/uploads/influxdata-logo.svg
+keywords:
+- influxdb
+- time-series
+- database
+- metrics
+- iot
+maintainers:
+- email: support@influxdata.com
+  name: InfluxData
+name: influxdb3-core
+sources:
+- https://github.com/influxdata/influxdb
+- https://docs.influxdata.com/influxdb3/core/
+type: application
+version: 0.1.1
