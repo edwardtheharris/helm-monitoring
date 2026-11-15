@@ -52,7 +52,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ template "loki.serviceAccountName" $.ctx }}
+      serviceAccountName: {{ include "loki.serviceAccountName" (dict "ctx" $.ctx "component" $.ctx.Values.memcached "target" "memcached" ) }}
       {{- if .priorityClassName }}
       priorityClassName: {{ .priorityClassName }}
       {{- end }}
@@ -89,8 +89,7 @@ spec:
         {{ toYaml .extraContainers | nindent 8 }}
         {{- end }}
         - name: memcached
-          {{- $dict := dict "service" $.ctx.Values.memcached.image "global" $.ctx.Values.global }}
-          image: {{ include "loki.baseImage" $dict }}
+          image: {{ include "loki.image" (dict "ctx" $.ctx "component" $.ctx.Values.memcached.image) }}
           imagePullPolicy: {{ $.ctx.Values.memcached.image.pullPolicy }}
           resources:
           {{- if .resources }}
@@ -101,8 +100,12 @@ spec:
             limits:
               memory: {{ $requestMemory }}Mi
             requests:
-              cpu: 500m
+              cpu: {{ .allocatedCPU }}
               memory: {{ $requestMemory }}Mi
+          {{- end }}
+          {{- with .resizePolicy }}
+          resizePolicy:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:
             - containerPort: {{ .port }}
@@ -154,8 +157,7 @@ spec:
 
       {{- if $.ctx.Values.memcachedExporter.enabled }}
         - name: exporter
-          {{- $dict := dict "service" $.ctx.Values.memcachedExporter.image "global" $.ctx.Values.global }}
-          image: {{ include "loki.baseImage" $dict }}
+          image: {{ include "loki.image" (dict "ctx" $.ctx "component" $.ctx.Values.memcachedExporter.image) }}
           imagePullPolicy: {{ $.ctx.Values.memcachedExporter.image.pullPolicy }}
           ports:
             - containerPort: 9150
@@ -168,6 +170,10 @@ spec:
             {{- end }}
           resources:
             {{- toYaml $.ctx.Values.memcachedExporter.resources | nindent 12 }}
+          {{- with $.ctx.Values.memcachedExporter.resizePolicy }}
+          resizePolicy:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           securityContext:
             {{- toYaml $.ctx.Values.memcachedExporter.containerSecurityContext | nindent 12 }}
           {{- with $.ctx.Values.memcachedExporter.readinessProbe }}

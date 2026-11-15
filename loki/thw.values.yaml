@@ -22,7 +22,7 @@ loki:
   server:
     http_listen_port: 3100
   storage:
-    type: nfs
+    type: csi-lvm-linear
     bucketNames:
       - name: chunks
   storageConfig:
@@ -40,18 +40,16 @@ deploymentMode: SingleBinary
 
 singleBinary:
   persistence:
-<<<<<<< Updated upstream:loki/comms.values.yaml
     selector:
       pv.kubernetes.io/name: loki
-    storageClass: nfs
-    size: 100Gi
-=======
     storageClass: csi-lvm-striped
-    size: 10Gi
->>>>>>> Stashed changes:loki/thw.values.yaml
+    size: 30Gi
     whenDeleted: Retain
     whenScaled: Retain
   replicas: 1
+service:
+  domain: the-hard-way.gov
+  clusterIssuer: thw-svc-int
 
 # Zero out replica counts of other deployment modes
 backend:
