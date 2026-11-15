@@ -79,11 +79,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_OBSERVE-PROMETHEUS02}",
       "description": "Source: server_version_num",
       "fieldConfig": {
@@ -169,11 +165,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_OBSERVE-PROMETHEUS02}",
       "description": "Max Replication lag behind master in seconds\n\nOnly available on a standby system.\n\nSource: pg_last_xact_replay_timestamp\n\nUse: pg_stat_replication for Details.",
       "fieldConfig": {
@@ -235,7 +227,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "max(pg_replication_lag{instance=\"$Instance\"})",
+          "expr": "max(pg_replication_lag{node=\"$node\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -260,11 +252,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_OBSERVE-PROMETHEUS02}",
       "description": "Clients executing Statements.\n\nSource: pg_stat_activity",
       "fieldConfig": {
@@ -326,7 +314,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pg_stat_activity_count{state=\"active\",instance=\"$Instance\"})",
+          "expr": "sum(pg_stat_activity_count{state=\"active\",node=\"$node\"})",
           "refId": "A"
         }
       ],
@@ -395,9 +383,7 @@
       "options": {
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -466,9 +452,7 @@
       "options": {
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
+          "calcs": ["last"],
           "fields": "",
           "values": false
         },
@@ -537,9 +521,7 @@
       "options": {
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -549,7 +531,7 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "sum(pg_stat_database_xact_commit{instance=\"$Instance\"})/(sum(pg_stat_database_xact_commit{instance=\"$Instance\"}) + sum(pg_stat_database_xact_rollback{instance=\"$Instance\"}))",
+          "expr": "sum(pg_stat_database_xact_commit{node=\"$node\"})/(sum(pg_stat_database_xact_commit{instance=\"$Instance\"}) + sum(pg_stat_database_xact_rollback{instance=\"$Instance\"}))",
           "refId": "A"
         }
       ],
@@ -562,11 +544,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_OBSERVE-PROMETHEUS02}",
       "decimals": 1,
       "description": "Source: pg_postmaster_start_time()",
@@ -629,7 +607,7 @@
       "tableColumn": "{instance=\"db01vp-nbg6a.obs.noris.net:9187\", job=\"postgres-exporter\", server=\"213.95.132.73:5432\"}",
       "targets": [
         {
-          "expr": "time()-(pg_postmaster_start_time_seconds{instance=\"$Instance\"})",
+          "expr": "time()-(pg_postmaster_start_time_seconds{node=\"$node\"})",
           "legendFormat": "",
           "refId": "A"
         }
@@ -653,11 +631,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_OBSERVE-PROMETHEUS02}",
       "description": "Transactions committed + roolback per minute\n\nSource: pg_stat_database,xact_commit + xact_rollback",
       "fieldConfig": {
@@ -719,7 +693,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum((rate(pg_stat_database_xact_commit{instance=\"$Instance\"}[$Interval])))+sum((rate(pg_stat_database_xact_rollback{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum((rate(pg_stat_database_xact_commit{node=\"$node\"}[$Interval])))+sum((rate(pg_stat_database_xact_rollback{instance=\"$Instance\"}[$Interval])))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -744,11 +718,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_OBSERVE-PROMETHEUS02}",
       "description": "Statements executed per Minute.\n\nSource: pg_stat_statements.calls",
       "fieldConfig": {
@@ -810,7 +780,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum((rate(pg_stat_statements_calls{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum((rate(pg_stat_statements_calls{node=\"$node\"}[$Interval])))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -835,11 +805,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_OBSERVE-PROMETHEUS02}",
       "decimals": 2,
       "description": "Size of all databases in $Instance.\n\nSource: pg_database_size()",
@@ -902,7 +868,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pg_database_size{instance=\"$Instance\"})",
+          "expr": "sum(pg_database_size{node=\"$node\"})",
           "refId": "A"
         }
       ],
@@ -925,11 +891,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_OBSERVE-PROMETHEUS02}",
       "description": "Source: pg_stat_statements.total_time / pg_stat_statements.calls",
       "fieldConfig": {
@@ -991,7 +953,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum((delta(pg_stat_statements_total_time_seconds{instance=\"$Instance\"}[$Interval])))/sum((delta(pg_stat_statements_calls{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum((delta(pg_stat_statements_total_time_seconds{node=\"$node\"}[$Interval])))/sum((delta(pg_stat_statements_calls{instance=\"$Instance\"}[$Interval])))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1016,11 +978,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_OBSERVE-PROMETHEUS02}",
       "decimals": 0,
       "description": "Setting: shared_buffers in PostgreSQL.conf",
@@ -1083,7 +1041,7 @@
       "tableColumn": "pg_settings_shared_buffers_bytes{instance=\"db01vp-nbg6a.obs.noris.net:9187\", job=\"postgres-exporter\", server=\"213.95.132.73:5432\"}",
       "targets": [
         {
-          "expr": "pg_settings_shared_buffers_bytes{instance=\"$Instance\"}",
+          "expr": "pg_settings_shared_buffers_bytes{node=\"$node\"}",
           "refId": "A"
         }
       ],
@@ -1106,11 +1064,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_OBSERVE-PROMETHEUS02}",
       "description": "Setting: max_connections in postgreSQL.conf",
       "fieldConfig": {
@@ -1172,7 +1126,7 @@
       "tableColumn": "pg_settings_max_connections{instance=\"db01vp-nbg6a.obs.noris.net:9187\", job=\"postgres-exporter\", server=\"213.95.132.73:5432\"}",
       "targets": [
         {
-          "expr": "pg_settings_max_connections{instance=\"$Instance\"}",
+          "expr": "pg_settings_max_connections{node=\"$node\"}",
           "refId": "A"
         }
       ],
@@ -1252,7 +1206,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (state) (pg_stat_activity_count{instance=\"$Instance\"})",
+          "expr": "sum by (state) (pg_stat_activity_count{node=\"$node\"})",
           "legendFormat": "{{state}}",
           "refId": "A"
         }
@@ -1361,7 +1315,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (datname) (pg_stat_activity_count{instance=\"$Instance\"})",
+          "expr": "sum by (datname) (pg_stat_activity_count{node=\"$node\"})",
           "legendFormat": "{{datname}}",
           "refId": "A"
         }
@@ -1567,19 +1521,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum((rate(pg_stat_database_tup_inserted{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum((rate(pg_stat_database_tup_inserted{node=\"$node\"}[$Interval])))",
           "interval": "",
           "legendFormat": "Inserts",
           "refId": "A"
         },
         {
-          "expr": "sum((rate(pg_stat_database_tup_updated{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum((rate(pg_stat_database_tup_updated{node=\"$node\"}[$Interval])))",
           "interval": "",
           "legendFormat": "Updates",
           "refId": "B"
         },
         {
-          "expr": "sum((rate(pg_stat_database_tup_deleted{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum((rate(pg_stat_database_tup_deleted{node=\"$node\"}[$Interval])))",
           "interval": "",
           "legendFormat": "Deletes",
           "refId": "C"
@@ -1675,13 +1629,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum ((rate(pg_stat_database_blk_read_time{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum ((rate(pg_stat_database_blk_read_time{node=\"$node\"}[$Interval])))",
           "interval": "",
           "legendFormat": "blk_read_time",
           "refId": "A"
         },
         {
-          "expr": "sum ((rate(pg_stat_database_blk_write_time{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum ((rate(pg_stat_database_blk_write_time{node=\"$node\"}[$Interval])))",
           "interval": "",
           "legendFormat": "blk_read_time",
           "refId": "B"
@@ -1778,13 +1732,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum((rate(pg_stat_database_tup_fetched{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum((rate(pg_stat_database_tup_fetched{node=\"$node\"}[$Interval])))",
           "interval": "",
           "legendFormat": "Fetched",
           "refId": "A"
         },
         {
-          "expr": "sum((rate(pg_stat_database_tup_returned{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum((rate(pg_stat_database_tup_returned{node=\"$node\"}[$Interval])))",
           "interval": "",
           "legendFormat": "Returned",
           "refId": "B"
@@ -1886,7 +1840,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (mode) (pg_locks_count{instance=\"$Instance\"})",
+          "expr": "sum by (mode) (pg_locks_count{node=\"$node\"})",
           "legendFormat": "{{mode}}",
           "refId": "A"
         }
@@ -1989,7 +1943,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (datname) ((rate(pg_stat_database_deadlocks{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum by (datname) ((rate(pg_stat_database_deadlocks{node=\"$node\"}[$Interval])))",
           "interval": "",
           "legendFormat": "{{datname}}",
           "refId": "A"
@@ -2093,7 +2047,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (datname) ((rate(pg_stat_database_temp_files{instance=\"$Instance\"}[$Interval])))",
+          "expr": "sum by (datname) ((rate(pg_stat_database_temp_files{node=\"$node\"}[$Interval])))",
           "interval": "",
           "legendFormat": "{{datname}}",
           "refId": "A"
@@ -2191,7 +2145,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "max(pg_replication_lag{instance=\"$Instance\"})",
+          "expr": "max(pg_replication_lag{node=\"$node\"})",
           "instant": false,
           "intervalFactor": 1,
           "legendFormat": "lag ",
@@ -2254,11 +2208,7 @@
           "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": false,
-          "colors": [
-            "#299c46",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
+          "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
           "datasource": "${DS_OBSERVE-PROMETHEUS02}",
           "fieldConfig": {
             "defaults": {
@@ -2326,7 +2276,7 @@
           "tableColumn": "pg_stat_activity_count{datname=\"grafana\", instance=\"db01vp-nbg6a.obs.noris.net:9187\", job=\"postgres-exporter\", server=\"213.95.132.73:5432\", state=\"active\"}",
           "targets": [
             {
-              "expr": "pg_stat_activity_count{state=\"active\",instance=\"$Instance\",datname=~\"$Database\"}",
+              "expr": "pg_stat_activity_count{state=\"active\",node=\"$node\",datname=~\"$Database\"}",
               "refId": "A"
             }
           ],
@@ -2349,11 +2299,7 @@
           "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": false,
-          "colors": [
-            "#299c46",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
+          "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
           "datasource": "${DS_OBSERVE-PROMETHEUS02}",
           "decimals": 2,
           "fieldConfig": {
@@ -2422,7 +2368,7 @@
           "tableColumn": "pg_database_size{datname=\"grafana\", instance=\"db01vp-nbg6a.obs.noris.net:9187\", job=\"postgres-exporter\", server=\"213.95.132.73:5432\"}",
           "targets": [
             {
-              "expr": "pg_database_size{instance=\"$Instance\",datname=\"$Database\"}",
+              "expr": "pg_database_size{node=\"$node\",datname=\"$Database\"}",
               "refId": "A"
             }
           ],
@@ -2491,9 +2437,7 @@
           "options": {
             "orientation": "horizontal",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": false
             },
@@ -2569,9 +2513,7 @@
           "options": {
             "orientation": "horizontal",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": false
             },
@@ -2588,7 +2530,7 @@
           },
           "targets": [
             {
-              "expr": "pg_stat_database_xact_commit{instance=\"$Instance\",datname=~\"$Database\"}/(pg_stat_database_xact_commit{instance=\"$Instance\",datname=~\"$Database\"} + pg_stat_database_xact_rollback{instance=\"$Instance\",datname=~\"$Database\"})",
+              "expr": "pg_stat_database_xact_commit{node=\"$node\",datname=~\"$Database\"}/(pg_stat_database_xact_commit{instance=\"$Instance\",datname=~\"$Database\"} + pg_stat_database_xact_rollback{instance=\"$Instance\",datname=~\"$Database\"})",
               "refId": "A"
             }
           ],
@@ -2601,11 +2543,7 @@
           "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": false,
-          "colors": [
-            "#299c46",
-            "rgba(237, 129, 40, 0.89)",
-            "#d44a3a"
-          ],
+          "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
           "datasource": "${DS_OBSERVE-PROMETHEUS02}",
           "description": "Transactions committed + roolback per minute\n\nSource: pg_stat_database,xact_commit + xact_rollback",
           "fieldConfig": {
@@ -2674,7 +2612,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "sum((rate(pg_stat_database_xact_commit{instance=\"$Instance\",datname=\"$Database\"}[$Interval])))+sum((rate(pg_stat_database_xact_rollback{instance=\"$Instance\",datname=\"$Database\"}[$Interval])))",
+              "expr": "sum((rate(pg_stat_database_xact_commit{node=\"$node\",datname=\"$Database\"}[$Interval])))+sum((rate(pg_stat_database_xact_rollback{instance=\"$Instance\",datname=\"$Database\"}[$Interval])))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -2763,7 +2701,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (state) (pg_stat_activity_count{instance=\"$Instance\",datname=\"$Database\"})",
+              "expr": "sum by (state) (pg_stat_activity_count{node=\"$node\",datname=\"$Database\"})",
               "legendFormat": "{{state}}",
               "refId": "A"
             }
@@ -2872,13 +2810,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(pg_stat_database_xact_commit{instance=\"$Instance\",datname=\"$Database\"}[$Interval])",
+              "expr": "rate(pg_stat_database_xact_commit{node=\"$node\",datname=\"$Database\"}[$Interval])",
               "interval": "",
               "legendFormat": "committed",
               "refId": "A"
             },
             {
-              "expr": "rate(pg_stat_database_xact_rollback{instance=\"$Instance\",datname=\"$Database\"}[$Interval])",
+              "expr": "rate(pg_stat_database_xact_rollback{node=\"$node\",datname=\"$Database\"}[$Interval])",
               "hide": false,
               "interval": "",
               "legendFormat": "rollback",
@@ -2983,19 +2921,19 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(pg_stat_database_tup_inserted{instance=\"$Instance\",datname=\"$Database\"}[$Interval])",
+              "expr": "rate(pg_stat_database_tup_inserted{node=\"$node\",datname=\"$Database\"}[$Interval])",
               "interval": "",
               "legendFormat": "Inserts",
               "refId": "A"
             },
             {
-              "expr": "rate(pg_stat_database_tup_updated{instance=\"$Instance\",datname=\"$Database\"}[$Interval])",
+              "expr": "rate(pg_stat_database_tup_updated{node=\"$node\",datname=\"$Database\"}[$Interval])",
               "interval": "",
               "legendFormat": "Updates",
               "refId": "B"
             },
             {
-              "expr": "rate(pg_stat_database_tup_deleted{instance=\"$Instance\",datname=\"$Database\"}[$Interval])",
+              "expr": "rate(pg_stat_database_tup_deleted{node=\"$node\",datname=\"$Database\"}[$Interval])",
               "interval": "",
               "legendFormat": "Deletes",
               "refId": "C"
@@ -3099,13 +3037,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(pg_stat_database_tup_fetched{instance=\"$Instance\",datname=\"$Database\"}[$Interval])",
+              "expr": "rate(pg_stat_database_tup_fetched{node=\"$node\",datname=\"$Database\"}[$Interval])",
               "interval": "",
               "legendFormat": "Fetched",
               "refId": "A"
             },
             {
-              "expr": "rate(pg_stat_database_tup_returned{instance=\"$Instance\",datname=\"$Database\"}[$Interval])",
+              "expr": "rate(pg_stat_database_tup_returned{node=\"$node\",datname=\"$Database\"}[$Interval])",
               "interval": "",
               "legendFormat": "Returned",
               "refId": "B"
@@ -3214,7 +3152,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (mode) (pg_locks_count{instance=\"$Instance\",datname=\"$Database\"})",
+              "expr": "sum by (mode) (pg_locks_count{node=\"$node\",datname=\"$Database\"})",
               "legendFormat": "{{mode}}",
               "refId": "A"
             }
@@ -3324,7 +3262,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(pg_stat_database_deadlocks{instance=\"$Instance\",datname=\"$Database\"}[$Interval])",
+              "expr": "rate(pg_stat_database_deadlocks{node=\"$node\",datname=\"$Database\"}[$Interval])",
               "interval": "",
               "legendFormat": "deadlocks",
               "refId": "A"
@@ -3435,7 +3373,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(pg_stat_database_temp_files{instance=\"$Instance\",datname=\"$Database\"}[$Interval])",
+              "expr": "rate(pg_stat_database_temp_files{node=\"$node\",datname=\"$Database\"}[$Interval])",
               "interval": "",
               "legendFormat": "temp_files",
               "refId": "A"
@@ -3610,15 +3548,7 @@
     "to": "now"
   },
   "timepicker": {
-    "refresh_intervals": [
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ]
+    "refresh_intervals": ["1m", "5m", "15m", "30m", "1h", "2h", "1d"]
   },
   "timezone": "",
   "title": "PostgreSQL Exporter",

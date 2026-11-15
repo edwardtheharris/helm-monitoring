@@ -1128,7 +1128,7 @@ alertmanager:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: nfs
+          storageClassName: csi-lvm-linear
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -1163,7 +1163,13 @@ alertmanager:
     ## Define resources requests and limits for single Pods.
     ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     ##
-    resources: {}
+    resources:
+      requests:
+        cpu: 100m
+        memory: 1Gi
+      limits:
+        cpu: 4000m
+        memory: 32Gi
     # requests:
     #   memory: 400Mi
 
@@ -2788,7 +2794,7 @@ prometheus-node-exporter:
       metricRelabelings: []
       # - sourceLabels: [__name__]
       #   separator: ;
-      #   regex: ^node_mountstats_nfs_(event|operations|transport)_.+
+      #   regex: ^node_mountstats_csi-lvm-linear_(event|operations|transport)_.+
       #   replacement: $1
       #   action: drop
 
@@ -2914,7 +2920,7 @@ prometheusOperator:
 
       ## Number of old replicasets to retain ##
       ## The default value is 10, 0 will garbage-collect old replicasets ##
-      revisionHistoryLimit: 10
+      revisionHistoryLimit: 2
 
       ## Prometheus-Operator v0.39.0 and later support TLS natively.
       ##
@@ -3049,7 +3055,12 @@ prometheusOperator:
 
       ## Resource limits & requests
       ##
-      resources: {}
+      resources:
+        limits:
+          cpu: 4000m
+          memory: 32Gi
+        requests:
+          cpu: 100m
       # limits:
       #   cpu: 200m
       #   memory: 200Mi
@@ -3195,7 +3206,7 @@ prometheusOperator:
         # Defaults to nil.
         revisionHistoryLimit:
       issuerRef:
-        name: "comms-svc-int"
+        name: "cms-svc-int"
         kind: "ClusterIssuer"
 
   ## Namespaces to scope the interaction of the Prometheus Operator and the apiserver (allow list).
@@ -3764,6 +3775,8 @@ prometheus:
   ##
   service:
     enabled: true
+    clusterIssuer: cms-svc-int
+    domain: breeze-blocks.net
     annotations: {}
     labels: {}
     clusterIP: ""
@@ -4017,7 +4030,7 @@ prometheus:
       kind: HTTPRoute
 
       annotations:
-        cert-manager.io/cluster-issuer: comms-svc-int
+        cert-manager.io/cluster-issuer: cms-svc-int
         cert-manager.io/common-name: grafana.breeze-blocks.net
         cert-manager.io/usages: key agreement,digital signature, server auth
 
@@ -4394,8 +4407,7 @@ prometheus:
 
     ## enable --web.enable-remote-write-receiver flag on prometheus-server
     ##
-    enableRemoteWriteReceiver: false
-
+    enableRemoteWriteReceiver: true
     ## Name of the external label used to denote replica name
     ##
     replicaExternalLabelName: ""
@@ -4680,11 +4692,11 @@ prometheus:
         metadata:
           name: po
         spec:
-          storageClassName: nfs
+          storageClassName: csi-lvm-linear
           accessModes: ["ReadWriteMany"]
           resources:
             requests:
-              storage: 20Gi
+              storage: 70Gi
 
     ## Using tmpfs volume
     ##
@@ -4730,6 +4742,7 @@ prometheus:
         static_configs:
           - targets:
               - ns01.breeze-blocks.net:9119
+              - ns02.breeze-blocks.net:9119
               - ns03.breeze-blocks.net:9119
               - ns04.breeze-blocks.net:9119
       - job_name: "blackbox"
@@ -4741,10 +4754,10 @@ prometheus:
             - http_int_ca
         static_configs:
           - targets:
-              - http://media.breeze-blocks.net # Target to probe with http.
-              - https://media.breeze-blocks.net # Target to probe with https.
-              - http://radarr.breeze-blocks.net # Target to probe with http on port 8080.
-              - https://radarr.breeze-blocks.net # Target to probe with http on port 8080.
+              - http://media00.breeze-blocks.net # Target to probe with http.
+              - https://media00.breeze-blocks.net # Target to probe with https.
+              - http://media01.breeze-blocks.net # Target to probe with http on port 8080.
+              - https://media01.breeze-blocks.net # Target to probe with http on port 8080.
               - http://sonarr.breeze-blocks.net # Target to probe with http on port 8080.
               - https://sonarr.breeze-blocks.net # Target to probe with http on port 8080.
         relabel_configs:
@@ -4846,18 +4859,17 @@ prometheus:
         metrics_path: /metrics
         static_configs:
           - targets:
-              - media.breeze-blocks.net:8096
-              - music.breeze-blocks.net:8096
+              - media00.breeze-blocks.net:8096
               - media01.breeze-blocks.net:8096
               - whac.breeze-blocks.net:8096
-          - job_name: qbittorrent-exporter
-            honor_labels: true
-            scrape_interval: 29s
-            scrape_timeout: 5s
-            static_configs:
-              - targets:
-                  - backup.breeze-blocks.net:9559
-                  - whac.breeze-blocks.net:9559
+      - job_name: qbittorrent-exporter
+        honor_labels: true
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cms06.breeze-blocks.net:9559
+              - whac.breeze-blocks.net:9559
       - job_name: node-exporter
         honor_labels: true
         relabel_configs:
@@ -4912,6 +4924,49 @@ prometheus:
         relabel_configs:
           - action: labelkeep
             regex: (.+)
+      - job_name: ping-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9427
+              - cms00.breeze-blocks.net:9427
+              - cms01.breeze-blocks.net:9427
+              - cms02.breeze-blocks.net:9427
+              - cms03.breeze-blocks.net:9427
+              - cms04.breeze-blocks.net:9427
+              - cms05.breeze-blocks.net:9427
+              - cms06.breeze-blocks.net:9427
+              - media00.breeze-blocks.net:9427
+              - media01.breeze-blocks.net:9427
+              - ns01.breeze-blocks.net:9427
+              - ns02.breeze-blocks.net:9427
+              - ns03.breeze-blocks.net:9427
+              - ns04.breeze-blocks.net:9427
+              - ostium.breeze-blocks.net:9427
+              - thw00.breeze-blocks.net:9427
+              - thw01.breeze-blocks.net:9427
+              - thw02.breeze-blocks.net:9427
+              - thw03.breeze-blocks.net:9427
+              - thw04.breeze-blocks.net:9427
+              - thw05.breeze-blocks.net:9427
+              - whac.breeze-blocks.net:9427
       - job_name: postgres-exporter
         honor_labels: true
         relabel_configs:
@@ -4933,7 +4988,7 @@ prometheus:
         scrape_timeout: 5s
         static_configs:
           - targets:
-              - cms-pge.breeze-blocks.net:9187
+              - postgres-exporter.monitoring.svc.cluster.local:9187
               - thw-pge.breeze-blocks.net:9187
       - job_name: process-exporter
         honor_labels: true
@@ -4956,20 +5011,21 @@ prometheus:
         scrape_timeout: 5s
         static_configs:
           - targets:
-              - backup.breeze-blocks.net:9256
+              - cato.breeze-blocks.net:9256
               - cms00.breeze-blocks.net:9256
               - cms01.breeze-blocks.net:9256
               - cms02.breeze-blocks.net:9256
               - cms03.breeze-blocks.net:9256
               - cms04.breeze-blocks.net:9256
               - cms05.breeze-blocks.net:9256
-              - marius.breeze-blocks.net:9256
-              - media.breeze-blocks.net:9256
+              - cms06.breeze-blocks.net:9256
+              - media00.breeze-blocks.net:9256
+              - media01.breeze-blocks.net:9256
               - ns01.breeze-blocks.net:9256
+              - ns02.breeze-blocks.net:9256
               - ns03.breeze-blocks.net:9256
               - ns04.breeze-blocks.net:9256
               - ostium.breeze-blocks.net:9256
-              - sulla-felix.breeze-blocks.net:9256
               - thw00.breeze-blocks.net:9256
               - thw01.breeze-blocks.net:9256
               - thw02.breeze-blocks.net:9256
@@ -4977,6 +5033,52 @@ prometheus:
               - thw04.breeze-blocks.net:9256
               - thw05.breeze-blocks.net:9256
               - whac.breeze-blocks.net:9256
+      - job_name: smartctl-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9633
+              - cms00a.breeze-blocks.net:9633
+              - cms00b.breeze-blocks.net:9633
+              - cms00.breeze-blocks.net:9633
+              - cms01.breeze-blocks.net:9633
+              - cms02.breeze-blocks.net:9633
+              - cms03.breeze-blocks.net:9633
+              - cms04.breeze-blocks.net:9633
+              - cms05.breeze-blocks.net:9633
+              - cms06.breeze-blocks.net:9633
+              - media00.breeze-blocks.net:9633
+              - media01.breeze-blocks.net:9633
+              - ns01.breeze-blocks.net:9633
+              - ns02.breeze-blocks.net:9633
+              - ns03.breeze-blocks.net:9633
+              - ns04.breeze-blocks.net:9633
+              - ostium.breeze-blocks.net:9633
+              - thw00a.breeze-blocks.net:9633
+              - thw00b.breeze-blocks.net:9633
+              - thw01.breeze-blocks.net:9633
+              - thw02.breeze-blocks.net:9633
+              - thw03.breeze-blocks.net:9633
+              - thw04.breeze-blocks.net:9633
+              - thw05.breeze-blocks.net:9633
+              - whac.breeze-blocks.net:9633
       - job_name: systemd-exporter
         honor_labels: true
         relabel_configs:
@@ -5023,6 +5125,52 @@ prometheus:
               - thw04.breeze-blocks.net:9558
               - thw05.breeze-blocks.net:9558
               - whac.breeze-blocks.net:9558
+      - job_name: vnstat-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - cato.breeze-blocks.net:9469
+              - cms00a.breeze-blocks.net:9469
+              - cms00b.breeze-blocks.net:9469
+              - cms00.breeze-blocks.net:9469
+              - cms01.breeze-blocks.net:9469
+              - cms02.breeze-blocks.net:9469
+              - cms03.breeze-blocks.net:9469
+              - cms04.breeze-blocks.net:9469
+              - cms05.breeze-blocks.net:9469
+              - cms06.breeze-blocks.net:9469
+              - media00.breeze-blocks.net:9469
+              - media01.breeze-blocks.net:9469
+              - ns01.breeze-blocks.net:9469
+              - ns02.breeze-blocks.net:9469
+              - ns03.breeze-blocks.net:9469
+              - ns04.breeze-blocks.net:9469
+              - ostium.breeze-blocks.net:9469
+              - thw00a.breeze-blocks.net:9469
+              - thw00b.breeze-blocks.net:9469
+              - thw01.breeze-blocks.net:9469
+              - thw02.breeze-blocks.net:9469
+              - thw03.breeze-blocks.net:9469
+              - thw04.breeze-blocks.net:9469
+              - thw05.breeze-blocks.net:9469
+              - whac.breeze-blocks.net:9469
       - job_name: wireguard-exporter
         honor_labels: true
         scrape_interval: 29s
@@ -5631,8 +5779,7 @@ prometheus:
 thanosRuler:
   ## Deploy thanosRuler
   ##
-  enabled: false
-
+  enabled: true
   ## Annotations for ThanosRuler
   ##
   annotations: {}
@@ -5738,6 +5885,8 @@ thanosRuler:
   ##
   service:
     enabled: true
+    domain: breeze-blocks.net
+    clusterIssuer: cms-svc-int
     annotations: {}
     labels: {}
     clusterIP: ""
@@ -6220,6 +6369,7 @@ thanosRuler:
       # use existing secret, if configured, alertRelabelConfigs.secret will not be used
       existingSecret: {}
         # name: ""
+
         # key: ""
       # render alertRelabelConfigs secret data and configure it to be used by Thanos Ruler custom resource, ignored when alertRelabelConfigs.existingSecret is set
       secret: {}
