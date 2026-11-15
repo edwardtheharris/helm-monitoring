@@ -1,4 +1,9 @@
-# loki
+---
+abstract: This is the readme for the loki chart.
+title: loki
+---
+
+<!--markdownlint-disable-->
 
 Helm chart for Grafana Loki supporting monolithic, simple scalable, and microservices modes.
 
