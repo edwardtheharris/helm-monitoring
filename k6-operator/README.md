@@ -1,4 +1,9 @@
-# k6-operator
+---
+abstract: A Helm chart to install the k6-operator
+title: k6-operator
+---
+
+<!--markdownlint-disable-->
 
 ![Version: 4.7.0](https://img.shields.io/badge/Version-4.7.0-informational?style=flat-square) ![AppVersion: 1.7.0](https://img.shields.io/badge/AppVersion-1.7.0-informational?style=flat-square)
 
