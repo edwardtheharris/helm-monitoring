@@ -4685,11 +4685,7 @@ prometheus:
           accessModes: ["ReadWriteMany"]
           resources:
             requests:
-<<<<<<< Updated upstream
-              storage: 20Gi
-=======
               storage: 5Gi
->>>>>>> Stashed changes
 
     ## Using tmpfs volume
     ##
@@ -4983,6 +4979,38 @@ prometheus:
               - ns03.the-hard-way.gov:9558
               - octavia.the-hard-way.gov:9558
               - scipio.the-hard-way.gov:9558
+      - job_name: vnstat-exporter
+        honor_labels: true
+        relabel_configs:
+          - action: labelkeep
+            regex: (.+)
+          - source_labels:
+              - "__address__"
+            action: replace
+            regex: ([a-z0-9]+).+
+            target_label: node
+            replacement: $1
+          - action: replace
+            regex: ([a-z0-9]+)\.([a-z0-9\-\.]+).*
+            replacement: $1.$2
+            source_labels:
+              - "__address__"
+            target_label: hostname
+        scrape_interval: 29s
+        scrape_timeout: 5s
+        static_configs:
+          - targets:
+              - atia.the-hard-way.gov:9469
+              - cato.the-hard-way.gov:9469
+              - drusilla.the-hard-way.gov:9469
+              - marius.the-hard-way.gov:9469
+              - media00.the-hard-way.gov:9469
+              - media01.the-hard-way.gov:9469
+              - ns01.the-hard-way.gov:9469
+              - ns02.the-hard-way.gov:9469
+              - ns03.the-hard-way.gov:9469
+              - octavia.the-hard-way.gov:9469
+              - scipio.the-hard-way.gov:9469
       - job_name: wireguard-exporter
         honor_labels: true
         scrape_interval: 29s
