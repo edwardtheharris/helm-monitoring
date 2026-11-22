@@ -1083,6 +1083,10 @@ shareProcessNamespace: false
 ## NOTE: To enable, grafana.ini must be configured with smtp.enabled
 ## ref: http://docs.grafana.org/installation/configuration/#smtp
 smtp:
+  enabled: true
+  from_address: grafana@the-hard-way.gov
+  from_name: BOFH
+  host: the-hard-way.gov
   # `existingSecret` is a reference to an existing secret containing the smtp configuration
   # for Grafana.
   existingSecret: ""
